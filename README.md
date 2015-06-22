@@ -1,2 +1,2 @@
-# android-sdk
+# Synerise Android SDK
 Synerise SDK for Andoid
