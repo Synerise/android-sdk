@@ -1,0 +1,15 @@
+com.synerise.sdk
+com.synerise.sdk.auth
+com.synerise.sdk.beacon
+com.synerise.sdk.client
+com.synerise.sdk.coupon
+com.synerise.sdk.data
+com.synerise.sdk.function
+com.synerise.sdk.gcm
+com.synerise.sdk.http
+com.synerise.sdk.location
+com.synerise.sdk.product
+com.synerise.sdk.promotions
+com.synerise.sdk.tracking
+com.synerise.statistic
+test.com.synerise.sdk
