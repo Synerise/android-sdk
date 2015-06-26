@@ -1,5 +1,4 @@
 com.synerise.sdk
-com.synerise.sdk.auth
 com.synerise.sdk.beacon
 com.synerise.sdk.client
 com.synerise.sdk.coupon
@@ -11,5 +10,5 @@ com.synerise.sdk.location
 com.synerise.sdk.product
 com.synerise.sdk.promotions
 com.synerise.sdk.tracking
-com.synerise.statistic
+com.synerise.widgets
 test.com.synerise.sdk
