@@ -83,7 +83,10 @@ Track change user data:
     
     private void saveData(ClientData clientData){
       
-       Tracker.client(clientData.getEmail(), clientData.getFirstname(), clientData.getLastname(), 0, new TrackerParams[]{
+       Tracker.client(new TrackerParams[]{
+                    new TrackerParams("firstname", clientData.getFirstname()),
+                    new TrackerParams("secondname", clientData.getLastname()),
+                    new TrackerParams("email", clientData.getEmail()),
                     new TrackerParams("address", clientData.getAddress()),
                     new TrackerParams("city", clientData.getCity()),
                     new TrackerParams("phone", clientData.getPhone()),
