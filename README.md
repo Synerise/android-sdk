@@ -4,6 +4,124 @@ Synerise SDK for Andoid
 #Documentation with examples
 http://synerise.github.io/android-sdk
 
+#Initialize Synerise-SDK
+Add to your AndroidManifest.xml Synerise Api Key, uses-permission, service declarations and diffrent code connected  with push messages and  beacon tracking.
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.com" >
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+     <!--sdk w aktualnej wersji wymaga dostêpu do konta u¿ytkownika-->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+    <supports-screens
+        android:anyDensity="true"
+        android:xlargeScreens="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true" />
+
+
+    <permission android:name="com.example.app.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.example.app.permission.C2D_MESSAGE"/>
+
+    <application
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Black.NoTitleBar"
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+       
+        ... 
+       
+        <receiver
+            android:name="com.synerise.sdk.gcm.SyneriseGcmReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="com.example.app" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.synerise.sdk.ServiceStarter">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+      
+        <service android:name="com.synerise.sdk.beacon.BeaconService"/>
+        <service android:name="com.synerise.sdk.gcm.GcmIntentService" />
+        <service android:name="com.synerise.sdk.gcm.CancelMessageService" />
+        <service android:name="com.synerise.sdk.gcm.ReadMessageService" />
+        
+        <!-- apikey pozyskany z systemu synerise -->
+        <meta-data android:name="com.humanoitgroup.synerise.ApiKey" android:value="synerise_api_key"/>
+        <!-- number of project in Google Console, active Google Cloud Message Android API -->
+        <!-- you must add Google Api Key to Synerise in Settings->Integration -->
+        <meta-data android:name="com.humanoitgroup.synerise.senderId" android:value="@string/senderID"/>
+        <meta-data android:name="beacon_uuid" android:value="uuid_1, uuid_2"/>
+
+
+    </application>
+
+</manifest>  
+```
+
+
+ In your main activity register device in Google Cloud Message, and start beacon service.
+ ```
+ public class MainActivity extends Activity {
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_splash_screen);
+  
+        startService();
+        
+        RegisterGcmSynerise registerGcmSynerise = new RegisterGcmSynerise(this);
+        String regIDs = registerGcmSynerise.getRegIds();
+        if(regIDs == null || regIDs.isEmpty()){
+            registerGcmSynerise.registerOnBackground(null);
+        }
+    }
+
+
+    protected void startService(){
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2){
+            Intent intent = new Intent(this, com.synerise.sdk.beacon.BeaconService.class);
+            PendingIntent pi = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 0, 1000*30, pi);
+        }
+    }
+}
+
+```
+
 #User tracking
 If you tracking user events in android application, you must initialize tracker :
 
