@@ -230,3 +230,43 @@ Track change user data:
   
 ```
 
+You should know that Synerise has it own predefined Client model which is build with parameters:
+  - email
+  - firstname
+  - secondname
+  - adress
+  - city
+  - region
+  - phone
+  - sex
+  - birthday
+
+
+Tracker have function to send event after meetings, under code is example, how use beacon traking
+with implementation interface BluetoothAdapter.LeScanCallback from standard android SDK. 
+
+```
+package ExampleLeScann implements BluetoothAdapter.LeScanCallback{
+  
+  /**
+   * your code  
+   */ 
+     @Override
+    public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
+        Beacon beacon = IBeaconRecordParser.scanRecord(scanRecord);
+         ...
+         Tracker.createBeaconWithUUID(beacon.getMinor(), beacon.getMajor(), beacon.getUUID(), beacon.getCurrentPositionUser());
+         ...
+    }
+   
+  /**
+   * your code  
+   */ 
+  
+}
+
+  
+```
+
+Important!!! If you use a com.synerise.sdk.beacon.BeaconService, your application automaticaly send a beacon event.
+
