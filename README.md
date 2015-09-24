@@ -270,3 +270,11 @@ package ExampleLeScann implements BluetoothAdapter.LeScanCallback{
 
 Important!!! If you use a com.synerise.sdk.beacon.BeaconService, your application automaticaly send a beacon event.
 
+If set custom user ident, invoke static function from Tracker.class
+
+```
+  ...
+     Tracker.setCustomIdentify("my_ident");
+  ...
+```
+
