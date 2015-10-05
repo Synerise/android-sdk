@@ -248,6 +248,12 @@ with implementation interface BluetoothAdapter.LeScanCallback from standard andr
 ```
 package ExampleLeScann implements BluetoothAdapter.LeScanCallback{
   
+    Context context;
+    
+    public EcampleLeScann(Context c){
+      this.context = c;
+    }
+  
   /**
    * your code  
    */ 
@@ -255,7 +261,7 @@ package ExampleLeScann implements BluetoothAdapter.LeScanCallback{
     public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
         Beacon beacon = IBeaconRecordParser.scanRecord(scanRecord);
          ...
-         Tracker.createBeaconWithUUID(beacon.getMinor(), beacon.getMajor(), beacon.getUUID(), beacon.getCurrentPositionUser());
+         Tracker.createBeaconWithUUID(beacon.getMinor(), beacon.getMajor(), beacon.getUUID(), beacon.getCurrentPositionUser(), this.context);
          ...
     }
    
