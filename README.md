@@ -4,6 +4,14 @@ Synerise SDK for Andoid
 #Documentation with examples
 http://synerise.github.io/android-sdk
 
+Actual version is in synerise_sdk.aar file.
+
+#Insert aar library in Android Studio as new module
+File->New Module->Import JAR/.AAR Package
+After added new module
+File->Project Structure->Check your App module->Dependencies->Click '+'->Module dependancy->check Synerise Sdk
+
+
 #Initialize Synerise-SDK
 Add to your AndroidManifest.xml Synerise Api Key, uses-permission, service declarations and diffrent code connected  with push messages and  beacon tracking.
 
@@ -17,8 +25,6 @@ Add to your AndroidManifest.xml Synerise Api Key, uses-permission, service decla
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-     <!--sdk w aktualnej wersji wymaga dostêpu do konta u¿ytkownika-->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -31,12 +37,6 @@ Add to your AndroidManifest.xml Synerise Api Key, uses-permission, service decla
         android:largeScreens="true"
         android:normalScreens="true"
         android:smallScreens="true" />
-
-
-    <permission android:name="com.example.app.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
-
-    <uses-permission android:name="com.example.app.permission.C2D_MESSAGE"/>
 
     <application
         android:allowBackup="true"
@@ -56,14 +56,18 @@ Add to your AndroidManifest.xml Synerise Api Key, uses-permission, service decla
        
         ... 
        
-        <receiver
-            android:name="com.synerise.sdk.gcm.SyneriseGcmReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+         <service android:name="com.synerise.sdk.gcm.SyneriseFirebaseInstanceIDService"
+            android:exported="false">
             <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <category android:name="com.example.app" />
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
-        </receiver>
+        </service>
+        <service
+            android:name="com.synerise.sdk.gcm.SyneriseFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
         <receiver android:name="com.synerise.sdk.ServiceStarter">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
@@ -102,11 +106,6 @@ Add to your AndroidManifest.xml Synerise Api Key, uses-permission, service decla
   
         startService();
         
-        RegisterGcmSynerise registerGcmSynerise = new RegisterGcmSynerise(this);
-        String regIDs = registerGcmSynerise.getRegIds();
-        if(regIDs == null || regIDs.isEmpty()){
-            registerGcmSynerise.registerOnBackground(null);
-        }
     }
 
 
