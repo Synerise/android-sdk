@@ -180,6 +180,8 @@ Track user showed screens:
   
 ```
 
+Set custom uuid by invoke function Tracker.setClientUUID(String uuid) or  Tracker.setClientUUID(String email, String uuid) if you connect uuid with email.
+
 Track change user data:
 
  ```
