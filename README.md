@@ -1,287 +1,189 @@
-# Synerise Android SDK
-Synerise SDK for Andoid
+# Synerise Android SDK - User documentation #
 
-#Documentation with examples
-http://synerise.github.io/android-sdk
+## Event Tracker ##
 
-Actual version is in synerise_sdk.aar file.
+You can log events from your mobile app to Synerise platform with Tracker class.
+First of all, you need to initialize Tracker with `init` method and provide `Api Key`, `Application name` and `Application instance`.
+Init method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.
 
-#Insert aar library in Android Studio as new module
-File->New Module->Import JAR/.AAR Package
-After added new module
-File->Project Structure->Check your App module->Dependencies->Click '+'->Module dependancy->check Synerise Sdk
+### Api Key ###
+To get `Api Key` sign in to your Synerise account and go to https://app.synerise.com/api/.
+Please generate new `Api Key` for `Business Profile` Audience.
 
-
-#Initialize Synerise-SDK
-Add to your AndroidManifest.xml Synerise Api Key, uses-permission, service declarations and diffrent code connected  with push messages and  beacon tracking.
+To send Event simply use `Tracker`:
 
 ```
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.com" >
-
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-
-    <supports-screens
-        android:anyDensity="true"
-        android:xlargeScreens="true"
-        android:largeScreens="true"
-        android:normalScreens="true"
-        android:smallScreens="true" />
-
-    <application
-        android:allowBackup="true"
-        android:hardwareAccelerated="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@android:style/Theme.Black.NoTitleBar"
-        <activity
-            android:name=".activity.MainActivity"
-            android:label="@string/app_name"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-       
-        ... 
-       
-         <service android:name="com.synerise.sdk.gcm.SyneriseFirebaseInstanceIDService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-        <service
-            android:name="com.synerise.sdk.gcm.SyneriseFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-        <receiver android:name="com.synerise.sdk.ServiceStarter">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-            </intent-filter>
-        </receiver>
-
-      
-        <service android:name="com.synerise.sdk.beacon.BeaconService"/>
-        <service android:name="com.synerise.sdk.gcm.GcmIntentService" />
-        <service android:name="com.synerise.sdk.gcm.CancelMessageService" />
-        <service android:name="com.synerise.sdk.gcm.ReadMessageService" />
-        
-        <!-- apikey pozyskany z systemu synerise -->
-        <meta-data android:name="com.humanoitgroup.synerise.ApiKey" android:value="synerise_api_key"/>
-        <!-- number of project in Google Console, active Google Cloud Message Android API -->
-        <!-- you must add Google Api Key to Synerise in Settings->Integration -->
-        <meta-data android:name="com.humanoitgroup.synerise.senderId" android:value="@string/senderID"/>
-        <meta-data android:name="beacon_uuid" android:value="uuid_1, uuid_2"/>
-
-
-    </application>
-
-</manifest>  
+Tracker.send(new CustomEvent("ButtonClick", "addEventButton"));
 ```
 
+You can also pass your custom parameters:
 
- In your main activity register device in Google Cloud Message, and start beacon service.
- ```
- public class MainActivity extends Activity {
+```
+TrackerParams params = new TrackerParams.Builder()
+                .add("name", "John")
+                .add("age", 27)
+                .add("isGreat", true)
+                .add("lastOrder", 384.28)
+                .add("count", 0x7fffffffffffffffL)
+                .add("someObject", new MySerializableObject(0))
+                .build();
 
+Tracker.send(new CustomEvent("ButtonClick", "addEventButton", params));
+```
+
+### Tracker ###
+
+In your `Application` class:
+
+```
+public class App extends Application {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_splash_screen);
-  
-        startService();
-        
-    }
-
-
-    protected void startService(){
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2){
-            Intent intent = new Intent(this, com.synerise.sdk.beacon.BeaconService.class);
-            PendingIntent pi = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 0, 1000*30, pi);
-        }
-    }
-}
-
-```
-
-#User tracking
-If you tracking user events in android application, you must initialize tracker :
-
-```
-  package com.example.myapp;
-  
-  import android.app.Application; 
-  import com.synerise.sdk.tracking.Tracker;
-  public class MyApliaction extends Application{
-     @Override
-     public void onCreate(){
+    public void onCreate() {
         super.onCreate();
-        //initialize tracker, events was send, if is 
-        //20 events in chache or first not send event was older than 120 seconds
-        Tracker.initialize(this, 20, 120);
-     }
-  }
-```
 
-Track user events:
+        String syneriseApiKey = getString(R.string.synerise_api_key);
+        String appName = getString(R.string.app_name);
 
-```
-  ...
-     myViewObject.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ...
-                    ...
-                    Tracker.trackEvent("my_event", new TrackerParams[]{
-                      new TrackerParams("key_1", "value_1"),
-                      ...
-                    });
-                }
-            });
-  ...
-```
-
-Track user showed screens:
-
- ```
-  ...
-  
-  public class ExampleActivity extends Activity{
-    ...
-    
-    @Override
-    protected void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        ...
-        Tracker.trackScreen("screen_name", new TrackerParams[]{
-                      new TrackerParams("key_1", "value_1"),
-                      ...
-                    })
+        Tracker.init(this, syneriseApiKey, appName);
     }
-    ...
-  }
-  
 ```
 
-Set custom uuid by invoke function Tracker.setClientUUID(String uuid) or  Tracker.setClientUUID(String email, String uuid) if you connect uuid with email.
-
-Track change user data:
-
- ```
- 
-  package com.example.code;
-  
-  ...
-  import com.synerise.sdk.client.ClientData;
-  import com.synerise.sdk.client.ClientDataCallback;
-  import com.synerise.sdk.client.ClientDataFunction;
-  import com.synerise.sdk.client.ClientSession;
-  import com.synerise.sdk.tracking.Tracker;
-  import com.synerise.sdk.tracking.TrackerParams; 
-  ...
-  
-  public class ExampleUserDataActivity extends Activity{
-    ...
-    
-    private void saveData(ClientData clientData){
-      
-       Tracker.client(new TrackerParams[]{
-                    new TrackerParams("firstname", clientData.getFirstname()),
-                    new TrackerParams("secondname", clientData.getLastname()),
-                    new TrackerParams("email", clientData.getEmail()),
-                    new TrackerParams("address", clientData.getAddress()),
-                    new TrackerParams("city", clientData.getCity()),
-                    new TrackerParams("phone", clientData.getPhone()),
-                    new TrackerParams("zipCode",clientData.getZipCode())
-            });
-      
-      ClientDataFunction clientDataFunction = new ClientDataFunction(this);
-      clientDataFunction.updateUserData(clientData, new ClientDataCallback() {
-                @Override
-                public void onSuccess(ClientData clientData) {
-                   //success code
-                }
-
-                @Override
-                public void onError(int i, String s, String s1) {
-                   //error code
-                }
-            });
-     
-    }
-    ...
-  }
-  
-```
-
-You should know that Synerise has it own predefined Client model which is build with parameters:
-  - email
-  - firstname
-  - secondname
-  - adress
-  - city
-  - region
-  - phone
-  - sex
-  - birthday
-
-
-Tracker have function to send event after meetings, under code is example, how use beacon traking
-with implementation interface BluetoothAdapter.LeScanCallback from standard android SDK. 
+#### In your /values strings file (e.g. `string.xml`): ####
 
 ```
-package ExampleLeScann implements BluetoothAdapter.LeScanCallback{
-  
-    Context context;
-    
-    public EcampleLeScann(Context c){
-      this.context = c;
-    }
-  
-  /**
-   * your code  
-   */ 
-     @Override
-    public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-        Beacon beacon = IBeaconRecordParser.scanRecord(scanRecord);
-         ...
-         Tracker.createBeaconWithUUID(beacon.getMinor(), beacon.getMajor(), beacon.getUUID(), beacon.getCurrentPositionUser(), this.context);
-         ...
-    }
-   
-  /**
-   * your code  
-   */ 
-  
-}
-
-  
+<resources>
+    <string name="app_name" translatable="false">Your GREAT application name</string>
+    <string name="synerise_api_key" translatable="false">A75DA38F-A2E9-5A25-2884-38AD12B98FAA</string> <!-- replace with valid api key -->
+</resources>
 ```
 
-Important!!! If you use a com.synerise.sdk.beacon.BeaconService, your application automaticaly send a beacon event.
+## Events ###
 
-If set custom user ident, invoke static function from Tracker.class
+### Session Events ###
+Group of events related to user's session.
 
-```
-  ...
-     Tracker.setCustomIdentify("my_ident");
-  ...
-```
+#### LoggedInEvent ####
+Record a 'client logged in' event.
 
+#### LoggedOutEvent ####
+Record a 'client logged out' event.
+
+
+### Products Events ###
+Group of events related to products and cart.
+
+#### AddedToFavoritesEvent ####
+Record a 'client added product to favorites' event.
+
+#### AddedToCartEvent ####
+Record a 'client added product to cart' event.
+
+#### RemovedFromCartEvent ####
+Record a 'client removed product from cart' event.
+
+
+### Transaction Events ###
+Group of events related to user's transactions.
+
+#### CancelledTransactionEvent ####
+Record a 'client cancelled transaction' event.
+
+#### CompletedTransactionEvent ####
+Record a 'client completed transaction' event.
+
+
+### Other Events ###
+Group of uncategorized events related to user's location and actions.
+
+#### AppearedInLocationEvent ####
+Record a 'client appeared in location' event.
+
+#### HitTimerEvent ###
+Record a 'client hit timer' event. This could be used for profiling or activity time monitoring - you can send "hit timer" when your client starts doing something and send it once again when finishes, but this time with different time signature. Then you can use our analytics engine to measure e.g. average activity time.
+
+#### SearchedEvent ###
+Record a 'client searched' event.
+
+#### SharedEvent ###
+Record a 'client shared' event.
+
+#### VisitedScreenEvent ###
+Record a 'client visited screen' event.
+
+
+### Custom Event ###
+This is the only event which requires `action` field. Log your custom data with TrackerParams class.
+
+
+### Tracker.setDebugMode(isDebugModeEnabled) ###
+This method enables/disables console logs from Tracker SDK.
+It is not recommended to use debug mode in release version of your application.
+
+
+
+## Client ###
+
+First of all, you need to initialize Client with `init` method and provide `Api Key`, `Application name` and `Application instance`.
+Init method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.
+In Client SDK you can also provide you custom `Authorization Configuration`. At this moment, configuration handles `Base URL` changes.
+
+### Client.logIn(email, password, deviceId) ###
+Log in a client in order to obtain the JWT token, which could be used in subsequent requests. The token is valid for 1 hour.
+This SDK will refresh token before each call if it is expiring (but not expired).
+Method requires valid and non-null email and password. Device ID is optional. // todo: what is deviceId
+Method returns `IApiCall` to execute request.
+
+### Client.getAccount() ###
+Use this method to get client's account information.
+This method returns `IDataApiCall` with parametrized `AccountInformation` object to execute request.
+
+### Client.updateAccount(accountInformation) ###
+Use this method to update client's account information.
+This method requires `AccountInformation` Builder Pattern object with client's account information. Not provided fields are not modified.
+Method returns `IApiCall` to execute request.
+
+### Client.setDebugMode(isDebugModeEnabled) ###
+This method enables/disables console logs from Client SDK.
+It is not recommended to use debug mode in release version of your application.
+
+
+
+## Profile ###
+
+First of all, you need to initialize Profile with `init` method and provide `Api Key`, `Application name` and `Application instance`.
+Init method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.
+
+### Profile.createClient(createClient) ###
+Create a new client record if no identifier has been assigned for him before in Synerise.
+This method requires `CreateClient` Builder Pattern object with client's optional data. Not provided fields are not modified.
+Method returns IApiCall object to execute request.
+
+### Profile.registerClient(registerClient) ###
+Register new Client with email, password and optional data.
+This method requires `RegisterClient` Builder Pattern object with client's email, password and optional data. Not provided fields are not modified.
+Method returns IApiCall object to execute request.
+
+### Profile.updateClient(updateClient) ###
+Update client with ID and optional data.
+This method requires `UpdateClient` Builder Pattern object with client's optional data. Not provided fields are not modified.
+Method returns IApiCall object to execute request.
+
+### Profile.deleteClient(id) ###
+Delete client with ID.
+This method requires client's id.
+Method returns IApiCall object to execute request.
+
+### Profile.requestPasswordReset(email) ###
+Request client's password reset with email. Client will receive a token on provided email address in order to use Profile.confirmResetPassword(password, token).
+This method requires client's email.
+Method returns IApiCall object to execute request.
+
+### Profile.confirmResetPassword(password, token) ###
+Confirm client's password reset with new password and token provided by Profile.requestPasswordReset(email).
+This method requires client's password and confirmation token sent on email address.
+Method returns IApiCall object to execute request.
+
+### Profile.setDebugMode(isDebugModeEnabled) ###
+This method enables/disables console logs from Profile SDK.
+It is not recommended to use debug mode in release version of your application.

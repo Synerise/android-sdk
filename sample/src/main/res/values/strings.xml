@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name" translatable="false">Synersie SDK Sample</string>
+
+    <string name="synerise_business_api_key">A75DA38F-A2E9-5A25-2884-38AD12B98FAE</string>
+    <string name="synerise_client_api_key">6EFDC1D9-32F6-675A-2B78-8A0ADD11AC55</string>
+
+    <string name="add_event_button_label">Add event</string>
+    <string name="force_send_events_button_label">Force send</string>
+    <string name="add_random_event_button_label">Add random event</string>
+    <string name="last_random_event_label">Last random event label:</string>
+    <string name="hint_synerise_client_email">Type Synerise Client email</string>
+    <string name="hint_synerise_client_password">Type password</string>
+    <string name="submit_button_label">Submit</string>
+    <string name="error_required">Field can\'t be empty</string>
+
+    <string name="message_sing_in_successful">Sign in successful</string>
+    <string name="message_sing_in_failure">Sign in failure</string>
+    <string name="menu_button_tracker">Event Tracker</string>
+    <string name="menu_button_client_api">Client API</string>
+    <string name="menu_button_profile_api">Profile API</string>
+
+    <string name="reset_password_button_label">Reset password</string>
+    <string name="message_password_reset_successful">Reset information has been sent on you email.</string>
+    <string name="message_password_reset_failure">Password reset failure</string>
+    <string name="sign_in">Sign In</string>
+
+    <string name="client_get_account">Get account</string>
+    <string name="client_update_account">Update account</string>
+
+    <string name="message_success">Success</string>
+    <string name="message_failure">Failure</string>
+
+    <string name="provide_client_id">Client ID</string>
+    <string name="profile_client_create">Create Client</string>
+    <string name="profile_client_register">Register Client</string>
+    <string name="profile_client_update">Update Client</string>
+    <string name="profile_client_delete">Delete Client</string>
+    <string name="provide_client_email">Client\'s email</string>
+    <string name="profile_password_reset">Reset Password</string>
+    <string name="provide_new_password">New password</string>
+    <string name="provide_token">Confirmation token</string>
+    <string name="profile_password_confirm">Confirm Reset Password</string>
+
+    <string name="message_create_client_success">Client created successfully</string>
+    <string name="message_create_client_failure">Client was not created</string>
+    <string name="message_register_client_success">Client registered successfully</string>
+    <string name="message_register_client_failure">Client was not registered</string>
+    <string name="message_update_client_success">Client updated successfully</string>
+    <string name="message_update_client_failure">Client was not updated</string>
+    <string name="message_delete_client_success">Client deleted successfully</string>
+    <string name="message_delete_client_failure">Client was not deleted</string>
+    <string name="message_reset_password_success">Password reset succeeded</string>
+    <string name="message_reset_password_failure">Password reset failed</string>
+    <string name="message_confirm_reset_password_success">Password reset confirmation succeeded</string>
+    <string name="message_confirm_reset_password_failure">Password reset confirmation failed</string>
+
+</resources>

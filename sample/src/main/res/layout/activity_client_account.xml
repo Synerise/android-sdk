@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/space_large">
+
+    <Button
+        android:id="@+id/client_get_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/client_get_account" />
+
+    <Button
+        android:id="@+id/client_update_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/client_update_account" />
+
+</LinearLayout>
