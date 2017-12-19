@@ -2,11 +2,9 @@
 <resources>
 
     <dimen name="space_micro">1dp</dimen>
-    <dimen name="space_mini">5dp</dimen>
     <dimen name="space_small">10dp</dimen>
     <dimen name="space_content">16dp</dimen>
     <dimen name="space_medium">20dp</dimen>
     <dimen name="space_large">30dp</dimen>
-    <dimen name="space_huge">40dp</dimen>
 
 </resources>

@@ -8,10 +8,13 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.synerise.sdk.client.Client;
+import com.synerise.sdk.core.listeners.ActionListener;
+import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.sample.R;
@@ -39,7 +42,10 @@ public class ClientSignInActivity extends AppCompatActivity {
         passwordInput = findViewById(R.id.client_password_input);
 
         Button signInButton = findViewById(R.id.client_sign_in_button);
-        signInButton.setOnClickListener(v -> onSubmitClick());
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {ClientSignInActivity.this.onSubmitClick();}
+        });
     }
 
     @Override
@@ -70,10 +76,16 @@ public class ClientSignInActivity extends AppCompatActivity {
         }
 
         if (isValid) {
-            String deviceId = null; // todo
+            String deviceId = null;
             if (call != null) call.cancel();
             call = Client.logIn(email, password, deviceId);
-            call.execute(this::onSignInSuccessful, this::onSignInFailure);
+            call.execute(new ActionListener() {
+                @Override
+                public void onAction() {ClientSignInActivity.this.onSignInSuccessful();}
+            }, new DataActionListener<ApiError>() {
+                @Override
+                public void onDataAction(ApiError apiError) {ClientSignInActivity.this.onSignInFailure(apiError);}
+            });
         }
     }
 

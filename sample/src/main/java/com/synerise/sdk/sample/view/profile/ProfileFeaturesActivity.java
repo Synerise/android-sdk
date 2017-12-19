@@ -8,9 +8,12 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.synerise.sdk.core.listeners.ActionListener;
+import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.model.Attributes;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.error.ApiError;
@@ -49,28 +52,46 @@ public class ProfileFeaturesActivity extends AppCompatActivity {
         clientId = findViewById(R.id.profile_client_id);
 
         Button createClient = findViewById(R.id.profile_client_create);
-        createClient.setOnClickListener(v -> createClient());
+        createClient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {ProfileFeaturesActivity.this.createClient();}
+        });
 
         Button registerClient = findViewById(R.id.profile_client_register);
-        registerClient.setOnClickListener(v -> registerClient());
+        registerClient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {ProfileFeaturesActivity.this.registerClient();}
+        });
 
         Button updateClient = findViewById(R.id.profile_client_update);
-        updateClient.setOnClickListener(v -> updateClient());
+        updateClient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {ProfileFeaturesActivity.this.updateClient();}
+        });
 
         Button deleteClient = findViewById(R.id.profile_client_delete);
-        deleteClient.setOnClickListener(v -> deleteClient());
+        deleteClient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {ProfileFeaturesActivity.this.deleteClient();}
+        });
 
         email = findViewById(R.id.profile_password_reset_email);
 
         Button resetPassword = findViewById(R.id.profile_password_reset);
-        resetPassword.setOnClickListener(v -> resetPassword());
+        resetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {ProfileFeaturesActivity.this.resetPassword();}
+        });
 
         password = findViewById(R.id.profile_password_confirm_pass);
 
         token = findViewById(R.id.profile_password_confirm_token);
 
         Button confirmResetPassword = findViewById(R.id.profile_password_confirm);
-        confirmResetPassword.setOnClickListener(v -> confirmResetPassword());
+        confirmResetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {ProfileFeaturesActivity.this.confirmResetPassword();}
+        });
     }
 
     // ****************************************************************************************************************************************
@@ -87,7 +108,13 @@ public class ProfileFeaturesActivity extends AppCompatActivity {
 
         if (call != null) call.cancel();
         call = Profile.createClient(createClient);
-        call.execute(this::onCreateClientSuccess, this::onCreateClientFailure);
+        call.execute(new ActionListener() {
+            @Override
+            public void onAction() {ProfileFeaturesActivity.this.onCreateClientSuccess();}
+        }, new DataActionListener<ApiError>() {
+            @Override
+            public void onDataAction(ApiError apiError) {ProfileFeaturesActivity.this.onCreateClientFailure(apiError);}
+        });
     }
 
     private void onCreateClientSuccess() {
@@ -108,7 +135,13 @@ public class ProfileFeaturesActivity extends AppCompatActivity {
 
         if (call != null) call.cancel();
         call = Profile.registerClient(registerClient);
-        call.execute(this::onRegisterClientSuccess, this::onRegisterClientFailure);
+        call.execute(new ActionListener() {
+            @Override
+            public void onAction() {ProfileFeaturesActivity.this.onRegisterClientSuccess();}
+        }, new DataActionListener<ApiError>() {
+            @Override
+            public void onDataAction(ApiError apiError) {ProfileFeaturesActivity.this.onRegisterClientFailure(apiError);}
+        });
     }
 
     private void onRegisterClientSuccess() {
@@ -131,7 +164,13 @@ public class ProfileFeaturesActivity extends AppCompatActivity {
 
             if (call != null) call.cancel();
             call = Profile.updateClient(getClientId(), updateClient);
-            call.execute(this::onUpdateClientSuccess, this::onUpdateClientFailure);
+            call.execute(new ActionListener() {
+                @Override
+                public void onAction() {ProfileFeaturesActivity.this.onUpdateClientSuccess();}
+            }, new DataActionListener<ApiError>() {
+                @Override
+                public void onDataAction(ApiError apiError) {ProfileFeaturesActivity.this.onUpdateClientFailure(apiError);}
+            });
         }
     }
 
@@ -150,7 +189,13 @@ public class ProfileFeaturesActivity extends AppCompatActivity {
     private void deleteClient() {
         if (call != null) call.cancel();
         call = Profile.deleteClient(getClientId());
-        call.execute(this::onDeleteClientSuccess, this::onDeleteClientFailure);
+        call.execute(new ActionListener() {
+            @Override
+            public void onAction() {ProfileFeaturesActivity.this.onDeleteClientSuccess();}
+        }, new DataActionListener<ApiError>() {
+            @Override
+            public void onDataAction(ApiError apiError) {ProfileFeaturesActivity.this.onDeleteClientFailure(apiError);}
+        });
     }
 
     private void onDeleteClientSuccess() {
@@ -169,7 +214,13 @@ public class ProfileFeaturesActivity extends AppCompatActivity {
         if (isValid(email)) {
             if (call != null) call.cancel();
             call = Profile.requestPasswordReset(email.getEditText().getText().toString());
-            call.execute(this::onResetPasswordSuccess, this::onResetPasswordFailure);
+            call.execute(new ActionListener() {
+                @Override
+                public void onAction() {ProfileFeaturesActivity.this.onResetPasswordSuccess();}
+            }, new DataActionListener<ApiError>() {
+                @Override
+                public void onDataAction(ApiError apiError) {ProfileFeaturesActivity.this.onResetPasswordFailure(apiError);}
+            });
         }
     }
 
@@ -189,7 +240,13 @@ public class ProfileFeaturesActivity extends AppCompatActivity {
         if (isValid(password) && isValid(token)) {
             if (call != null) call.cancel();
             call = Profile.confirmResetPassword(password.getEditText().getText().toString(), token.getEditText().getText().toString());
-            call.execute(this::onConfirmResetPasswordSuccess, this::onConfirmResetPasswordFailure);
+            call.execute(new ActionListener() {
+                @Override
+                public void onAction() {ProfileFeaturesActivity.this.onConfirmResetPasswordSuccess();}
+            }, new DataActionListener<ApiError>() {
+                @Override
+                public void onDataAction(ApiError apiError) {ProfileFeaturesActivity.this.onConfirmResetPasswordFailure(apiError);}
+            });
         }
     }
 

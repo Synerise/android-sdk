@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -11,13 +12,10 @@ import com.synerise.sdk.event.Tracker;
 import com.synerise.sdk.event.TrackerParams;
 import com.synerise.sdk.event.model.CustomEvent;
 import com.synerise.sdk.event.model.interaction.VisitedScreenEvent;
-import com.synerise.sdk.event.model.model.UnitPrice;
-import com.synerise.sdk.event.model.transaction.CancelledTransactionEvent;
 import com.synerise.sdk.sample.BuildConfig;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.model.MySerializableObject;
 
-import java.util.Currency;
 import java.util.UUID;
 
 public class TrackerActivity extends AppCompatActivity {
@@ -34,9 +32,18 @@ public class TrackerActivity extends AppCompatActivity {
         Button addRandomEventBt = findViewById(R.id.save_random_event);
         randomEvent = findViewById(R.id.random_event_text);
 
-        addEventBt.setOnClickListener(v -> addEvent());
-        forceSendBt.setOnClickListener(v -> flush());
-        addRandomEventBt.setOnClickListener(v -> addRandomEvent());
+        addEventBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {TrackerActivity.this.addEvent();}
+        });
+        forceSendBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {TrackerActivity.this.flush();}
+        });
+        addRandomEventBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {TrackerActivity.this.addRandomEvent();}
+        });
     }
 
     // ****************************************************************************************************************************************
@@ -54,12 +61,6 @@ public class TrackerActivity extends AppCompatActivity {
                 .build();
 
         Tracker.send(new CustomEvent("ButtonClick", "addEventButton", params));
-
-        CancelledTransactionEvent transactionEvent = new CancelledTransactionEvent("Transaction1");
-
-        Currency currency = Currency.getInstance("PLN");
-        transactionEvent.setDiscountAmount(new UnitPrice(1, currency));
-        Tracker.send(transactionEvent);
     }
 
     private void flush() {

@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.synerise.sdk.client.Client;
 import com.synerise.sdk.client.model.AccountInformation;
+import com.synerise.sdk.core.listeners.ActionListener;
+import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.model.Sex;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.core.net.IDataApiCall;
@@ -40,10 +43,16 @@ public class ClientAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_client_account);
 
         Button getAccountButton = findViewById(R.id.client_get_account);
-        getAccountButton.setOnClickListener(v -> getAccount());
+        getAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {ClientAccountActivity.this.getAccount();}
+        });
 
         Button updateAccountButton = findViewById(R.id.client_update_account);
-        updateAccountButton.setOnClickListener(v -> updateAccount());
+        updateAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {ClientAccountActivity.this.updateAccount();}
+        });
     }
 
     // ****************************************************************************************************************************************
@@ -51,7 +60,15 @@ public class ClientAccountActivity extends AppCompatActivity {
     private void getAccount() {
         if (dataCall != null) dataCall.cancel();
         dataCall = Client.getAccount();
-        dataCall.execute(this::onGetAccountSuccess, this::onGetAccountFailure);
+        dataCall.execute(new DataActionListener<AccountInformation>() {
+            @Override
+            public void onDataAction(AccountInformation accountInformation) {
+                ClientAccountActivity.this.onGetAccountSuccess(accountInformation);
+            }
+        }, new DataActionListener<ApiError>() {
+            @Override
+            public void onDataAction(ApiError apiError) {ClientAccountActivity.this.onGetAccountFailure(apiError);}
+        });
     }
 
     private void onGetAccountSuccess(AccountInformation accountInformation) {
@@ -72,7 +89,13 @@ public class ClientAccountActivity extends AppCompatActivity {
 
         if (call != null) call.cancel();
         call = Client.updateAccount(accountInformation);
-        call.execute(this::onUpdateAccountSuccess, this::onUpdateAccountFailure);
+        call.execute(new ActionListener() {
+            @Override
+            public void onAction() {ClientAccountActivity.this.onUpdateAccountSuccess();}
+        }, new DataActionListener<ApiError>() {
+            @Override
+            public void onDataAction(ApiError apiError) {ClientAccountActivity.this.onUpdateAccountFailure(apiError);}
+        });
     }
 
     private void onUpdateAccountSuccess() {

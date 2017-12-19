@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.synerise.sdk.client.Client;
 import com.synerise.sdk.event.Tracker;
+import com.synerise.sdk.injector.Injector;
 import com.synerise.sdk.profile.Profile;
 
 /**
@@ -34,5 +35,7 @@ public class App extends Application {
 
         Profile.init(this, syneriseBusinessProfileApiKey, appId);
         Profile.setDebugMode(DEBUG_MODE);
+
+        Injector.init(this, syneriseBusinessProfileApiKey, appId);
     }
 }
