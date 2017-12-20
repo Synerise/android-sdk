@@ -6,8 +6,8 @@ buildscript {
             'compileSdk' : 26,
             'buildTools' : '26.0.1',
 
-            'versionCode': 4,
-            'versionName': "3.1.0"
+            'versionCode': 5,
+            'versionName': "3.1.1"
     ]
 
     repositories {

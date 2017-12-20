@@ -14,6 +14,7 @@
 
     <string name="message_sing_in_successful">Sign in successful</string>
     <string name="message_sing_in_failure">Sign in failure</string>
+    <string name="client_get_token">Get token</string>
 
     <string name="menu_button_tracker">Event Tracker</string>
     <string name="menu_button_client_api">Client API</string>
