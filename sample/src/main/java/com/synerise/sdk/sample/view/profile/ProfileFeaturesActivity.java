@@ -16,6 +16,7 @@ import com.synerise.sdk.core.listeners.ActionListener;
 import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.model.Attributes;
 import com.synerise.sdk.core.net.IApiCall;
+import com.synerise.sdk.core.net.IDataApiCall;
 import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.profile.Profile;
 import com.synerise.sdk.profile.model.CreateClient;
@@ -35,6 +36,7 @@ public class ProfileFeaturesActivity extends AppCompatActivity {
     public static final String TAG = ProfileFeaturesActivity.class.getSimpleName();
 
     private IApiCall call;
+    private IDataApiCall<String> getTokenCall;
 
     private TextInputLayout clientId, email, password, token;
 
@@ -91,6 +93,14 @@ public class ProfileFeaturesActivity extends AppCompatActivity {
         confirmResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {ProfileFeaturesActivity.this.confirmResetPassword();}
+        });
+
+        Button getTokenButton = findViewById(R.id.get_profile_token);
+        getTokenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getProfileToken();
+            }
         });
     }
 
@@ -287,9 +297,37 @@ public class ProfileFeaturesActivity extends AppCompatActivity {
 
     // ****************************************************************************************************************************************
 
+    public void getProfileToken() {
+        if (getTokenCall != null) getTokenCall.cancel();
+        getTokenCall = Profile.getToken();
+        getTokenCall.execute(new DataActionListener<String>() {
+            @Override
+            public void onDataAction(String token) {
+                onGetTokenSuccess(token);
+            }
+        }, new DataActionListener<ApiError>() {
+            @Override
+            public void onDataAction(ApiError apiError) {
+                onGetTokenFailure(apiError);
+            }
+        });
+    }
+
+    private void onGetTokenSuccess(String token) {
+        Toast.makeText(this, R.string.message_success + " " + token, Toast.LENGTH_LONG).show();
+    }
+
+    private void onGetTokenFailure(ApiError apiError) {
+        String errorCategory = apiError.getHttpErrorCategory().toString();
+        Toast.makeText(this, getString(R.string.message_failure) + " " + errorCategory, Toast.LENGTH_LONG).show();
+    }
+
+    // ****************************************************************************************************************************************
+
     @Override
     protected void onStop() {
         super.onStop();
         if (call != null) call.cancel();
+        if (getTokenCall != null) getTokenCall.cancel();
     }
 }

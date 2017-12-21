@@ -111,6 +111,14 @@
             android:layout_height="wrap_content"
             android:text="@string/profile_password_confirm" />
 
+        <include layout="@layout/include_separator" />
+
+        <Button
+            android:id="@+id/get_profile_token"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/get_token" />
+
     </LinearLayout>
 
 </ScrollView>

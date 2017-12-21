@@ -24,6 +24,6 @@
         android:id="@+id/client_get_token"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/client_get_token" />
+        android:text="@string/get_token" />
 
 </LinearLayout>
