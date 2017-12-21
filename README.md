@@ -224,7 +224,7 @@ Import dependency in your app gradle file:
 dependencies {
   ...
   // Synerise Mobile SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.0.0'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.1.2'
 }
 ```
 
