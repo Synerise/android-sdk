@@ -37,5 +37,6 @@ public class App extends Application {
         Profile.setDebugMode(DEBUG_MODE);
 
         Injector.init(this, syneriseBusinessProfileApiKey, appId);
+        Injector.setDebugMode(DEBUG_MODE);
     }
 }
