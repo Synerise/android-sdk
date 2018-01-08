@@ -212,7 +212,7 @@ allprojects {
         google()
         jcenter()
         maven {
-            url "https://codebite.bintray.com/public-test-repo"
+            url "https://synerise.bintray.com/Android"
         }
     }
 }
@@ -224,7 +224,7 @@ Import dependency in your app gradle file:
 dependencies {
   ...
   // Synerise Mobile SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.1.2'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.1.4'
 }
 ```
 
@@ -237,6 +237,7 @@ defaultConfig {
     multiDexEnabled true
 }
 ```
+You can find more information about MultiDex under this link: https://developer.android.com/studio/build/multidex.html
 
 ### Configuration ###
 
@@ -406,7 +407,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 ## Author ##
 
-Synerise, developer@synerise.com. If you need support please feel free and contact us.
+Synerise, developer@synerise.com. If you need support please feel free to contact us.
 
 ## License ##
 

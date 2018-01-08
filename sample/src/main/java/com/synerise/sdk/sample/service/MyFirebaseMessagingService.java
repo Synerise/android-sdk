@@ -16,4 +16,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         Injector.handlePushPayload(remoteMessage.getData());
     }
+
+/*
+    Support for handleIntent(intent) method in previous versions of firebase-messaging.
+    This method is currently marked as final in FirebaseMessagingService and cannot be overridden.
+
+    @Override
+    public void handleIntent(Intent intent) {
+        super.handleIntent(intent);
+
+        Injector.handlePushPayload(intent.getExtras());
+    }
+*/
 }
