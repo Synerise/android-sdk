@@ -109,7 +109,7 @@ public class ProfileFeaturesActivity extends AppCompatActivity {
     private void createClient() {
 
         Attributes attributes = new Attributes()
-                .add("some_string", "Synerise");
+                .add("someStringNoUnderscores", "Synerise");
 
         CreateClient createClient = new CreateClient();
         createClient.setCity("Paris").setPhone("123456789").setDisplayName("Joe Doe").setAttributes(attributes);

@@ -118,6 +118,7 @@ public class ClientAccountActivity extends AppCompatActivity {
     }
 
     // ****************************************************************************************************************************************
+
     public void getToken() {
         if (getTokenCall != null) getTokenCall.cancel();
         getTokenCall = Client.getToken();
