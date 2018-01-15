@@ -6,19 +6,22 @@ buildscript {
             'compileSdk' : 26,
             'buildTools' : '26.0.1',
 
-            'versionCode': 9,
-            'versionName': "3.1.5-RC"
+            'versionCode': 10,
+            'versionName': "3.1.5-RC2"
     ]
 
     repositories {
         google()
         jcenter()
     }
+
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
         classpath 'com.google.gms:google-services:3.1.1'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
+
+        classpath 'com.synerise.sdk:synerise-gradle-plugin:3.0.2'
+        classpath 'org.aspectj:aspectjtools:1.8.13'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -35,36 +38,18 @@ allprojects {
 
 ext {
     final supportVersion = '26.1.0'
-    final daggerVersion = '2.7'
-    final rxJavaVersion = '2.1.0'
-    final rxAndroidVersion = '2.0.1'
-    final okHttpVersion = '3.6.0'
-    final retrofitVersion = '2.2.0'
 
     // Support
     supportAnnotations = "com.android.support:support-annotations:$supportVersion"
     appCompatV7 = "com.android.support:appcompat-v7:$supportVersion"
     supportV4 = "com.android.support:support-v4:$supportVersion"
+    recycler = "com.android.support:recyclerview-v7:$supportVersion"
     design = "com.android.support:design:$supportVersion"
-    // Dagger
-    dagger = "com.google.dagger:dagger:$daggerVersion"
-    daggerCompiler = "com.google.dagger:dagger-compiler:$daggerVersion"
-    // Rx
-    rxJava = "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
-    rxAndroid = "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
-    // OkHttp
-    okHttp = "com.squareup.okhttp3:okhttp:$okHttpVersion"
-    okHttpInterceptor = "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
-    // Retrofit
-    retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    retrofitGsonConverter = "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    retrofitRxJavaAdapter = "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
     // Test
     supportTestRunner = "com.android.support.test:runner:1.0.1"
     espressoCore = "com.android.support.test.espresso:espresso-core:3.0.1"
     junit = 'junit:junit:4.12'
 }
-
 
 task clean(type: Delete) {
     delete rootProject.buildDir

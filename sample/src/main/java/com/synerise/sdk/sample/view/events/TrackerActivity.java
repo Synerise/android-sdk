@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.synerise.sdk.event.Tracker;
@@ -15,6 +14,7 @@ import com.synerise.sdk.event.model.interaction.VisitedScreenEvent;
 import com.synerise.sdk.sample.BuildConfig;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.model.MySerializableObject;
+import com.synerise.sdk.sample.view.events.widgets.TrackerViewActivity;
 
 import java.util.UUID;
 
@@ -22,27 +22,34 @@ public class TrackerActivity extends AppCompatActivity {
 
     private TextView randomEvent;
 
+    public static Intent createIntent(Context context) {
+        return new Intent(context, TrackerActivity.class);
+    }
+
+    // ****************************************************************************************************************************************
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tracker);
 
-        Button addEventBt = findViewById(R.id.add_event_button);
-        Button forceSendBt = findViewById(R.id.force_send_button);
-        Button addRandomEventBt = findViewById(R.id.save_random_event);
         randomEvent = findViewById(R.id.random_event_text);
 
-        addEventBt.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.add_event_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {TrackerActivity.this.addEvent();}
         });
-        forceSendBt.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.force_send_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {TrackerActivity.this.flush();}
         });
-        addRandomEventBt.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.save_random_event).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {TrackerActivity.this.addRandomEvent();}
+        });
+        findViewById(R.id.go_view_tracker).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {TrackerActivity.this.goToTrackerViewActivity();}
         });
     }
 
@@ -73,15 +80,15 @@ public class TrackerActivity extends AppCompatActivity {
         Tracker.send(new CustomEvent("addRandomEvent", uuid));
     }
 
+    private void goToTrackerViewActivity() {
+        startActivity(TrackerViewActivity.createIntent(this));
+    }
+
     // ****************************************************************************************************************************************
 
     @Override
     protected void onStart() {
         super.onStart();
         Tracker.send(new VisitedScreenEvent(getClass().getSimpleName()));
-    }
-
-    public static Intent createIntent(Context context) {
-        return new Intent(context, TrackerActivity.class);
     }
 }

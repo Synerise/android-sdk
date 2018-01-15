@@ -1,17 +1,19 @@
 package com.synerise.sdk.sample;
 
-import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
 import com.synerise.sdk.client.Client;
 import com.synerise.sdk.event.Tracker;
 import com.synerise.sdk.injector.Injector;
 import com.synerise.sdk.profile.Profile;
 
+import static com.synerise.sdk.event.aspect.TrackBase.TrackMode.FINE;
+
 /**
  * Created by Jerzy Wierzchowski on 11/6/17.
  */
 
-public class App extends Application {
+public class App extends MultiDexApplication {
 
     @Override
     public void onCreate() {
@@ -25,6 +27,7 @@ public class App extends Application {
 
         Tracker.init(this, syneriseBusinessProfileApiKey, appId);
         Tracker.setDebugMode(DEBUG_MODE);
+        Tracker.setTrackMode(FINE);
 
         Client.init(this, syneriseClientApiKey, appId);
         Client.setDebugMode(DEBUG_MODE);

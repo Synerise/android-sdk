@@ -1,11 +1,7 @@
 *.iml
 .gradle
 local.properties
-.idea/workspace.xml
-.idea/libraries
-.idea/dictionaries
-.idea/codeStyleSettings.xml
-.idea/misc.xml
+.idea
 
 build
 .DS_Store
@@ -13,4 +9,4 @@ build
 captures
 .externalNativeBuild
 
-
+sample/google-services.json

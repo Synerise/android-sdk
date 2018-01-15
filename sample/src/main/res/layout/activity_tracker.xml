@@ -64,6 +64,12 @@
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2" />
+        android:layout_weight="4" />
+
+    <Button
+        android:id="@+id/go_view_tracker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/go_to_view_tracker" />
 
 </LinearLayout>

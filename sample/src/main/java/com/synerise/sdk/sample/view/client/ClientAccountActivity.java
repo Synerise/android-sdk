@@ -118,7 +118,6 @@ public class ClientAccountActivity extends AppCompatActivity {
     }
 
     // ****************************************************************************************************************************************
-
     public void getToken() {
         if (getTokenCall != null) getTokenCall.cancel();
         getTokenCall = Client.getToken();
@@ -140,7 +139,7 @@ public class ClientAccountActivity extends AppCompatActivity {
     }
 
     private void onGetTokenFailure(ApiError apiError) {
-        Lh.d(getClass().getSimpleName(), "apiError= " + apiError.getErrorBody());
+        Log.d(getClass().getSimpleName(), "apiError= " + apiError.getErrorBody());
         String errorCategory = apiError.getHttpErrorCategory().toString();
         Toast.makeText(this, getString(R.string.message_failure) + " " + errorCategory, Toast.LENGTH_LONG).show();
     }

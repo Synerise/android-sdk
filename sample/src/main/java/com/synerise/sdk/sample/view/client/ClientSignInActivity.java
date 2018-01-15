@@ -16,8 +16,6 @@ import com.synerise.sdk.client.Client;
 import com.synerise.sdk.core.listeners.ActionListener;
 import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IApiCall;
-import com.synerise.sdk.core.net.IDataApiCall;
-import com.synerise.sdk.core.utils.Lh;
 import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.sample.R;
 

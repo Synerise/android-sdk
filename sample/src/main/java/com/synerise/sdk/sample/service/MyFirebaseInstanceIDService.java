@@ -35,22 +35,24 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     public void onTokenRefresh() {
         // Get updated InstanceID token.
         final String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        Lh.d(TAG, "Refreshed token: " + refreshedToken);
+        Log.d(TAG, "Refreshed token: " + refreshedToken);
 
-        IApiCall call = Profile.registerForPush(refreshedToken);
-        call.execute(new ActionListener() {
-            @Override
-            public void onAction() {
-                Log.d(TAG, "Register for Push Successful " + refreshedToken);
-            }
-        }, new DataActionListener<ApiError>() {
-            @Override
-            public void onDataAction(ApiError apiError) {
-                Log.d(TAG, "Register for Push FAILED " + refreshedToken);
-            }
-        });
+        if (refreshedToken != null) {
+            IApiCall call = Profile.registerForPush(refreshedToken);
+            call.execute(new ActionListener() {
+                @Override
+                public void onAction() {
+                    Log.d(TAG, "Register for Push Successful " + refreshedToken);
+                }
+            }, new DataActionListener<ApiError>() {
+                @Override
+                public void onDataAction(ApiError apiError) {
+                    Log.w(TAG, "Register for Push FAILED " + refreshedToken);
+                }
+            });
 
-        Intent intent = FirebaseIdChangeBroadcastReceiver.createFirebaseIdChangedIntent();
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+            Intent intent = FirebaseIdChangeBroadcastReceiver.createFirebaseIdChangedIntent();
+            LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        }
     }
 }

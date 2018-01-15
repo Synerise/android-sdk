@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'synerise-plugin'
 
 def homePath = System.properties['user.home']
 
@@ -8,8 +9,8 @@ android {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.compileSdk
         applicationId "com.synerise.sample"
-        versionCode 4
-        versionName "1.0.3"
+        versionCode 5
+        versionName "1.0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -55,6 +56,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // MultiDex
+    implementation 'com.android.support:multidex:1.0.2'
     // Support
     implementation rootProject.ext.supportAnnotations
     implementation rootProject.ext.appCompatV7
@@ -63,7 +66,7 @@ dependencies {
     // Firebase
     implementation 'com.google.firebase:firebase-messaging:11.8.0'
     // Synerise
-    implementation 'com.synerise.sdk:synerise-mobile-sdk:3.1.5-RC'
+    implementation 'com.synerise.sdk:synerise-mobile-sdk:3.1.5-RC2'
     //implementation project(':synerise-mobile-sdk')
     // Test
     testImplementation rootProject.ext.junit

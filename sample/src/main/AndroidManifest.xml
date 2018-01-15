@@ -16,19 +16,24 @@
         <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".view.events.TrackerActivity" />
-
         <activity android:name=".view.client.ClientSignInActivity" />
-
         <activity android:name=".view.client.ClientAccountActivity" />
-
         <activity android:name=".view.profile.ProfileFeaturesActivity" />
-
         <activity android:name=".view.injector.InjectorActivity" />
+        <activity android:name=".view.events.widgets.TrackerViewActivity" />
+
+        <activity
+            android:name=".view.events.widgets.nested_scroll.NestedScrollingActivity"
+            android:label="@string/title_activity_nested_scrolling"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity android:name=".view.events.widgets.recycler.RecyclerAndHorizontalScrollActivity" />
 
         <!-- ************************************************************************ -->
 
@@ -37,7 +42,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service android:name=".service.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />

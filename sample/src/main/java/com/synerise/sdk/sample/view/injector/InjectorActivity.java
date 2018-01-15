@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.synerise.sdk.core.utils.SystemUtils;
 import com.synerise.sdk.injector.Injector;
 import com.synerise.sdk.sample.R;
@@ -85,8 +86,7 @@ public class InjectorActivity extends AppCompatActivity {
     }
 
     private void onFirebaseIdChanged() {
-        String refreshedToken = null;
-        // refreshedToken = FirebaseInstanceId.getInstance().getToken(); // uncomment when `google-services.json` is provided
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken(); // get `google-services.json` from Firebase console first
         if (TextUtils.isEmpty(refreshedToken)) {
             firebaseIdTv.setText(R.string.unknown_firebase_id);
         } else {
