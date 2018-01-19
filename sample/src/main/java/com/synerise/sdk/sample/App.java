@@ -9,10 +9,6 @@ import com.synerise.sdk.profile.Profile;
 
 import static com.synerise.sdk.event.aspect.TrackBase.TrackMode.FINE;
 
-/**
- * Created by Jerzy Wierzchowski on 11/6/17.
- */
-
 public class App extends MultiDexApplication {
 
     @Override

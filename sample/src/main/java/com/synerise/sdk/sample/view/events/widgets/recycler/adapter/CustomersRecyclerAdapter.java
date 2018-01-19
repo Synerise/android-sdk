@@ -11,9 +11,6 @@ import com.synerise.sdk.sample.R;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Marcel Skotnicki on 1/10/18.
- */
 
 public class CustomersRecyclerAdapter extends RecyclerView.Adapter<CustomerViewHolder> {
 

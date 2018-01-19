@@ -11,10 +11,6 @@ import com.synerise.sdk.sample.view.events.TrackerActivity;
 import com.synerise.sdk.sample.view.injector.InjectorActivity;
 import com.synerise.sdk.sample.view.profile.ProfileFeaturesActivity;
 
-/**
- * Created by Jerzy Wierzchowski on 11/27/17.
- */
-
 public class MainActivity extends AppCompatActivity {
 
     @Override

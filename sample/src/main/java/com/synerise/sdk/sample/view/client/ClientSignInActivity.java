@@ -19,9 +19,6 @@ import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.sample.R;
 
-/**
- * Created by Jerzy Wierzchowski on 11/27/17.
- */
 
 public class ClientSignInActivity extends AppCompatActivity {
 

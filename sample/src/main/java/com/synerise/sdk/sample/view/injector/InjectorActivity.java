@@ -17,10 +17,6 @@ import com.synerise.sdk.injector.Injector;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.util.FirebaseIdChangeBroadcastReceiver;
 
-/**
- * Created by Marcel Skotnicki on 12/18/17.
- */
-
 public class InjectorActivity extends AppCompatActivity {
 
     private static final int ONBOARDING_REQUEST_CODE = 201;

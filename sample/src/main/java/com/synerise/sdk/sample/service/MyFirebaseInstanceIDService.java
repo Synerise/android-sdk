@@ -14,9 +14,6 @@ import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.profile.Profile;
 import com.synerise.sdk.sample.util.FirebaseIdChangeBroadcastReceiver;
 
-/**
- * Created by Marcel Skotnicki on 12/8/17.
- */
 
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 

@@ -4,9 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-/**
- * Created by Jerzy Wierzchowski on 12/15/17.
- */
 
 public class FirebaseIdChangeBroadcastReceiver extends BroadcastReceiver {
 

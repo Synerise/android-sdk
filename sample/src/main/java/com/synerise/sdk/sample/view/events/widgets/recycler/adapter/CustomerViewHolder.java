@@ -6,9 +6,6 @@ import android.widget.TextView;
 
 import com.synerise.sdk.sample.R;
 
-/**
- * Created by Marcel Skotnicki on 1/10/18.
- */
 
 class CustomerViewHolder extends RecyclerView.ViewHolder {
 

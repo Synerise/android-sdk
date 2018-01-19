@@ -35,9 +35,6 @@ import com.synerise.sdk.sample.view.events.widgets.recycler.RecyclerAndHorizonta
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Marcel Skotnicki on 1/10/18.
- */
 
 public class TrackerViewActivity extends AppCompatActivity {
 

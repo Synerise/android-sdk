@@ -21,9 +21,6 @@ import com.synerise.sdk.core.utils.Lh;
 import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.sample.R;
 
-/**
- * Created by Marcel Skotnicki on 11/28/17.
- */
 
 public class ClientAccountActivity extends AppCompatActivity {
 

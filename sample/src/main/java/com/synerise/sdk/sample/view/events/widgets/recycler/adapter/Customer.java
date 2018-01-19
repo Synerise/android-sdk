@@ -1,8 +1,5 @@
 package com.synerise.sdk.sample.view.events.widgets.recycler.adapter;
 
-/**
- * Created by Marcel Skotnicki on 1/10/18.
- */
 
 public class Customer {
 

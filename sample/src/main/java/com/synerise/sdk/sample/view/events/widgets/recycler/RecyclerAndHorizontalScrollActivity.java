@@ -15,9 +15,6 @@ import com.synerise.sdk.sample.view.events.widgets.recycler.adapter.CustomersRec
 
 import java.util.ArrayList;
 
-/**
- * Created by Marcel Skotnicki on 1/10/18.
- */
 
 public class RecyclerAndHorizontalScrollActivity extends AppCompatActivity {
 

@@ -24,9 +24,6 @@ import com.synerise.sdk.profile.model.RegisterClient;
 import com.synerise.sdk.profile.model.UpdateClient;
 import com.synerise.sdk.sample.R;
 
-/**
- * Created by Marcel Skotnicki on 11/28/17.
- */
 
 @SuppressWarnings("ConstantConditions")
 public class ProfileFeaturesActivity extends AppCompatActivity {
