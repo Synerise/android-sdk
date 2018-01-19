@@ -6,6 +6,22 @@ You can log events from your mobile app to Synerise platform with Tracker class.
 First of all, you need to initialize Tracker with `init` method and provide `Api Key`, `Application name` and `Application instance`.
 Init method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.
 
+As of now, Tracker also supports auto-tracking mode which can be
+enabled with
+
+```
+Tracker.setTrackMode(FINE);
+```
+Auto-tracking is disabled by default.
+Accepted values for setTrackMode()
+
+```
+EAGER - listeners set to onTouch() only
+PLAIN - listeners set to onClick() only
+FINE  - listeners are attached to nearly everything in your app
+DISABLED
+```
+
 ### Api Key ###
 To get `Api Key` sign in to your Synerise account and go to https://app.synerise.com/api/.
 Please generate new `Api Key` for `Business Profile` Audience.
