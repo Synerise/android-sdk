@@ -21,6 +21,7 @@ public class InjectorActivity extends AppCompatActivity {
 
     private static final int ONBOARDING_REQUEST_CODE = 201;
     private static final int WELCOME_REQUEST_CODE = 202;
+    private static final int WALKTHROUGH_REQUEST_CODE = 203;
 
     private static final String BUCKET_NAME = "foo";
 
@@ -54,6 +55,7 @@ public class InjectorActivity extends AppCompatActivity {
         };
         findViewById(R.id.show_onboarding).setOnClickListener(clickListener);
         findViewById(R.id.show_welcome_screen).setOnClickListener(clickListener);
+        findViewById(R.id.show_walkthrough).setOnClickListener(clickListener);
 
         broadcastReceiver = new FirebaseIdChangeBroadcastReceiver();
         broadcastReceiver.setListener(new FirebaseIdChangeBroadcastReceiver.ActionListener() {
@@ -77,7 +79,6 @@ public class InjectorActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-
         LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
     }
 
@@ -99,6 +100,9 @@ public class InjectorActivity extends AppCompatActivity {
                 break;
             case R.id.show_welcome_screen:
                 Injector.showWelcomeScreenIfPresent(this, WELCOME_REQUEST_CODE, BUCKET_NAME);
+                break;
+            case R.id.show_walkthrough:
+                Injector.showWalkthroughIfPresent(this, WALKTHROUGH_REQUEST_CODE, BUCKET_NAME);
                 break;
         }
     }
@@ -128,6 +132,14 @@ public class InjectorActivity extends AppCompatActivity {
                 Toast.makeText(this, "onActivityResult: WELCOME SCREEN - NOTHING_TO_SHOW", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, "onActivityResult: WELCOME SCREEN - " + resultCode, Toast.LENGTH_LONG).show();
+            }
+        } else if (requestCode == WALKTHROUGH_REQUEST_CODE) {
+            if (resultCode == Injector.ResultCodes.OK) {
+                Toast.makeText(this, "onActivityResult: WALKTHROUGH - OK", Toast.LENGTH_LONG).show();
+            } else if (resultCode == Injector.ResultCodes.NOTHING_TO_SHOW) {
+                Toast.makeText(this, "onActivityResult: WALKTHROUGH - NOTHING_TO_SHOW", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "onActivityResult: WALKTHROUGH - " + resultCode, Toast.LENGTH_LONG).show();
             }
         }
     }

@@ -20,6 +20,7 @@ import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.sample.R;
 
 
+
 public class ClientSignInActivity extends AppCompatActivity {
 
     public static final String TAG = ClientSignInActivity.class.getSimpleName();

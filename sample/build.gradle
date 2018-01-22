@@ -1,13 +1,11 @@
 apply plugin: 'com.android.application'
 apply plugin: 'synerise-plugin'
 
-def homePath = System.properties['user.home']
-
 android {
-    compileSdkVersion versions.compileSdk
+    compileSdkVersion 26
     defaultConfig {
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.compileSdk
+        minSdkVersion 19
+        targetSdkVersion 26
         applicationId "com.synerise.sample"
         versionCode 5
         versionName "1.0.4"
@@ -15,12 +13,6 @@ android {
         multiDexEnabled true
     }
     signingConfigs {
-        releaseConfig {
-            keyAlias project.syneriseKeyAlias
-            keyPassword project.syneriseKeyPassword
-            storeFile file(homePath + '/.android/SyneriseKey.jks')
-            storePassword project.syneriseStorePassword
-        }
         developmentConfig {
             keyAlias "debugKey"
             keyPassword "testtest"
@@ -43,10 +35,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.developmentConfig
         }
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.developmentConfig
         }
     }
     packagingOptions {
@@ -66,7 +60,7 @@ dependencies {
     // Firebase
     implementation 'com.google.firebase:firebase-messaging:11.8.0'
     // Synerise
-    implementation 'com.synerise.sdk:synerise-mobile-sdk:3.1.5-RC2'
+    implementation 'com.synerise.sdk:synerise-mobile-sdk:3.1.5-RC3'
     //implementation project(':synerise-mobile-sdk')
     // Test
     testImplementation rootProject.ext.junit

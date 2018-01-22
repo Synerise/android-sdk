@@ -25,6 +25,7 @@ import com.synerise.sdk.profile.model.UpdateClient;
 import com.synerise.sdk.sample.R;
 
 
+
 @SuppressWarnings("ConstantConditions")
 public class ProfileFeaturesActivity extends AppCompatActivity {
 

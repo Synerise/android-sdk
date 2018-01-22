@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.synerise.sdk.sample.R;
 
 
+
 class CustomerViewHolder extends RecyclerView.ViewHolder {
 
     private final TextView name, lastname, nickname, age;

@@ -15,6 +15,7 @@ import com.synerise.sdk.profile.Profile;
 import com.synerise.sdk.sample.util.FirebaseIdChangeBroadcastReceiver;
 
 
+
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     private static final String TAG = MyFirebaseInstanceIDService.class.getSimpleName();

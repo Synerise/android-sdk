@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 public class CustomersRecyclerAdapter extends RecyclerView.Adapter<CustomerViewHolder> {
 
     public interface OnCustomerSelected {

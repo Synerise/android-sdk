@@ -22,6 +22,7 @@ import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.sample.R;
 
 
+
 public class ClientAccountActivity extends AppCompatActivity {
 
     public static final String TAG = ClientAccountActivity.class.getSimpleName();

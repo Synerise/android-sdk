@@ -1,6 +1,7 @@
 package com.synerise.sdk.sample.view.events.widgets.recycler.adapter;
 
 
+
 public class Customer {
 
     private final String name, lastName, nickname;

@@ -1,20 +1,10 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.versions = [
-            'minSdk'     : 19,
-            'compileSdk' : 26,
-            'buildTools' : '26.0.1',
-
-            'versionCode': 10,
-            'versionName': "3.1.5-RC2"
-    ]
-
     repositories {
         google()
         jcenter()
     }
-
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
         classpath 'com.google.gms:google-services:3.1.1'
@@ -38,7 +28,6 @@ allprojects {
 
 ext {
     final supportVersion = '26.1.0'
-
     // Support
     supportAnnotations = "com.android.support:support-annotations:$supportVersion"
     appCompatV7 = "com.android.support:appcompat-v7:$supportVersion"

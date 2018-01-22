@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 public class TrackerViewActivity extends AppCompatActivity {
 
     private static final String TAG = TrackerViewActivity.class.getSimpleName();

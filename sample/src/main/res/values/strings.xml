@@ -203,5 +203,6 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="show_walkthrough">Show walkthrough</string>
 
 </resources>

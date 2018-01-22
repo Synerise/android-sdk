@@ -16,6 +16,7 @@ import com.synerise.sdk.sample.view.events.widgets.recycler.adapter.CustomersRec
 import java.util.ArrayList;
 
 
+
 public class RecyclerAndHorizontalScrollActivity extends AppCompatActivity {
 
     private static final String TAG = RecyclerAndHorizontalScrollActivity.class.getSimpleName();

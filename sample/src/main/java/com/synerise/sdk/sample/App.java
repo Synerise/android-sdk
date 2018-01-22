@@ -9,6 +9,8 @@ import com.synerise.sdk.profile.Profile;
 
 import static com.synerise.sdk.event.aspect.TrackBase.TrackMode.FINE;
 
+
+
 public class App extends MultiDexApplication {
 
     @Override

@@ -1,53 +1,76 @@
-# Synerise Android SDK - User documentation #
+# Synerise Android SDK - User documentation
 
-## Event Tracker ##
+## Requirements
+
+- Minimum Android SDK version - 19
+
+## Installation
+
+Import maven dependency in your project gradle file:
+```
+...
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven {
+            url "https://synerise.bintray.com/Android"
+        }
+    }
+}
+```
+
+Import dependency in your root/build.gradle file:
+```
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.synerise.sdk:synerise-gradle-plugin:3.0.2'
+        classpath 'org.aspectj:aspectjtools:1.8.13'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+```
+
+Import dependency in your app/build.gradle file and apply plugin:
+```
+apply plugin: 'com.android.application'
+apply plugin: 'synerise-plugin'
+```
+```
+...
+dependencies {
+  ...
+  // Synerise Mobile SDK
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.1.5-RC3'
+}
+```
+
+Sometimes MultiDex errors may occur. In that case please enable MultiDex as follows (API 21):
+```
+defaultConfig {
+    applicationId "com.your.app"
+    minSdkVersion 21
+    ...
+    multiDexEnabled true
+}
+```
+You can find more information about MultiDex under this link: https://developer.android.com/studio/build/multidex.html
+
+## Event Tracker
 
 You can log events from your mobile app to Synerise platform with Tracker class.
-First of all, you need to initialize Tracker with `init` method and provide `Api Key`, `Application name` and `Application instance`.
+First of all, you need to initialize Tracker with `init` method and provide `Api Key`, `Application name` and `Application instance`.<br>
+To get `Api Key` sign in to your Synerise account and go to https://app.synerise.com/api/. Please generate new `Api Key` for `Business Profile` Audience.<br>
 Init method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.
 
-As of now, Tracker also supports auto-tracking mode which can be
-enabled with
-
-```
-Tracker.setTrackMode(FINE);
-```
-Auto-tracking is disabled by default.
-Accepted values for setTrackMode()
-
-```
-EAGER - listeners set to onTouch() only
-PLAIN - listeners set to onClick() only
-FINE  - listeners are attached to nearly everything in your app
-DISABLED
-```
-
-### Api Key ###
-To get `Api Key` sign in to your Synerise account and go to https://app.synerise.com/api/.
-Please generate new `Api Key` for `Business Profile` Audience.
-
-To send Event simply use `Tracker`:
-
-```
-Tracker.send(new CustomEvent("ButtonClick", "addEventButton"));
-```
-
-You can also pass your custom parameters:
-
-```
-TrackerParams params = new TrackerParams.Builder()
-                .add("name", "John")
-                .add("age", 27)
-                .add("isGreat", true)
-                .add("lastOrder", 384.28)
-                .add("count", 0x7fffffffffffffffL)
-                .add("someObject", new MySerializableObject(0))
-                .build();
-
-Tracker.send(new CustomEvent("ButtonClick", "addEventButton", params));
-```
-
-### Tracker ###
+### Initialize
 
 In your `Application` class:
 
@@ -65,7 +88,7 @@ public class App extends Application {
     }
 ```
 
-#### In your /values strings file (e.g. `string.xml`): ####
+and in your /values strings file (e.g. `string.xml`):
 
 ```
 <resources>
@@ -74,196 +97,119 @@ public class App extends Application {
 </resources>
 ```
 
-## Events ###
+### Debug
 
-### Session Events ###
+You can receive some simple logs about events by enabling debug mode, which is disabled by default.
+```
+Tracker.setDebugMode(true);
+```
+Note: It is not recommended to use debug mode in release version of your application.
+
+### View tracking
+
+As of now, Tracker also supports auto-tracking mode which can be enabled with
+```
+Tracker.setTrackMode(FINE);
+```
+
+Auto-tracking is *disabled* by default. Accepted values for setTrackMode()
+```
+EAGER - listeners set to onTouch() only
+PLAIN - listeners set to onClick() only
+FINE  - listeners are attached to nearly everything in your app
+DISABLED - listeners are disabled
+```
+
+### Send event
+
+To send Event simply use `Tracker`:
+```
+Tracker.send(new CustomEvent("ButtonClick", "addEventButton"));
+```
+
+You can also pass your custom parameters:
+```
+TrackerParams params = new TrackerParams.Builder()
+                .add("name", "John")
+                .add("age", 27)
+                .add("isGreat", true)
+                .add("lastOrder", 384.28)
+                .add("count", 0x7fffffffffffffffL)
+                .add("someObject", new MySerializableObject(0))
+                .build();
+
+Tracker.send(new CustomEvent("ButtonClick", "addEventButton", params));
+```
+
+### Events
+
+#### - Session Events
 Group of events related to user's session.
 
-#### LoggedInEvent ####
+##### LoggedInEvent
 Record a 'client logged in' event.
 
-#### LoggedOutEvent ####
+##### LoggedOutEvent
 Record a 'client logged out' event.
 
-
-### Products Events ###
+#### - Products Events
 Group of events related to products and cart.
 
-#### AddedToFavoritesEvent ####
+##### AddedToFavoritesEvent
 Record a 'client added product to favorites' event.
 
-#### AddedToCartEvent ####
+##### AddedToCartEvent
 Record a 'client added product to cart' event.
 
-#### RemovedFromCartEvent ####
+##### RemovedFromCartEvent
 Record a 'client removed product from cart' event.
 
-
-### Transaction Events ###
+#### - Transaction Events
 Group of events related to user's transactions.
 
-#### CancelledTransactionEvent ####
+##### CancelledTransactionEvent
 Record a 'client cancelled transaction' event.
 
-#### CompletedTransactionEvent ####
+##### CompletedTransactionEvent
 Record a 'client completed transaction' event.
 
-
-### Other Events ###
+#### - Other Events
 Group of uncategorized events related to user's location and actions.
 
-#### AppearedInLocationEvent ####
+##### AppearedInLocationEvent
 Record a 'client appeared in location' event.
 
-#### HitTimerEvent ###
+##### HitTimerEvent
 Record a 'client hit timer' event. This could be used for profiling or activity time monitoring - you can send "hit timer" when your client starts doing something and send it once again when finishes, but this time with different time signature. Then you can use our analytics engine to measure e.g. average activity time.
 
-#### SearchedEvent ###
+##### SearchedEvent
 Record a 'client searched' event.
 
-#### SharedEvent ###
+##### SharedEvent
 Record a 'client shared' event.
 
-#### VisitedScreenEvent ###
+##### VisitedScreenEvent
 Record a 'client visited screen' event.
 
-
-### Custom Event ###
+##### Custom Event
 This is the only event which requires `action` field. Log your custom data with TrackerParams class.
 
+#### - Other features
 
-### Tracker.setDebugMode(isDebugModeEnabled) ###
-This method enables/disables console logs from Tracker SDK.
-It is not recommended to use debug mode in release version of your application.
+##### Tracker.flush()
+Flush method forces sending events from queue to server.
 
 
-
-## Client ###
+## Client
 
 First of all, you need to initialize Client with `init` method and provide `Api Key`, `Application name` and `Application instance`.
 Init method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.
 In Client SDK you can also provide you custom `Authorization Configuration`. At this moment, configuration handles `Base URL` changes.
 
-### Client.logIn(email, password, deviceId) ###
-Log in a client in order to obtain the JWT token, which could be used in subsequent requests. The token is valid for 1 hour.
-This SDK will refresh token before each call if it is expiring (but not expired).
-Method requires valid and non-null email and password. Device ID is optional.
-Method returns `IApiCall` to execute request.
-
-### Client.getAccount() ###
-Use this method to get client's account information.
-This method returns `IDataApiCall` with parametrized `AccountInformation` object to execute request.
-
-### Client.updateAccount(accountInformation) ###
-Use this method to update client's account information.
-This method requires `AccountInformation` Builder Pattern object with client's account information. Not provided fields are not modified.
-Method returns `IApiCall` to execute request.
-
-### Client.setDebugMode(isDebugModeEnabled) ###
-This method enables/disables console logs from Client SDK.
-It is not recommended to use debug mode in release version of your application.
-
-
-
-## Profile ###
-
-First of all, you need to initialize Profile with `init` method and provide `Api Key`, `Application name` and `Application instance`.
-Init method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.
-
-### Profile.createClient(createClient) ###
-Create a new client record if no identifier has been assigned for him before in Synerise.
-This method requires `CreateClient` Builder Pattern object with client's optional data. Not provided fields are not modified.
-Method returns IApiCall object to execute request.
-
-### Profile.registerClient(registerClient) ###
-Register new Client with email, password and optional data.
-This method requires `RegisterClient` Builder Pattern object with client's email, password and optional data. Not provided fields are not modified.
-Method returns IApiCall object to execute request.
-
-### Profile.updateClient(updateClient) ###
-Update client with ID and optional data.
-This method requires `UpdateClient` Builder Pattern object with client's optional data. Not provided fields are not modified.
-Method returns IApiCall object to execute request.
-
-### Profile.deleteClient(id) ###
-Delete client with ID.
-This method requires client's id.
-Method returns IApiCall object to execute request.
-
-### Profile.requestPasswordReset(email) ###
-Request client's password reset with email. Client will receive a token on provided email address in order to use Profile.confirmResetPassword(password, token).
-This method requires client's email.
-Method returns IApiCall object to execute request.
-
-### Profile.confirmResetPassword(password, token) ###
-Confirm client's password reset with new password and token provided by Profile.requestPasswordReset(email).
-This method requires client's password and confirmation token sent on email address.
-Method returns IApiCall object to execute request.
-
-### Profile.setDebugMode(isDebugModeEnabled) ###
-This method enables/disables console logs from Profile SDK.
-It is not recommended to use debug mode in release version of your application.
-
-
-
-## Injector ##
-
-The Synerise Android InjectorSDK is designed to be simple to develop with, allowing you to integrate Synerise Mobile Content into your apps easily.
-
-For more info about Synerise visit the [Synerise Website](http://synerise.com)
-
-### Requirements ###
-
-- Android minimum SDK 19
-
-### Installation ###
-
-#### Maven artifact ####
-
-Import maven dependency in your project gradle file:
-```
-...
-allprojects {
-    repositories {
-        google()
-        jcenter()
-        maven {
-            url "https://synerise.bintray.com/Android"
-        }
-    }
-}
-```
-
-Import dependency in your app gradle file:
-```
-...
-dependencies {
-  ...
-  // Synerise Mobile SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.1.5-RC2'
-}
-```
-
-Sometimes MultiDex errors may occur. In that case please enable MultiDex as follows (API 21):
-```
-defaultConfig {
-    applicationId "com.your.app"
-    minSdkVersion 21
-    ...
-    multiDexEnabled true
-}
-```
-You can find more information about MultiDex under this link: https://developer.android.com/studio/build/multidex.html
-
-### Configuration ###
-
-#### Api Key ####
-To get `Api Key` sign in to your Synerise account and go to https://app.synerise.com/api/.
-Please generate new `Api Key` for `Business Profile` Audience.
-
-#### Init ####
+### Initialize
 
 In your `Application` class:
+
 ```
 public class App extends Application {
 
@@ -271,33 +217,170 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-        String apiKey = getString(R.string.businessProfileApiKey);
-        String appId = getString(R.string.sample_app_name);
+        String syneriseApiKey = getString(R.string.synerise_api_key);
+        String appName = getString(R.string.app_name);
 
-        Injector.init(this, apiKey, appId);
-        Profile.init(this, apiKey, appId);
+        Client.init(this, syneriseApiKey, appName);
     }
 ```
 
-In your ../values strings file (e.g. `string.xml`):
+and in your /values strings file (e.g. `string.xml`):
+
 ```
 <resources>
     <string name="app_name" translatable="false">Your GREAT application name</string>
-    <string name="businessProfileApiKey" translatable="false">A75DA38F-A2E9-5A25-2884-38AD12B98FAA</string> <!-- replace with valid api key -->
+    <string name="synerise_api_key" translatable="false">A75DA38F-A2E9-5A25-2884-38AD12B98FAA</string> <!-- replace with valid api key -->
 </resources>
 ```
 
-After these steps you have fully initialized InjectorSDK and it's ready to work.
+### Features
 
-### Mobile Content integration ###
+#### Client.logIn(email, password, deviceId)
+Log in a client in order to obtain the JWT token, which could be used in subsequent requests. The token is valid for 1 hour.
+This SDK will refresh token before each call if it is expiring (but not expired).
+Method requires valid and non-null email and password. Device ID is optional.
+Method returns `IApiCall` to execute request.
 
-#### Banners ####
+#### Client.getAccount()
+Use this method to get client's account information.
+This method returns `IDataApiCall` with parametrized `AccountInformation` object to execute request.
+
+#### Client.updateAccount(accountInformation)
+Use this method to update client's account information.
+This method requires `AccountInformation` Builder Pattern object with client's account information. Not provided fields are not modified.
+Method returns `IApiCall` to execute request.
+
+### Debug
+You can receive some simple logs about client by enabling debug mode, which is disabled by default.
+```
+Client.setDebugMode(true);
+```
+Note: It is not recommended to use debug mode in release version of your application.
+
+
+## Profile
+
+First of all, you need to initialize Profile with `init` method and provide `Api Key`, `Application name` and `Application instance`.
+Init method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.
+
+### Initialize
+
+In your `Application` class:
+
+```
+public class App extends Application {
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        String syneriseApiKey = getString(R.string.synerise_api_key);
+        String appName = getString(R.string.app_name);
+
+        Profile.init(this, syneriseApiKey, appName);
+    }
+```
+
+and in your /values strings file (e.g. `string.xml`):
+
+```
+<resources>
+    <string name="app_name" translatable="false">Your GREAT application name</string>
+    <string name="synerise_api_key" translatable="false">A75DA38F-A2E9-5A25-2884-38AD12B98FAA</string> <!-- replace with valid api key -->
+</resources>
+```
+
+### Features
+
+#### Profile.createClient(createClient)
+Create a new client record if no identifier has been assigned for him before in Synerise.
+This method requires `CreateClient` Builder Pattern object with client's optional data. Not provided fields are not modified.
+Method returns IApiCall object to execute request.
+
+#### Profile.registerClient(registerClient)
+Register new Client with email, password and optional data.
+This method requires `RegisterClient` Builder Pattern object with client's email, password and optional data. Not provided fields are not modified.
+Method returns IApiCall object to execute request.
+
+#### Profile.updateClient(updateClient)
+Update client with ID and optional data.
+This method requires `UpdateClient` Builder Pattern object with client's optional data. Not provided fields are not modified.
+Method returns IApiCall object to execute request.
+
+#### Profile.deleteClient(id)
+Delete client with ID.
+This method requires client's id.
+Method returns IApiCall object to execute request.
+
+#### Profile.requestPasswordReset(email)
+Request client's password reset with email. Client will receive a token on provided email address in order to use Profile.confirmResetPassword(password, token).
+This method requires client's email.
+Method returns IApiCall object to execute request.
+
+#### Profile.confirmResetPassword(password, token)
+Confirm client's password reset with new password and token provided by Profile.requestPasswordReset(email).
+This method requires client's password and confirmation token sent on email address.
+Method returns IApiCall object to execute request.
+
+### Debug
+You can receive some simple logs about profile by enabling debug mode, which is disabled by default.
+```
+Profile.setDebugMode(true);
+```
+Note: It is not recommended to use debug mode in release version of your application.
+
+
+## Injector
+
+The Synerise Android InjectorSDK is designed to be simple to develop with, allowing you to integrate Synerise Mobile Content into your apps easily.
+For more info about Synerise visit the [Synerise Website](http://synerise.com)
+
+First of all, you need to initialize Injector with `init` method and provide `Api Key`, `Application name` and `Application instance`.
+Init method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.
+
+### Initialize
+
+In your `Application` class:
+
+```
+public class App extends Application {
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        String syneriseApiKey = getString(R.string.synerise_api_key);
+        String appName = getString(R.string.app_name);
+
+        Injector.init(this, syneriseApiKey, appName);
+    }
+```
+
+and in your /values strings file (e.g. `string.xml`):
+
+```
+<resources>
+    <string name="app_name" translatable="false">Your GREAT application name</string>
+    <string name="synerise_api_key" translatable="false">A75DA38F-A2E9-5A25-2884-38AD12B98FAA</string> <!-- replace with valid api key -->
+</resources>
+```
+
+### Debug
+You can receive some simple logs about injector by enabling debug mode, which is disabled by default.
+```
+Injector.setDebugMode(true);
+```
+Note: It is not recommended to use debug mode in release version of your application.
+
+### Mobile Content integration
+
+#### Banners
 
 To integrate handling Mobile Content banners you have to register your app for push notifications first. Incoming push notifications have to be passed to `Injector`. `Injector` will then handle payload and display banner if provided payload is correctly validated.
 
-### Handling push notifications ###
+### Handling push notifications
 
-You have to pass incoming push notification payload to `Injector`in your `FirebaseMessagingService` implementation:
+You have to pass incoming push notification payload to `Injector` in your `FirebaseMessagingService` implementation:
 
 ```
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
@@ -368,7 +451,7 @@ Please remember to register services in AndroidManifest as follows:
     </application>
 ```
 
-### Onboarding and Welcome Screen ###
+### Onboarding and Welcome Screen
 
 Welcome Screen and Onboarding methods are called on demand.
 
@@ -421,10 +504,10 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 }
 ```
 
-## Author ##
+## Author
 
 Synerise, developer@synerise.com. If you need support please feel free to contact us.
 
-## License ##
+## License
 
 InjectorSDK is available under the MIT license. See the LICENSE file for more info.
