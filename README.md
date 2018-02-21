@@ -1,18 +1,18 @@
 # Synerise Android SDK
 Synerise SDK for Andoid
 
-#Documentation with examples
+# Documentation with examples
 http://synerise.github.io/android-sdk
 
 Actual version is in synerise_sdk.aar file.
 
-#Insert aar library in Android Studio as new module
+# Insert aar library in Android Studio as new module
 File->New Module->Import JAR/.AAR Package
 After added new module
 File->Project Structure->Check your App module->Dependencies->Click '+'->Module dependancy->check Synerise Sdk
 
 
-#Initialize Synerise-SDK
+# Initialize Synerise-SDK
 Add to your AndroidManifest.xml Synerise Api Key, uses-permission, service declarations and diffrent code connected  with push messages and  beacon tracking.
 
 ```
@@ -121,7 +121,7 @@ Add to your AndroidManifest.xml Synerise Api Key, uses-permission, service decla
 
 ```
 
-#User tracking
+# User tracking
 If you tracking user events in android application, you must initialize tracker :
 
 ```
