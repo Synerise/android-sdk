@@ -18,6 +18,7 @@ import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.sample.R;
+import com.synerise.sdk.sample.test.EspressoTestingIdlingResource;
 
 public class ClientSignInActivity extends AppCompatActivity {
 
@@ -78,6 +79,7 @@ public class ClientSignInActivity extends AppCompatActivity {
 
             if (call != null) call.cancel();
             call = Client.logIn(email, password, deviceId);
+            EspressoTestingIdlingResource.increment();
             call.execute(new ActionListener() {
                 @Override
                 public void onAction() {onSignInSuccessful();}
@@ -89,6 +91,7 @@ public class ClientSignInActivity extends AppCompatActivity {
     }
 
     private void onSignInSuccessful() {
+        EspressoTestingIdlingResource.decrement();
         Snackbar.make(emailInput, R.string.message_sing_in_successful, Snackbar.LENGTH_SHORT).show();
         startActivity(ClientAccountActivity.createIntent(this));
     }
@@ -96,6 +99,7 @@ public class ClientSignInActivity extends AppCompatActivity {
     // ****************************************************************************************************************************************
 
     private void onSignInFailure(ApiError apiError) {
+        EspressoTestingIdlingResource.decrement();
         Log.w(TAG, "onSignInFailure " + apiError.getErrorBody());
         Snackbar.make(emailInput, R.string.message_sing_in_failure, Snackbar.LENGTH_SHORT).show();
     }

@@ -47,7 +47,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Mobile SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.1.6-RC1'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.1.6-RC2'
 }
 ```
 
@@ -77,7 +77,7 @@ defaultConfig {
 dependencies {
     ...
     // MultiDex
-    implementation 'com.android.support:multidex:1.0.2'
+    implementation 'com.android.support:multidex:1.0.3'
     ...
 }
 ```
@@ -543,6 +543,12 @@ This method sets Synalter data update interval. After this time, Synalter will t
 In case of success, interval indicates time of next attempt.<br>
 If cashed data is returned and Synalter data refresh time is expired, API call will be executed in background.<br>
 Interval is a time value in seconds, which by default is set to 3600.
+
+### Exit debug mode
+In order to exit debug mode, user is required to clear app data and remove his/her email from debug list online.
+
+### Worth mentioning
+Synalter supports non-support activities from `android.app` package, but this activities are required to override `onStart()` lifecycle method.
 
 ## Author
 

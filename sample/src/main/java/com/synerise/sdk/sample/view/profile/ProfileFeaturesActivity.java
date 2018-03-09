@@ -24,6 +24,7 @@ import com.synerise.sdk.profile.model.CreateClient;
 import com.synerise.sdk.profile.model.RegisterClient;
 import com.synerise.sdk.profile.model.UpdateClient;
 import com.synerise.sdk.sample.R;
+import com.synerise.sdk.sample.test.EspressoTestingIdlingResource;
 
 import java.util.UUID;
 
@@ -100,14 +101,17 @@ public class ProfileFeaturesActivity extends AppCompatActivity {
 
             if (getClientID != null) getClientID.cancel();
             getClientID = Profile.getClientID(clientEmail.getEditText().getText().toString());
+            EspressoTestingIdlingResource.increment();
             getClientID.execute(new DataActionListener<AccountInformation>() {
                 @Override
                 public void onDataAction(AccountInformation data) {
+                    EspressoTestingIdlingResource.decrement();
                     clientId.getEditText().setText("0");//todo
                 }
             }, new DataActionListener<ApiError>() {
                 @Override
                 public void onDataAction(ApiError apiError) {
+                    EspressoTestingIdlingResource.decrement();
                     clientId.getEditText().setText("0");//todo
                 }
             });
@@ -123,6 +127,7 @@ public class ProfileFeaturesActivity extends AppCompatActivity {
 
         if (call != null) call.cancel();
         call = Profile.createClient(createClient);
+        EspressoTestingIdlingResource.increment();
         call.execute(new ActionListener() {
                          @Override
                          public void onAction() {
@@ -143,6 +148,7 @@ public class ProfileFeaturesActivity extends AppCompatActivity {
 
         if (call != null) call.cancel();
         call = Profile.registerClient(registerClient);
+        EspressoTestingIdlingResource.increment();
         call.execute(new ActionListener() {
                          @Override
                          public void onAction() {
@@ -165,6 +171,7 @@ public class ProfileFeaturesActivity extends AppCompatActivity {
 
             if (call != null) call.cancel();
             call = Profile.updateClient(getClientId(), updateClient);
+            EspressoTestingIdlingResource.increment();
             call.execute(new ActionListener() {
                              @Override
                              public void onAction() {onSuccess(R.string.message_update_client_success);}
@@ -181,6 +188,7 @@ public class ProfileFeaturesActivity extends AppCompatActivity {
 
             if (call != null) call.cancel();
             call = Profile.deleteClient(getClientId());
+            EspressoTestingIdlingResource.increment();
             call.execute(new ActionListener() {
                              @Override
                              public void onAction() {onSuccess(R.string.message_delete_client_success);}
@@ -196,6 +204,7 @@ public class ProfileFeaturesActivity extends AppCompatActivity {
         if (isValid(email)) {
             if (call != null) call.cancel();
             call = Profile.requestPasswordReset(email.getEditText().getText().toString());
+            EspressoTestingIdlingResource.increment();
             call.execute(new ActionListener() {
                              @Override
                              public void onAction() {onSuccess(R.string.message_reset_password_success);}
@@ -213,6 +222,7 @@ public class ProfileFeaturesActivity extends AppCompatActivity {
         if (isValid(password) && isValid(token)) {
             if (call != null) call.cancel();
             call = Profile.confirmResetPassword(password.getEditText().getText().toString(), token.getEditText().getText().toString());
+            EspressoTestingIdlingResource.increment();
             call.execute(new ActionListener() {
                              @Override
                              public void onAction() {onSuccess(R.string.message_confirm_reset_password_success);}
@@ -229,6 +239,7 @@ public class ProfileFeaturesActivity extends AppCompatActivity {
     public void getProfileToken() {
         if (getTokenCall != null) getTokenCall.cancel();
         getTokenCall = Profile.getToken();
+        EspressoTestingIdlingResource.increment();
         getTokenCall.execute(new DataActionListener<String>() {
                                  @Override
                                  public void onDataAction(String token) {
@@ -246,15 +257,18 @@ public class ProfileFeaturesActivity extends AppCompatActivity {
     // ****************************************************************************************************************************************
 
     private void onSuccess(@StringRes int message) {
+        EspressoTestingIdlingResource.decrement();
         Snackbar.make(clientId, message, Snackbar.LENGTH_SHORT).show();
     }
 
     private void onSuccess(@StringRes int message, Object object) {
+        EspressoTestingIdlingResource.decrement();
         Snackbar.make(clientId, message, Snackbar.LENGTH_SHORT).show();
         Log.d(TAG, "onSuccess: " + object);
     }
 
     private void onFailure(ApiError apiError, @StringRes int message) {
+        EspressoTestingIdlingResource.decrement();
         String errorCategory = apiError.getHttpErrorCategory().toString();
         Snackbar.make(clientId, message, Snackbar.LENGTH_SHORT).show();
         Log.w(TAG, "onFailure " + apiError.getErrorBody());
