@@ -32,4 +32,10 @@
         android:layout_height="wrap_content"
         android:text="@string/menu_button_injector_api" />
 
+    <Button
+        android:id="@+id/menu_button_synalter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_button_synalter_api" />
+
 </LinearLayout>

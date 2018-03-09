@@ -4,13 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.synerise.sdk.client.Client;
 import com.synerise.sdk.core.listeners.ActionListener;
@@ -19,15 +19,15 @@ import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.sample.R;
 
-
-
 public class ClientSignInActivity extends AppCompatActivity {
 
     public static final String TAG = ClientSignInActivity.class.getSimpleName();
-
     private TextInputLayout emailInput, passwordInput;
-
     private IApiCall call;
+
+    public static Intent createIntent(Context context) {
+        return new Intent(context, ClientSignInActivity.class);
+    }
 
     // ****************************************************************************************************************************************
 
@@ -46,13 +46,13 @@ public class ClientSignInActivity extends AppCompatActivity {
         });
     }
 
+    //*****************************************************************************************************************************************
+
     @Override
     protected void onStop() {
         super.onStop();
         if (call != null) call.cancel();
     }
-
-    //*****************************************************************************************************************************************
 
     @SuppressWarnings("ConstantConditions")
     private void onSubmitClick() {
@@ -75,32 +75,28 @@ public class ClientSignInActivity extends AppCompatActivity {
 
         if (isValid) {
             String deviceId = null;
+
             if (call != null) call.cancel();
             call = Client.logIn(email, password, deviceId);
             call.execute(new ActionListener() {
                 @Override
-                public void onAction() {ClientSignInActivity.this.onSignInSuccessful();}
+                public void onAction() {onSignInSuccessful();}
             }, new DataActionListener<ApiError>() {
                 @Override
-                public void onDataAction(ApiError apiError) {ClientSignInActivity.this.onSignInFailure(apiError);}
+                public void onDataAction(ApiError apiError) {onSignInFailure(apiError);}
             });
         }
     }
 
     private void onSignInSuccessful() {
-        Toast.makeText(this, R.string.message_sing_in_successful, Toast.LENGTH_LONG).show();
+        Snackbar.make(emailInput, R.string.message_sing_in_successful, Snackbar.LENGTH_SHORT).show();
         startActivity(ClientAccountActivity.createIntent(this));
-    }
-
-    private void onSignInFailure(ApiError apiError) {
-        String errorCategory = apiError.getHttpErrorCategory().toString();
-        Toast.makeText(this, getString(R.string.message_sing_in_failure) + " " + errorCategory, Toast.LENGTH_LONG).show();
-        Log.w(TAG, "onSignInFailure " + apiError.getErrorBody());
     }
 
     // ****************************************************************************************************************************************
 
-    public static Intent createIntent(Context context) {
-        return new Intent(context, ClientSignInActivity.class);
+    private void onSignInFailure(ApiError apiError) {
+        Log.w(TAG, "onSignInFailure " + apiError.getErrorBody());
+        Snackbar.make(emailInput, R.string.message_sing_in_failure, Snackbar.LENGTH_SHORT).show();
     }
 }

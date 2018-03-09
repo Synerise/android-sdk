@@ -66,7 +66,6 @@ public class TrackerActivity extends AppCompatActivity {
                 .add("count", 0x7fffffffffffffffL)
                 .add("customObject", new MySerializableObject())
                 .build();
-
         Tracker.send(new CustomEvent("ButtonClick", "addEventButton", params));
     }
 

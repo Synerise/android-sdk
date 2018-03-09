@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'synerise-plugin'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion 27
         applicationId "com.synerise.sample"
-        versionCode 5
-        versionName "1.0.4"
+        versionCode 6
+        versionName "1.0.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -48,20 +48,30 @@ android {
     }
 }
 
+ext {
+    rxJavaVersion = '2.1.10'
+    rxAndroidVersion = '2.0.2'
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     // MultiDex
-    implementation 'com.android.support:multidex:1.0.2'
+    implementation 'com.android.support:multidex:1.0.3'
     // Support
     implementation rootProject.ext.supportAnnotations
     implementation rootProject.ext.appCompatV7
     implementation rootProject.ext.supportV4
     implementation rootProject.ext.design
+    // Rx
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    // Gson
+    implementation 'com.google.code.gson:gson:2.8.2'
     // Firebase
     implementation 'com.google.firebase:firebase-messaging:11.8.0'
     // Synerise
-    implementation 'com.synerise.sdk:synerise-mobile-sdk:3.1.5-RC3'
-    //implementation project(':synerise-mobile-sdk')
+    implementation 'com.synerise.sdk:synerise-mobile-sdk:3.1.6-RC2'
+//    implementation project(':synerise-mobile-sdk')
     // Test
     testImplementation rootProject.ext.junit
     androidTestImplementation rootProject.ext.supportTestRunner

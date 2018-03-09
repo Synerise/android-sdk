@@ -17,46 +17,13 @@
 
     <TextView
         android:id="@+id/firebaseId"
-        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center" />
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
-
-    <Button
-        android:id="@+id/show_onboarding"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/show_onboarding" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.1" />
-
-    <Button
-        android:id="@+id/show_welcome_screen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/show_welcome_screen" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.1" />
-
-    <Button
-        android:id="@+id/show_walkthrough"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/show_walkthrough" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2" />
 
 </LinearLayout>

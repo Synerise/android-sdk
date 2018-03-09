@@ -6,21 +6,19 @@
 
 ## Installation
 
-Import maven dependency in your project gradle file:
+Set maven path in your root/build.gradle file:
 ```
 ...
 allprojects {
     repositories {
         google()
         jcenter()
-        maven {
-            url "https://synerise.bintray.com/Android"
-        }
+        maven { url "https://synerise.bintray.com/Android" }
     }
 }
 ```
 
-Import dependency in your root/build.gradle file:
+and import dependency:
 ```
 buildscript {
     repositories {
@@ -29,6 +27,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
+
         classpath 'com.synerise.sdk:synerise-gradle-plugin:3.0.2'
         classpath 'org.aspectj:aspectjtools:1.8.13'
 
@@ -48,11 +47,15 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Mobile SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.1.5-RC3'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.1.6-RC1'
 }
 ```
 
-Sometimes MultiDex errors may occur. In that case please enable MultiDex as follows (API 21):
+### Errors
+
+#### MultiDex
+
+Sometimes MultiDex errors may occur. In that case please enable MultiDex as follows (API >= 21):
 ```
 defaultConfig {
     applicationId "com.your.app"
@@ -61,7 +64,52 @@ defaultConfig {
     multiDexEnabled true
 }
 ```
+or for API < 21:
+```
+defaultConfig {
+    applicationId "com.your.app"
+    minSdkVersion 19
+    ...
+    multiDexEnabled true
+}
+```
+```
+dependencies {
+    ...
+    // MultiDex
+    implementation 'com.android.support:multidex:1.0.2'
+    ...
+}
+```
+```
+public class YourApp extends MultiDexApplication {
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        ...
+    }
+```
 You can find more information about MultiDex under this link: https://developer.android.com/studio/build/multidex.html
+
+#### AndroidManifest Merger
+
+Sometimes AndroidManifest Merger errors may occur. In that case please paste following code
+```
+<application
+    ...
+    tools:replace="android:theme">
+```
+in your AndroidManifest application tag.
+
+#### Dagger
+
+Sometimes Dagger errors may occur. In case of following error:
+```
+Error:Execution failed for task ':app:compileDevDebugJavaWithJavac'.
+com.google.common.util.concurrent.UncheckedExecutionException: java.lang.annotation.IncompleteAnnotationException: dagger.Provides missing element type
+```
+please make sure you are running the latest version of Dagger (SDK runs 2.14.1).
 
 ## Event Tracker
 
@@ -217,10 +265,10 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-        String syneriseApiKey = getString(R.string.synerise_api_key);
+        String syneriseClientApiKey = getString(R.string.synerise_client_api_key);
         String appName = getString(R.string.app_name);
 
-        Client.init(this, syneriseApiKey, appName);
+        Client.init(this, syneriseClientApiKey, appName);
     }
 ```
 
@@ -229,7 +277,7 @@ and in your /values strings file (e.g. `string.xml`):
 ```
 <resources>
     <string name="app_name" translatable="false">Your GREAT application name</string>
-    <string name="synerise_api_key" translatable="false">A75DA38F-A2E9-5A25-2884-38AD12B98FAA</string> <!-- replace with valid api key -->
+    <string name="synerise_client_api_key" translatable="false">A75DA38F-A2E9-5A25-2884-38AD12B98FAA</string> <!-- replace with valid api key -->
 </resources>
 ```
 
@@ -249,14 +297,6 @@ This method returns `IDataApiCall` with parametrized `AccountInformation` object
 Use this method to update client's account information.
 This method requires `AccountInformation` Builder Pattern object with client's account information. Not provided fields are not modified.
 Method returns `IApiCall` to execute request.
-
-### Debug
-You can receive some simple logs about client by enabling debug mode, which is disabled by default.
-```
-Client.setDebugMode(true);
-```
-Note: It is not recommended to use debug mode in release version of your application.
-
 
 ## Profile
 
@@ -322,14 +362,6 @@ Confirm client's password reset with new password and token provided by Profile.
 This method requires client's password and confirmation token sent on email address.
 Method returns IApiCall object to execute request.
 
-### Debug
-You can receive some simple logs about profile by enabling debug mode, which is disabled by default.
-```
-Profile.setDebugMode(true);
-```
-Note: It is not recommended to use debug mode in release version of your application.
-
-
 ## Injector
 
 The Synerise Android InjectorSDK is designed to be simple to develop with, allowing you to integrate Synerise Mobile Content into your apps easily.
@@ -394,7 +426,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 }
 ```
 
-Also register for push messages:
+Also register for push messages (note that *Profile* needs to be initialized):
 ```
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
@@ -420,7 +452,6 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     }
 }
 ```
-
 Please remember to register services in AndroidManifest as follows:
 ```
 <application
@@ -451,58 +482,67 @@ Please remember to register services in AndroidManifest as follows:
     </application>
 ```
 
-### Onboarding and Welcome Screen
+### Walkthrough
 
-Welcome Screen and Onboarding methods are called on demand.
+Walkthrough is called automatically during Injector initialization.<br>
+The moment SDK gets successful response with walkthrough data, activity is started (naturally atop of activities stack).<br>
+Note, that all intents to start new activities from your launcher activity are blocked in order to not cover walkthrough.
+These intents are first distincted and then launched in order they were fired after walkthrough finishes.<br>
+Note, that explained mechanism only works for support activities and it *does not* handle starting activities for result.<br>
+Moreover, walkthrough may be launched only once. Simple flag is saved locally when activity is created,
+therefore cleaning app data causes in calling API again.
 
-Call this in your `Activity` class eg. `SplashScreenActivity`
+## Synalter
+
+First of all, you need to initialize Synalter with `init` method and provide `Api Key`, `Application name` and `Application instance`.
+Init method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.
+
+### Initialize
+
+In your `Application` class:
+
 ```
-private static final int ONBOARDING_REQUEST_CODE = 201;
-private static final String BUCKET_NAME = "yourBucketName";
+public class App extends Application {
 
-Injector.showOnboardingIfPresent(this, ONBOARDING_REQUEST_CODE, BUCKET_NAME);
-```
+    @Override
+    public void onCreate() {
+        super.onCreate();
 
-And get result in `onActivityResult` method:
-```
-@Override
-protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-    if (requestCode == ONBOARDING_REQUEST_CODE) {
-        if (resultCode == Injector.ResultCodes.OK) {
-            //onboarding has been shown and closed
-            Log.d(getClass().getSimpleName(), "onActivityResult: ONBOARDING - OK");
+        String syneriseApiKey = getString(R.string.synerise_api_key);
+        String appName = getString(R.string.app_name);
 
-        } else if (resultCode == Injector.ResultCodes.NOTHING_TO_SHOW) {
-           // nothing has been shown
-            Log.d(getClass().getSimpleName(), "onActivityResult: ONBOARDING - NOTHING_TO_SHOW");
-        }
+        Synalter.init(this, syneriseApiKey, appName);
     }
-}
 ```
 
-For Welcome Screen it looks almost the same:
+and in your /values strings file (e.g. `string.xml`):
+
 ```
-private static final int WELCOME_REQUEST_CODE = 202;
-private static final String BUCKET_NAME = "yourBucketName";
-...
-Injector.showWelcomeScreenIfPresent(this, WELCOME_REQUEST_CODE, BUCKET_NAME);
+<resources>
+    <string name="app_name" translatable="false">Your GREAT application name</string>
+    <string name="synerise_api_key" translatable="false">A75DA38F-A2E9-5A25-2884-38AD12B98FAA</string> <!-- replace with valid api key -->
+</resources>
 ```
 
-And you also get result in `onActivityResult` method:
-```
-@Override
-protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-  super.onActivityResult(requestCode, resultCode, data);
-  if (requestCode == WELCOME_REQUEST_CODE) {
-         if (resultCode == Injector.ResultCodes.OK) {
-             Log.d(getClass().getSimpleName(), "onActivityResult: WELCOME SCREEN - OK");
-         } else if (resultCode == Injector.ResultCodes.NOTHING_TO_SHOW) {
-             Log.d(getClass().getSimpleName(), "onActivityResult: WELCOME SCREEN - NOTHING_TO_SHOW");
-         }
-     }
-}
-```
+### Required data
+In order to modify your view's content, it's ID and location must be provided.<br>
+For instance, if you would like to change some button text, 2 values must be integrated:<br>
+1. Component path (e.g. com.example.app.your.path.to.activity.ButtonActivity)
+2. ID (e.g. button_activity_button)
+
+### Features
+
+#### Synalter.setSynalterTimeout(timeout)
+This method sets Synalter initial API call timeout. Synalter initial API call is called only once, before launcher activity is created.<br>
+Note that API call blocks UI thread, which causes blank screen before launching your launcher activity.<br>
+Blank screen color depends on your *windowBackground* color set in your default style. <br>
+Timeout is a time value in millis, which by default is set to 5000.
+
+#### Synalter.setSynalterUpdateInterval(interval)
+This method sets Synalter data update interval. After this time, Synalter will try to fetch data from API and cache it for later use.<br>
+In case of success, interval indicates time of next attempt.<br>
+If cashed data is returned and Synalter data refresh time is expired, API call will be executed in background.<br>
+Interval is a time value in seconds, which by default is set to 3600.
 
 ## Author
 

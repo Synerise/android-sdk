@@ -1,5 +1,6 @@
 package com.synerise.sdk.sample.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +11,7 @@ import com.synerise.sdk.sample.view.client.ClientSignInActivity;
 import com.synerise.sdk.sample.view.events.TrackerActivity;
 import com.synerise.sdk.sample.view.injector.InjectorActivity;
 import com.synerise.sdk.sample.view.profile.ProfileFeaturesActivity;
-
-
+import com.synerise.sdk.sample.view.synalter.SynalterApiActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {MainActivity.this.onButtonClick(view);}
         });
+        findViewById(R.id.menu_button_synalter).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {MainActivity.this.onButtonClick(view);}
+        });
     }
 
     // ****************************************************************************************************************************************
@@ -54,7 +58,31 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_button_injector:
                 startActivity(InjectorActivity.createIntent(this));
                 break;
-            default:
+            case R.id.menu_button_synalter:
+                startActivity(SynalterApiActivity.createIntent(this));
+                break;
         }
+    }
+
+    // ****************************************************************************************************************************************
+
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+    }
+
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        super.startActivityForResult(intent, requestCode);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 }

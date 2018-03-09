@@ -6,10 +6,9 @@ import com.synerise.sdk.client.Client;
 import com.synerise.sdk.event.Tracker;
 import com.synerise.sdk.injector.Injector;
 import com.synerise.sdk.profile.Profile;
+import com.synerise.sdk.synalter.Synalter;
 
-import static com.synerise.sdk.event.aspect.TrackBase.TrackMode.FINE;
-
-
+import static com.synerise.sdk.event.BaseViewAspect.TrackMode.FINE;
 
 public class App extends MultiDexApplication {
 
@@ -27,17 +26,13 @@ public class App extends MultiDexApplication {
         Tracker.setDebugMode(DEBUG_MODE);
         Tracker.setTrackMode(FINE);
 
-        Client.init(this, syneriseClientApiKey, appId);
-        Client.setDebugMode(DEBUG_MODE);
-
-        // Custom Configuration
-        // CustomClientAuthConfig customClientAuthConfig = new CustomClientAuthConfig("http://127.0.0.1/");
-        // Client.init(this, syneriseClientApiKey, appId, customClientAuthConfig);
-
         Profile.init(this, syneriseBusinessProfileApiKey, appId);
-        Profile.setDebugMode(DEBUG_MODE);
+
+        Client.init(this, syneriseClientApiKey, appId);
 
         Injector.init(this, syneriseBusinessProfileApiKey, appId);
         Injector.setDebugMode(DEBUG_MODE);
+
+        Synalter.init(this, syneriseBusinessProfileApiKey, appId);
     }
 }

@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:clipChildren="false"
     android:clipToPadding="false"
+    android:id="@+id/activity_client_account_view"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="@dimen/space_large">

@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">Synersie SDK Sample</string>
 
-    <string name="synerise_business_api_key">26223475-561D-89A7-CC97-CCDD0BDED29B</string> <!-- replace with your business key -->
-    <string name="synerise_client_api_key">6EFDC1D9-32F6-675A-2B78-8A0ADD11AC55</string> <!-- replace with your client key -->
+    <string name="synerise_business_api_key">91EAC916-C327-7031-6F37-D2322A8CF180</string> <!-- replace with your business key -->
+    <string name="synerise_client_api_key">4720C77D-7E56-285A-797C-83ED35DE8395</string> <!-- replace with your client key -->
 
     <string name="add_event_button_label">Add event</string>
     <string name="force_send_events_button_label">Force send</string>
@@ -39,6 +39,7 @@
     <string name="provide_new_password">New password</string>
     <string name="provide_token">Confirmation token</string>
     <string name="profile_password_confirm">Confirm Reset Password</string>
+    <string name="profile_get_id">Get ID from email</string>
 
     <string name="message_create_client_success">Client created successfully</string>
     <string name="message_create_client_failure">Client was not created</string>
@@ -204,5 +205,9 @@
     </string>
     <string name="action_settings">Settings</string>
     <string name="show_walkthrough">Show walkthrough</string>
+
+    <string name="menu_button_synalter">Synalter</string>
+    <string name="menu_button_synalter_support">Synalter support</string>
+    <string name="menu_button_synalter_api">Synalter API</string>
 
 </resources>

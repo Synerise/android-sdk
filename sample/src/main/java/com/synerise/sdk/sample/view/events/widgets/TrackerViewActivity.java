@@ -1,5 +1,6 @@
 package com.synerise.sdk.sample.view.events.widgets;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -19,6 +20,7 @@ import android.widget.CheckedTextView;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.NumberPicker;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
@@ -34,8 +36,6 @@ import com.synerise.sdk.sample.view.events.widgets.recycler.RecyclerAndHorizonta
 
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 public class TrackerViewActivity extends AppCompatActivity {
 
@@ -76,10 +76,15 @@ public class TrackerViewActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.progress_bar).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.date_picker_pre_26_api_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "ProgressBar~onClick");
+                new DatePickerDialog(TrackerViewActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        Log.d(TAG, "DatePicker~onDateChanged: " + year + "/" + month + "/" + dayOfMonth);
+                    }
+                }, 10, 10, 10).show();
             }
         });
 
@@ -177,6 +182,13 @@ public class TrackerViewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(TAG, "CheckedTextView~onClick");
                 checkedTextView.setChecked(!checkedTextView.isChecked());
+            }
+        });
+        checkedTextView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Log.d(TAG, "CheckedTextView~OnLongClickListener");
+                return false;
             }
         });
 

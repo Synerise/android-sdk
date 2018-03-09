@@ -7,7 +7,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
-        classpath 'com.google.gms:google-services:3.1.1'
+        classpath 'com.google.gms:google-services:3.2.0'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
 
         classpath 'com.synerise.sdk:synerise-gradle-plugin:3.0.2'
@@ -27,7 +27,7 @@ allprojects {
 }
 
 ext {
-    final supportVersion = '26.1.0'
+    final supportVersion = '27.1.0'
     // Support
     supportAnnotations = "com.android.support:support-annotations:$supportVersion"
     appCompatV7 = "com.android.support:appcompat-v7:$supportVersion"

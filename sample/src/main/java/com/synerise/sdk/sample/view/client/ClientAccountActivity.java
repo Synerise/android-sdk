@@ -4,11 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.synerise.sdk.client.Client;
 import com.synerise.sdk.client.model.AccountInformation;
@@ -17,19 +16,17 @@ import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.model.Sex;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.core.net.IDataApiCall;
-import com.synerise.sdk.core.utils.Lh;
 import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.sample.R;
-
-
 
 public class ClientAccountActivity extends AppCompatActivity {
 
     public static final String TAG = ClientAccountActivity.class.getSimpleName();
 
-    private IDataApiCall<AccountInformation> accountInfoCall;
     private IApiCall updateAccountCall;
     private IDataApiCall<String> getTokenCall;
+    private IDataApiCall<AccountInformation> accountInfoCall;
+    private View viewForSnackBar;
 
     public static Intent createIntent(Context context) {
         return new Intent(context, ClientAccountActivity.class);
@@ -42,105 +39,23 @@ public class ClientAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_account);
 
-        Button getAccountButton = findViewById(R.id.client_get_account);
-        getAccountButton.setOnClickListener(new View.OnClickListener() {
+        viewForSnackBar = findViewById(R.id.activity_client_account_view);
+        findViewById(R.id.client_get_account).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {ClientAccountActivity.this.getAccount();}
+            public void onClick(View v) {getAccount();}
         });
-
-        Button updateAccountButton = findViewById(R.id.client_update_account);
-        updateAccountButton.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.client_update_account).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {ClientAccountActivity.this.updateAccount();}
+            public void onClick(View v) {updateAccount();}
         });
-        Button getTokenButton = findViewById(R.id.client_get_token);
-        getTokenButton.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.client_get_token).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ClientAccountActivity.this.getToken();
+                getToken();
             }
         });
     }
 
-    // ****************************************************************************************************************************************
-
-    private void getAccount() {
-        if (accountInfoCall != null) accountInfoCall.cancel();
-        accountInfoCall = Client.getAccount();
-        accountInfoCall.execute(new DataActionListener<AccountInformation>() {
-            @Override
-            public void onDataAction(AccountInformation accountInformation) {
-                ClientAccountActivity.this.onGetAccountSuccess(accountInformation);
-            }
-        }, new DataActionListener<ApiError>() {
-            @Override
-            public void onDataAction(ApiError apiError) {ClientAccountActivity.this.onGetAccountFailure(apiError);}
-        });
-    }
-
-    private void onGetAccountSuccess(AccountInformation accountInformation) {
-        Toast.makeText(this, R.string.message_success, Toast.LENGTH_LONG).show();
-    }
-
-    private void onGetAccountFailure(ApiError apiError) {
-        String errorCategory = apiError.getHttpErrorCategory().toString();
-        Toast.makeText(this, getString(R.string.message_failure) + " " + errorCategory, Toast.LENGTH_LONG).show();
-        Log.w(TAG, "onGetAccountFailure " + apiError.getErrorBody());
-    }
-
-    // ****************************************************************************************************************************************
-
-    private void updateAccount() {
-        AccountInformation accountInformation = new AccountInformation();
-        accountInformation.setCity("Warsaw").setSex(Sex.MALE).setCompany("Synerise");
-
-        if (updateAccountCall != null) updateAccountCall.cancel();
-        updateAccountCall = Client.updateAccount(accountInformation);
-        updateAccountCall.execute(new ActionListener() {
-            @Override
-            public void onAction() {ClientAccountActivity.this.onUpdateAccountSuccess();}
-        }, new DataActionListener<ApiError>() {
-            @Override
-            public void onDataAction(ApiError apiError) {ClientAccountActivity.this.onUpdateAccountFailure(apiError);}
-        });
-    }
-
-    private void onUpdateAccountSuccess() {
-        Toast.makeText(this, R.string.message_success, Toast.LENGTH_LONG).show();
-    }
-
-    private void onUpdateAccountFailure(ApiError apiError) {
-        String errorCategory = apiError.getHttpErrorCategory().toString();
-        Toast.makeText(this, getString(R.string.message_failure) + " " + errorCategory, Toast.LENGTH_LONG).show();
-        Log.w(TAG, "onUpdateAccountFailure " + apiError.getErrorBody());
-    }
-
-    // ****************************************************************************************************************************************
-    public void getToken() {
-        if (getTokenCall != null) getTokenCall.cancel();
-        getTokenCall = Client.getToken();
-        getTokenCall.execute(new DataActionListener<String>() {
-            @Override
-            public void onDataAction(String token) {
-                onGetTokenSuccess(token);
-            }
-        }, new DataActionListener<ApiError>() {
-            @Override
-            public void onDataAction(ApiError apiError) {
-                onGetTokenFailure(apiError);
-            }
-        });
-    }
-
-    private void onGetTokenSuccess(String token) {
-        Toast.makeText(this, R.string.message_success + " " + token, Toast.LENGTH_LONG).show();
-    }
-
-    private void onGetTokenFailure(ApiError apiError) {
-        Log.d(getClass().getSimpleName(), "apiError= " + apiError.getErrorBody());
-        String errorCategory = apiError.getHttpErrorCategory().toString();
-        Toast.makeText(this, getString(R.string.message_failure) + " " + errorCategory, Toast.LENGTH_LONG).show();
-    }
     // ****************************************************************************************************************************************
 
     @Override
@@ -149,5 +64,66 @@ public class ClientAccountActivity extends AppCompatActivity {
         if (updateAccountCall != null) updateAccountCall.cancel();
         if (accountInfoCall != null) accountInfoCall.cancel();
         if (getTokenCall != null) getTokenCall.cancel();
+    }
+
+    private void getAccount() {
+        if (accountInfoCall != null) accountInfoCall.cancel();
+        accountInfoCall = Client.getAccount();
+        accountInfoCall.execute(new DataActionListener<AccountInformation>() {
+                                    @Override
+                                    public void onDataAction(AccountInformation accountInformation) {onSuccess(accountInformation);}
+                                },
+                                new DataActionListener<ApiError>() {
+                                    @Override
+                                    public void onDataAction(ApiError apiError) {onFailure(apiError);}
+                                });
+    }
+
+    private void updateAccount() {
+        AccountInformation accountInformation = new AccountInformation();
+        accountInformation.setCity("Warsaw").setSex(Sex.MALE).setCompany("Synerise");
+
+        if (updateAccountCall != null) updateAccountCall.cancel();
+        updateAccountCall = Client.updateAccount(accountInformation);
+        updateAccountCall.execute(new ActionListener() {
+                                      @Override
+                                      public void onAction() {onSuccess(null);}
+                                  },
+                                  new DataActionListener<ApiError>() {
+                                      @Override
+                                      public void onDataAction(ApiError apiError) {onFailure(apiError);}
+                                  });
+    }
+
+    // ****************************************************************************************************************************************
+
+    private void getToken() {
+        if (getTokenCall != null) getTokenCall.cancel();
+        getTokenCall = Client.getToken();
+        getTokenCall.execute(new DataActionListener<String>() {
+                                 @Override
+                                 public void onDataAction(String token) {
+                                     onSuccess(token);
+                                 }
+                             },
+                             new DataActionListener<ApiError>() {
+                                 @Override
+                                 public void onDataAction(ApiError apiError) {
+                                     onFailure(apiError);
+                                 }
+                             });
+    }
+
+    private void onSuccess(Object object) {
+        Snackbar.make(viewForSnackBar, getString(R.string.message_success), Snackbar.LENGTH_SHORT).show();
+        Log.d(TAG, "onGetTokenSuccess: " + object);
+    }
+
+    // ****************************************************************************************************************************************
+
+    private void onFailure(ApiError apiError) {
+        Log.d(TAG, "onFailure: " + apiError.getErrorBody());
+        String errorCategory = apiError.getHttpErrorCategory().toString();
+        Snackbar.make(viewForSnackBar, getString(R.string.message_failure) + " " + errorCategory, Snackbar.LENGTH_SHORT).show();
     }
 }

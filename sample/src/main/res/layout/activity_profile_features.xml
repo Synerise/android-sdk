@@ -16,16 +16,41 @@
             android:id="@+id/profile_client_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="@string/provide_client_id"
             app:errorEnabled="true"
             app:hintAnimationEnabled="true">
 
             <android.support.design.widget.TextInputEditText
+                android:id="@+id/profile_client_id_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/provide_client_id"
                 android:inputType="numberDecimal" />
 
         </android.support.design.widget.TextInputLayout>
+
+        <include layout="@layout/include_separator" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/profile_client_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/provide_client_email"
+            app:errorEnabled="true"
+            app:hintAnimationEnabled="true">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/profile_client_email_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/profile_button_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_get_id" />
 
         <include layout="@layout/include_separator" />
 
@@ -59,12 +84,13 @@
             android:id="@+id/profile_password_reset_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="@string/provide_client_email"
             app:hintAnimationEnabled="true">
 
             <android.support.design.widget.TextInputEditText
+                android:id="@+id/profile_password_reset_email_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/provide_client_email"
                 android:inputType="textEmailAddress" />
 
         </android.support.design.widget.TextInputLayout>
@@ -81,13 +107,14 @@
             android:id="@+id/profile_password_confirm_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="@string/provide_new_password"
             app:hintAnimationEnabled="true">
 
             <android.support.design.widget.TextInputEditText
+                android:id="@+id/profile_password_confirm_pass_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/provide_new_password"
-                android:inputType="textVisiblePassword" />
+                android:inputType="textPassword" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -95,12 +122,13 @@
             android:id="@+id/profile_password_confirm_token"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="@string/provide_token"
             app:hintAnimationEnabled="true">
 
             <android.support.design.widget.TextInputEditText
+                android:id="@+id/profile_password_confirm_token_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/provide_token"
                 android:inputType="text" />
 
         </android.support.design.widget.TextInputLayout>
