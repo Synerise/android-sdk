@@ -30,7 +30,9 @@ Add to your AndroidManifest.xml Synerise Api Key, uses-permission, service decla
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-
+   
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+	
     <supports-screens
         android:anyDensity="true"
         android:xlargeScreens="true"
