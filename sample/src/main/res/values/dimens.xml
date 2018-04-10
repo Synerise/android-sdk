@@ -2,13 +2,32 @@
 <resources>
 
     <dimen name="space_micro">1dp</dimen>
+    <dimen name="space_mini">5dp</dimen>
     <dimen name="space_small">10dp</dimen>
     <dimen name="space_content">16dp</dimen>
     <dimen name="space_medium">20dp</dimen>
     <dimen name="space_large">30dp</dimen>
 
-    <dimen name="app_bar_height">180dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="text_margin">16dp</dimen>
+    <dimen name="text_14">14sp</dimen>
+    <dimen name="text_16">16sp</dimen>
+    <dimen name="text_18">18sp</dimen>
+    <dimen name="text_30">30sp</dimen>
+
+    <dimen name="corners_small">5dp</dimen>
+
+    <dimen name="stroke_width">1dp</dimen>
+
+    <dimen name="elevation">2dp</dimen>
+    <dimen name="elevation_on_touch">8dp</dimen>
+
+    <dimen name="image_medium">200dp</dimen>
+    <dimen name="image_large">300dp</dimen>
+
+    <dimen name="separator_height">1px</dimen>
+    <!-- ********************************************************************************** -->
+
+    <dimen name="parallax_header_height">300dp</dimen>
+
+    <dimen name="drawer_width">300dp</dimen>
 
 </resources>

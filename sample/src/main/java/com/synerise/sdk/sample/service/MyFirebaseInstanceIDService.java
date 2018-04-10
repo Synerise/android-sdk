@@ -6,14 +6,9 @@ import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
-import com.synerise.sdk.core.listeners.ActionListener;
-import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IApiCall;
-import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.profile.Profile;
 import com.synerise.sdk.sample.util.FirebaseIdChangeBroadcastReceiver;
-
-
 
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
@@ -36,17 +31,8 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
         if (refreshedToken != null) {
             IApiCall call = Profile.registerForPush(refreshedToken);
-            call.execute(new ActionListener() {
-                @Override
-                public void onAction() {
-                    Log.d(TAG, "Register for Push Successful " + refreshedToken);
-                }
-            }, new DataActionListener<ApiError>() {
-                @Override
-                public void onDataAction(ApiError apiError) {
-                    Log.w(TAG, "Register for Push FAILED " + refreshedToken);
-                }
-            });
+            call.execute(() -> Log.d(TAG, "Register for Push Successful " + refreshedToken),
+                         apiError -> Log.w(TAG, "Register for Push FAILED " + refreshedToken));
 
             Intent intent = FirebaseIdChangeBroadcastReceiver.createFirebaseIdChangedIntent();
             LocalBroadcastManager.getInstance(this).sendBroadcast(intent);

@@ -6,7 +6,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.1'
         classpath 'com.google.gms:google-services:3.2.0'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
 
@@ -27,13 +27,32 @@ allprojects {
 }
 
 ext {
-    final supportVersion = '27.1.0'
+    supportVersion = '26.1.0'
+    daggerVersion = '2.14.1'
+    rxJavaVersion = '2.1.10'
+    rxAndroidVersion = '2.0.2'
+    okHttpVersion = '3.10.0'
+    retrofitVersion = '2.3.0'
     // Support
     supportAnnotations = "com.android.support:support-annotations:$supportVersion"
     appCompatV7 = "com.android.support:appcompat-v7:$supportVersion"
-    supportV4 = "com.android.support:support-v4:$supportVersion"
     recycler = "com.android.support:recyclerview-v7:$supportVersion"
+    cardView = "com.android.support:cardview-v7:$supportVersion"
+    supportV4 = "com.android.support:support-v4:$supportVersion"
     design = "com.android.support:design:$supportVersion"
+    // Dagger
+    dagger = "com.google.dagger:dagger:$daggerVersion"
+    daggerCompiler = "com.google.dagger:dagger-compiler:$daggerVersion"
+    // RxJava
+    rxJava2 = "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    rxAndroid = "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    // OkHttp
+    okhttp3 = "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    okhttp3Interceptor = "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+    // Retrofit
+    retrofit2 = "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    retrofit2Converter = "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    retrofit2Adapter = "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
     // Test
     supportTestRunner = "com.android.support.test:runner:1.0.1"
     espressoCore = "com.android.support.test.espresso:espresso-core:3.0.1"

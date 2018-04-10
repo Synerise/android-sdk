@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/buttonSecondaryPressed" />
+            <stroke android:width="@dimen/stroke_width"
+                android:color="@color/stroke" />
+            <corners android:radius="@dimen/corners_small" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/corners_small" />
+            <solid android:color="@color/buttonSecondary" />
+        </shape>
+    </item>
+
+</selector>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="api_base_url" translatable="false">https://api.synerise.com/</string>
+    <string name="api_date_format" translatable="false">yyyy-MM-dd\'T\'HH:mm:ss</string>
+
+    <integer name="api_read_timeout_sek" translatable="false">20</integer>
+    <integer name="api_connect_timeout_sek" translatable="false">20</integer>
+    <integer name="api_write_timeout_sek" translatable="false">20</integer>
+
+</resources>

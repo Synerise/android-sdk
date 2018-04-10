@@ -4,8 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-
-
 public class FirebaseIdChangeBroadcastReceiver extends BroadcastReceiver {
 
     public static final String ACTION_FIREBASE_ID_CHANGE = FirebaseIdChangeBroadcastReceiver.class.getPackage() + ".ACTION_FIREBASE_ID_CHANGE";
@@ -37,10 +35,7 @@ public class FirebaseIdChangeBroadcastReceiver extends BroadcastReceiver {
     }
 
     public interface ActionListener {
-        ActionListener NULL = new ActionListener() {
-            @Override
-            public void onAction() {}
-        };
+        ActionListener NULL = () -> {};
         void onAction();
     }
 }

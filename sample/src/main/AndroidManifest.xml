@@ -3,61 +3,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.synerise.sdk.sample">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        tools:replace="android:theme">
+        android:theme="@style/AppTheme">
 
-        <!-- ************************************************************************ -->
+        <!-- ****************************************************************************************************************************** -->
 
-        <activity android:name=".view.MainActivity">
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.events.TrackerActivity" />
-
-        <activity android:name=".view.client.ClientSignInActivity" />
-
-        <activity android:name=".view.client.ClientAccountActivity" />
-
-        <activity android:name=".view.profile.ProfileFeaturesActivity" />
-
-        <activity android:name=".view.injector.InjectorActivity" />
-
-        <activity android:name=".view.synalter.SynalterApiActivity" />
-
-        <activity android:name=".view.synalter.support.SynalterSupportActivity" />
-
-        <activity android:name=".view.synalter.app.SynalterActivity" />
-
-        <activity android:name=".view.events.widgets.TrackerViewActivity" />
+        <activity
+            android:name=".ui.dashboard.DashboardActivity"
+            android:screenOrientation="portrait" />
 
         <activity
-            android:name=".view.events.widgets.nested_scroll.NestedScrollingActivity"
-            android:label="@string/title_activity_nested_scrolling"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".ui.category.details.CategoryActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.product.ProductActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.events.TrackerViewActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.linking.DeepLinkingActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="deep_linking_key" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
 
-        <activity android:name=".view.events.widgets.recycler.RecyclerAndHorizontalScrollActivity" />
+        <!-- ****************************************************************************************************************************** -->
 
-        <!-- ****************************************************************************** -->
-
-        <service android:name=".service.MyFirebaseMessagingService">
+        <service
+            android:name=".service.MyFirebaseMessagingService"
+            tools:ignore="ExportedService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service android:name=".service.MyFirebaseInstanceIDService">
+        <service
+            android:name=".service.MyFirebaseInstanceIDService"
+            tools:ignore="ExportedService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>

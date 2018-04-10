@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'synerise-plugin'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 26
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 27
+        targetSdkVersion 26
         applicationId "com.synerise.sample"
-        versionCode 6
-        versionName "1.0.5"
+        versionCode 7
+        versionName "2.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -46,11 +46,17 @@ android {
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 ext {
-    rxJavaVersion = '2.1.10'
-    rxAndroidVersion = '2.0.2'
+    butterKnifeVersion = '8.8.1'
+    gsonVersion = '2.8.2'
+    syneriseVersion = '3.1.7'
+    playServicesVersion = '12.0.1'
 }
 
 dependencies {
@@ -59,25 +65,45 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     // Support
     implementation rootProject.ext.supportAnnotations
-    implementation rootProject.ext.appCompatV7
     implementation rootProject.ext.supportV4
+    implementation rootProject.ext.appCompatV7
+    implementation rootProject.ext.recycler
+    implementation rootProject.ext.cardView
     implementation rootProject.ext.design
-    // Rx
-    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
-    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    // ButterKnife
+    implementation "com.jakewharton:butterknife:$butterKnifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
+    // Dagger
+    implementation rootProject.ext.dagger
+    annotationProcessor rootProject.ext.daggerCompiler
+    // RxJava
+    implementation rootProject.ext.rxJava2
+    implementation rootProject.ext.rxAndroid
+    // OkHttp
+    implementation rootProject.ext.okhttp3
+    implementation rootProject.ext.okhttp3Interceptor
+    // Retrofit
+    implementation rootProject.ext.retrofit2
+    implementation rootProject.ext.retrofit2Converter
+    implementation rootProject.ext.retrofit2Adapter
     // Gson
-    implementation 'com.google.code.gson:gson:2.8.2'
-    // Firebase
-    implementation 'com.google.firebase:firebase-messaging:11.8.0'
+    implementation "com.google.code.gson:gson:$gsonVersion"
     // Synerise
-    implementation 'com.synerise.sdk:synerise-mobile-sdk:3.1.6-RC2'
-    // implementation project(':synerise-mobile-sdk')
+    implementation "com.synerise.sdk:synerise-mobile-sdk:$syneriseVersion"
+    //implementation project(':synerise-mobile-sdk')
+    // Firebase
+    implementation "com.google.firebase:firebase-messaging:$playServicesVersion"
+    // UI
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+    implementation 'com.airbnb.android:lottie:2.2.5'
+    implementation 'com.mxn.soul:flowingdrawer-core:2.0.0'
+    implementation 'com.nineoldandroids:library:2.4.0' // required for flowing_drawer
     // Test
     testImplementation rootProject.ext.junit
     androidTestImplementation rootProject.ext.supportTestRunner
     androidTestImplementation rootProject.ext.espressoCore
     implementation 'com.android.support.test.espresso:espresso-idling-resource:3.0.1'
-
     androidTestImplementation('com.android.support.test.espresso:espresso-contrib:3.0.1') {
         // needed for PickedActions class used in TrackerViewActivityTest
         exclude group: 'com.android.support', module: 'appcompat'

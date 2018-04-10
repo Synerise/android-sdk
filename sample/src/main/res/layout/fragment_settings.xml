@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/LayoutContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/TextPrimary.Header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/default_user_name" />
+
+        <TextView
+            android:id="@+id/user_name"
+            style="@style/TextPrimary.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="John" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/LayoutContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/TextPrimary.Header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/default_last_name" />
+
+        <TextView
+            android:id="@+id/user_last_name"
+            style="@style/TextPrimary.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Doe" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/LayoutContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/TextPrimary.Header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/default_email" />
+
+        <TextView
+            android:id="@+id/user_email"
+            style="@style/TextPrimary.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="abcd@test.com" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/sign_out"
+        style="@style/ButtonPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_medium"
+        android:text="@string/default_sign_out" />
+
+</LinearLayout>
