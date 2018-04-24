@@ -4,9 +4,9 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.data.Product;
 import com.synerise.sdk.sample.util.DataActionListener;
@@ -16,7 +16,7 @@ class ProductsViewHolder extends RecyclerView.ViewHolder {
 
     private final TextView name;
     private final TextView price;
-    private final ImageView image;
+    private final SimpleDraweeView image;
 
     private final Context context;
     private Product product;

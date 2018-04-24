@@ -4,21 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.injector.Injector;
+import com.synerise.sdk.injector.callback.OnBannerListener;
+import com.synerise.sdk.injector.callback.OnWalkthroughListener;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.BaseActivity;
 import com.synerise.sdk.sample.ui.dashboard.DashboardActivity;
-import com.synerise.sdk.sample.util.DisposableHelper;
 
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Maybe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
+import java.util.Map;
 
 public class SplashActivity extends BaseActivity {
-
-    private Disposable disposable;
 
     public static Intent createIntent(Context context) {
         return new Intent(context, SplashActivity.class);
@@ -31,6 +27,7 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        Injector.getWalkthrough();
         /*
         If app was invisible to user (minimized or destroyed) and campaign banner came in - Synerise SDK makes it neat and simple.
         Simple push message is presented to the user and launcher activity is fired after click on push.
@@ -44,17 +41,40 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        disposable = Maybe.empty()
-                          .delay(1, TimeUnit.SECONDS)
-                          .observeOn(AndroidSchedulers.mainThread())
-                          .doOnComplete(this::navigate)
-                          .subscribe();
+        Injector.setOnWalkthroughListener(new OnWalkthroughListener() {
+            @Override
+            public void onLoadingError(ApiError error) {
+                error.printStackTrace();
+                navigate();
+            }
+
+            @Override
+            public void onLoaded() {
+                if (Injector.isLoadedWalkthroughUnique()) {
+                    Injector.showWalkthrough();
+                } else {
+                    navigate();
+                }
+            }
+
+            @Override
+            public void onClosed() {
+                navigate();
+            }
+        });
+        Injector.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public boolean shouldPresent(Map<String, String> data) {
+                return false;
+            }
+        });
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        DisposableHelper.dispose(disposable);
+        Injector.removeWalkthroughListener();
+        Injector.removeBannerListener();
     }
 
     @Override

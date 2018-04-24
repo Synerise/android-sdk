@@ -10,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.synerise.sdk.client.Client;
 import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.core.net.IDataApiCall;
@@ -50,6 +52,7 @@ public class ProfileFragment extends BaseFragment {
     @BindView(R.id.input_email_register) TextInputLayout inputEmailRegister;
     @BindView(R.id.input_password_register) TextInputLayout inputPasswordRegister;
     @BindView(R.id.register_client) Button registerClient;
+    @BindView(R.id.register_client_section) LinearLayout registerClientSection;
 
     @BindView(R.id.input_id_update) TextInputLayout inputIdUpdate;
     @BindView(R.id.input_name_update) TextInputLayout inputNameUpdate;
@@ -66,6 +69,7 @@ public class ProfileFragment extends BaseFragment {
     @BindView(R.id.confirm_password) Button confirmResetPassword;
 
     @BindView(R.id.get_token) Button getToken;
+
     private Unbinder unbinder;
 
     private IApiCall call;
@@ -98,6 +102,12 @@ public class ProfileFragment extends BaseFragment {
         resetPassword.setOnClickListener(v -> resetPassword());
         confirmResetPassword.setOnClickListener(v -> confirmResetPassword());
         getToken.setOnClickListener(v -> getProfileToken());
+
+        if (Client.isSignedIn()) {
+            registerClientSection.setVisibility(View.GONE);
+        } else {
+            registerClientSection.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

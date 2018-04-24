@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.synerise.sdk.client.Client;
+import com.synerise.sdk.injector.Injector;
+import com.synerise.sdk.profile.Profile;
 import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.persistence.AccountManager;
@@ -31,6 +33,7 @@ public class SettingsFragment extends BaseFragment {
     @BindView(R.id.user_last_name) TextView userLastName;
     @BindView(R.id.user_email) TextView userEmail;
     @BindView(R.id.sign_out) Button signOut;
+    @BindView(R.id.show_walkthrough) Button showWalkthrough;
     private Unbinder unbinder;
 
     @Inject AccountManager accountManager;
@@ -60,17 +63,19 @@ public class SettingsFragment extends BaseFragment {
         userLastName.setText(accountManager.getLastName());
         userEmail.setText(accountManager.getEmail());
 
-        if (accountManager.isSignedIn()) {
+        if (Client.isSignedIn()) {
             signOut.setVisibility(VISIBLE);
             signOut.setOnClickListener(v -> {
                 Client.signOut();
-                accountManager.setSignedIn(false);
+                accountManager.signOut();
                 startActivity(SplashActivity.createIntent(getContext()));
                 getActivity().finishAffinity();
             });
         } else {
             signOut.setVisibility(GONE);
         }
+
+        showWalkthrough.setOnClickListener(v -> Injector.showWalkthrough());
     }
 
     @Override

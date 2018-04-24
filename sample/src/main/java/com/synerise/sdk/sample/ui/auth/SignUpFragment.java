@@ -151,7 +151,7 @@ public class SignUpFragment extends BaseFragment {
     }
 
     private void onSignUpSuccessful() {
-        Snackbar.make(textEmail, R.string.default_success, Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(textEmail, R.string.sign_up_success, Snackbar.LENGTH_SHORT).show();
         contextCallback.handleSignUpSuccess();
     }
 

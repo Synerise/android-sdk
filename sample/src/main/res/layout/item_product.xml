@@ -11,12 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.makeramen.roundedimageview.RoundedImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/product_image"
             android:layout_width="match_parent"
             android:layout_height="@dimen/image_medium"
             android:scaleType="centerCrop"
-            app:riv_corner_radius="@dimen/corners_small"
+            app:placeholderImage="@drawable/synerise_sygnet"
+            app:roundedCornerRadius="@dimen/corners_small"
             tools:ignore="ContentDescription"
             tools:src="@mipmap/ic_launcher" />
 

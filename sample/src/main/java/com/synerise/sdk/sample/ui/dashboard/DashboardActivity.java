@@ -3,11 +3,15 @@ package com.synerise.sdk.sample.ui.dashboard;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
+import com.synerise.sdk.client.Client;
+import com.synerise.sdk.injector.Injector;
+import com.synerise.sdk.injector.callback.OnBannerListener;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.BaseActivity;
 import com.synerise.sdk.sample.ui.BaseFragment;
@@ -19,13 +23,17 @@ import com.synerise.sdk.sample.ui.events.TrackerFragment;
 import com.synerise.sdk.sample.ui.injector.InjectorFragment;
 import com.synerise.sdk.sample.ui.profile.ProfileFragment;
 import com.synerise.sdk.sample.ui.settings.SettingsFragment;
+import com.synerise.sdk.sample.util.KeyboardHelper;
 import com.synerise.sdk.sample.util.ToolbarHelper;
+
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 import static com.synerise.sdk.sample.ui.dashboard.DrawerSection.CATEGORIES;
 import static com.synerise.sdk.sample.ui.dashboard.DrawerSection.CLIENT;
 import static com.synerise.sdk.sample.ui.dashboard.DrawerSection.INJECTOR;
@@ -55,8 +63,36 @@ public class DashboardActivity extends BaseActivity implements IDashboardContext
         setContentView(R.layout.activity_dashboard);
         ButterKnife.bind(this);
 
+        Injector.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public boolean shouldPresent(Map<String, String> data) {
+                return true; // allow to show banner
+            }
+
+            @Override
+            public void onPresented() {
+                Log.d("DashboardActivity", "Banner has been presented.");
+            }
+
+            @Override
+            public void onClosed() {
+                Log.d("DashboardActivity", "Banner has been closed.");
+            }
+        });
+
         ToolbarHelper.setUpNavToolbar(this, R.string.app_name);
         changeFragment(CATEGORIES);
+        handleSigningVisibility();
+    }
+
+    private void handleSigningVisibility() {
+        if (Client.isSignedIn()) {
+            signInTextView.setVisibility(GONE);
+            signUpTextView.setVisibility(GONE);
+        } else {
+            signInTextView.setVisibility(VISIBLE);
+            signUpTextView.setVisibility(VISIBLE);
+        }
     }
 
     // ****************************************************************************************************************************************
@@ -146,8 +182,8 @@ public class DashboardActivity extends BaseActivity implements IDashboardContext
     @Override
     public void handleSignInSuccess() {
         changeFragment(CATEGORIES);
-        signInTextView.setVisibility(GONE);
-        signUpTextView.setVisibility(GONE);
+        KeyboardHelper.hideKeyboard(this);
+        handleSigningVisibility();
     }
 
     // ****************************************************************************************************************************************

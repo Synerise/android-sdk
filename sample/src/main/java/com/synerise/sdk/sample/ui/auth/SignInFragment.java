@@ -133,7 +133,6 @@ public class SignInFragment extends BaseFragment {
     // ****************************************************************************************************************************************
 
     private void onSignInSuccessful(String email) {
-        accountManager.setSignedIn(true);
         accountManager.setUserEmail(email);
         getAccount();
     }

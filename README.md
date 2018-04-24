@@ -27,7 +27,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.1'
-        classpath 'com.google.gms:google-services:3.2.0'
+        classpath 'com.google.gms:google-services:3.2.1'
 
         classpath 'com.synerise.sdk:synerise-gradle-plugin:3.0.2'
         classpath 'org.aspectj:aspectjtools:1.8.13'
@@ -45,7 +45,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Mobile SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.1.7'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.1.8'
 }
 ```
 
@@ -58,9 +58,7 @@ Then, generate new `Api Key` for `Business Profile` audience and new `Api Key` f
 In your `Application` sub-class:
 
 ```
-public class App extends Application
-// implements OnInjectorListener // optional Injector callback
-{
+public class App extends Application {
 
     @Override
     public void onCreate() {
@@ -75,13 +73,17 @@ public class App extends Application
         String syneriseClientApiKey = getString(R.string.synerise_client_api_key);
         String appId = getString(R.string.app_name);
 
+        final boolean DEBUG_MODE = BuildConfig.DEBUG;
+
         Synerise.Builder.with(this, syneriseBusinessProfileApiKey, syneriseClientApiKey, appId)
                         .notificationIcon(R.drawable.notification_icon)
-                        .syneriseDebugMode(true)
-                        .trackerDebugMode(true)
-                        .injectorDebugMode(true)
+                        .syneriseDebugMode(DEBUG_MODE)
+                        .trackerDebugMode(DEBUG_MODE)
+                        .injectorDebugMode(DEBUG_MODE)
                         .trackerTrackMode(FINE)
-                        .customClientConfig(new CustomClientAuthConfig("http://myBaseUrl.com/"))
+                        .injectorAutomatic(false)
+                        .pushRegistrationRequired(this)
+                        //.customClientConfig(new CustomClientAuthConfig("http://myBaseUrl.com/"))
                         .build();
         }
 }
@@ -103,15 +105,17 @@ and in your /values strings file (e.g. `strings.xml`):
 
 For your convenience, `Synerise.Builder` makes it possible to configure SDK the way you want it!<br>
 Let's dive into some configurable functionalities:
-1. .notificationIcon(@DrawableRes int) - if you're using campaign banners or push messages, it is recommended to pass your custom notification icon.
+1. `.notificationIcon(@DrawableRes int)` - if you're using campaign banners or push messages, it is recommended to pass your custom notification icon.
 This icon is presented as a small notification icon. Note, that required icon must be a drawable resource (not mipmap) due to Android O adaptive icons restrictions.
 Also, a default icon will be used if there is no custom icon provided.
-2. .syneriseDebugMode(boolean) - simple flag may be provided in order to enable full network traffic logs. It is not recommended to use debug mode in release version of your app.
-3. .trackerDebugMode(boolean) - you can receive some simple logs about sending events (like success, failure etc.) by enabling debug mode, which is disabled by default.
-4. .injectorDebugMode(boolean) - you can receive some simple logs about Injector actions (like walkthrough or welcome screen availability) by enabling debug mode, which is disabled by default.
-5. .trackerTrackMode(TrackMode) - sets proper mode for view tracking. See Tracker section below.
-6. .customClientConfig(CustomClientAuthConfig) - you can also provide your custom Client `Authorization Configuration`. At this moment, configuration handles `Base URL` changes.
-7. .build() - builds Synerise SDK with provided data. Please note, that `Synerise.Builder.with(..)` method is mandatory and `Synerise.Builder.build()` method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.<br>
+2. `.syneriseDebugMode(boolean)` - simple flag may be provided in order to enable full network traffic logs. It is not recommended to use debug mode in release version of your app.
+3. `.trackerDebugMode(boolean)` - you can receive some simple logs about sending events (like success, failure etc.) by enabling debug mode, which is disabled by default.
+4. `.injectorDebugMode(boolean)` - you can receive some simple logs about Injector actions (like Walkthrough screen availability) by enabling debug mode, which is disabled by default.
+5. `.trackerTrackMode(TrackMode)` - sets proper mode for view tracking. See Tracker section below.
+6. `.injectorAutomatic(true)` - fetches your Walkthrough content right away. Note, that Walkthrough will be presented the moment it gets loaded atop of your Activity if it's id is different than previously presented. See Injector section for more information.
+7. `.pushRegistrationRequired(this)` - it is important to register your customers for push messages. Please register for SDK callbacks when push registration is required.
+8. `.customClientConfig(CustomClientAuthConfig)` - you can also provide your custom Client `Authorization Configuration`. At this moment, configuration handles `Base URL` changes.
+9. `.build()` - builds Synerise SDK with provided data. Please note, that `Synerise.Builder.with(..)` method is mandatory and `Synerise.Builder.build()` method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.<br>
 
 ### Errors
 
@@ -198,10 +202,10 @@ Synerise.Builder.with(this, syneriseBusinessProfileApiKey, syneriseClientApiKey,
 
 Auto-tracking is *disabled* by default. Accepted values for trackerTrackMode(mode):
 ```
-EAGER - listeners are set to onTouch() only
-PLAIN - listeners are set to onClick() only
-FINE  - listeners are attached to nearly everything in your app (even to activities and fragments `onStart()` method to record VisitedScreen events)
-DISABLED - listeners are disabled
+EAGER - listeners are set to onTouch() only.
+PLAIN - listeners are set to onClick() only.
+FINE  - listeners are attached to nearly everything in your app (even to Activities and Fragments `onStart()` method to record VisitedScreen events).
+DISABLED - listeners are disabled, which is default mode.
 ```
 
 ### Send event
@@ -225,8 +229,8 @@ TrackerParams params = new TrackerParams.Builder()
 Tracker.send(new CustomEvent("yourAction", "yourLabel", params));
 ```
 
-Tracker caches and enqueues all your events locally, so they all will be send when available.<br>
-It also supports Android O *Background Execution Limits*.
+Tracker caches and enqueues all your events locally, so they all will be send eventually.<br>
+It also supports Android O *Background Execution Limits* (https://developer.android.com/about/versions/oreo/background.html).
 
 ### Events
 
@@ -326,7 +330,7 @@ This is the only event which requires `action` field.
 Tracker.send(new CustomEvent("Custom action", "Custom label"));
 ```
 
-Log your custom data with TrackerParams class.
+Log your custom data with `TrackerParams` class.
 
 ### Other features
 
@@ -345,8 +349,10 @@ Synerise Client ID may be obtained after integration with Synerise API.
 Sign in a client in order to obtain the JWT token, which could be used in subsequent requests.<br>
 The token is currently valid for 1 hour and SDK will refresh token before each call if it is expiring (but not expired).<br>
 Method requires valid and non-null email and password. Device ID is optional.<br>
-`signIn` mehtod also throws InvalidEmailException and InvalidPasswordException for you to catch and handle invalid email and/or password.<br>
-Method returns `IApiCall` to execute request.
+`signIn` method also throws `InvalidEmailException` and `InvalidPasswordException` for you to catch and handle invalid email and/or password.<br>
+Method returns `IApiCall` to execute request.<br>
+Please note that you should NOT allow to sign in again (or sign up) when user is already signed in. Please sign out user first.<br>
+Moreover, please do not create multiple instances nor call this method multiple times before execution.
 ```
 private void signIn(String email, String password) {
     try {
@@ -366,7 +372,8 @@ private void signIn(String email, String password) {
 ```
 
 #### Client.signOut()
-Signing client out causes in generating new UUID for a new anonymous one.
+Signing client out clears email, id and generates new UUID for anonymous one.<br>
+It also clears client's JWT token.
 
 #### Client.getAccount()
 Use this method to get client's account information.<br>
@@ -382,7 +389,7 @@ Get valid JWT login token.<br>
 Note, that error is thrown when Client is not logged in or token has expired and cannot be refreshed.<br>
 Method returns `IDataApiCall` with parametrized `String` to execute request.
 
-#### Client.getUUID()
+#### Client.getUuid()
 Retrieve current client UUID.
 
 #### Client.isSignedIn()
@@ -403,9 +410,9 @@ Synerise.Builder.with(this, syneriseBusinessProfileApiKey, syneriseClientApiKey,
 ### Features
 
 #### Profile.getClient(email)
-Get client with email. <br>
+Get client's account data with email. <br>
 Note, that you have to be logged in as business profile and use Api Key, which has REALM_CLIENT scope assigned or you have to be logged in as user and have ROLE_CLIENT_SHOW role assigned.<br>
-`getClient` mehtod also throws InvalidEmailException for you to catch and handle invalid email.<br>
+`getClient` method also throws InvalidEmailException for you to catch and handle invalid email.<br>
 Method returns IDataApiCall with parametrized `ClientProfile` object to execute request.
 
 #### Profile.createClient(createClient)
@@ -416,7 +423,9 @@ Method returns `IApiCall` object to execute request.
 #### Profile.registerClient(registerClient)
 Register new Client with email, password and optional data.
 This method requires `RegisterClient` Builder Pattern object with client's email, password and optional data. Not provided fields are not modified.
-Method returns `IApiCall` object to execute request.
+Method returns `IApiCall` object to execute request. Remember that account becomes active after successful email verification.<br>
+Please note that you should NOT allow to sign in again (or sign up) when user is already signed in. Please sign out user first.<br>
+Moreover, please do not create multiple instances nor call this method multiple times before execution.
 ```
 private void signUp(RegisterClient registerClient, String name, String lastName) {
     if (signUpCall != null) signUpCall.cancel();
@@ -465,17 +474,8 @@ Synerise.Builder.with(this, syneriseBusinessProfileApiKey, syneriseClientApiKey,
 ```
 Note: It is not recommended to use debug mode in release version of your application.
 
-### Mobile Content integration
-
-#### Banners
-
-To integrate handling Mobile Content banners you have to register your app for push notifications first.<br>
-Incoming push notifications have to be passed to `Injector`. `Injector` will handle payload and display banner if provided payload is correctly validated.
-
 ### Handling push notifications
-
-You have to pass incoming push notification payload to `Injector` in your `FirebaseMessagingService` implementation:
-
+In order to display push messages and banners properly, you have to pass incoming push notification payload to `Injector` in your `FirebaseMessagingService` implementation:
 ```
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -487,8 +487,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 }
 ```
-
-Also register for push messages:
+Overriding `onMessageReceived(RemoteMessage)` causes simple notification to not being displayed while app is visible to user. <br>
+Please check our sample app for example usage of building your non-Synerise notification. <br>
+<br>
+Also register for push messages in your `FirebaseInstanceIdService` implementation:
 ```
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
@@ -497,9 +499,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     @Override
     public void onTokenRefresh() {
 
-        // Get updated InstanceID token.
         final String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        Log.d(TAG, "Refreshed token: " + refreshedToken);
 
         if (refreshedToken != null) {
             IApiCall call = Profile.registerForPush(refreshedToken);
@@ -509,7 +509,36 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     }
 }
 ```
+and in your `Application` implementation:
+```
+public class App extends MultiDexApplication implements OnRegisterForPushListener {
 
+     private static final String TAG = App.class.getSimpleName();
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+         Synerise.Builder.with(this, syneriseBusinessProfileApiKey, syneriseClientApiKey, appId)
+                                .notificationIcon(R.drawable.ic_cart)
+                                .pushRegistrationRequired(this)
+                                ...
+                                .build();
+    }
+
+    @Override
+    public void onRegisterForPushRequired() {
+
+        final String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+
+        if (refreshedToken != null) {
+            IApiCall call = Profile.registerForPush(refreshedToken);
+            call.execute(() -> Log.d(TAG, "Register for Push succeed: " + refreshedToken),
+                         apiError -> Log.w(TAG, "Register for push failed: " + refreshedToken));
+        }
+    }
+}
+```
 Please remember to register services in AndroidManifest as follows:
 ```
 <application
@@ -538,12 +567,14 @@ Please remember to register services in AndroidManifest as follows:
     </application>
 ```
 
-#### Campaign banner
-If app was invisible to user (minimized or destroyed) and campaign banner came in - Synerise SDK makes it neat and simple.
-Simple push message is presented to the user and launcher activity is fired after click on push.
+### Campaign banner
+
+#### Handling app invisibility
+If app was invisible to user (minimized or destroyed) and campaign banner came in -
+simple push message is presented to the user and launcher activity is fired after notification click.<br>
 It is a prefect moment for you to pass this data and SDK will verify whether it is campaign banner
-and if so, banner will be presented within the app.
-If your launcher activity last quite longer, check onNewIntent(Intent) implementation below.
+and if so, banner will be presented within the app (atop of your activities).<br>
+If your launcher activity last quite longer, check `onNewIntent(Intent)` implementation below.
 ```
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -553,11 +584,10 @@ If your launcher activity last quite longer, check onNewIntent(Intent) implement
         boolean isSynerisePush = Injector.handlePushPayload(remoteMessage.getData());
     }
 ```
-When it seems like your launcher activity is not necessarily a short splash or it just simply takes some time before moving on.
-In this case it is preferred to override below method and set `android:launchMode="singleTop"` within your AndroidManifest activity declaration.
-The reason is very simple, when campaign banner came (with Open App action type) while app was minimized,
-simple push is presented to the user in the system tray.
-If your launcher activity was already created and push was clicked - your onCreate(Bundle) method will not be called.
+When it seems like your launcher activity is not necessarily a short splash or it just simply takes some time before moving on, you might be interested in `onNewIntent(Intent)` method.
+In this case it is preferred to override this method and set `android:launchMode="singleTop"` within your AndroidManifest Activity declaration.
+The reason is very simple - when campaign banner came while app was minimized, simple push is presented to the user in the system tray.
+If your launcher activity was already created and notification was clicked - your onCreate(Bundle) method will not be called.
 ```
     @Override
     protected void onNewIntent(Intent intent) {
@@ -568,10 +598,104 @@ If your launcher activity was already created and push was clicked - your onCrea
     }
 ```
 
-#### Action callback
-You can specify your custom action when user clicks on your banner, welcome screen, simple push button or walkthrough page.<br>
+#### Optional callbacks
+It is not always suitable for you to cover your Activities with any banners which may come.<br>
+Fortunately, we have put this into deep consideration and as for now, we'd like to present our optional banner callbacks.
+```
+Injector.setOnBannerListener(new OnBannerListener() {
+
+        @Override
+        public boolean shouldPresent(Map<String, String> data) {
+            return true;
+        }
+
+        @Override
+        public void onPresented() {
+            Log.d("DashboardActivity", "Banner has been presented.");
+        }
+
+        @Override
+        public void onClosed() {
+            Log.d("DashboardActivity", "Banner has been closed.");
+        }
+    });
+```
+Note, that all these methods are optional and overriding them is not required.<br>
+1. `shouldPresent(Map)` - This method decides whether to show banner if any came. SDK allows showing banner by default.
+`data` parameter stands for banner's necessary data for building process. Call `Injector.handlePushPayload(Map)` to create banner with provided data.
+Return true to allow banner presentation, false otherwise.
+2. `onPresented()` - This callback is fired when banner is successfully created and will be presented to user. Note, that banner will not be presented to user if it's content is invalid and therefore callback will not be fired.
+3. `onClosed()` - This callback is fired the very moment before banner is closed.
+
+Please remember to remove banner listener to stop receiving callbacks:
+```
+Injector.removeBannerListener();
+```
+
+### Walkthrough
+Synerise SDK provides multiple functionalities within Walkthrough implementation.<br>
+First of all, you are able to specify Walkthrough behavior the moment SDK initializes:
+```
+Synerise.Builder.with(this, syneriseBusinessProfileApiKey, syneriseClientApiKey, appId)
+        .notificationIcon(R.drawable.ic_cart)
+        .injectorAutomatic(true)
+        .build();
+```
+Setting `.injectorAutomatic(true)` will fetch Walkthrough riht away. Note, that Walkthrough will be presented the moment it gets loaded atop of your current Activity if it's id is different than previously presented.<br>
+To control this behavior please fetch your Walkthrough manually with `Injector.getWalkthrough()`.
+This method cancels previous API request (if any) and then starts loading Walkthrough asynchronously. Also, it must be called after `Injector.setOnWalkthroughListener(OnWalkthroughListener)` to receive callbacks properly. See Optional callbacks section below.<br>
+You can check if Walkthrough is already loaded with `Injector.isWalkthroughLoaded()` method, which returns true if Walkthrough is already loaded.<br>
+Moreover, there is an enhanced method to check if Walkthrough is loaded. `Injector.isLoadedWalkthroughUnique()` verifies whether loaded Walkthrough is different than previously presented. Every time any Walkthrough is presented it's id is cached locally, therefore you can control your flow more precisely.
+In summary, method will return true if loaded Walkthrough is different than previously presented, false otherwise or if Walkthrough is not loaded.<br>
+Finally, `Injector.showWalkthrough()` shows Walkthrough if loaded. This method may be called wherever in your application as many times you want. It also returns true if Walkthrough was loaded, false otherwise.
+
+#### Optional callbacks
+When you choose to load and present Walkthrough manually, you may be interested in following callbacks:
+```
+Injector.setOnWalkthroughListener(new OnWalkthroughListener() {
+
+            @Override
+            public void onLoadingError(ApiError error) {
+                error.printStackTrace();
+                goDashboard();
+            }
+
+            @Override
+            public void onLoaded() {
+                if (Injector.isLoadedWalkthroughUnique()) {
+                    Injector.showWalkthrough();
+                } else {
+                    goDashboard();
+                }
+            }
+
+            @Override
+            public void onPresented() {
+                super.onPresented();
+            }
+
+            @Override
+            public void onClosed() {
+                super.onClosed();
+            }
+        });
+```
+Note, that all these methods are optional and overriding them is not required. These are also called when Walkthrough was loaded automatically.<br>
+1. `onLoadingError(ApiError)` - This callback is fired the moment after Walkthrough failed to get initialized. This error may be caused by unsuccessful API response or invalid Walkthrough content.
+ApiError instance is provided to check error cause.
+2. `onLoaded()` - This callback is fired the moment after Walkthrough is initialized successfully. Remember, that Walkthrough will be showed automatically if `Synerise.Builder.injectorAutomatic(boolean)` was set to true and if it's id is different than previously presented.
+3. `onPresented()` - This callback is fired when Walkthrough is successfully created and will be presented to user. Note, that Walkthrough will not be presented to user if it's content is invalid and therefore callback will not be fired.
+4. `onClosed()` - This callback is fired the very moment before Walkthrough is closed.
+
+Please remember to remove Walkthrough listener to stop receiving callbacks:
+```
+Injector.removeWalkthroughListener();
+```
+
+### Action callbacks
+You can specify your custom action when user interacts with your banner or walkthrough.<br>
 There are 2 main actions user may choose so far - Open url and Deep link.<br>
-SDK makes it simple for you and by default handles those actions with browser opening or in case of deep linking - opening activity.<br>
+SDK makes it simple for you and by default handles those actions with browser opening or in case of deep linking - opening Activity.<br>
 To make your Activity available for deep linking, please use the following pattern in your AndroidManifest:
 ```
        <activity
@@ -602,37 +726,30 @@ public class App extends Application implements OnInjectorListener {
     public void onCreate() {
         super.onCreate();
 
-        initSynerise();
-    }
-
-    ...
-
-    @Override
-    public void onOpenUrl(String url) {
-        // your action here
+        Synerise.Builder.with(this, syneriseBusinessProfileApiKey, syneriseClientApiKey, appId)
+                        .notificationIcon(R.drawable.ic_cart)
+                        .build();
     }
 
     @Override
-    public void onDeepLink(String deepLink) {
+    public boolean onOpenUrl(InjectorSource source, String url) {
         // your action here
+
+        SystemUtils.openURL(this, url); // default behavior
+        return source != InjectorSource.WALKTHROUGH; // default behavior
+    }
+
+    @Override
+    public boolean onDeepLink(InjectorSource source, String deepLink) {
+        // your action here
+
+        SystemUtils.openDeepLink(this, deepLink); // default behavior
+        return source != InjectorSource.WALKTHROUGH; // default behavior
     }
 ```
 
-### Walkthrough
-Walkthrough is called automatically during Injector initialization.<br>
-The moment SDK gets successful response with walkthrough data, activity is started (naturally atop of activities stack).<br>
-Note, that all intents to start new activities from your launcher activity are blocked in order to not cover walkthrough.
-These intents are first distincted and then launched in order they were fired after walkthrough finishes.<br>
-Note, that explained mechanism only works for support activities (extending AppCompatActivity) and it *does not* handle starting activities for result.<br>
-Moreover, walkthrough with given id may be launched only once. This id is saved locally when activity is created and will be checked whether received walkthrough is not the same.
-
-### Welcome screen
-Welcome screen is called automatically during SDK initialization.<br>
-The moment SDK gets successful response with welcome screen data, activity is started (naturally atop of activities stack).<br>
-Note, that all intents to start new activities from your launcher activity are blocked in order to not cover welcome screen.
-These intents are first distincted and then launched in order they were fired after welcome screen finishes.<br>
-Note, that explained mechanism only works for support activities (extending AppCompatActivity) and it *does not* handle starting activities for result.<br>
-Moreover, welcome screen may be launched only once. Simple flag is saved locally when activity is created and SDK will not attempt to retrieve welcome screen from API again.
+1. `onOpenUrl(InjectorSource, String)` - Callback is fired when user interacts with URL action. Return true if Activity should be closed after action execution, false otherwise.
+2. `onDeepLink(InjectorSource, String)` - Callback is fired when user interacts with DEEP_LINKING action. Return true if Activity should be closed after action execution, false otherwise.
 
 ## Author
 Synerise, developer@synerise.com. If you need support please feel free to contact us.

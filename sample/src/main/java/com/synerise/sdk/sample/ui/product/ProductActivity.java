@@ -3,9 +3,9 @@ package com.synerise.sdk.sample.ui.product;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.synerise.sdk.event.Tracker;
 import com.synerise.sdk.event.TrackerParams;
 import com.synerise.sdk.event.model.interaction.VisitedScreenEvent;
@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 
 public class ProductActivity extends BaseActivity {
 
-    @BindView(R.id.parallax_image) ImageView parallaxImage;
+    @BindView(R.id.parallax_image) SimpleDraweeView parallaxImage;
     @BindView(R.id.product_name) TextView productName;
     @BindView(R.id.product_description) TextView productDescription;
     @BindView(R.id.product_price) TextView productPrice;

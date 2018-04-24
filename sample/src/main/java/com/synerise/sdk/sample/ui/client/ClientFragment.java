@@ -76,7 +76,7 @@ public class ClientFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         unbinder = ButterKnife.bind(this, view);
 
-        if (accountManager.isSignedIn()) {
+        if (Client.isSignedIn()) {
             clientFeatures.setVisibility(VISIBLE);
             requireSignIn.setVisibility(GONE);
         } else {

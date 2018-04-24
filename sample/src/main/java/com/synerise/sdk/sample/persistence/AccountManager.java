@@ -19,15 +19,10 @@ public class AccountManager {
 
     // ****************************************************************************************************************************************
 
-    public void setSignedIn(boolean isSignedIn) {
-        storagePOJO.setSignedIn(isSignedIn);
-        prefsStorage.saveStoragePOJO(storagePOJO);
-        // sign out = clear data
-        if (!isSignedIn) {
-            setUserName(null);
-            setUserLastName(null);
-            setUserEmail(null);
-        }
+    public void signOut(){
+        setUserName(null);
+        setUserLastName(null);
+        setUserEmail(null);
     }
 
     public void setUserName(String name) {
@@ -43,10 +38,6 @@ public class AccountManager {
     public void setUserEmail(String email) {
         storagePOJO.setEmail(email);
         prefsStorage.saveStoragePOJO(storagePOJO);
-    }
-
-    public boolean isSignedIn() {
-        return storagePOJO.isSignedIn();
     }
 
     public String getFirstName() {
