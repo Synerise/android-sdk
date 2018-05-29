@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/space_content">
+
+    <TextView
+        android:id="@+id/tracker_api"
+        style="@style/TextPrimary.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_content"
+        android:text="@string/tracker_api" />
+
+    <TextView
+        android:id="@+id/client_api"
+        style="@style/TextPrimary.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_content"
+        android:text="@string/client_api" />
+
+    <TextView
+        android:id="@+id/profile_api"
+        style="@style/TextPrimary.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_content"
+        android:text="@string/profile_api" />
+
+    <TextView
+        android:id="@+id/injector_api"
+        style="@style/TextPrimary.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_content"
+        android:text="@string/injector_api" />
+
+    <TextView
+        android:id="@+id/reset"
+        style="@style/TextPrimary.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_content"
+        android:text="@string/default_reset" />
+
+</LinearLayout>

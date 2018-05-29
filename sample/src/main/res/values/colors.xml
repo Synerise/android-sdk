@@ -1,81 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- text -->
-    <!-- launcher -->
-    <color name="space">#303A43</color>
+    <!-- primary -->
+    <!-- accent -->
+    <color name="ribbon">#0b68ff</color>
 
-    <!-- dashboard -->
-    <!-- insights -->
-    <!-- settings -->
-    <color name="dodger">#2388f8</color>
+    <!-- secondary button -->
+    <color name="lima">#59c928</color>
 
-    <!-- crm -->
-    <color name="scooter">#31bac6</color>
-
-    <!-- campaigns -->
-    <color name="outrageous">#fc593c</color>
-
-    <!-- automation -->
-    <color name="radical">#fc3c69</color>
-
-    <!-- prediction -->
-    <color name="eminence">#792c7f</color>
-
-    <!-- analytics -->
-    <color name="coral">#fc3b44</color>
-
-    <!-- task -->
-    <color name="atlantis">#9fce34</color>
-
-    <!-- avatar -->
-    <color name="buckthorn">#fdaa2a</color>
-    <color name="salad">#50ae54</color>
-    <color name="meadow">#159587</color>
-    <color name="lynch">#617d8a</color>
-    <color name="marino">#4054b2</color>
-
-    <!-- uncategorized -->
-    <color name="pale">#6b777f</color>
-    <color name="picton">#34c4f7</color>
+    <!-- background -->
     <color name="porcelain">#f3f5f6</color>
+
+    <!-- background drawer -->
+    <color name="alabaster">#fafafa</color>
+
+    <!-- text primary-->
+    <color name="charcoal">#384350</color>
+
+    <!-- text secondary-->
+    <color name="regent">#949ea6</color>
+
+    <!-- rating stars -->
+    <color name="outrageous">#fc5830</color>
+    <color name="alto">#e0e0e0</color>
+
+    <!--dashboard sections-->
+    <color name="persian">#381daf</color>
+    <color name="spring">#25ffb3</color>
+    <color name="laurel">#2b7204</color>
+    <color name="bright">#ffda46</color>
+    <color name="purple">#5008a1</color>
+    <color name="tangerine">#ff887c</color>
+    <color name="pine">#02776d</color>
+    <color name="periwinkle">#d0d1e7</color>
+
+    <!--categories-->
+    <color name="endeavour">#005cb2</color>
+    <color name="pacific">#009dc4</color>
+    <color name="turquoise">#27C8C4</color>
+    <color name="christi">#54ba0a</color>
+    <color name="pistachio">#89b808</color>
+    <color name="buddha">#c4c200</color>
+    <color name="corn">#eeb405</color>
+    <color name="cinnabar">#ea5139</color>
+    <color name="fuzzy">#c64060</color>
+    <color name="vivid">#8a3c9d</color>
+    <color name="royal">#6e3c9d</color>
+    <color name="amaranth">#ed364f</color>
+    <color name="lipstick">#a20548</color>
+    <color name="cherry">#820c46</color>
+    <color name="loulou">#631148</color>
 
     <!-- defaults -->
     <color name="white">#fff</color>
-    <color name="translucent">#efffffff</color>
+    <color name="translucent_max">#efffffff</color>
+    <color name="translucent_half">#77ffffff</color>
     <color name="transparent">#0fff</color>
     <color name="black">#000</color>
 
     <!-- ********************************************************************************************************************************** -->
 
-    <color name="primary">@color/dodger</color>
+    <color name="primary">@color/ribbon</color>
 
     <color name="background">@color/porcelain</color>
 
-    <color name="textPrimary">@color/space</color>
-    <color name="textSecondary">@color/pale</color>
+    <color name="textPrimary">@color/charcoal</color>
+    <color name="textSecondary">@color/regent</color>
+    <color name="textTertiary">@color/primary</color>
 
     <color name="buttonPrimary">@color/primary</color>
-    <color name="buttonPrimaryPressed">@color/picton</color>
-    <color name="buttonSecondary">@color/porcelain</color>
-    <color name="buttonSecondaryPressed">@color/white</color>
-
-    <color name="stroke">@color/porcelain</color>
-    <color name="strokeSelected">@color/primary</color>
-
-    <array name="avatars">
-        <item name="dodger">@color/dodger</item>
-        <item name="scooter">@color/scooter</item>
-        <item name="outrageous">@color/outrageous</item>
-        <item name="radical">@color/radical</item>
-        <item name="eminence">@color/eminence</item>
-        <item name="coral">@color/coral</item>
-        <item name="atlantis">@color/atlantis</item>
-        <item name="buckthorn">@color/buckthorn</item>
-        <item name="salad">@color/salad</item>
-        <item name="meadow">@color/meadow</item>
-        <item name="lynch">@color/lynch</item>
-        <item name="marino">@color/marino</item>
-    </array>
+    <color name="buttonSecondary">@color/lima</color>
 
 </resources>

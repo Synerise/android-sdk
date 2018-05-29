@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/synerise_space_small"
+    tools:background="@color/pine">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/synerise_space_medium"
+        android:paddingEnd="@dimen/synerise_space_small"
+        android:paddingStart="@dimen/synerise_space_small"
+        android:paddingTop="@dimen/synerise_space_medium">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/page_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:roundedCornerRadius="@dimen/corners_large"
+            tools:background="@drawable/background_culture"
+            tools:src="@drawable/pattern_culture" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/page_image_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="5">
+
+        <ImageView
+            android:id="@+id/page_image"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:adjustViewBounds="true"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/image_culture" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/page_text_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="2">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/section_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_60"
+            android:textStyle="bold"
+            tools:text="@string/section_culture" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/view_products_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="@dimen/space_huge"
+        android:drawablePadding="@dimen/space_small"
+        android:gravity="center"
+        android:text="@string/view_products"
+        android:textSize="@dimen/text_18"
+        tools:drawableEnd="@drawable/ic_arrow_culture"
+        tools:textColor="@color/periwinkle" />
+
+</FrameLayout>

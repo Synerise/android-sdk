@@ -41,6 +41,7 @@ public class MainModule {
         return new GsonBuilder()
                 .setDateFormat(serviceConfig.getApiDateFormat())
                 .setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
+                .setPrettyPrinting()
                 .create();
     }
 

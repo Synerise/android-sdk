@@ -18,7 +18,10 @@ import com.synerise.sdk.sample.dagger.AppComponent;
 import com.synerise.sdk.sample.dagger.ConfigModule;
 import com.synerise.sdk.sample.dagger.DaggerAppComponent;
 import com.synerise.sdk.sample.dagger.MainModule;
+import com.synerise.sdk.sample.persistence.AccountManager;
 import com.synerise.sdk.sample.util.FirebaseIdChangeBroadcastReceiver;
+
+import javax.inject.Inject;
 
 import static com.synerise.sdk.event.BaseViewAspect.TrackMode.FINE;
 
@@ -29,6 +32,8 @@ public class App extends MultiDexApplication
     private static final String TAG = App.class.getSimpleName();
 
     private AppComponent component;
+
+    @Inject AccountManager accountManager;
 
     // ****************************************************************************************************************************************
 
@@ -51,8 +56,10 @@ public class App extends MultiDexApplication
 
     private void initSynerise() {
 
-        String syneriseBusinessProfileApiKey = getString(R.string.synerise_business_api_key);
-        String syneriseClientApiKey = getString(R.string.synerise_client_api_key);
+        component.inject(this);
+
+        String syneriseBusinessProfileApiKey = accountManager.getBusinessProfileApiKey();
+        String syneriseClientApiKey = accountManager.getClientProfileApiKey();
         String appId = getString(R.string.app_name);
 
         final boolean DEBUG_MODE = BuildConfig.DEBUG;
@@ -63,6 +70,9 @@ public class App extends MultiDexApplication
                         .trackerDebugMode(DEBUG_MODE)
                         .injectorDebugMode(DEBUG_MODE)
                         .trackerTrackMode(FINE)
+                        .trackerMinBatchSize(10)
+                        .trackerMaxBatchSize(100)
+                        .trackerAutoFlushTimeout(5000)
                         .injectorAutomatic(true)
                         .pushRegistrationRequired(this)
                         //.customClientConfig(new CustomClientAuthConfig("http://testurl.com"))

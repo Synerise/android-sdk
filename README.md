@@ -26,8 +26,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.1'
-        classpath 'com.google.gms:google-services:3.2.1'
+        classpath 'com.android.tools.build:gradle:3.1.2'
 
         classpath 'com.synerise.sdk:synerise-gradle-plugin:3.0.2'
         classpath 'org.aspectj:aspectjtools:1.8.13'
@@ -44,10 +43,11 @@ apply plugin: 'synerise-plugin'
 ...
 dependencies {
   ...
-  // Synerise Mobile SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.1.8'
+  // Synerise Android SDK
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.2.0'
 }
 ```
+Finally, please make sure your `Instant Run` is disabled.
 
 ### Initialize
 
@@ -81,9 +81,12 @@ public class App extends Application {
                         .trackerDebugMode(DEBUG_MODE)
                         .injectorDebugMode(DEBUG_MODE)
                         .trackerTrackMode(FINE)
+                        .trackerMinBatchSize(10)
+                        .trackerMaxBatchSize(100)
+                        .trackerAutoFlushTimeout(5000)
                         .injectorAutomatic(false)
                         .pushRegistrationRequired(this)
-                        //.customClientConfig(new CustomClientAuthConfig("http://myBaseUrl.com/"))
+                        .customClientConfig(new CustomClientAuthConfig("http://myBaseUrl.com/"))
                         .build();
         }
 }
@@ -112,10 +115,13 @@ Also, a default icon will be used if there is no custom icon provided.
 3. `.trackerDebugMode(boolean)` - you can receive some simple logs about sending events (like success, failure etc.) by enabling debug mode, which is disabled by default.
 4. `.injectorDebugMode(boolean)` - you can receive some simple logs about Injector actions (like Walkthrough screen availability) by enabling debug mode, which is disabled by default.
 5. `.trackerTrackMode(TrackMode)` - sets proper mode for view tracking. See Tracker section below.
-6. `.injectorAutomatic(true)` - fetches your Walkthrough content right away. Note, that Walkthrough will be presented the moment it gets loaded atop of your Activity if it's id is different than previously presented. See Injector section for more information.
-7. `.pushRegistrationRequired(this)` - it is important to register your customers for push messages. Please register for SDK callbacks when push registration is required.
-8. `.customClientConfig(CustomClientAuthConfig)` - you can also provide your custom Client `Authorization Configuration`. At this moment, configuration handles `Base URL` changes.
-9. `.build()` - builds Synerise SDK with provided data. Please note, that `Synerise.Builder.with(..)` method is mandatory and `Synerise.Builder.build()` method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.<br>
+6. `.trackerMinBatchSize(int)` - sets minimum number of events in queue required to send them.
+7. `.trackerMaxBatchSize(int)` - sets maximum number of events, which may be sent in a single batch.
+8. `.trackerAutoFlushTimeout(int)` - sets time required to elapse before event's queue will attempt to be sent.
+9. `.injectorAutomatic(true)` - fetches your Walkthrough content right away. Note, that Walkthrough will be presented the moment it gets loaded atop of your Activity if it's id is different than previously presented. See Injector section for more information.
+10. `.pushRegistrationRequired(this)` - it is important to register your customers for push messages. Please register for SDK callbacks when push registration is required.
+11. `.customClientConfig(CustomClientAuthConfig)` - you can also provide your custom Client `Authorization Configuration`. At this moment, configuration handles `Base URL` changes.
+12. `.build()` - builds Synerise SDK with provided data. Please note, that `Synerise.Builder.with(..)` method is mandatory and `Synerise.Builder.build()` method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.<br>
 
 ### Errors
 
@@ -167,15 +173,6 @@ Sometimes AndroidManifest Merger errors may occur. In that case please paste fol
     tools:replace="android:theme">
 ```
 in your AndroidManifest application tag.
-
-#### Dagger
-
-Sometimes Dagger errors may occur. In case of following error:
-```
-Error:Execution failed for task ':app:compileDevDebugJavaWithJavac'.
-com.google.common.util.concurrent.UncheckedExecutionException: java.lang.annotation.IncompleteAnnotationException: dagger.Provides missing element type
-```
-please make sure you are running the latest version of Dagger (SDK runs 2.14.1).
 
 ## Tracker
 
@@ -337,19 +334,18 @@ Log your custom data with `TrackerParams` class.
 #### Tracker.flush()
 Flush method forces sending events from queue to server.
 
-#### Tracker.setClientId(id)
-Synerise Client ID may be obtained after integration with Synerise API.
-
+#### Tracker.setCustomIdentifier(String)
+You can also pass your custom identifiers to match your users in our CRM.
 
 ## Client
 
 ### Features
 
-#### Client.signIn(email, password, deviceId)
+#### Client.signInByEmail(email, password, deviceId)
 Sign in a client in order to obtain the JWT token, which could be used in subsequent requests.<br>
 The token is currently valid for 1 hour and SDK will refresh token before each call if it is expiring (but not expired).<br>
 Method requires valid and non-null email and password. Device ID is optional.<br>
-`signIn` method also throws `InvalidEmailException` and `InvalidPasswordException` for you to catch and handle invalid email and/or password.<br>
+`signInByEmail` method also throws `InvalidEmailException` and `InvalidPasswordException` for you to catch and handle invalid email and/or password.<br>
 Method returns `IApiCall` to execute request.<br>
 Please note that you should NOT allow to sign in again (or sign up) when user is already signed in. Please sign out user first.<br>
 Moreover, please do not create multiple instances nor call this method multiple times before execution.
@@ -370,6 +366,15 @@ private void signIn(String email, String password) {
     }
 }
 ```
+
+#### Client.signInByPhone(phone, password, deviceId)
+Sign in a client in order to obtain the JWT token, which could be used in subsequent requests.<br>
+The token is currently valid for 1 hour and SDK will refresh token before each call if it is expiring (but not expired).<br>
+Method requires valid and non-null phone number and password. Device ID is optional.<br>
+`signInByPhone` method also throws `InvalidPhoneNumberException` and `InvalidPasswordException` for you to catch and handle invalid phone number and/or password.<br>
+Method returns `IApiCall` to execute request.<br>
+Please note that you should NOT allow to sign in again (or sign up) when user is already signed in. Please sign out user first.<br>
+Moreover, please do not create multiple instances nor call this method multiple times before execution.
 
 #### Client.signOut()
 Signing client out clears email, id and generates new UUID for anonymous one.<br>
@@ -420,7 +425,7 @@ Create a new client record if no identifier has been assigned for him before in 
 This method requires `CreateClient` Builder Pattern object with client's optional data. Not provided fields are not modified.
 Method returns `IApiCall` object to execute request.
 
-#### Profile.registerClient(registerClient)
+#### Profile.registerClientByEmail(registerClient)
 Register new Client with email, password and optional data.
 This method requires `RegisterClient` Builder Pattern object with client's email, password and optional data. Not provided fields are not modified.
 Method returns `IApiCall` object to execute request. Remember that account becomes active after successful email verification.<br>
@@ -435,6 +440,17 @@ private void signUp(RegisterClient registerClient, String name, String lastName)
               .execute(this::onSignUpSuccessful, this::onSignUpFailure);
     }
 ```
+
+#### Profile.registerClientByPhone(registerClient)
+Register new Client with phone, password and optional data.
+This method requires `RegisterClient` Builder Pattern object with client's phone, password and optional data. Not provided fields are not modified.
+Method returns `IApiCall` object to execute request. Remember that account becomes active after successful sms verification.<br>
+Please note that you should NOT allow to sign in again (or sign up) when user is already signed in. Please sign out user first.<br>
+Moreover, please do not create multiple instances nor call this method multiple times before execution.
+
+#### Profile.confirmPhoneRegistration(phoneNumber, confirmationCode)
+Verify provided phone number after registration. Confirmation code will be send via SMS. <br>
+Method returns `IApiCall` object to execute request.
 
 #### Profile.updateClient(updateClient)
 Update client with ID and optional data.
@@ -581,7 +597,7 @@ If your launcher activity last quite longer, check `onNewIntent(Intent)` impleme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        boolean isSynerisePush = Injector.handlePushPayload(remoteMessage.getData());
+        boolean isSynerisePush = Injector.handlePushPayload(getIntent().getExtras());
     }
 ```
 When it seems like your launcher activity is not necessarily a short splash or it just simply takes some time before moving on, you might be interested in `onNewIntent(Intent)` method.
@@ -594,7 +610,7 @@ If your launcher activity was already created and notification was clicked - you
         super.onNewIntent(intent);
         setIntent(intent);
 
-        boolean isSynerisePush = Injector.handlePushPayload(remoteMessage.getData());
+        boolean isSynerisePush = Injector.handlePushPayload(intent.getExtras());
     }
 ```
 
@@ -631,6 +647,19 @@ Please remember to remove banner listener to stop receiving callbacks:
 ```
 Injector.removeBannerListener();
 ```
+
+#### Triggers
+In order to show banner immediately after certain event occuration, you can send your banners from our panel with a trigger value.<br>
+First of all, calling `Injector.fetchBanners()` will fetch available banners and then SDK will cache valid ones.
+This method is also called during SDK initialization, so use it only when you wish to overwrite current banners in SDK cache.<br>
+`Injector.getBanners()` provides valid banners right from SDK cache.
+Note, that exact same banners are being searched for eventual campaign triggers.<br>
+`Injector.showBanner(TemplateBanner)` shows banner immediately with no `OnBannerListener.shouldPresent(TemplateBanner)` check.
+Callbacks will be fired anyway.<br>
+
+### Campaign pushes
+`Injector.getPushes()` gets all available simple and silent pushes for this client.
+`IDataApiCall` with parametrized list of SynerisePushResponse is returned to execute request.
 
 ### Walkthrough
 Synerise SDK provides multiple functionalities within Walkthrough implementation.<br>

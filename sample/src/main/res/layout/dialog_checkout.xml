@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:background="@drawable/background_rounded"
+    android:padding="@dimen/space_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_margin="@dimen/space_small"
+        android:layout_width="@dimen/image_medium"
+        android:layout_height="@dimen/image_medium"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_checkout" />
+
+    <TextView
+        android:layout_margin="@dimen/space_small"
+        style="@style/TextPrimary.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/congratulations" />
+
+    <TextView
+        android:layout_margin="@dimen/space_small"
+        style="@style/TextSecondary.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/lorem_medium" />
+
+    <Button
+        android:layout_margin="@dimen/space_small"
+        android:id="@+id/track_order_button"
+        style="@style/ButtonPrimary"
+        android:paddingLeft="@dimen/space_content"
+        android:paddingRight="@dimen/space_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/track_your_order" />
+
+    <TextView
+        android:layout_margin="@dimen/space_small"
+        android:id="@+id/continue_shopping"
+        style="@style/TextSecondary.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/continue_shopping"
+        android:textStyle="bold" />
+</LinearLayout>

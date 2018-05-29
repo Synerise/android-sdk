@@ -1,0 +1,312 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.synerise.sdk.sample.ui.cart.CartFragment">
+
+    <!--cart content-->
+    <ScrollView
+        android:id="@+id/cart_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:padding="@dimen/space_content">
+
+            <android.support.v7.widget.CardView
+                style="@style/AppCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- using custom recycler view to override onMeasure() for maxHeight -->
+                <com.synerise.sdk.sample.ui.cart.CartRecyclerView
+                    android:id="@+id/cart_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:max_height="@dimen/cart_default_height"
+                    android:overScrollMode="never" />
+
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                style="@style/TextSecondary.Header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/shipping_details" />
+
+            <android.support.v7.widget.CardView
+                style="@style/AppCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/space_content">
+
+                        <TextView
+                            style="@style/TextPrimary.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ship_to" />
+
+                        <TextView
+                            style="@style/TextSecondary.Mini"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/shipping_address" />
+
+                    </LinearLayout>
+
+                    <include layout="@layout/include_divider" />
+
+                    <LinearLayout
+                        android:id="@+id/express_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/space_content">
+
+                        <TextView
+                            style="@style/TextPrimary.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/express_dhl" />
+
+                        <TextView
+                            style="@style/TextSecondary.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_mini"
+                            android:text="@string/one_day" />
+
+                        <TextView
+                            style="@style/TextTertiary.Small"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_mini"
+                            android:layout_weight="1"
+                            android:text="@string/bucks_20" />
+
+                        <RadioButton
+                            android:id="@+id/express_radio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true" />
+
+                    </LinearLayout>
+
+                    <include layout="@layout/include_divider" />
+
+                    <LinearLayout
+                        android:id="@+id/post_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/space_content">
+
+                        <TextView
+                            style="@style/TextPrimary.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/uk_post" />
+
+                        <TextView
+                            style="@style/TextSecondary.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_mini"
+                            android:text="@string/one_two_weeks" />
+
+                        <TextView
+                            style="@style/TextTertiary.Small"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_mini"
+                            android:layout_weight="1"
+                            android:text="@string/free" />
+
+                        <RadioButton
+                            android:id="@+id/post_radio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                style="@style/TextSecondary.Header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/payment_details" />
+
+            <android.support.v7.widget.CardView
+                style="@style/AppCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/credit_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/space_content">
+
+                        <ImageView
+                            android:layout_width="@dimen/image_icon"
+                            android:layout_height="@dimen/image_icon"
+                            android:layout_marginEnd="@dimen/space_small"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/ic_card"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            style="@style/TextPrimary.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/credit_card" />
+
+                        <TextView
+                            style="@style/TextSecondary.Small"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_mini"
+                            android:layout_weight="1"
+                            android:text="@string/credit_card_number" />
+
+                        <RadioButton
+                            android:id="@+id/credit_radio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true" />
+
+                    </LinearLayout>
+
+                    <include layout="@layout/include_divider" />
+
+                    <LinearLayout
+                        android:id="@+id/pay_pal_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/space_content">
+
+                        <ImageView
+                            android:layout_width="@dimen/image_icon"
+                            android:layout_height="@dimen/image_icon"
+                            android:layout_marginEnd="@dimen/space_small"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/ic_paypal"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            style="@style/TextPrimary.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pay_pal" />
+
+                        <TextView
+                            style="@style/TextSecondary.Small"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_mini"
+                            android:layout_weight="1"
+                            android:text="@string/please_sign_in" />
+
+                        <RadioButton
+                            android:id="@+id/pay_pal_radio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_medium"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <Button
+                    android:id="@+id/place_order"
+                    style="@style/ButtonSecondary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/place_order" />
+
+                <ProgressBar
+                    android:id="@+id/place_order_progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!--empty cart-->
+    <LinearLayout
+        android:id="@+id/empty_cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/space_content">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_width="@dimen/image_medium"
+            android:layout_height="@dimen/image_medium"
+            app:actualImageResource="@drawable/ic_empty_cart" />
+
+        <TextView
+            style="@style/TextPrimary.Huge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_medium"
+            android:gravity="center_horizontal"
+            android:text="@string/cart_is_empty" />
+
+        <TextView
+            style="@style/TextSecondary.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_small"
+            android:gravity="center_horizontal"
+            android:text="@string/lorem_medium" />
+
+    </LinearLayout>
+
+</FrameLayout>

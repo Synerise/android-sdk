@@ -11,6 +11,7 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -19,66 +20,101 @@
             android:orientation="vertical">
 
             <LinearLayout
-                style="@style/LayoutContent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    style="@style/TextPrimary.Header"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/default_name" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/space_content">
 
                 <TextView
                     android:id="@+id/product_name"
-                    style="@style/TextPrimary.Medium"
+                    style="@style/TextPrimary.Large"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="Sample product" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                style="@style/LayoutContent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
                 <TextView
-                    style="@style/TextPrimary.Header"
+                    android:id="@+id/product_brand"
+                    style="@style/TextSecondary.Small"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    tools:text="Sample brand" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/space_mini"
+                    android:paddingTop="@dimen/space_mini">
+
+                    <android.support.v7.widget.AppCompatRatingBar
+                        android:id="@+id/rating_bar"
+                        style="?android:ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:isIndicator="true"
+                        android:theme="@style/RatingBarColors" />
+
+                    <TextView
+                        android:id="@+id/product_rating_count"
+                        style="@style/TextSecondary.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_small"
+                        tools:text="999,999" />
+
+                    <TextView
+                        android:id="@+id/product_price"
+                        style="@style/TextPrimary.Medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        tools:text="999$" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <include layout="@layout/include_divider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/space_content">
+
+                <TextView
+                    style="@style/TextPrimary.Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/space_content"
+                    android:drawableStart="@drawable/ic_info"
+                    android:gravity="center_vertical"
                     android:text="@string/default_description" />
 
                 <TextView
                     android:id="@+id/product_description"
-                    style="@style/TextPrimary.Medium"
+                    style="@style/TextSecondary.Small"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="Sample product" />
+                    android:layout_marginTop="@dimen/space_small"
+                    tools:text="@string/lorem_medium" />
 
             </LinearLayout>
 
-            <LinearLayout
-                style="@style/LayoutContent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    style="@style/TextPrimary.Header"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/default_price" />
-
-                <TextView
-                    android:id="@+id/product_price"
-                    style="@style/TextPrimary.Medium"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:text="Sample product" />
-
-            </LinearLayout>
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/product_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_content"
+        android:src="@drawable/ic_cart_white"
+        app:backgroundTint="@color/lima"
+        app:fabSize="normal"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="end|bottom" />
 
 </android.support.design.widget.CoordinatorLayout>

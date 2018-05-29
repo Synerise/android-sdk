@@ -3,18 +3,32 @@ package com.synerise.sdk.sample.ui.splash;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 
-import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.injector.Injector;
 import com.synerise.sdk.injector.callback.OnBannerListener;
-import com.synerise.sdk.injector.callback.OnWalkthroughListener;
+import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
+import com.synerise.sdk.sample.persistence.AccountManager;
 import com.synerise.sdk.sample.ui.BaseActivity;
 import com.synerise.sdk.sample.ui.dashboard.DashboardActivity;
+import com.synerise.sdk.sample.ui.dev.qr.QRScannerActivity;
+import com.synerise.sdk.sample.util.DisposableHelper;
 
-import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
+
+import io.reactivex.Maybe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 
 public class SplashActivity extends BaseActivity {
+
+    @Inject AccountManager accountManager;
+    private Disposable disposable;
+
+    private boolean isBannerPresented;
 
     public static Intent createIntent(Context context) {
         return new Intent(context, SplashActivity.class);
@@ -26,8 +40,21 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        ((App) getApplication()).getComponent().inject(this);
 
-        Injector.getWalkthrough();
+        Injector.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void onPresented() {
+                isBannerPresented = true;
+            }
+
+            @Override
+            public void onClosed() {
+                isBannerPresented = false;
+                delayNavigation();
+            }
+        });
+
         /*
         If app was invisible to user (minimized or destroyed) and campaign banner came in - Synerise SDK makes it neat and simple.
         Simple push message is presented to the user and launcher activity is fired after click on push.
@@ -36,45 +63,6 @@ public class SplashActivity extends BaseActivity {
         If your launcher activity last quite longer, check onNewIntent(Intent) implementation below.
          */
         boolean isSynerisePush = Injector.handlePushPayload(getIntent().getExtras());
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Injector.setOnWalkthroughListener(new OnWalkthroughListener() {
-            @Override
-            public void onLoadingError(ApiError error) {
-                error.printStackTrace();
-                navigate();
-            }
-
-            @Override
-            public void onLoaded() {
-                if (Injector.isLoadedWalkthroughUnique()) {
-                    Injector.showWalkthrough();
-                } else {
-                    navigate();
-                }
-            }
-
-            @Override
-            public void onClosed() {
-                navigate();
-            }
-        });
-        Injector.setOnBannerListener(new OnBannerListener() {
-            @Override
-            public boolean shouldPresent(Map<String, String> data) {
-                return false;
-            }
-        });
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Injector.removeWalkthroughListener();
-        Injector.removeBannerListener();
     }
 
     @Override
@@ -91,10 +79,35 @@ public class SplashActivity extends BaseActivity {
         boolean isSynerisePush = Injector.handlePushPayload(intent.getExtras());
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!isBannerPresented) delayNavigation();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        DisposableHelper.dispose(disposable);
+        Injector.removeBannerListener();
+    }
+
     // ****************************************************************************************************************************************
 
+    private void delayNavigation() {
+        disposable = Maybe.empty()
+                          .delay(1, TimeUnit.SECONDS)
+                          .observeOn(AndroidSchedulers.mainThread())
+                          .doOnComplete(this::navigate)
+                          .subscribe();
+    }
+
     private void navigate() {
-        startActivity(DashboardActivity.createIntent(this));
+        String clientApiKey = accountManager.getClientProfileApiKey();
+        String businessApiKey = accountManager.getBusinessProfileApiKey();
+        startActivity(TextUtils.isEmpty(clientApiKey) || TextUtils.isEmpty(businessApiKey) ?
+                              QRScannerActivity.createIntent(this) :
+                              DashboardActivity.createIntent(this));
         finish();
     }
 }

@@ -1,0 +1,26 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:synerise="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.synerise.sdk.injector.ui.walkthrough.InfiniteLoopViewPager
+        android:id="@+id/sections_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:overScrollMode="never" />
+
+    <com.synerise.sdk.injector.ui.walkthrough.indicators.IndicatorsLayout
+        android:id="@+id/indicators"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/synerise_pager_indicator_height"
+        android:gravity="center"
+        android:orientation="horizontal"
+        synerise:active_color="@color/white"
+        synerise:inactive_color="@color/translucent_half"
+        synerise:size="@dimen/synerise_space_small" />
+
+</LinearLayout>

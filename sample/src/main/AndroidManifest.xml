@@ -4,6 +4,11 @@
     package="com.synerise.sdk.sample">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
 
     <application
         android:name=".App"
@@ -21,37 +26,62 @@
             android:name=".ui.splash.SplashActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.dashboard.DashboardActivity"
             android:screenOrientation="portrait" />
-
         <activity
-            android:name=".ui.category.details.CategoryActivity"
+            android:name=".ui.section.category.CategoryActivity"
             android:screenOrientation="portrait" />
-
         <activity
-            android:name=".ui.product.ProductActivity"
+            android:name=".ui.section.category.products.details.ProductActivity"
             android:screenOrientation="portrait" />
-
         <activity
-            android:name=".ui.events.TrackerViewActivity"
+            android:name=".ui.dev.client.ClientApiActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".ui.dev.tracker.TrackerApiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.tracker.TrackerViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.injector.InjectorApiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.profile.ProfileApiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.section.category.products.ProductsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.auth.SignInActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.White"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.auth.SignUpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.White"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.linking.DeepLinkingActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="deep_linking_key" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.dev.qr.QRScannerActivity"
+            android:screenOrientation="portrait" />
 
         <!-- ****************************************************************************************************************************** -->
 
@@ -62,7 +92,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service
             android:name=".service.MyFirebaseInstanceIDService"
             tools:ignore="ExportedService">

@@ -9,6 +9,12 @@ import static com.synerise.sdk.error.HttpErrorCategory.UNAUTHORIZED;
 
 public class BaseFragment extends Fragment {
 
+    protected interface Args {
+        String CONTENT = "content";
+    }
+
+    // ****************************************************************************************************************************************
+
     protected String getErrorMessage(ApiError apiError) {
         switch (apiError.getErrorType()) {
             case HTTP_ERROR:

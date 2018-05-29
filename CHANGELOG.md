@@ -1,7 +1,42 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [3.1.8] - 2018-04-20
+## [3.2.0] - 2018-05-29
+### Added
+- SMS sign in and sign up support
+- RxJava2 features to extract from IApiCall
+- Fetch banners on demand
+- Fetch push messages on demand
+- Banner is showed after available images get loaded
+
+### Removed
+- Dagger2 for Xamarin compability
+- Validation for internal modules initialization
+- `onBindViewHolder()` aspect tracking
+- Walkthrough transformations
+
+### Changed
+- Banners are now displayed after all available images get loaded
+- Internal keys, refactors and optimizations
+- Custom client id is now custom identifier
+
+### Fixed
+- Few minor internal bugs
+
+## [3.1.9] - 2018-05-08
+### Added
+- Tracker minimum batch size configuration
+- Tracker maximum batch size configuration
+- Tracker auto flush timeout configuration
+- Triggers for campaign banners
+
+### Changed
+- OnBannerListener `shouldPresent(Map)` method argument changed to `shouldPresent(TemplateBanner)`
+
+### Fixed
+- Custom indicators layout
+
+## [3.1.8] - 2018-04-24
 ### Added
 - Banner optional callbacks
 - Walkthrough optional callbacks

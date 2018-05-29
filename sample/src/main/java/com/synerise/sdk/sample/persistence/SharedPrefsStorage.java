@@ -1,5 +1,6 @@
 package com.synerise.sdk.sample.persistence;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
@@ -27,10 +28,11 @@ public class SharedPrefsStorage implements IPrefsStorage {
 
     // ******************************************************************************************************
 
+    @SuppressLint("ApplySharedPref")
     @Override
     public void saveStoragePOJO(StoragePOJO storagePOJO) {
         String serializedUser = gson.toJson(storagePOJO);
-        sharedPreferences.edit().putString(Prefs.STORAGE_POJO, serializedUser).apply();
+        sharedPreferences.edit().putString(Prefs.STORAGE_POJO, serializedUser).commit();
     }
 
     @Override

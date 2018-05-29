@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.synerise.sdk.client.Client;
 import com.synerise.sdk.injector.Injector;
-import com.synerise.sdk.profile.Profile;
 import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.persistence.AccountManager;
@@ -20,21 +19,10 @@ import com.synerise.sdk.sample.ui.splash.SplashActivity;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 public class SettingsFragment extends BaseFragment {
-
-    @BindView(R.id.user_name) TextView userName;
-    @BindView(R.id.user_last_name) TextView userLastName;
-    @BindView(R.id.user_email) TextView userEmail;
-    @BindView(R.id.sign_out) Button signOut;
-    @BindView(R.id.show_walkthrough) Button showWalkthrough;
-    private Unbinder unbinder;
 
     @Inject AccountManager accountManager;
 
@@ -57,11 +45,12 @@ public class SettingsFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        unbinder = ButterKnife.bind(this, view);
 
-        userName.setText(accountManager.getFirstName());
-        userLastName.setText(accountManager.getLastName());
-        userEmail.setText(accountManager.getEmail());
+        ((TextView) view.findViewById(R.id.user_name)).setText(accountManager.getFirstName());
+        ((TextView) view.findViewById(R.id.user_last_name)).setText(accountManager.getLastName());
+        ((TextView) view.findViewById(R.id.user_email)).setText(accountManager.getEmail());
+
+        Button signOut = view.findViewById(R.id.sign_out);
 
         if (Client.isSignedIn()) {
             signOut.setVisibility(VISIBLE);
@@ -75,12 +64,6 @@ public class SettingsFragment extends BaseFragment {
             signOut.setVisibility(GONE);
         }
 
-        showWalkthrough.setOnClickListener(v -> Injector.showWalkthrough());
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
+        view.findViewById(R.id.show_walkthrough).setOnClickListener(v -> Injector.showWalkthrough());
     }
 }

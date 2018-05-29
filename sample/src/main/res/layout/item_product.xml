@@ -1,51 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/AppCardView.Space"
+    style="@style/AppCardView.NoEnd"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/product_image"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/image_medium"
-            android:scaleType="centerCrop"
-            app:placeholderImage="@drawable/synerise_sygnet"
-            app:roundedCornerRadius="@dimen/corners_small"
-            tools:ignore="ContentDescription"
-            tools:src="@mipmap/ic_launcher" />
+            android:layout_height="wrap_content">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/product_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/image_small"
+                android:adjustViewBounds="true"
+                android:visibility="invisible"
+                tools:ignore="ContentDescription"
+                tools:src="@mipmap/ic_launcher" />
+
+            <ProgressBar
+                android:id="@+id/image_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@drawable/background_bottom_rounded"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:padding="@dimen/space_content">
 
             <TextView
                 android:id="@+id/product_name"
-                style="@style/TextPrimary.Medium"
-                android:layout_width="0dp"
+                style="@style/TextPrimary.Small"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                tools:text="Gruszka" />
+                tools:text="UE55MU7052" />
+
+            <TextView
+                android:id="@+id/product_brand"
+                style="@style/TextSecondary.Mini"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Sony" />
 
             <TextView
                 android:id="@+id/product_price"
-                style="@style/TextPrimary.Medium"
+                style="@style/TextTertiary.Mini"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="5.99 PLN" />
+                android:layout_gravity="end"
+                tools:text="$240" />
 
         </LinearLayout>
 
-    </FrameLayout>
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>

@@ -1,13 +1,21 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/dodger</item>
+        <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary</item>
-        <item name="colorAccent">@color/picton</item>
+        <item name="colorAccent">@color/primary</item>
         <item name="android:windowBackground">@color/background</item>
-        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/dodger</item>
-        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/dodger</item>
+        <!--<item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="lollipop">true</item>-->
+        <!--<item name="android:statusBarColor" tools:targetApi="lollipop">@color/primary</item>-->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/primary</item>
     </style>
+
+    <style name="AppTheme.White">
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <!-- ********************************************************************************************************************************** -->
 
@@ -32,17 +40,51 @@
         <item name="android:textSize">@dimen/text_18</item>
     </style>
 
+    <style name="TextPrimary.Huge">
+        <item name="android:textSize">@dimen/text_20</item>
+    </style>
+
     <style name="TextPrimary.Header">
-        <item name="android:textAllCaps">true</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:layout_marginBottom">@dimen/space_small</item>
+        <item name="android:layout_marginTop">@dimen/space_content</item>
+        <item name="android:layout_marginBottom">@dimen/space_content</item>
     </style>
 
     <style name="TextSecondary" parent="TextDefault">
         <item name="android:textColor">@color/textSecondary</item>
     </style>
 
+    <style name="TextSecondary.Mini">
+        <item name="android:textSize">@dimen/text_12</item>
+    </style>
+
     <style name="TextSecondary.Small">
+        <item name="android:textSize">@dimen/text_14</item>
+    </style>
+
+    <style name="TextSecondary.Medium">
+        <item name="android:textSize">@dimen/text_16</item>
+    </style>
+
+    <style name="TextSecondary.Large">
+        <item name="android:textSize">@dimen/text_20</item>
+    </style>
+
+    <style name="TextSecondary.Header">
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/space_content</item>
+        <item name="android:layout_marginBottom">@dimen/space_content</item>
+    </style>
+
+    <style name="TextTertiary" parent="TextDefault">
+        <item name="android:textColor">@color/textTertiary</item>
+    </style>
+
+    <style name="TextTertiary.Mini">
+        <item name="android:textSize">@dimen/text_12</item>
+    </style>
+
+    <style name="TextTertiary.Small">
         <item name="android:textSize">@dimen/text_14</item>
     </style>
 
@@ -65,14 +107,14 @@
         <item name="android:drawablePadding">@dimen/space_content</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:padding">@dimen/space_content</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">@dimen/text_16</item>
+        <item name="android:textColor">@color/textPrimary</item>
+        <item name="android:textSize">@dimen/text_14</item>
         <item name="android:foreground">?selectableItemBackgroundBorderless</item>
     </style>
 
     <!-- ********************************************************************************************************************************** -->
 
-    <style name="BaseButton" parent="Base.Widget.AppCompat.Button.Borderless">
+    <style name="BaseButton" parent="Base.Widget.AppCompat.Button">
         <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:textAllCaps">true</item>
     </style>
@@ -84,7 +126,12 @@
 
     <style name="ButtonSecondary" parent="BaseButton">
         <item name="android:background">@drawable/button_secondary</item>
-        <item name="android:textColor">@color/textSecondary</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ButtonTertiary" parent="BaseButton">
+        <item name="android:background">@drawable/button_white</item>
+        <item name="android:textColor">@color/primary</item>
     </style>
 
     <!-- ********************************************************************************************************************************** -->
@@ -96,6 +143,13 @@
         <item name="android:elevation" tools:targetApi="lollipop">@dimen/elevation</item>
         <item name="android:orientation">vertical</item>
         <item name="android:padding">@dimen/space_content</item>
+    </style>
+
+    <!-- ********************************************************************************************************************************** -->
+
+    <style name="RatingBarColors" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/alto</item>
+        <item name="colorControlActivated">@color/outrageous</item>
     </style>
 
     <!-- ********************************************************************************************************************************** -->
@@ -113,4 +167,16 @@
         <item name="android:layout_marginBottom">@dimen/space_mini</item>
     </style>
 
+    <style name="AppCardView.NoEnd">
+        <item name="android:layout_marginStart">@dimen/space_small</item>
+        <item name="android:layout_marginTop">@dimen/space_mini</item>
+        <item name="android:layout_marginBottom">@dimen/space_mini</item>
+    </style>
+
+    <style name="AppAlertDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.7</item>
+    </style>
 </resources>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_content">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/image"
+            android:layout_width="@dimen/image_small"
+            android:layout_height="@dimen/image_small"
+            app:placeholderImage="@drawable/sygnet_synerise"
+            app:roundedCornerRadius="@dimen/corners_small"
+            tools:actualImageResource="@drawable/sygnet_synerise" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="@dimen/space_content">
+
+            <TextView
+                android:id="@+id/name"
+                style="@style/TextPrimary.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Product name" />
+
+            <TextView
+                android:id="@+id/brand"
+                style="@style/TextSecondary.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Product brand" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/price"
+            style="@style/TextTertiary.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            tools:text="4x 189.99$" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/cart_options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:padding="@dimen/space_content"
+        android:text="&#8942;"
+        android:textAppearance="?android:textAppearanceLarge" />
+
+</FrameLayout>

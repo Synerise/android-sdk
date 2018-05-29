@@ -14,6 +14,7 @@ public class BaseActivity extends AppCompatActivity {
 
     protected interface Args {
         String PARCEL = "parcel";
+        String SERIALIZABLE = "serializable";
     }
 
     // ****************************************************************************************************************************************
@@ -38,7 +39,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish();
+            onBackPressed();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
