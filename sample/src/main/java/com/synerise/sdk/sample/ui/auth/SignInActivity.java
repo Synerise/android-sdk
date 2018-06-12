@@ -114,7 +114,7 @@ public class SignInActivity extends BaseActivity {
         } catch (InvalidEmailException e) {
             textLogin.setError(getString(R.string.error_invalid_email));
         } catch (InvalidPasswordException e) {
-            textLogin.setError(getString(R.string.error_invalid_password));
+            textPassword.setError(getString(R.string.error_invalid_password));
         } catch (InvalidPhoneNumberException e) {
             textLogin.setError(getString(R.string.error_invalid_phone));
         }

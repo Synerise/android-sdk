@@ -69,6 +69,7 @@ public class App extends MultiDexApplication
                         .syneriseDebugMode(DEBUG_MODE)
                         .trackerDebugMode(DEBUG_MODE)
                         .injectorDebugMode(DEBUG_MODE)
+                        .clientRefresh(true)
                         .trackerTrackMode(FINE)
                         .trackerMinBatchSize(10)
                         .trackerMaxBatchSize(100)

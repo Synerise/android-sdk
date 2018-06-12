@@ -121,6 +121,7 @@ public enum Category {
         this.products = products;
     }
 
+    @ColorRes
     public int getBackground() {
         return background;
     }

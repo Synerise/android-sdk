@@ -38,8 +38,7 @@ public class DeveloperFragment extends BaseDevFragment {
         view.findViewById(R.id.injector_api).setOnClickListener(v -> startActivity(InjectorApiActivity.createIntent(getContext())));
         view.findViewById(R.id.reset).setOnClickListener(v -> {
             ActivityManager activityManager = ((ActivityManager) getContext().getSystemService(ACTIVITY_SERVICE));
-            if (activityManager != null)
-                activityManager.clearApplicationUserData();
+            if (activityManager != null) activityManager.clearApplicationUserData();
         });
     }
 }

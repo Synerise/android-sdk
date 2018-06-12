@@ -1,6 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.2.1] - 2018-06-11
+### Added
+- Auto-refreshing Client token in order to sustain it's session
+- Setting custom client's email on demand
+- Client's Analytics metrics
+- Intent extras are now extractable from Synerise Simple Notification
+
+### Removed
+- Obsolete verification of internal modules initialization
+
 ## [3.2.0] - 2018-05-29
 ### Added
 - SMS sign in and sign up support

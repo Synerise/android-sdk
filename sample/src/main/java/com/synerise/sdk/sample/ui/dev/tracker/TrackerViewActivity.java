@@ -46,7 +46,6 @@ public class TrackerViewActivity extends BaseActivity {
         setContentView(R.layout.activity_tracker_view);
 
         ToolbarHelper.setUpChildToolbar(this, R.string.tracker_view_title);
-        ToolbarHelper.updateToolbar(this, R.string.tracker_view_title);
 
         ((SeekBar) findViewById(R.id.seek_bar)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override

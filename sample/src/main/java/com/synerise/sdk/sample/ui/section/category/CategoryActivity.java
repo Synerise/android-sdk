@@ -35,7 +35,7 @@ public class CategoryActivity extends BaseActivity {
 
         section = (Section) getIntent().getSerializableExtra(Args.SERIALIZABLE);
 
-        ToolbarHelper.setUpChildToolbar(this, section.getName());
+        ToolbarHelper.setUpChildToolbar(this, section.getName(), section.getColor());
 
         CategoriesRecyclerAdapter recyclerAdapter = new CategoriesRecyclerAdapter(this, this::onCategorySelected,
                                                                                   section.getCategories());

@@ -37,8 +37,12 @@ public class ConfirmNumberDialog extends BaseDialog {
 
     @Inject AccountManager accountManager;
 
-    public static ConfirmNumberDialog newInstance() {
-        return new ConfirmNumberDialog();
+    public static ConfirmNumberDialog newInstance(String phone) {
+        Bundle args = new Bundle();
+        args.putString(Args.CONTENT, phone);
+        ConfirmNumberDialog confirmNumberDialog = new ConfirmNumberDialog();
+        confirmNumberDialog.setArguments(args);
+        return confirmNumberDialog;
     }
 
     @Override
@@ -63,8 +67,8 @@ public class ConfirmNumberDialog extends BaseDialog {
         confirmationProgress = view.findViewById(R.id.confirmation_code_progress);
         toggleLoading(false);
 
-        phoneNumber = accountManager.getPhoneNumber();
-        if(phoneNumber == null || TextUtils.isEmpty(phoneNumber)){
+        phoneNumber = getArguments().getString(Args.CONTENT);
+        if (phoneNumber == null || TextUtils.isEmpty(phoneNumber)) {
             dismiss();
         }
         confirmationCode.addTextChangedListener(new TextWatcher() {
@@ -75,7 +79,7 @@ public class ConfirmNumberDialog extends BaseDialog {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length() == 4){
+                if (s.length() == 4) {
                     confirmCode(String.valueOf(s));
                 }
             }
@@ -93,15 +97,15 @@ public class ConfirmNumberDialog extends BaseDialog {
         } catch (InvalidPhoneNumberException e) {
             dismiss();
         }
-        if(confirmPhoneCall != null){
+        if (confirmPhoneCall != null) {
             confirmPhoneCall.onSubscribe(() -> toggleLoading(true))
-                      .doFinally(() -> toggleLoading(false))
-                      .execute(this::onConfirmPhoneNumberSuccess, new DataActionListener<ApiError>() {
-                          @Override
-                          public void onDataAction(ApiError apiError) {
-                              onConfirmPhoneNumberError(apiError);
-                          }
-                      });
+                            .doFinally(() -> toggleLoading(false))
+                            .execute(this::onConfirmPhoneNumberSuccess, new DataActionListener<ApiError>() {
+                                @Override
+                                public void onDataAction(ApiError apiError) {
+                                    onConfirmPhoneNumberError(apiError);
+                                }
+                            });
         }
     }
 
@@ -128,7 +132,7 @@ public class ConfirmNumberDialog extends BaseDialog {
     @Override
     public void onStop() {
         super.onStop();
-        confirmPhoneCall.cancel();
+        if (confirmPhoneCall != null) confirmPhoneCall.cancel();
     }
 
     @Override

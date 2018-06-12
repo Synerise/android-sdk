@@ -11,6 +11,8 @@ import android.hardware.Camera;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -26,6 +28,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
@@ -179,7 +182,16 @@ public final class QRScannerActivity extends BaseActivity implements BarcodeGrap
     private void onFinishClicked() {
         accountManager.setBusinessProfileApiKey(inputBusiness.getEditText().getText().toString());
         accountManager.setClientApiKey(inputClient.getEditText().getText().toString());
-        ProcessPhoenix.triggerRebirth(QRScannerActivity.this);
+        HandlerThread ht = new HandlerThread("HandlerThread");
+        ht.start();
+        new Handler(ht.getLooper()).post(() -> {
+            try {
+                FirebaseInstanceId.getInstance().deleteInstanceId();
+                ProcessPhoenix.triggerRebirth(QRScannerActivity.this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override

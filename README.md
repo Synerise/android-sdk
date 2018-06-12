@@ -44,7 +44,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.2.0'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.2.1'
 }
 ```
 Finally, please make sure your `Instant Run` is disabled.
@@ -80,6 +80,7 @@ public class App extends Application {
                         .syneriseDebugMode(DEBUG_MODE)
                         .trackerDebugMode(DEBUG_MODE)
                         .injectorDebugMode(DEBUG_MODE)
+                        .clientRefresh(true)
                         .trackerTrackMode(FINE)
                         .trackerMinBatchSize(10)
                         .trackerMaxBatchSize(100)
@@ -114,14 +115,15 @@ Also, a default icon will be used if there is no custom icon provided.
 2. `.syneriseDebugMode(boolean)` - simple flag may be provided in order to enable full network traffic logs. It is not recommended to use debug mode in release version of your app.
 3. `.trackerDebugMode(boolean)` - you can receive some simple logs about sending events (like success, failure etc.) by enabling debug mode, which is disabled by default.
 4. `.injectorDebugMode(boolean)` - you can receive some simple logs about Injector actions (like Walkthrough screen availability) by enabling debug mode, which is disabled by default.
-5. `.trackerTrackMode(TrackMode)` - sets proper mode for view tracking. See Tracker section below.
-6. `.trackerMinBatchSize(int)` - sets minimum number of events in queue required to send them.
-7. `.trackerMaxBatchSize(int)` - sets maximum number of events, which may be sent in a single batch.
-8. `.trackerAutoFlushTimeout(int)` - sets time required to elapse before event's queue will attempt to be sent.
-9. `.injectorAutomatic(true)` - fetches your Walkthrough content right away. Note, that Walkthrough will be presented the moment it gets loaded atop of your Activity if it's id is different than previously presented. See Injector section for more information.
-10. `.pushRegistrationRequired(this)` - it is important to register your customers for push messages. Please register for SDK callbacks when push registration is required.
-11. `.customClientConfig(CustomClientAuthConfig)` - you can also provide your custom Client `Authorization Configuration`. At this moment, configuration handles `Base URL` changes.
-12. `.build()` - builds Synerise SDK with provided data. Please note, that `Synerise.Builder.with(..)` method is mandatory and `Synerise.Builder.build()` method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.<br>
+5. `.clientRefresh(boolean)` - enables automatic client's token refresh.
+6. `.trackerTrackMode(TrackMode)` - sets proper mode for view tracking. See Tracker section below.
+7. `.trackerMinBatchSize(int)` - sets minimum number of events in queue required to send them.
+8. `.trackerMaxBatchSize(int)` - sets maximum number of events, which may be sent in a single batch.
+9. `.trackerAutoFlushTimeout(int)` - sets time required to elapse before event's queue will attempt to be sent.
+10. `.injectorAutomatic(true)` - fetches your Walkthrough content right away. Note, that Walkthrough will be presented the moment it gets loaded atop of your Activity if it's id is different than previously presented. See Injector section for more information.
+11. `.pushRegistrationRequired(this)` - it is important to register your customers for push messages. Please register for SDK callbacks when push registration is required.
+12. `.customClientConfig(CustomClientAuthConfig)` - you can also provide your custom Client `Authorization Configuration`. At this moment, configuration handles `Base URL` changes.
+13. `.build()` - builds Synerise SDK with provided data. Please note, that `Synerise.Builder.with(..)` method is mandatory and `Synerise.Builder.build()` method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.<br>
 
 ### Errors
 
@@ -335,7 +337,10 @@ Log your custom data with `TrackerParams` class.
 Flush method forces sending events from queue to server.
 
 #### Tracker.setCustomIdentifier(String)
-You can also pass your custom identifiers to match your users in our CRM.
+You can also pass your custom identifier to match your users in our CRM. Your custom identifier will be sent within every event in event params.
+
+#### Tracker.setCustomEmail(String)
+You can also pass your custom email to match your users in our CRM. Your custom email will be sent within every event in event params.
 
 ## Client
 
@@ -388,6 +393,16 @@ This method returns `IDataApiCall` with parametrized `AccountInformation` object
 Use this method to update client's account information.<br>
 This method requires `AccountInformation` Builder Pattern object with client's account information. Not provided fields are not modified.
 Method returns `IApiCall` to execute request.
+
+#### Client.getAnalytics()
+Get all available Analytics metrics for the client.<br>
+Please note that in order to use this method, Client must be signed in first.<br>
+This method returns `IDataApiCall` with parametrized `List<AnalyticsMetrics>` object to execute request.
+
+#### Client.getAnalytics(String)
+Fetch all available Analytics metrics for the client and return the first metric, which matches provided name.<br>
+Please note that in order to use this method, Client must be signed in first.<br>
+This method returns `IDataApiCall` with parametrized `AnalyticsMetrics` object to execute request.
 
 #### Client.getToken()
 Get valid JWT login token.<br>

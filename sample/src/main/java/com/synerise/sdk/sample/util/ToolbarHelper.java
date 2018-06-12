@@ -2,6 +2,7 @@ package com.synerise.sdk.sample.util;
 
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -14,25 +15,36 @@ import com.synerise.sdk.sample.R;
 
 public class ToolbarHelper {
 
-    public static void setUpChildToolbar(AppCompatActivity activity) {
-        setActionBar(activity, R.drawable.ic_arrow_back, null);
+    public static Toolbar setUpToolbar(AppCompatActivity activity) {
+        Toolbar toolbar = getToolbar(activity);
+        toolbar.setTitle(R.string.app_name);
+        activity.setSupportActionBar(toolbar);
+        return toolbar;
     }
 
-    public static void setUpChildToolbar(AppCompatActivity activity, @StringRes int title) {
-        setActionBar(activity, R.drawable.ic_arrow_back, activity.getString(title));
+    public static void setUpChildToolbar(AppCompatActivity activity) {
+        setActionBar(activity, R.drawable.ic_arrow_back);
     }
 
     public static void setUpChildToolbar(AppCompatActivity activity, String title) {
         setActionBar(activity, R.drawable.ic_arrow_back, title);
     }
 
-    public static void setUpNavToolbar(AppCompatActivity activity, @StringRes int title) {
-        setActionBar(activity, R.drawable.ic_navigation, activity.getString(title));
+    public static void setUpChildToolbar(AppCompatActivity activity, @StringRes int title) {
+        setActionBar(activity, R.drawable.ic_arrow_back, activity.getString(title));
+    }
+
+    public static void setUpChildToolbar(AppCompatActivity activity, @StringRes int title, @ColorRes int color) {
+        setActionBar(activity, R.drawable.ic_arrow_back, activity.getString(title), color);
     }
 
     public static void updateToolbar(AppCompatActivity activity, @StringRes int title) {
         Toolbar toolbar = getSupportToolbar(activity);
         toolbar.setTitle(activity.getString(title));
+        setDefaultToolbarColor(activity,toolbar);
+    }
+
+    private static void setDefaultToolbarColor(AppCompatActivity activity, Toolbar toolbar) {
         int color = ContextCompat.getColor(activity, R.color.primary);
         toolbar.setBackgroundColor(color);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -69,26 +81,31 @@ public class ToolbarHelper {
         return toolbar;
     }
 
-    private static Toolbar getActionToolbar(AppCompatActivity activity) {
-        Toolbar toolbar = getSupportToolbar(activity);
-        return toolbar;
-    }
-
     // ****************************************************************************************************************************************
 
-    public static Toolbar setActionBar(AppCompatActivity activity) {
-        Toolbar toolbar = getToolbar(activity);
-        toolbar.setTitle(R.string.app_name);
+    private static void setActionBar(AppCompatActivity activity, @DrawableRes int icon) {
+        Toolbar toolbar = createToolbar(activity, icon);
         activity.setSupportActionBar(toolbar);
-        return toolbar;
     }
 
     private static void setActionBar(AppCompatActivity activity, @DrawableRes int icon, String title) {
+        Toolbar toolbar = createToolbar(activity, icon);
+        if (title != null) toolbar.setTitle(title); // set title must be before setSupportActionBar
+        activity.setSupportActionBar(toolbar);
+    }
+
+    private static void setActionBar(AppCompatActivity activity, @DrawableRes int icon, String title, @ColorRes int color) {
+        Toolbar toolbar = createToolbar(activity, icon);
+        if (title != null) toolbar.setTitle(title); // set title must be before setSupportActionBar
+        toolbar.setBackgroundColor(activity.getResources().getColor(color));
+        activity.setSupportActionBar(toolbar);
+    }
+
+    private static Toolbar createToolbar(AppCompatActivity activity, @DrawableRes int icon) {
         Toolbar toolbar = getSupportToolbar(activity);
         toolbar.setNavigationIcon(icon);
-        if(title != null) toolbar.setTitle(title);
         toolbar.setPadding(0, getStatusBarHeight(activity), 0, 0);
-        activity.setSupportActionBar(toolbar); // set title must be before setSupportActionBar
+        return toolbar;
     }
 
     private static int getStatusBarHeight(Context context) {

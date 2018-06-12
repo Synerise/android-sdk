@@ -125,7 +125,7 @@ public class ProfileFragment extends BaseFragment {
         }
 
         if (isValid) {
-            updateClient(updateClient,email, name, lastName);
+            updateClient(updateClient, email, name, lastName);
         }
     }
 
@@ -141,19 +141,19 @@ public class ProfileFragment extends BaseFragment {
         if (getClientCall != null) {
             getClientCall.cancel();
             getClientCall.onSubscribe(() -> toggleLoading(true))
-                    .doFinally(() -> toggleLoading(false))
-                    .execute(data -> {
-                        updateCall = Profile.updateClient(data.getClientId(),updateClient);
-                        updateCall.onSubscribe(() -> toggleLoading(true))
-                                .doFinally(() -> toggleLoading(false))
-                                .execute(() -> onUpdateClientSuccessful(email,name,lastName), new DataActionListener<ApiError>() {
-                                    @Override
-                                    public void onDataAction(ApiError data) {
-                                        onUpdateClientFailure(data);
-                                    }
-
-                                });
-                    }, data -> toggleLoading(false));
+                         .doFinally(() -> toggleLoading(false))
+                         .execute(data -> {
+                             updateCall = Profile.updateClient(data.getClientId(), updateClient);
+                             updateCall.onSubscribe(() -> toggleLoading(true))
+                                       .doFinally(() -> toggleLoading(false))
+                                       .execute(() -> onUpdateClientSuccessful(email, name, lastName),
+                                                new DataActionListener<ApiError>() {
+                                                    @Override
+                                                    public void onDataAction(ApiError data) {
+                                                        onUpdateClientFailure(data);
+                                                    }
+                                                });
+                         }, data -> toggleLoading(false));
         }
     }
 
@@ -184,8 +184,8 @@ public class ProfileFragment extends BaseFragment {
     @Override
     public void onStop() {
         super.onStop();
-        getClientCall.cancel();
-        updateCall.cancel();
+        if (getClientCall != null) getClientCall.cancel();
+        if (updateCall != null) updateCall.cancel();
     }
 
     @Override

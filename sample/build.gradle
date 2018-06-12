@@ -7,8 +7,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 26
         applicationId "com.synerise.sample"
-        versionCode 9
-        versionName "3.0.0"
+        versionCode 10
+        versionName "3.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -54,12 +54,12 @@ android {
 
 ext {
     daggerVersion = '2.15'
-    syneriseVersion = '3.2.0'
+    syneriseVersion = '3.2.1'
     playServicesVersion = '15.0.2'
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     // Support
     implementation rootProject.ext.supportAnnotations
     implementation rootProject.ext.supportV4

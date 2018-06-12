@@ -32,7 +32,7 @@ public class ProductsActivity extends BaseActivity {
 
         Category category = (Category) getIntent().getSerializableExtra(Args.SERIALIZABLE);
 
-        ToolbarHelper.setUpChildToolbar(this, category.getText());
+        ToolbarHelper.setUpChildToolbar(this, category.getText(), category.getBackground());
 
         ProductsRecyclerAdapter productsRecyclerAdapter = new ProductsRecyclerAdapter(this, this::onProductSelected,
                                                                                       category.getProducts());

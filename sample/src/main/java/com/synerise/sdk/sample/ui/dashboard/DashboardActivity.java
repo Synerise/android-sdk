@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -69,7 +68,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         setContentView(R.layout.activity_dashboard);
         ((App) getApplication()).getComponent().inject(this);
 
-        Toolbar toolbar = ToolbarHelper.setActionBar(this);
+        ToolbarHelper.setUpToolbar(this);
 
         drawer = findViewById(R.id.drawer_layout);
 
@@ -185,7 +184,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction
-                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+//                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                 .replace(R.id.container, currentFragment)
                 .commit();
     }

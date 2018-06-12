@@ -26,7 +26,6 @@ import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.persistence.AccountManager;
 import com.synerise.sdk.sample.ui.BaseActivity;
-import com.synerise.sdk.sample.util.KeyboardHelper;
 import com.synerise.sdk.sample.util.ToolbarHelper;
 
 import javax.inject.Inject;
@@ -170,7 +169,7 @@ public class SignUpActivity extends BaseActivity implements OnPhoneConfirmedList
                 Profile.registerClientByPhone(registerClient);
         signUpCall.onSubscribe(() -> toggleLoading(true))
                   .doFinally(() -> toggleLoading(false))
-                  .execute(this::onSignUpSuccessful, new DataActionListener<ApiError>() {
+                  .execute(() -> onSignUpSuccessful(registerClient.getPhone()), new DataActionListener<ApiError>() {
                       @Override
                       public void onDataAction(ApiError apiError) {
                           onSignUpFailure(apiError);
@@ -178,14 +177,13 @@ public class SignUpActivity extends BaseActivity implements OnPhoneConfirmedList
                   });
     }
 
-    private void onSignUpSuccessful() {
+    private void onSignUpSuccessful(String phone) {
         if (loginType == LoginType.EMAIL) {
             Snackbar.make(textLogin, R.string.sign_up_email_success, Snackbar.LENGTH_SHORT).show();
             finish();
         } else if (loginType == LoginType.PHONE) {
-            ConfirmNumberDialog confirmNumberDialog = ConfirmNumberDialog.newInstance();
+            ConfirmNumberDialog confirmNumberDialog = ConfirmNumberDialog.newInstance(phone);
             confirmNumberDialog.show(getSupportFragmentManager(), ConfirmNumberDialog.class.getSimpleName());
-            KeyboardHelper.showKeyboard(this); // todo test
         }
     }
 

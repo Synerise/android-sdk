@@ -17,6 +17,10 @@ import static com.synerise.sdk.error.HttpErrorCategory.UNAUTHORIZED;
 
 public abstract class BaseDialog extends DialogFragment {
 
+    protected interface Args {
+        String CONTENT = "args";
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
