@@ -1,5 +1,6 @@
 package com.synerise.sdk.sample.ui.section.category.products.details;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,18 +10,23 @@ import android.widget.TextView;
 
 import com.synerise.sdk.event.Tracker;
 import com.synerise.sdk.event.TrackerParams;
+import com.synerise.sdk.event.model.interaction.HitTimerEvent;
 import com.synerise.sdk.event.model.interaction.VisitedScreenEvent;
 import com.synerise.sdk.event.model.model.UnitPrice;
 import com.synerise.sdk.event.model.products.cart.AddedToCartEvent;
 import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
+import com.synerise.sdk.sample.data.Category;
 import com.synerise.sdk.sample.data.Product;
+import com.synerise.sdk.sample.data.Section;
 import com.synerise.sdk.sample.persistence.AccountManager;
 import com.synerise.sdk.sample.ui.BaseActivity;
 import com.synerise.sdk.sample.util.ToolbarHelper;
 import com.synerise.sdk.sample.util.ViewUtils;
 
+import java.util.ArrayList;
 import java.util.Currency;
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -40,6 +46,7 @@ public class ProductActivity extends BaseActivity {
     // ****************************************************************************************************************************************
 
     @Override
+    @SuppressLint("StringFormatMatches")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((App) getApplication()).getComponent().inject(this);
@@ -65,6 +72,10 @@ public class ProductActivity extends BaseActivity {
         ((RatingBar) findViewById(R.id.rating_bar)).setRating((float) product.getRating());
 
         findViewById(R.id.product_add).setOnClickListener(v -> {
+            if (accountManager.getCartItems().isEmpty()) {
+                // send HitTimerEvent when adding first item to the cart
+                Tracker.send(new HitTimerEvent("Shopping Cart process - start"));
+            }
             accountManager.addCartItem(product);
             Snackbar.make(v, R.string.added_to_cart, Snackbar.LENGTH_SHORT).show();
             Tracker.send(createCartEvent());
@@ -74,12 +85,23 @@ public class ProductActivity extends BaseActivity {
     // ****************************************************************************************************************************************
 
     private AddedToCartEvent createCartEvent() {
-        AddedToCartEvent cartEvent = new AddedToCartEvent(getString(product.getName()),
-                                                          product.getSKU(),
-                                                          new UnitPrice(product.getPrice(), Currency.getInstance(Locale.getDefault())),
-                                                          1);
+        UnitPrice unitPrice = new UnitPrice(product.getPrice(), Currency.getInstance(Locale.getDefault()));
+        AddedToCartEvent cartEvent = new AddedToCartEvent(getString(product.getName()), product.getSKU(), unitPrice, 1);
         cartEvent.setName(getString(product.getName()));
         cartEvent.setProducer(getString(product.getBrand()));
+
+        Category category = Category.getCategory(product);
+        if (category != null) {
+            cartEvent.setCategory(getString(category.getText()));
+            List<String> categories = new ArrayList<>();
+            categories.add(getString(category.getText()));
+            Section section = Section.getSection(category);
+            if (section != null) categories.add(getString(section.getName()));
+            cartEvent.setCategories(categories);
+        }
+        cartEvent.setOffline(false);
+//        cartEvent.setDiscountedPrice(unitPrice);
+//        cartEvent.setRegularPrice(unitPrice);
         return cartEvent;
     }
 

@@ -5,6 +5,7 @@ import android.support.multidex.MultiDexApplication;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.synerise.sdk.core.OnRegisterForPushListener;
@@ -23,6 +24,8 @@ import com.synerise.sdk.sample.util.FirebaseIdChangeBroadcastReceiver;
 
 import javax.inject.Inject;
 
+import io.fabric.sdk.android.Fabric;
+
 import static com.synerise.sdk.event.BaseViewAspect.TrackMode.FINE;
 
 public class App extends MultiDexApplication
@@ -40,6 +43,7 @@ public class App extends MultiDexApplication
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
 
         component = DaggerAppComponent
                 .builder()
@@ -70,13 +74,15 @@ public class App extends MultiDexApplication
                         .trackerDebugMode(DEBUG_MODE)
                         .injectorDebugMode(DEBUG_MODE)
                         .clientRefresh(true)
+                        .poolUuid(null)
                         .trackerTrackMode(FINE)
                         .trackerMinBatchSize(10)
                         .trackerMaxBatchSize(100)
                         .trackerAutoFlushTimeout(5000)
                         .injectorAutomatic(true)
                         .pushRegistrationRequired(this)
-                        //.customClientConfig(new CustomClientAuthConfig("http://testurl.com"))
+                        .baseUrl(null)
+                        //.customClientConfig(new CustomClientAuthConfig("http://your-base-url.com"))
                         .build();
     }
 

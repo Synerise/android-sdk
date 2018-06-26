@@ -55,8 +55,12 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
         image.setImageURI(product.getImage());
     }
 
+    // ****************************************************************************************************************************************
+
     protected interface OnCartItemRemoved {
+
         void onSingleItemRemoved(int position);
+
         void onAllItemsRemoved(int position);
     }
 }

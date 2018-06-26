@@ -2,6 +2,7 @@ package com.synerise.sdk.sample.data;
 
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 
 import com.synerise.sdk.sample.R;
@@ -166,5 +167,16 @@ public enum Section {
     @ColorRes
     public int getBottomTextColor() {
         return bottomTextColor;
+    }
+
+    @Nullable
+    public static Section getSection(Category category) {
+        for (Section section : Section.values()) {
+            for (Category sectionCategory : section.getCategories()) {
+                if (sectionCategory == category)
+                    return section;
+            }
+        }
+        return null;
     }
 }

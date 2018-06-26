@@ -1,6 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.2.2] - 2018-06-26
+### Added
+- Synerise Promotions
+- Synerise Vouchers activation
+- From now it is possible to define custom base url to apply across whole SDK
+
+### Changed
+- Javadoc update
+- Compile and target sdk updated to 27
+
 ## [3.2.1] - 2018-06-11
 ### Added
 - Auto-refreshing Client token in order to sustain it's session
@@ -20,14 +30,14 @@ All notable changes to this project will be documented in this file.
 - Banner is showed after available images get loaded
 
 ### Removed
-- Dagger2 for Xamarin compability
+- Dagger2 for Xamarin compatibility
 - Validation for internal modules initialization
 - `onBindViewHolder()` aspect tracking
 - Walkthrough transformations
 
 ### Changed
 - Banners are now displayed after all available images get loaded
-- Internal keys, refactors and optimizations
+- Internal keys, refactor and optimizations
 - Custom client id is now custom identifier
 
 ### Fixed

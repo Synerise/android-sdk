@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.sample.R;
-import com.synerise.sdk.sample.test.EspressoTestingIdlingResource;
 import com.synerise.sdk.sample.ui.BaseFragment;
 
 public class BaseDevFragment extends BaseFragment {
@@ -26,12 +25,10 @@ public class BaseDevFragment extends BaseFragment {
     // ****************************************************************************************************************************************
 
     protected void onSuccess() {
-        EspressoTestingIdlingResource.decrement();
         Snackbar.make(view, R.string.default_success, Snackbar.LENGTH_SHORT).show();
     }
 
     protected void onFailure(ApiError apiError) {
-        EspressoTestingIdlingResource.decrement();
         Snackbar.make(view, getErrorMessage(apiError), Snackbar.LENGTH_SHORT).show();
     }
 }

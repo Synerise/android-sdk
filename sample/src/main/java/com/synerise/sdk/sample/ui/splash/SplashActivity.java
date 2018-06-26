@@ -28,7 +28,7 @@ public class SplashActivity extends BaseActivity {
     @Inject AccountManager accountManager;
     private Disposable disposable;
 
-    private boolean isBannerPresented;
+    private boolean isBannerPresenting;
 
     public static Intent createIntent(Context context) {
         return new Intent(context, SplashActivity.class);
@@ -45,12 +45,12 @@ public class SplashActivity extends BaseActivity {
         Injector.setOnBannerListener(new OnBannerListener() {
             @Override
             public void onPresented() {
-                isBannerPresented = true;
+                isBannerPresenting = true;
             }
 
             @Override
             public void onClosed() {
-                isBannerPresented = false;
+                isBannerPresenting = false;
                 delayNavigation();
             }
         });
@@ -82,7 +82,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (!isBannerPresented) delayNavigation();
+        delayNavigation();
     }
 
     @Override
@@ -98,7 +98,10 @@ public class SplashActivity extends BaseActivity {
         disposable = Maybe.empty()
                           .delay(1, TimeUnit.SECONDS)
                           .observeOn(AndroidSchedulers.mainThread())
-                          .doOnComplete(this::navigate)
+                          .doOnComplete(() -> {
+                              if (!isBannerPresenting)
+                                  navigate();
+                          })
                           .subscribe();
     }
 

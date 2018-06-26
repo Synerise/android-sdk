@@ -184,7 +184,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction
-//                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+                //                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                 .replace(R.id.container, currentFragment)
                 .commit();
     }
@@ -218,7 +218,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
             }
             KeyboardHelper.hideKeyboard(this);
         }
-        super.onActivityResult(requestCode,resultCode,data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

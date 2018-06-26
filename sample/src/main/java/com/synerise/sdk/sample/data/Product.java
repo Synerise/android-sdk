@@ -1,8 +1,15 @@
 package com.synerise.sdk.sample.data;
 
+import android.content.Context;
 import android.support.annotation.StringRes;
 
+import com.synerise.sdk.event.model.model.UnitPrice;
 import com.synerise.sdk.sample.R;
+
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.List;
+import java.util.Locale;
 
 public enum Product {
 
@@ -427,5 +434,24 @@ public enum Product {
 
     public int getRatingCount() {
         return ratingCount;
+    }
+
+    public com.synerise.sdk.event.model.model.Product getEventProduct(Context context, int quantity) {
+        com.synerise.sdk.event.model.model.Product product = new com.synerise.sdk.event.model.model.Product();
+        product.setSku(getSKU());
+        product.setFinalPrice(new UnitPrice(getPrice(), Currency.getInstance(Locale.getDefault())));
+        product.setName(context.getString(getName()));
+        product.setImage(getImage());
+        product.setQuantity(quantity);
+
+        List<String> categories = new ArrayList<>();
+        Category category = Category.getCategory(this);
+        if (category != null) {
+            categories.add(context.getString(category.getText()));
+            Section section = Section.getSection(category);
+            if (section != null) categories.add(context.getString(section.getName()));
+        }
+        product.setCategories(categories);
+        return product;
     }
 }

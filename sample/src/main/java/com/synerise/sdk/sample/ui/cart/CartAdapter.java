@@ -1,6 +1,5 @@
 package com.synerise.sdk.sample.ui.cart;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,14 +15,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
 
     private final LayoutInflater inflater;
     private final List<CartItem> cartItems = new ArrayList<>();
-    private final OnCartItemRemoved cartItemRemoved;
+    private final OnCartItemListener listener;
 
     // ****************************************************************************************************************************************
 
-    CartAdapter(Context context, List<CartItem> cartItems, OnCartItemRemoved cartItemRemoved) {
-        this.inflater = LayoutInflater.from(context);
+    CartAdapter(LayoutInflater inflater, List<CartItem> cartItems, OnCartItemListener listener) {
+        this.inflater = inflater;
         if (cartItems != null) this.cartItems.addAll(cartItems);
-        this.cartItemRemoved = cartItemRemoved;
+        this.listener = listener;
     }
 
     // ****************************************************************************************************************************************
@@ -38,16 +37,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
                 CartItem cartItem = cartItems.get(position);
                 cartItem.decrementQuantity();
                 if (cartItem.getQuantity() == 0) {
-                    cartItemRemoved.onRemoved(cartItem);
+                    listener.onItemRemoved(cartItem);
                     notifyItemRemoved(position);
                 } else {
+                    listener.onItemQuantityReduced(cartItem);
                     notifyItemChanged(position);
                 }
             }
 
             @Override
             public void onAllItemsRemoved(int position) {
-                cartItemRemoved.onRemoved(cartItems.get(position));
+                listener.onItemRemoved(cartItems.get(position));
                 notifyItemRemoved(position);
             }
         });

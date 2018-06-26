@@ -355,4 +355,25 @@
     <string name="confirm_phone_number">Confirm phone number</string>
     <string name="confirm_phone_number_title">Confirm phone number</string>
     <string name="enter_confirmation_code">Enter confirmation code</string>
+    <string name="profile_get_promotions">Get promotions</string>
+    <string name="profile_get_promotions_by_external_id">Promotion by external id</string>
+    <string name="profile_get_promotions_by_phone">Promotions by phone</string>
+    <string name="profile_get_promotions_by_client_id">Promotion by client id</string>
+    <string name="profile_get_promotions_by_email">Promotion by email</string>
+    <string name="profile_get_promotions_by_code">Promotion by code</string>
+    <string name="profile_get_promotions_by_uuid">Promotion by uuid</string>
+    <string name="provide_external_id">External id</string>
+    <string name="provide_phone_number">Phone number</string>
+    <string name="provide_uuid">Uuid</string>
+    <string name="provide_code">Code</string>
+    <string name="provide_email">Email</string>
+    <string name="profile_redeem_promotions_by_phone">Redeem by phone</string>
+    <string name="profile_redeem_promotions_by_client_id">Redeem client id</string>
+    <string name="provide_custom_id">Custom id</string>
+    <string name="profile_redeem_promotions_by_custom_id">Redeem custom id</string>
+    <string name="profile_redeem_promotions_by_email">Redeem Email</string>
+    <string name="provide_promotion_code">Promotion code</string>
+    <string name="client_get_promotions">Get promotions</string>
+    <string name="client_activate_promotions">Activate Promotion</string>
+    <string name="provide_client_uuid">Client uuid</string>
 </resources>

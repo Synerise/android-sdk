@@ -26,7 +26,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath 'com.android.tools.build:gradle:3.1.3'
 
         classpath 'com.synerise.sdk:synerise-gradle-plugin:3.0.2'
         classpath 'org.aspectj:aspectjtools:1.8.13'
@@ -44,7 +44,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.2.1'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.2.2'
 }
 ```
 Finally, please make sure your `Instant Run` is disabled.
@@ -81,13 +81,15 @@ public class App extends Application {
                         .trackerDebugMode(DEBUG_MODE)
                         .injectorDebugMode(DEBUG_MODE)
                         .clientRefresh(true)
+                        .poolUuid("your-pool-uuid-here")
                         .trackerTrackMode(FINE)
                         .trackerMinBatchSize(10)
                         .trackerMaxBatchSize(100)
                         .trackerAutoFlushTimeout(5000)
                         .injectorAutomatic(false)
                         .pushRegistrationRequired(this)
-                        .customClientConfig(new CustomClientAuthConfig("http://myBaseUrl.com/"))
+                        .baseUrl("http://your-base-url.com/")
+                        .customClientConfig(new CustomClientAuthConfig("http://your-base-url.com/"))
                         .build();
         }
 }
@@ -116,14 +118,16 @@ Also, a default icon will be used if there is no custom icon provided.
 3. `.trackerDebugMode(boolean)` - you can receive some simple logs about sending events (like success, failure etc.) by enabling debug mode, which is disabled by default.
 4. `.injectorDebugMode(boolean)` - you can receive some simple logs about Injector actions (like Walkthrough screen availability) by enabling debug mode, which is disabled by default.
 5. `.clientRefresh(boolean)` - enables automatic client's token refresh.
-6. `.trackerTrackMode(TrackMode)` - sets proper mode for view tracking. See Tracker section below.
-7. `.trackerMinBatchSize(int)` - sets minimum number of events in queue required to send them.
-8. `.trackerMaxBatchSize(int)` - sets maximum number of events, which may be sent in a single batch.
-9. `.trackerAutoFlushTimeout(int)` - sets time required to elapse before event's queue will attempt to be sent.
-10. `.injectorAutomatic(true)` - fetches your Walkthrough content right away. Note, that Walkthrough will be presented the moment it gets loaded atop of your Activity if it's id is different than previously presented. See Injector section for more information.
-11. `.pushRegistrationRequired(this)` - it is important to register your customers for push messages. Please register for SDK callbacks when push registration is required.
-12. `.customClientConfig(CustomClientAuthConfig)` - you can also provide your custom Client `Authorization Configuration`. At this moment, configuration handles `Base URL` changes.
-13. `.build()` - builds Synerise SDK with provided data. Please note, that `Synerise.Builder.with(..)` method is mandatory and `Synerise.Builder.build()` method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.<br>
+6. `.poolUuid(String)` - provide your pool's universally unique identifier to assign available voucher to the customer right before registration.
+7. `.trackerTrackMode(TrackMode)` - sets proper mode for view tracking. See Tracker section below.
+8. `.trackerMinBatchSize(int)` - sets minimum number of events in queue required to send them.
+9. `.trackerMaxBatchSize(int)` - sets maximum number of events, which may be sent in a single batch.
+10. `.trackerAutoFlushTimeout(int)` - sets time required to elapse before event's queue will attempt to be sent.
+11. `.injectorAutomatic(true)` - fetches your Walkthrough content right away. Note, that Walkthrough will be presented the moment it gets loaded atop of your Activity if it's id is different than previously presented. See Injector section for more information.
+12. `.pushRegistrationRequired(this)` - it is important to register your customers for push messages. Please register for SDK callbacks when push registration is required.
+13. `.baseUrl("http://your-base-url.com/")` - you can provide your custom base URL to use your own API.
+14. `.customClientConfig(CustomClientAuthConfig)` - you can also provide your custom Client `Authorization Configuration`. At this moment, configuration handles `Base URL` changes.
+15. `.build()` - builds Synerise SDK with provided data. Please note, that `Synerise.Builder.with(..)` method is mandatory and `Synerise.Builder.build()` method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.<br>
 
 ### Errors
 
@@ -417,6 +421,19 @@ Retrieve whether client is signed in (is client's token not expired).
 
 ### CustomClientAuthConfig
 You can also provide your custom Client `Authorization Configuration`. At this moment, configuration handles `Base URL` changes.
+
+#### Client.getPromotions()
+Use this method to get all available promotions that are defined for this client.
+This method returns `IDataApiCall` with parametrized `List<PromotionResponse>` object to execute request.
+
+#### Client.activatePromotionByUuid(String)
+Use this method to activate promotion that has uuid passed as parameter.
+Method returns `IApiCall` to execute request.
+
+#### Client.activatePromotionByCode(String)
+Use this method to activate promotion that has code passed as parameter.
+Method returns `IApiCall` to execute request.
+
 ```
 Synerise.Builder.with(this, syneriseBusinessProfileApiKey, syneriseClientApiKey, appId)
     .customClientConfig(new CustomClientAuthConfig("http://myBaseUrl.com/"))
@@ -490,6 +507,51 @@ Method returns `IApiCall` object to execute request.
 #### Profile.getToken()
 Get valid JWT login token.<br>
 Method returns `IDataApiCall` with parametrized `String` to execute request.
+
+#### Profile.getPromotions()
+Use this method to get all available promotions that are defined for your business profile.
+Method returns `IDataApiCall` with parametrized `ProfilePromotionResponse` to execute request.
+
+#### Profile.getPromotionsByExternalId(String)
+Use this method to get promotion with externalId specified as value param.
+Method returns `IDataApiCall` with parametrized `ProfilePromotionResponse` to execute request.
+
+#### Profile.getPromotionsByPhone(String)
+Use this method to get promotion with phone specified as value param.
+Method returns `IDataApiCall` with parametrized `ProfilePromotionResponse` to execute request.
+
+#### Profile.getPromotionsByClientId(String)
+Use this method to get promotion with clientId specified as value param.
+Method returns `IDataApiCall` with parametrized `ProfilePromotionResponse` to execute request.
+
+#### Profile.getPromotionsByEmail(String)
+Use this method to get promotion with email specified as value param.
+Method returns `IDataApiCall` with parametrized `ProfilePromotionResponse` to execute request.
+
+#### Profile.getPromotionByCode(String)
+Use this method to get promotion with code specified as value param.
+Method returns `IDataApiCall` with parametrized `ProfilePromotionResponse` to execute request.
+
+#### Profile.getPromotionByUuid(String)
+Use this method to get promotion with uuid specified as value param.
+Method returns `IDataApiCall` with parametrized `ProfilePromotionResponse` to execute request.
+
+#### Profile.redeemPromotionByPhone(String, String)
+Use this method to redeem promotion with specified promotionCode and phoneNumber
+Method returns `IApiCall` object to execute request.
+
+#### Profile.redeemPromotionByClientId(String, String)
+Use this method to redeem promotion with specified promotionCode and clientId
+Method returns `IApiCall` object to execute request.
+
+#### Profile.redeemPromotionByCustomId(String, String)
+Use this method to redeem promotion with specified promotionCode and customId
+Method returns `IApiCall` object to execute request.
+
+#### Profile.redeemPromotionByEmail(String, String)
+Use this method to redeem promotion with specified promotionCode and email
+Method returns `IApiCall` object to execute request.
+
 
 ## Injector
 
@@ -604,7 +666,9 @@ Please remember to register services in AndroidManifest as follows:
 If app was invisible to user (minimized or destroyed) and campaign banner came in -
 simple push message is presented to the user and launcher activity is fired after notification click.<br>
 It is a prefect moment for you to pass this data and SDK will verify whether it is campaign banner
-and if so, banner will be presented within the app (atop of your activities).<br>
+and if so, banner will be presented within the app (atop of your activities). Please note that banner is a translucent activity,
+so your activity's `onStop()` method may not be called. Also banner activity is launched with 
+FLAG_ACTIVITY_NEW_TASK flag so you can handle your activity stack properly.<br>
 If your launcher activity last quite longer, check `onNewIntent(Intent)` implementation below.
 ```
     @Override
@@ -685,8 +749,8 @@ Synerise.Builder.with(this, syneriseBusinessProfileApiKey, syneriseClientApiKey,
         .injectorAutomatic(true)
         .build();
 ```
-Setting `.injectorAutomatic(true)` will fetch Walkthrough riht away. Note, that Walkthrough will be presented the moment it gets loaded atop of your current Activity if it's id is different than previously presented.<br>
-To control this behavior please fetch your Walkthrough manually with `Injector.getWalkthrough()`.
+Setting `.injectorAutomatic(true)` will fetch Walkthrough right away. Note, that Walkthrough will be presented the moment it gets loaded atop of your current Activity if it's id is different than previously presented.<br>
+Please note that walkthrough is translucent activity, so your activity's `onStop()` method may not be called. Also walkthrough activity is launched with FLAG_ACTIVITY_NEW_TASK flag so you can handle your activity stack properly. To control this behavior please fetch your Walkthrough manually with `Injector.getWalkthrough()`.
 This method cancels previous API request (if any) and then starts loading Walkthrough asynchronously. Also, it must be called after `Injector.setOnWalkthroughListener(OnWalkthroughListener)` to receive callbacks properly. See Optional callbacks section below.<br>
 You can check if Walkthrough is already loaded with `Injector.isWalkthroughLoaded()` method, which returns true if Walkthrough is already loaded.<br>
 Moreover, there is an enhanced method to check if Walkthrough is loaded. `Injector.isLoadedWalkthroughUnique()` verifies whether loaded Walkthrough is different than previously presented. Every time any Walkthrough is presented it's id is cached locally, therefore you can control your flow more precisely.
@@ -777,6 +841,7 @@ public class App extends Application implements OnInjectorListener {
 
     @Override
     public boolean onOpenUrl(InjectorSource source, String url) {
+
         // your action here
 
         SystemUtils.openURL(this, url); // default behavior
@@ -785,6 +850,7 @@ public class App extends Application implements OnInjectorListener {
 
     @Override
     public boolean onDeepLink(InjectorSource source, String deepLink) {
+
         // your action here
 
         SystemUtils.openDeepLink(this, deepLink); // default behavior
