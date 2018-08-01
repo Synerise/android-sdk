@@ -3,7 +3,7 @@
     <string name="app_name" translatable="false">Synerise Sample App</string>
 
     <!-- replace with your business key -->
-    <string name="synerise_business_api_key">DAA341FD-B541-F894-A28D-77B2F9A8055B</string>
+    <string name="synerise_business_api_key">49475628-E594-6B42-B6AE-8781A9761CC4</string>
 
     <!-- replace with your client key -->
     <string name="synerise_client_api_key">622376F8-4A8F-8B24-D7F9-070FA956E963</string>

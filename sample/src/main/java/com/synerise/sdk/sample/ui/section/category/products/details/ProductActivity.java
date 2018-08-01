@@ -85,7 +85,7 @@ public class ProductActivity extends BaseActivity {
     // ****************************************************************************************************************************************
 
     private AddedToCartEvent createCartEvent() {
-        UnitPrice unitPrice = new UnitPrice(product.getPrice(), Currency.getInstance(Locale.getDefault()));
+        UnitPrice unitPrice = new UnitPrice(product.getPrice(), Currency.getInstance(Locale.US));
         AddedToCartEvent cartEvent = new AddedToCartEvent(getString(product.getName()), product.getSKU(), unitPrice, 1);
         cartEvent.setName(getString(product.getName()));
         cartEvent.setProducer(getString(product.getBrand()));
@@ -100,8 +100,8 @@ public class ProductActivity extends BaseActivity {
             cartEvent.setCategories(categories);
         }
         cartEvent.setOffline(false);
-//        cartEvent.setDiscountedPrice(unitPrice);
-//        cartEvent.setRegularPrice(unitPrice);
+        //        cartEvent.setDiscountedPrice(unitPrice);
+        //        cartEvent.setRegularPrice(unitPrice);
         return cartEvent;
     }
 

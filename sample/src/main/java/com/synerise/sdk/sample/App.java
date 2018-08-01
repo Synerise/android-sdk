@@ -71,8 +71,6 @@ public class App extends MultiDexApplication
         Synerise.Builder.with(this, syneriseBusinessProfileApiKey, syneriseClientApiKey, appId)
                         .notificationIcon(R.drawable.ic_cart)
                         .syneriseDebugMode(DEBUG_MODE)
-                        .trackerDebugMode(DEBUG_MODE)
-                        .injectorDebugMode(DEBUG_MODE)
                         .clientRefresh(true)
                         .poolUuid(null)
                         .trackerTrackMode(FINE)
@@ -97,17 +95,17 @@ public class App extends MultiDexApplication
     @Override
     public void onRegisterForPushRequired() {
         // your logic here
-        final String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        Log.d(TAG, "Refreshed token: " + refreshedToken);
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
+            String refreshedToken = instanceIdResult.getToken();
+            Log.d(TAG, "Refreshed token: " + refreshedToken);
 
-        if (refreshedToken != null) {
             IApiCall call = Profile.registerForPush(refreshedToken);
             call.execute(() -> Log.d(TAG, "Register for Push succeed: " + refreshedToken),
                          apiError -> Log.w(TAG, "Register for push failed: " + refreshedToken));
 
             Intent intent = FirebaseIdChangeBroadcastReceiver.createFirebaseIdChangedIntent();
-            LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
-        }
+            LocalBroadcastManager.getInstance(App.this).sendBroadcast(intent);
+        });
     }
 
     @Override

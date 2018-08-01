@@ -8,8 +8,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 27
         applicationId "com.synerise.sample"
-        versionCode 11
-        versionName "3.0.2"
+        versionCode 12
+        versionName "3.0.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -57,9 +57,9 @@ android {
 }
 
 ext {
-    daggerVersion = '2.15'
-    syneriseVersion = '3.2.2'
-    playServicesVersion = '17.0.0'
+    daggerVersion = '2.16'
+    syneriseVersion = '3.2.3'
+    playServicesVersion = '17.1.0'
 }
 
 dependencies {
@@ -91,7 +91,7 @@ dependencies {
     //implementation project(':synerise-mobile-sdk')
     // Firebase
     implementation "com.google.firebase:firebase-messaging:$playServicesVersion"
-    implementation "com.google.firebase:firebase-core:16.0.1" // for crashlytics
+    implementation "com.google.firebase:firebase-core:16.0.1"
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.4'
     // UI
     implementation 'com.facebook.fresco:fresco:1.9.0'

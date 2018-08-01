@@ -44,7 +44,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.2.2'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.2.3'
 }
 ```
 Finally, please make sure your `Instant Run` is disabled.
@@ -78,8 +78,6 @@ public class App extends Application {
         Synerise.Builder.with(this, syneriseBusinessProfileApiKey, syneriseClientApiKey, appId)
                         .notificationIcon(R.drawable.notification_icon)
                         .syneriseDebugMode(DEBUG_MODE)
-                        .trackerDebugMode(DEBUG_MODE)
-                        .injectorDebugMode(DEBUG_MODE)
                         .clientRefresh(true)
                         .poolUuid("your-pool-uuid-here")
                         .trackerTrackMode(FINE)
@@ -181,17 +179,6 @@ Sometimes AndroidManifest Merger errors may occur. In that case please paste fol
 in your AndroidManifest application tag.
 
 ## Tracker
-
-### Debug
-
-You can receive some simple logs about events by enabling debug mode, which is disabled by default.
-```
-Synerise.Builder.with(this, syneriseBusinessProfileApiKey, syneriseClientApiKey, appId)
-    .trackerDebugMode(true)
-    ...
-    .build();
-```
-Note: It is not recommended to use debug mode in release version of your application.
 
 ### View tracking
 
@@ -557,16 +544,6 @@ Method returns `IApiCall` object to execute request.
 
 Injector is designed to be simple to develop with, allowing you to integrate Synerise Mobile Content into your apps easily.<br>
 
-### Debug
-You can receive some simple logs about Injector by enabling debug mode, which is disabled by default.
-```
-Synerise.Builder.with(this, syneriseBusinessProfileApiKey, syneriseClientApiKey, appId)
-    .injectorDebugMode(true)
-    ...
-    .build();
-```
-Note: It is not recommended to use debug mode in release version of your application.
-
 ### Handling push notifications
 In order to display push messages and banners properly, you have to pass incoming push notification payload to `Injector` in your `FirebaseMessagingService` implementation:
 ```
@@ -583,24 +560,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 Overriding `onMessageReceived(RemoteMessage)` causes simple notification to not being displayed while app is visible to user. <br>
 Please check our sample app for example usage of building your non-Synerise notification. <br>
 <br>
-Also register for push messages in your `FirebaseInstanceIdService` implementation:
+Also register for push messages:
 ```
-public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
-
-    private static final String TAG = MyFirebaseInstanceIDService.class.getSimpleName();
-
     @Override
-    public void onTokenRefresh() {
+    public void onNewToken(String refreshedToken) {
+        super.onNewToken(refreshedToken);
 
-        final String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        Log.d(TAG, "Refreshed token: " + refreshedToken);
 
         if (refreshedToken != null) {
             IApiCall call = Profile.registerForPush(refreshedToken);
-            call.execute(() -> Log.d(TAG, "Register for push succeed: " + refreshedToken),
+            call.execute(() -> Log.d(TAG, "Register for Push succeed: " + refreshedToken),
                          apiError -> Log.w(TAG, "Register for push failed: " + refreshedToken));
         }
     }
-}
 ```
 and in your `Application` implementation:
 ```
@@ -621,18 +594,18 @@ public class App extends MultiDexApplication implements OnRegisterForPushListene
 
     @Override
     public void onRegisterForPushRequired() {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
+            String refreshedToken = instanceIdResult.getToken();
+            Log.d(TAG, "Refreshed token: " + refreshedToken);
 
-        final String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-
-        if (refreshedToken != null) {
             IApiCall call = Profile.registerForPush(refreshedToken);
             call.execute(() -> Log.d(TAG, "Register for Push succeed: " + refreshedToken),
                          apiError -> Log.w(TAG, "Register for push failed: " + refreshedToken));
-        }
+        });
     }
 }
 ```
-Please remember to register services in AndroidManifest as follows:
+Please remember to register your service in AndroidManifest as follows:
 ```
 <application
         android:name=".App"
@@ -648,12 +621,6 @@ Please remember to register services in AndroidManifest as follows:
         <service android:name=".service.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
-        <service android:name=".service.MyFirebaseInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
@@ -692,6 +659,15 @@ If your launcher activity was already created and notification was clicked - you
         boolean isSynerisePush = Injector.handlePushPayload(intent.getExtras());
     }
 ```
+
+##### Synerise Push type detection
+Sometimes you may need to know whether incoming push message comes from Synerise and if so, what information is exactly carrying.<br>
+`Injector.isSynerisePush(Map<String, String>)` only checks whether provided push data comes from Synerise.
+It is validated by checking if incoming push contains "issuer" key with "Synerise" value.<br>
+`Injector.isSyneriseSimplePush(Map<String, String>)` only checks whether provided push data comes from Synerise and is it specifically Synerise Simple Push.
+It is validated by checking if incoming push contains "content-type" key with "simple-push" value.<br>
+`Injector.isSyneriseBanner(Map<String, String>)` only checks whether provided push data comes from Synerise and is it specifically Synerise Banner.
+It is validated by checking if incoming push contains "content-type" key with "template-banner" value.<br>
 
 #### Optional callbacks
 It is not always suitable for you to cover your Activities with any banners which may come.<br>

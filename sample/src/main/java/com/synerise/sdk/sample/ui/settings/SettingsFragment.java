@@ -57,7 +57,7 @@ public class SettingsFragment extends BaseFragment {
             signOut.setOnClickListener(v -> {
                 Client.signOut();
                 accountManager.signOut();
-                startActivity(SplashActivity.createIntent(getContext()));
+                startActivity(SplashActivity.createIntent(getActivity()));
                 getActivity().finishAffinity();
             });
         } else {

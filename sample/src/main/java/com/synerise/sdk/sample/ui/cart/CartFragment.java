@@ -14,7 +14,6 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 
 import com.synerise.sdk.event.Tracker;
-import com.synerise.sdk.event.TrackerParams;
 import com.synerise.sdk.event.model.interaction.HitTimerEvent;
 import com.synerise.sdk.event.model.model.UnitPrice;
 import com.synerise.sdk.event.model.products.cart.RemovedFromCartEvent;
@@ -105,7 +104,7 @@ public class CartFragment extends BaseFragment {
 
     private void handleLayoutVisibility() {
         List<CartItem> cartItems = accountManager.getCartItems();
-        CartAdapter cartAdapter = new CartAdapter(LayoutInflater.from(getContext()), cartItems, new OnCartItemListener() {
+        CartAdapter cartAdapter = new CartAdapter(LayoutInflater.from(getActivity()), cartItems, new OnCartItemListener() {
             @Override
             public void onItemQuantityReduced(CartItem cartItem) {
                 CartFragment.this.onItemQuantityReduced(cartItem);
@@ -123,7 +122,7 @@ public class CartFragment extends BaseFragment {
             cartRecycler.setAdapter(cartAdapter);
             cartRecycler.setHasFixedSize(true);
             cartRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(ContextCompat.getDrawable(getContext(),
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(ContextCompat.getDrawable(getActivity(),
                                                                                                               R.drawable.divider));
             cartRecycler.addItemDecoration(dividerItemDecoration);
         } else {
@@ -155,8 +154,7 @@ public class CartFragment extends BaseFragment {
 
     private RemovedFromCartEvent createCartEvent(Product product, int quantity) {
         UnitPrice unitPrice = new UnitPrice(product.getPrice(), Currency.getInstance(Locale.getDefault()));
-        RemovedFromCartEvent cartEvent = new RemovedFromCartEvent(getString(product.getName()), product.getSKU(), unitPrice, 1,
-                                                                  new TrackerParams.Builder().add("quantity", quantity).build());
+        RemovedFromCartEvent cartEvent = new RemovedFromCartEvent(getString(product.getName()), product.getSKU(), unitPrice, quantity);
         cartEvent.setName(getString(product.getName()));
         cartEvent.setProducer(getString(product.getBrand()));
 
@@ -183,7 +181,7 @@ public class CartFragment extends BaseFragment {
             Product cartProduct = cartItem.getProduct();
             for (int i = 0; i < cartItem.getQuantity(); i++) {
                 finalPrice += cartProduct.getPrice();
-                products.add(cartProduct.getEventProduct(getContext(), cartItem.getQuantity()));
+                products.add(cartProduct.getEventProduct(getActivity(), cartItem.getQuantity()));
             }
         }
         transactionEvent.setValue(new UnitPrice(finalPrice, Currency.getInstance(Locale.getDefault())));

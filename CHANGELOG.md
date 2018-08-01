@@ -1,6 +1,24 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.2.3] - 2018-08-01
+### Added
+- Synerise push messages type detection
+
+### Changed
+- Tracker and Injector debug modes are now merged with Synerise debug mode
+- Firebase version incrementation (17.1.0)
+- Google Play Services version incrementation (4.0.0)
+- Gradle version incrementation (3.3.0-alpha03)
+- Push message type is now validated with it's content type, not message type
+
+### Removed
+- FirebaseInstanceIDService implementation as it is deprecated with new Firebase (17.1.0)
+
+### Fixed
+- Standardize event source type
+- Password validation
+
 ## [3.2.2] - 2018-06-26
 ### Added
 - Synerise Promotions

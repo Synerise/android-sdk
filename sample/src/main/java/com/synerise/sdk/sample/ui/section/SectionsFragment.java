@@ -80,7 +80,7 @@ public class SectionsFragment extends BaseFragment {
             }
 
             private int getColor(Section section) {
-                return ContextCompat.getColor(getContext(), section.getColor());
+                return ContextCompat.getColor(getActivity(), section.getColor());
             }
         });
 

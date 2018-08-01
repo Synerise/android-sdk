@@ -32,12 +32,12 @@ public class DeveloperFragment extends BaseDevFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.tracker_api).setOnClickListener(v -> startActivity(TrackerApiActivity.createIntent(getContext())));
-        view.findViewById(R.id.client_api).setOnClickListener(v -> startActivity(ClientApiActivity.createIntent(getContext())));
-        view.findViewById(R.id.profile_api).setOnClickListener(v -> startActivity(ProfileApiActivity.createIntent(getContext())));
-        view.findViewById(R.id.injector_api).setOnClickListener(v -> startActivity(InjectorApiActivity.createIntent(getContext())));
+        view.findViewById(R.id.tracker_api).setOnClickListener(v -> startActivity(TrackerApiActivity.createIntent(getActivity())));
+        view.findViewById(R.id.client_api).setOnClickListener(v -> startActivity(ClientApiActivity.createIntent(getActivity())));
+        view.findViewById(R.id.profile_api).setOnClickListener(v -> startActivity(ProfileApiActivity.createIntent(getActivity())));
+        view.findViewById(R.id.injector_api).setOnClickListener(v -> startActivity(InjectorApiActivity.createIntent(getActivity())));
         view.findViewById(R.id.reset).setOnClickListener(v -> {
-            ActivityManager activityManager = ((ActivityManager) getContext().getSystemService(ACTIVITY_SERVICE));
+            ActivityManager activityManager = ((ActivityManager) getActivity().getSystemService(ACTIVITY_SERVICE));
             if (activityManager != null) activityManager.clearApplicationUserData();
         });
     }
