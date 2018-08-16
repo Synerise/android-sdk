@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,13 +33,16 @@ public class DeveloperFragment extends BaseDevFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.tracker_api).setOnClickListener(v -> startActivity(TrackerApiActivity.createIntent(getActivity())));
-        view.findViewById(R.id.client_api).setOnClickListener(v -> startActivity(ClientApiActivity.createIntent(getActivity())));
-        view.findViewById(R.id.profile_api).setOnClickListener(v -> startActivity(ProfileApiActivity.createIntent(getActivity())));
-        view.findViewById(R.id.injector_api).setOnClickListener(v -> startActivity(InjectorApiActivity.createIntent(getActivity())));
-        view.findViewById(R.id.reset).setOnClickListener(v -> {
-            ActivityManager activityManager = ((ActivityManager) getActivity().getSystemService(ACTIVITY_SERVICE));
-            if (activityManager != null) activityManager.clearApplicationUserData();
-        });
+        FragmentActivity activity = getActivity();
+        if (activity != null) {
+            view.findViewById(R.id.tracker_api).setOnClickListener(v -> startActivity(TrackerApiActivity.createIntent(activity)));
+            view.findViewById(R.id.client_api).setOnClickListener(v -> startActivity(ClientApiActivity.createIntent(activity)));
+            view.findViewById(R.id.profile_api).setOnClickListener(v -> startActivity(ProfileApiActivity.createIntent(activity)));
+            view.findViewById(R.id.injector_api).setOnClickListener(v -> startActivity(InjectorApiActivity.createIntent(activity)));
+            view.findViewById(R.id.reset).setOnClickListener(v -> {
+                ActivityManager activityManager = ((ActivityManager) activity.getSystemService(ACTIVITY_SERVICE));
+                if (activityManager != null) activityManager.clearApplicationUserData();
+            });
+        }
     }
 }

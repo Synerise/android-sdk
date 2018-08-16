@@ -25,6 +25,8 @@ public class BaseFragment extends Fragment {
                 }
             case NETWORK_ERROR:
                 return getString(R.string.error_network);
+            case NO_TOKEN:
+                return getString(R.string.no_token);
             default:
                 return getString(R.string.error_default);
         }

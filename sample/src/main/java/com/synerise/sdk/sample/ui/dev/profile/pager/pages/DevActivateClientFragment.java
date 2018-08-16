@@ -7,45 +7,38 @@ import android.support.design.widget.TextInputLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 
 import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.injector.net.exception.InvalidEmailException;
-import com.synerise.sdk.injector.net.exception.InvalidPasswordException;
 import com.synerise.sdk.profile.Profile;
-import com.synerise.sdk.profile.model.client.RegisterClient;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.test.EspressoTestingIdlingResource;
 import com.synerise.sdk.sample.ui.dev.BaseDevFragment;
 
-public class DevRegisterClientFragment extends BaseDevFragment {
+public class DevActivateClientFragment extends BaseDevFragment {
 
     private TextInputLayout inputEmail;
-    private TextInputLayout inputPassword;
-    private CheckBox registerWithoutActivation;
 
     private IApiCall call;
 
-    public static DevRegisterClientFragment newInstance() { return new DevRegisterClientFragment(); }
+    public static DevActivateClientFragment newInstance() { return new DevActivateClientFragment(); }
 
     // ****************************************************************************************************************************************
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_profile_register_client, container, false);
+        return inflater.inflate(R.layout.fragment_profile_activate_client, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        inputEmail = view.findViewById(R.id.input_email_register);
-        inputPassword = view.findViewById(R.id.input_password_register);
-        registerWithoutActivation = view.findViewById(R.id.register_without_activation);
-        view.findViewById(R.id.register_client).setOnClickListener(v -> registerClient());
+        inputEmail = view.findViewById(R.id.input_email_activate);
+        view.findViewById(R.id.activate_client).setOnClickListener(v -> activateClient());
     }
 
     @Override
@@ -57,34 +50,23 @@ public class DevRegisterClientFragment extends BaseDevFragment {
     // ****************************************************************************************************************************************
 
     @SuppressWarnings("ConstantConditions")
-    private void registerClient() {
+    private void activateClient() {
 
         boolean isValid = true;
 
         inputEmail.setError(null);
-        inputPassword.setError(null);
 
         String email = inputEmail.getEditText().getText().toString();
-        String password = inputPassword.getEditText().getText().toString();
 
-        RegisterClient registerClient = null;
         try {
-            registerClient = new RegisterClient().setEmail(email)
-                                                 .setPassword(password);
+            call = Profile.activateClient(email);
         } catch (InvalidEmailException e) {
-            inputEmail.setError(getString(R.string.error_invalid_email));
             isValid = false;
-        } catch (InvalidPasswordException e) {
-            inputPassword.setError(getString(R.string.error_invalid_password));
-            isValid = false;
+            inputEmail.setError(getString(R.string.error_empty));
         }
 
-        if (isValid) {
-            if (call != null) call.cancel();
-            if (registerWithoutActivation.isChecked())
-                call = Profile.registerClientByEmailWithoutActivation(registerClient);
-            else
-                call = Profile.registerClientByEmail(registerClient);
+        if (isValid && call != null) {
+            call.cancel();
             EspressoTestingIdlingResource.increment();
             call.execute(this::onSuccess, new DataActionListener<ApiError>() {
                 @Override

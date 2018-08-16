@@ -2,18 +2,26 @@ apply plugin: 'com.android.application'
 apply plugin: 'synerise-plugin'
 apply plugin: 'io.fabric'
 
+def homePath = System.properties['user.home']
+
 android {
     compileSdkVersion 27
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 27
         applicationId "com.synerise.sample"
-        versionCode 12
-        versionName "3.0.3"
+        versionCode 13
+        versionName "3.0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
     signingConfigs {
+        releaseConfig {
+            keyAlias project.syneriseSampleKeyAlias
+            keyPassword project.syneriseSampleKeyPassword
+            storeFile file(homePath + '/.android/release_synerise_sample.jks')
+            storePassword project.syneriseSampleStorePassword
+        }
         developmentConfig {
             keyAlias "debugKey"
             keyPassword "testtest"
@@ -36,7 +44,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.developmentConfig
+            signingConfig signingConfigs.releaseConfig
         }
         debug {
             minifyEnabled false
@@ -58,7 +66,7 @@ android {
 
 ext {
     daggerVersion = '2.16'
-    syneriseVersion = '3.2.3'
+    syneriseVersion = '3.2.4'
     playServicesVersion = '17.1.0'
 }
 
@@ -128,4 +136,3 @@ def getLocalProperty(String propertyName) {
 }
 
 apply plugin: 'com.google.gms.google-services' // get `google-services.json` from Firebase console first
-

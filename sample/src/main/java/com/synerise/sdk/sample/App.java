@@ -66,11 +66,9 @@ public class App extends MultiDexApplication
         String syneriseClientApiKey = accountManager.getClientProfileApiKey();
         String appId = getString(R.string.app_name);
 
-        final boolean DEBUG_MODE = BuildConfig.DEBUG;
-
         Synerise.Builder.with(this, syneriseBusinessProfileApiKey, syneriseClientApiKey, appId)
                         .notificationIcon(R.drawable.ic_cart)
-                        .syneriseDebugMode(DEBUG_MODE)
+                        .syneriseDebugMode(true)
                         .clientRefresh(true)
                         .poolUuid(null)
                         .trackerTrackMode(FINE)

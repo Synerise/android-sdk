@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.2.4] - 2018-08-16
+### Added
+- New Profile activate account feature
+- New Client delete account feature
+- New Client change password feature
+- New Client request phone update feature
+- New Client confirm phone update feature
+
+### Changed
+- Major documentation update
+- Tracker events nomenclature
+
 ## [3.2.3] - 2018-08-01
 ### Added
 - Synerise push messages type detection

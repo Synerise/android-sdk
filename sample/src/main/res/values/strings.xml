@@ -53,6 +53,8 @@
     <string name="profile_client_register">Register Client</string>
     <string name="profile_client_update">Update Client</string>
     <string name="profile_client_delete">Delete Client</string>
+    <string name="profile_client_activate">Activate Client</string>
+
     <string name="provide_client_email">Client\'s email</string>
     <string name="profile_password_reset">Reset Password</string>
     <string name="provide_new_password">New password</string>
@@ -376,4 +378,10 @@
     <string name="client_get_promotions">Get promotions</string>
     <string name="client_activate_promotions">Activate Promotion</string>
     <string name="provide_client_uuid">Client uuid</string>
+    <string name="delete_account">Delete account</string>
+    <string name="client_change_password">Change password</string>
+    <string name="client_phone_update">Phone update</string>
+    <string name="client_confirm_phone_update">Confirm phone update</string>
+    <string name="no_token">No token found</string>
+    <string name="register_without_activation">Register without activation</string>
 </resources>

@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.synerise.sdk.sample.R;
+import com.synerise.sdk.sample.ui.dev.profile.pager.pages.DevActivateClientFragment;
 import com.synerise.sdk.sample.ui.dev.profile.pager.pages.DevConfirmResetFragment;
 import com.synerise.sdk.sample.ui.dev.profile.pager.pages.DevCreateClientFragment;
 import com.synerise.sdk.sample.ui.dev.profile.pager.pages.DevDeleteClientFragment;
@@ -36,6 +37,7 @@ public class ProfileApiPagerAdapter extends FragmentPagerAdapter {
         REGISTER_CLIENT(R.string.profile_client_register),
         UPDATE_CLIENT(R.string.profile_client_update),
         DELETE_CLIENT(R.string.profile_client_delete),
+        ACTIVATE_CLIENT(R.string.profile_client_activate),
         RESET_PASSWORD(R.string.profile_password_reset),
         CONFIRM_RESET(R.string.profile_password_confirm),
         GET_TOKEN(R.string.get_token),
@@ -92,6 +94,9 @@ public class ProfileApiPagerAdapter extends FragmentPagerAdapter {
                 break;
             case DELETE_CLIENT:
                 fragment = DevDeleteClientFragment.newInstance();
+                break;
+            case ACTIVATE_CLIENT:
+                fragment = DevActivateClientFragment.newInstance();
                 break;
             case RESET_PASSWORD:
                 fragment = DevResetPasswordFragment.newInstance();

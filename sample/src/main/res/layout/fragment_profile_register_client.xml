@@ -38,6 +38,13 @@
 
     </android.support.design.widget.TextInputLayout>
 
+    <CheckBox
+        android:id="@+id/register_without_activation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_small"
+        android:text="@string/register_without_activation" />
+
     <Button
         android:id="@+id/register_client"
         style="@style/ButtonPrimary"

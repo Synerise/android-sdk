@@ -44,7 +44,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.2.3'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.2.4'
 }
 ```
 Finally, please make sure your `Instant Run` is disabled.
@@ -89,7 +89,7 @@ public class App extends Application {
                         .baseUrl("http://your-base-url.com/")
                         .customClientConfig(new CustomClientAuthConfig("http://your-base-url.com/"))
                         .build();
-        }
+    }
 }
 ```
 
@@ -121,9 +121,9 @@ Also, a default icon will be used if there is no custom icon provided.
 8. `.trackerMinBatchSize(int)` - sets minimum number of events in queue required to send them.
 9. `.trackerMaxBatchSize(int)` - sets maximum number of events, which may be sent in a single batch.
 10. `.trackerAutoFlushTimeout(int)` - sets time required to elapse before event's queue will attempt to be sent.
-11. `.injectorAutomatic(true)` - fetches your Walkthrough content right away. Note, that Walkthrough will be presented the moment it gets loaded atop of your Activity if it's id is different than previously presented. See Injector section for more information.
+11. `.injectorAutomatic(boolean)` - simple flag may be provided to enable automatic mode in injector. See Injector section for more information.
 12. `.pushRegistrationRequired(this)` - it is important to register your customers for push messages. Please register for SDK callbacks when push registration is required.
-13. `.baseUrl("http://your-base-url.com/")` - you can provide your custom base URL to use your own API.
+13. `.baseUrl(String)` - you can provide your custom base URL to use your own API.
 14. `.customClientConfig(CustomClientAuthConfig)` - you can also provide your custom Client `Authorization Configuration`. At this moment, configuration handles `Base URL` changes.
 15. `.build()` - builds Synerise SDK with provided data. Please note, that `Synerise.Builder.with(..)` method is mandatory and `Synerise.Builder.build()` method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.<br>
 
@@ -200,7 +200,7 @@ DISABLED - listeners are disabled, which is default mode.
 
 ### Send event
 
-To send some evens just use `Tracker.send(Event)` method:
+To send some event just use `Tracker.send(Event)` method:
 ```
 Tracker.send(new CustomEvent("yourAction", "yourLabel"));
 ```
@@ -326,12 +326,27 @@ Log your custom data with `TrackerParams` class.
 
 #### Tracker.flush()
 Flush method forces sending events from queue to server.
+```
+private void flush() {
+    Tracker.flush();
+}
+```
 
-#### Tracker.setCustomIdentifier(String)
+#### Tracker.setCustomIdentifier(customIdentifier)
 You can also pass your custom identifier to match your users in our CRM. Your custom identifier will be sent within every event in event params.
+```
+private void setCustomIdentifier(String customIdentifier) {
+    Tracker.setCustomIdentifier(customIdentifier);
+}
+```
 
-#### Tracker.setCustomEmail(String)
+#### Tracker.setCustomEmail(customEmail)
 You can also pass your custom email to match your users in our CRM. Your custom email will be sent within every event in event params.
+```
+private void setCustomEmail(String customEmail) {
+    Tracker.setCustomEmail(customEmail);
+}
+```
 
 ## Client
 
@@ -347,6 +362,7 @@ Please note that you should NOT allow to sign in again (or sign up) when user is
 Moreover, please do not create multiple instances nor call this method multiple times before execution.
 ```
 private void signIn(String email, String password) {
+    if (signInCall != null) signInCall.cancel();
     try {
         signInCall = Client.signIn(email, password, null);
     } catch (InvalidEmailException e) {
@@ -354,12 +370,10 @@ private void signIn(String email, String password) {
     } catch (InvalidPasswordException e) {
         textPassword.setError(getString(R.string.error_invalid_password));
     }
-    if (signInCall != null) {
-        signInCall.cancel();
-        signInCall.onSubscribe(() -> toggleLoading(true))
-                  .doFinally(() -> toggleLoading(false))
-                  .execute(this::onSignInSuccessful, this::onSignInFailure);
-    }
+
+    signInCall.onSubscribe(() -> toggleLoading(true))
+              .doFinally(() -> toggleLoading(false))
+              .execute(this::onSignInSuccessful, this::onSignInFailure);
 }
 ```
 
@@ -371,63 +385,205 @@ Method requires valid and non-null phone number and password. Device ID is optio
 Method returns `IApiCall` to execute request.<br>
 Please note that you should NOT allow to sign in again (or sign up) when user is already signed in. Please sign out user first.<br>
 Moreover, please do not create multiple instances nor call this method multiple times before execution.
+```
+private void signIn(String phone, String password) {
+    if (signInCall != null) signInCall.cancel();
+    try {
+        signInCall = Client.signIn(phone, password, null);
+    } catch (InvalidPhoneNumberException e) {
+        textEmail.setError(getString(R.string.error_invalid_phone));
+    } catch (InvalidPasswordException e) {
+        textPassword.setError(getString(R.string.error_invalid_password));
+    }
+
+    signInCall.onSubscribe(() -> toggleLoading(true))
+              .doFinally(() -> toggleLoading(false))
+              .execute(this::onSignInSuccessful, this::onSignInFailure);
+    }
+}
+```
 
 #### Client.signOut()
 Signing client out clears email, id and generates new UUID for anonymous one.<br>
 It also clears client's JWT token.
+```
+private void signOut() {
+    Client.signOut();
+}
+```
 
 #### Client.getAccount()
 Use this method to get client's account information.<br>
 This method returns `IDataApiCall` with parametrized `AccountInformation` object to execute request.
+```
+private void getAccount() {
+    if (accountInfoCall != null) accountInfoCall.cancel();
+    accountInfoCall = Client.getAccount();
+    accountInfoCall.execute(success -> onSuccess(), this::onError);
+}
+```
 
 #### Client.updateAccount(accountInformation)
 Use this method to update client's account information.<br>
 This method requires `AccountInformation` Builder Pattern object with client's account information. Not provided fields are not modified.
 Method returns `IApiCall` to execute request.
+```
+private void updateAccount(String city, String company) {
+    AccountInformation accountInformation = new AccountInformation();
+    accountInformation.setCity(city).setCompany(company);
+
+    if (apiCall != null) apiCall.cancel();
+    apiCall = Client.updateAccount(accountInformation);
+    apiCall.execute(this::onSuccess, this::onError);
+}
+```
 
 #### Client.getAnalytics()
 Get all available Analytics metrics for the client.<br>
 Please note that in order to use this method, Client must be signed in first.<br>
 This method returns `IDataApiCall` with parametrized `List<AnalyticsMetrics>` object to execute request.
+```
+private void getAnalytics() {
+    if (apiCall != null) apiCall.cancel();
+    apiCall = Client.getAnalytics();
+    apiCall.execute(this::onSuccess, this::onError);
+}
+```
 
-#### Client.getAnalytics(String)
+#### Client.getAnalytics(name)
 Fetch all available Analytics metrics for the client and return the first metric, which matches provided name.<br>
 Please note that in order to use this method, Client must be signed in first.<br>
 This method returns `IDataApiCall` with parametrized `AnalyticsMetrics` object to execute request.
+```
+private void getAnalytics(String name) {
+    if (apiCall != null) apiCall.cancel();
+    apiCall = Client.getAnalytics(name);
+    apiCall.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Client.getPromotions()
+Use this method to get all available promotions that are defined for this client.
+This method returns `IDataApiCall` with parametrized `List<PromotionResponse>` object to execute request.
+```
+private void getPromotions() {
+    if (apiCall != null) apiCall.cancel();
+    apiCall = Client.getPromotions();
+    apiCall.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Client.activatePromotionByUuid(uuid)
+Use this method to activate promotion that has uuid passed as parameter.
+Method returns `IApiCall` to execute request.
+```
+private void activatePromotionByUuid(String uuid) {
+    if (apiCall != null) apiCall.cancel();
+    apiCall = Client.activatePromotionByUuid(uuid);
+    apiCall.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Client.activatePromotionByCode(code)
+Use this method to activate promotion that has code passed as parameter.
+Method returns `IApiCall` to execute request.
+```
+private void activatePromotionByCode(String code) {
+    if (apiCall != null) apiCall.cancel();
+    apiCall = Client.activatePromotionByCode(code);
+    apiCall.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Client.requestPhoneUpdate(phone)
+Use this method to request phone number update. This action requires additional validation via pin code.
+Method returns `IApiCall` to execute request.
+```
+private void requestPhoneUpdate(String phone) {
+    if (apiCall != null) apiCall.cancel();
+    try {
+        apiCall = Client.requestPhoneUpdate(phone);
+    } catch (InvalidPhoneNumberException e) { }
+
+    apiCall.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Client.confirmPhoneUpdate(phone, confirmationCode)
+Use this method to confirm phone number update. This action requires to pass phone number and confirmation code as parameters.
+Method returns `IApiCall` to execute request.
+```
+private void confirmPhoneUpdate(String phone, String confirmationCode) {
+    if (apiCall != null) apiCall.cancel();
+    try {
+        apiCall = Client.confirmPhoneUpdate(phone, confirmationCode);
+    } catch (InvalidPhoneNumberException e) { }
+
+    apiCall.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Client.changePassword(password)
+Use this method to change client's password.
+Method returns `IApiCall` to execute request.
+```
+private void changePassword(String password) {
+    if (apiCall != null) apiCall.cancel();
+    try {
+        apiCall = Client.changePassword(password);
+    } catch (InvalidPhoneNumberException e) { }
+
+    apiCall.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Client.deleteAccount()
+Use this method to delete client's account.
+Method returns `IApiCall` to execute request.
+```
+private void changePassword(String password) {
+   if (deleteCall != null) deleteCall.cancel();
+   deleteCall = Client.deleteAccount();
+   deleteCall.execute(this::onSuccess, this::onError);
+}
+```
 
 #### Client.getToken()
 Get valid JWT login token.<br>
 Note, that error is thrown when Client is not logged in or token has expired and cannot be refreshed.<br>
 Method returns `IDataApiCall` with parametrized `String` to execute request.
+```
+private void getToken() {
+    if (apiCall != null) apiCall.cancel();
+    apiCall = Client.getToken();
+    apiCall.execute(this::onSuccess, this::onError);
+}
+```
 
 #### Client.getUuid()
 Retrieve current client UUID.
+```
+private String getUuid() {
+    return Client.getUuid();
+}
+```
 
 #### Client.isSignedIn()
 Retrieve whether client is signed in (is client's token not expired).
+```
+private boolean isSignedIn() {
+    return Client.isSignedIn();
+}
+```
 
 ### CustomClientAuthConfig
 You can also provide your custom Client `Authorization Configuration`. At this moment, configuration handles `Base URL` changes.
-
-#### Client.getPromotions()
-Use this method to get all available promotions that are defined for this client.
-This method returns `IDataApiCall` with parametrized `List<PromotionResponse>` object to execute request.
-
-#### Client.activatePromotionByUuid(String)
-Use this method to activate promotion that has uuid passed as parameter.
-Method returns `IApiCall` to execute request.
-
-#### Client.activatePromotionByCode(String)
-Use this method to activate promotion that has code passed as parameter.
-Method returns `IApiCall` to execute request.
-
 ```
 Synerise.Builder.with(this, syneriseBusinessProfileApiKey, syneriseClientApiKey, appId)
     .customClientConfig(new CustomClientAuthConfig("http://myBaseUrl.com/"))
     ...
     .build();
 ```
-
 
 ## Profile
 
@@ -438,11 +594,35 @@ Get client's account data with email. <br>
 Note, that you have to be logged in as business profile and use Api Key, which has REALM_CLIENT scope assigned or you have to be logged in as user and have ROLE_CLIENT_SHOW role assigned.<br>
 `getClient` method also throws InvalidEmailException for you to catch and handle invalid email.<br>
 Method returns IDataApiCall with parametrized `ClientProfile` object to execute request.
+```
+private void getClient(String email) {
+    if (getClientCall != null) getClientCall.cancel();
+    try {
+        getClientCall = Profile.getClient(email);
+    } catch (InvalidEmailException e) { }
+
+    getClientCall.execute(this::onSuccess, this::onError);
+}
+```
 
 #### Profile.createClient(createClient)
 Create a new client record if no identifier has been assigned for him before in Synerise.
 This method requires `CreateClient` Builder Pattern object with client's optional data. Not provided fields are not modified.
 Method returns `IApiCall` object to execute request.
+```
+private void createClient(String email, String city) {
+
+    CreateClient createClient = new CreateClient();
+    try {
+        createClient.setEmail(email);
+    } catch (InvalidEmailException e) { return; }
+
+    createClient.setCity(city);
+    if (call != null) call.cancel();
+    call = Profile.createClient(createClient);
+    call.execute(this::onSuccess, this::onError);
+}
+```
 
 #### Profile.registerClientByEmail(registerClient)
 Register new Client with email, password and optional data.
@@ -457,7 +637,23 @@ private void signUp(RegisterClient registerClient, String name, String lastName)
     signUpCall.onSubscribe(() -> toggleLoading(true))
               .doFinally(() -> toggleLoading(false))
               .execute(this::onSignUpSuccessful, this::onSignUpFailure);
-    }
+}
+```
+
+#### Profile.registerClientByEmailWithoutActivation(registerClient)
+Register new Client with email, password and optional data.
+This method requires `RegisterClient` Builder Pattern object with client's email, password and optional data. Not provided fields are not modified.
+Method returns `IApiCall` object to execute request. Remember that account registered with this method becomes active without email verification.<br>
+Please note that you should NOT allow to sign in again (or sign up) when user is already signed in. Please sign out user first.<br>
+Moreover, please do not create multiple instances nor call this method multiple times before execution.
+```
+private void signUp(RegisterClient registerClient, String name, String lastName) {
+    if (signUpCall != null) signUpCall.cancel();
+    signUpCall = Profile.registerClientByEmailWithoutActivation(registerClient.setFirstName(name).setLastName(lastName));
+    signUpCall.onSubscribe(() -> toggleLoading(true))
+              .doFinally(() -> toggleLoading(false))
+              .execute(this::onSignUpSuccessful, this::onSignUpFailure);
+}
 ```
 
 #### Profile.registerClientByPhone(registerClient)
@@ -466,79 +662,238 @@ This method requires `RegisterClient` Builder Pattern object with client's phone
 Method returns `IApiCall` object to execute request. Remember that account becomes active after successful sms verification.<br>
 Please note that you should NOT allow to sign in again (or sign up) when user is already signed in. Please sign out user first.<br>
 Moreover, please do not create multiple instances nor call this method multiple times before execution.
+```
+private void signUp(RegisterClient registerClient) {
+    if (signUpCall != null) signUpCall.cancel();
+    signUpCall = Profile.registerClientByPhone(registerClient);
+    signUpCall.onSubscribe(() -> toggleLoading(true))
+              .doFinally(() -> toggleLoading(false))
+              .execute(this::onSucess, this::onError);
+}
+```
 
 #### Profile.confirmPhoneRegistration(phoneNumber, confirmationCode)
 Verify provided phone number after registration. Confirmation code will be send via SMS. <br>
 Method returns `IApiCall` object to execute request.
+```
+private void confirmCode(String confirmationCode) {
+    if (confirmPhoneCall != null) confirmPhoneCall.cancel();
+    try {
+        confirmPhoneCall = Profile.confirmPhoneRegistration(phoneNumber, confirmationCode);
+    } catch (InvalidPhoneNumberException e) { }
 
-#### Profile.updateClient(updateClient)
+    confirmPhoneCall.onSubscribe(() -> toggleLoading(true))
+                    .doFinally(() -> toggleLoading(false))
+                    .execute(this::onConfirmPhoneNumberSuccess, this::onError);
+}
+```
+
+#### Profile.updateClient(id, updateClient)
 Update client with ID and optional data.
 This method requires `UpdateClient` Builder Pattern object with client's optional data. Not provided fields are not modified.
 Method returns `IApiCall` object to execute request.
+```
+private void updateClient(String email, String name, String lastName, String clientId) {
+    UpdateClient updateClient = new UpdateClient();
+    updateClient.setFirstName(name);
+    updateClient.setLastName(lastName);
+    try {
+        updateClient.setEmail(email);
+    } catch (InvalidEmailException e) { }
+
+    if(updateCall != null) updateCall.cancel();
+    updateCall = Profile.updateClient(clientId, updateClient);
+    updateCall.onSubscribe(() -> toggleLoading(true))
+              .doFinally(() -> toggleLoading(false))
+              .execute(() -> onUpdateClientSuccessful(email, name, lastName),this::onError});
+}
+```
 
 #### Profile.deleteClient(id)
 Delete client with ID.
 This method requires client's id.
 Method returns `IApiCall` object to execute request.
+```
+private void deleteClient(long id){
+    if (call != null) call.cancel();
+    call = Profile.deleteClient(id);
+    call.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Profile.activateClient(email)
+Activate client with email.
+This method requires client's email.
+Method returns `IApiCall` object to execute request.
+```
+private void activateClient(String email){
+    if(call != null) call.cancel()
+    try {
+       call = Profile.activateClient(email);
+    } catch (InvalidEmailException e) { }
+
+    call.execute(this::onSuccess, this::onError);
+}
+```
 
 #### Profile.requestPasswordReset(email)
 Request client's password reset with email. Client will receive a token on provided email address in order to use Profile.confirmResetPassword(password, token).
 This method requires client's email.
 Method returns `IApiCall` object to execute request.
+```
+private void requestPasswordReset(String email) {
+    if (call != null) call.cancel();
+    call = Profile.requestPasswordReset(resetRequest);
+    call.execute(this::onSuccess, this::onError);
+}
+```
 
 #### Profile.confirmResetPassword(password, token)
 Confirm client's password reset with new password and token provided by Profile.requestPasswordReset(email).
 This method requires client's password and confirmation token sent on email address.
 Method returns `IApiCall` object to execute request.
+```
+private void confirmResetPassword(String password, String token) {
+    if (call != null) call.cancel();
+    try {
+        confirmation = new PasswordResetConfirmation(password, token);
+    } catch (InvalidPasswordException e) { }
+    call = Profile.confirmPasswordReset(confirmation);
+    call.execute(this::onSuccess, this::onError);
+}
+```
 
 #### Profile.getToken()
 Get valid JWT login token.<br>
 Method returns `IDataApiCall` with parametrized `String` to execute request.
+```
+public void getToken() {
+    if (getTokenCall != null) getTokenCall.cancel();
+    getTokenCall = Profile.getToken();
+    getTokenCall.execute(this::onSuccess, this::onFailure);
+}
+```
 
 #### Profile.getPromotions()
 Use this method to get all available promotions that are defined for your business profile.
 Method returns `IDataApiCall` with parametrized `ProfilePromotionResponse` to execute request.
+```
+private void getPromotions() {
+    if (call != null) call.cancel();
+    call = Profile.getPromotions();
+    call.execute(this::onSuccess, this::onError);
+}
+```
 
-#### Profile.getPromotionsByExternalId(String)
+#### Profile.getPromotionsByExternalId(value)
 Use this method to get promotion with externalId specified as value param.
 Method returns `IDataApiCall` with parametrized `ProfilePromotionResponse` to execute request.
+```
+private void getPromotions(String externalId) {
+    if (call != null) call.cancel();
+    call = Profile.getPromotionsByExternalId(externalId);
+    call.execute(this::onSuccess, this::onError);
+}
+```
 
-#### Profile.getPromotionsByPhone(String)
+#### Profile.getPromotionsByPhone(value)
 Use this method to get promotion with phone specified as value param.
 Method returns `IDataApiCall` with parametrized `ProfilePromotionResponse` to execute request.
+```
+private void getPromotions(String phone) {
+    if (call != null) call.cancel();
+    call = Profile.getPromotionsByPhone(phone);
+    call.execute(this::onSuccess, this::onError);
+}
+```
 
-#### Profile.getPromotionsByClientId(String)
+#### Profile.getPromotionsByClientId(value)
 Use this method to get promotion with clientId specified as value param.
 Method returns `IDataApiCall` with parametrized `ProfilePromotionResponse` to execute request.
+```
+private void getPromotions(String clientId) {
+    if (call != null) call.cancel();
+    call = Profile.getPromotionsByClientId(clientId);
+    call.execute(this::onSuccess, this::onError);
+}
+```
 
-#### Profile.getPromotionsByEmail(String)
+#### Profile.getPromotionsByEmail(value)
 Use this method to get promotion with email specified as value param.
 Method returns `IDataApiCall` with parametrized `ProfilePromotionResponse` to execute request.
+```
+private void getPromotionsByEmail(String email) {
+    if (call != null) call.cancel();
+    call = Profile.getPromotionsByEmail(email);
+    call.execute(this::onSuccess, this::onError);
+}
+```
 
-#### Profile.getPromotionByCode(String)
+#### Profile.getPromotionByCode(value)
 Use this method to get promotion with code specified as value param.
 Method returns `IDataApiCall` with parametrized `ProfilePromotionResponse` to execute request.
+```
+private void getPromotions(String code) {
+    if (call != null) call.cancel();
+    call = Profile.getPromotionByCode(code);
+    call.execute(this::onSuccess, this::onError);
+}
+```
 
-#### Profile.getPromotionByUuid(String)
+#### Profile.getPromotionByUuid(value)
 Use this method to get promotion with uuid specified as value param.
 Method returns `IDataApiCall` with parametrized `ProfilePromotionResponse` to execute request.
+```
+private void getPromotions(String uuid) {
+    if (call != null) call.cancel();
+    call = Profile.getPromotionByUuid(uuid);
+    call.execute(this::onSuccess, this::onError);
+}
+```
 
-#### Profile.redeemPromotionByPhone(String, String)
+#### Profile.redeemPromotionByPhone(promotionCode, phoneNumber)
 Use this method to redeem promotion with specified promotionCode and phoneNumber
 Method returns `IApiCall` object to execute request.
+```
+private void redeemPromotion(String promotionCode, String phoneNumber) {
+    if (call != null) call.cancel();
+    call = Profile.redeemPromotionByPhone(promotionCode, phoneNumber);
+    call.execute(this::onSuccess, this::onError);
+}
+```
 
-#### Profile.redeemPromotionByClientId(String, String)
+#### Profile.redeemPromotionByClientId(promotionCode, clientId)
 Use this method to redeem promotion with specified promotionCode and clientId
 Method returns `IApiCall` object to execute request.
+```
+private void redeemPromotion(String promotionCode, String clientId) {
+    if (call != null) call.cancel();
+    call = Profile.redeemPromotionByClientId(promotionCode, clientId);
+    call.execute(this::onSuccess, this::onError);
+}
+```
 
-#### Profile.redeemPromotionByCustomId(String, String)
+#### Profile.redeemPromotionByCustomId(promotionCode, customId)
 Use this method to redeem promotion with specified promotionCode and customId
 Method returns `IApiCall` object to execute request.
+```
+private void redeemPromotion(String promotionCode, String customId) {
+    if (call != null) call.cancel();
+    call = Profile.redeemPromotionByCustomId(promotionCode, customId);
+    call.execute(this::onSuccess, this::onError);
+}
+```
 
-#### Profile.redeemPromotionByEmail(String, String)
+#### Profile.redeemPromotionByEmail(promotionCode, email)
 Use this method to redeem promotion with specified promotionCode and email
 Method returns `IApiCall` object to execute request.
-
+```
+private void redeemPromotion(String promotionCode, String email) {
+    if (call != null) call.cancel();
+    call = Profile.redeemPromotionByEmail(promotionCode, email);
+    call.execute(this::onSuccess, this::onError);
+}
+```
 
 ## Injector
 
@@ -579,7 +934,7 @@ and in your `Application` implementation:
 ```
 public class App extends MultiDexApplication implements OnRegisterForPushListener {
 
-     private static final String TAG = App.class.getSimpleName();
+    private static final String TAG = App.class.getSimpleName();
 
     @Override
     public void onCreate() {

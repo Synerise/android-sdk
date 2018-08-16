@@ -112,8 +112,8 @@ public class TrackerViewActivity extends BaseActivity {
             }
         });
 
-        ((CheckBox) findViewById(R.id.checkbox)).setOnCheckedChangeListener(
-                (buttonView, isChecked) -> Log.d(TAG, "CheckBox~onCheckedChanged: " + isChecked));
+//        ((CheckBox) findViewById(R.id.checkbox)).setOnCheckedChangeListener(
+//                (buttonView, isChecked) -> Log.d(TAG, "CheckBox~onCheckedChanged: " + isChecked));
 
         ((RadioButton) findViewById(R.id.radio_button)).setOnCheckedChangeListener(
                 (buttonView, isChecked) -> Log.d(TAG, "RadioButton~onCheckedChanged: " + isChecked));
