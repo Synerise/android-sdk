@@ -44,7 +44,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.2.4'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.2.5'
 }
 ```
 Finally, please make sure your `Instant Run` is disabled.
@@ -86,6 +86,7 @@ public class App extends Application {
                         .trackerAutoFlushTimeout(5000)
                         .injectorAutomatic(false)
                         .pushRegistrationRequired(this)
+                        .locationUpdateRequired(this)
                         .baseUrl("http://your-base-url.com/")
                         .customClientConfig(new CustomClientAuthConfig("http://your-base-url.com/"))
                         .build();
@@ -122,10 +123,11 @@ Also, a default icon will be used if there is no custom icon provided.
 9. `.trackerMaxBatchSize(int)` - sets maximum number of events, which may be sent in a single batch.
 10. `.trackerAutoFlushTimeout(int)` - sets time required to elapse before event's queue will attempt to be sent.
 11. `.injectorAutomatic(boolean)` - simple flag may be provided to enable automatic mode in injector. See Injector section for more information.
-12. `.pushRegistrationRequired(this)` - it is important to register your customers for push messages. Please register for SDK callbacks when push registration is required.
-13. `.baseUrl(String)` - you can provide your custom base URL to use your own API.
-14. `.customClientConfig(CustomClientAuthConfig)` - you can also provide your custom Client `Authorization Configuration`. At this moment, configuration handles `Base URL` changes.
-15. `.build()` - builds Synerise SDK with provided data. Please note, that `Synerise.Builder.with(..)` method is mandatory and `Synerise.Builder.build()` method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.<br>
+12. `.pushRegistrationRequired(OnRegisterForPushListener)` - Synerise SDK may request you to register client for push notifications. This callback is called at after client signs in, signs up or deletes account.
+13. `.locationUpdateRequired(OnLocationUpdateListener)` - this callback is called on demand via push notification, so it may be called at any point of time.
+14. `.baseUrl(String)` - you can provide your custom base URL to use your own API.
+15. `.customClientConfig(CustomClientAuthConfig)` - you can also provide your custom Client `Authorization Configuration`. At this moment, configuration handles `Base URL` changes.
+16. `.build()` - builds Synerise SDK with provided data. Please note, that `Synerise.Builder.with(..)` method is mandatory and `Synerise.Builder.build()` method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.<br>
 
 ### Errors
 
@@ -492,6 +494,40 @@ private void activatePromotionByCode(String code) {
     if (apiCall != null) apiCall.cancel();
     apiCall = Client.activatePromotionByCode(code);
     apiCall.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Client.getOrAssignVoucher(poolUuid)
+Use this method to get voucher code only once or assign voucher with provided pool uuid for the client.
+Methods returns IDataApiCall with parametrized AssignVoucherResponse object to execute request.
+```
+private void getOrAssignVoucher(String poolUuid) {
+    if (call != null) call.cancel();
+    call = Client.getOrAssignVoucher(poolUuid);
+    call.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Client.getAssignedVoucherCodes()
+Use this method to get client's voucher codes.
+Methods returns IDataApiCall with parametrized VoucherCodesResponse object to execute request.
+```
+private void getAssignedVoucherCodes() {
+    if (call != null) call.cancel();
+    call = Client.getAssignedVoucherCodes();
+    call.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Client.assignVoucherCode(poolUuid)
+Use this method to assign voucher with provided pool uuid for the client.<br>
+Every request returns different code until the pool is empty. 416 Http status code is returned when pool is empty.
+Methods returns IDataApiCall with parametrized AssignVoucherResponse object to execute request.
+```
+private void assignVoucherCode(String poolUuid) {
+    if (call != null) call.cancel();
+    call = Client.assignVoucherCode(poolUuid);
+    call.execute(this::onSuccess, this::onError);
 }
 ```
 
@@ -895,6 +931,40 @@ private void redeemPromotion(String promotionCode, String email) {
 }
 ```
 
+#### Profile.getOrAssignVoucher(poolUuid, clientUuid)
+Use this method to get voucher code only once or assign voucher with provided pool uuid for the client.
+Methods returns IDataApiCall with parametrized AssignVoucherResponse object to execute request.
+```
+private void getOrAssignVoucher(String poolUuid, String clientUuid) {
+    if (call != null) call.cancel();
+    call = Profile.getOrAssignVoucher(poolUuid, clientUuid);
+    call.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Profile.getClientVoucherCodes(clientUuid)
+Use this method to get client's voucher codes.
+Methods returns IDataApiCall with parametrized VoucherCodesResponse object to execute request.
+```
+private void getClientVoucherCodes(String clientUuid) {
+    if (call != null) call.cancel();
+    call = Profile.getClientVoucherCodes(clientUuid);
+    call.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Profile.assignVoucherCode(poolUuid, clientUuid)
+Use this method to assign voucher with provided pool uuid for the client.<br>
+Every request returns different code until the pool is empty. 416 Http status code is returned when pool is empty.
+Methods returns IDataApiCall with parametrized AssignVoucherResponse object to execute request.
+```
+private void assignVoucherCode(String poolUuid, String clientUuid) {
+    if (call != null) call.cancel();
+    call = Profile.assignVoucherCode(poolUuid, clientUuid);
+    call.execute(this::onSuccess, this::onError);
+}
+```
+
 ## Injector
 
 Injector is designed to be simple to develop with, allowing you to integrate Synerise Mobile Content into your apps easily.<br>
@@ -941,7 +1011,7 @@ public class App extends MultiDexApplication implements OnRegisterForPushListene
         super.onCreate();
 
          Synerise.Builder.with(this, syneriseBusinessProfileApiKey, syneriseClientApiKey, appId)
-                                .notificationIcon(R.drawable.ic_cart)
+                                .notificationIcon(R.drawable.ic_notification_icon)
                                 .pushRegistrationRequired(this)
                                 ...
                                 .build();
@@ -980,6 +1050,30 @@ Please remember to register your service in AndroidManifest as follows:
         </service>
 
     </application>
+```
+
+### Location updates
+```
+public class App extends MultiDexApplication implements OnLocationUpdateListener {
+
+    private static final String TAG = App.class.getSimpleName();
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+         Synerise.Builder.with(this, syneriseBusinessProfileApiKey, syneriseClientApiKey, appId)
+                                .notificationIcon(R.drawable.ic_notification_icon)
+                                .locationUpdateRequired(this)
+                                ...
+                                .build();
+    }
+
+    @Override
+    public void onLocationUpdateRequired() {
+        // your logic here
+    }
+}
 ```
 
 ### Campaign banner
@@ -1076,7 +1170,7 @@ Synerise SDK provides multiple functionalities within Walkthrough implementation
 First of all, you are able to specify Walkthrough behavior the moment SDK initializes:
 ```
 Synerise.Builder.with(this, syneriseBusinessProfileApiKey, syneriseClientApiKey, appId)
-        .notificationIcon(R.drawable.ic_cart)
+        .notificationIcon(R.drawable.ic_notification_icon)
         .injectorAutomatic(true)
         .build();
 ```
@@ -1166,7 +1260,7 @@ public class App extends Application implements OnInjectorListener {
         super.onCreate();
 
         Synerise.Builder.with(this, syneriseBusinessProfileApiKey, syneriseClientApiKey, appId)
-                        .notificationIcon(R.drawable.ic_cart)
+                        .notificationIcon(R.drawable.ic_notification_icon)
                         .build();
     }
 

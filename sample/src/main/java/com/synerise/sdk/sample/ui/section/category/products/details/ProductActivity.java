@@ -5,14 +5,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.synerise.sdk.event.Tracker;
 import com.synerise.sdk.event.TrackerParams;
+import com.synerise.sdk.event.model.CustomEvent;
 import com.synerise.sdk.event.model.interaction.HitTimerEvent;
 import com.synerise.sdk.event.model.interaction.VisitedScreenEvent;
 import com.synerise.sdk.event.model.model.UnitPrice;
+import com.synerise.sdk.event.model.products.AddedToFavoritesEvent;
 import com.synerise.sdk.event.model.products.cart.AddedToCartEvent;
 import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
@@ -36,6 +39,7 @@ public class ProductActivity extends BaseActivity {
     @Inject AccountManager accountManager;
 
     private Product product;
+    private ImageView favIcon;
 
     public static Intent createIntent(Context context, Product product) {
         Intent intent = new Intent(context, ProductActivity.class);
@@ -69,7 +73,21 @@ public class ProductActivity extends BaseActivity {
 
         ((TextView) findViewById(R.id.product_price)).setText(getString(R.string.default_price_USD, product.getPrice()));
 
-        ((RatingBar) findViewById(R.id.rating_bar)).setRating((float) product.getRating());
+        RatingBar ratingBar = findViewById(R.id.rating_bar);
+        ratingBar.setRating((float) product.getRating());
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                Tracker.send(new CustomEvent("product.rating",
+                                             getString(product.getName()),
+                                             new TrackerParams.Builder()
+                                                     .add("productName", getString(product.getName()))
+                                                     .add("sku", product.getSKU())
+                                                     .add("price", product.getPrice())
+                                                     .add("rating", rating)
+                                                     .build()));
+            }
+        });
 
         findViewById(R.id.product_add).setOnClickListener(v -> {
             if (accountManager.getCartItems().isEmpty()) {
@@ -80,6 +98,38 @@ public class ProductActivity extends BaseActivity {
             Snackbar.make(v, R.string.added_to_cart, Snackbar.LENGTH_SHORT).show();
             Tracker.send(createCartEvent());
         });
+
+        favIcon = findViewById(R.id.fav_icon);
+        favIcon.setSelected(accountManager.isProductFavourite(product));
+        favIcon.setOnClickListener(v -> {
+            ViewUtils.pulse(favIcon);
+            favIcon.setSelected(!favIcon.isSelected());
+            if (favIcon.isSelected()) {
+                accountManager.addProductAsFavourite(product);
+                Tracker.send(new AddedToFavoritesEvent(getString(product.getName()),
+                                                       buildParamsForProductEvent(product)));
+            } else {
+                accountManager.removeProductFromFavourite(product);
+                Tracker.send(new CustomEvent("removed-from-favorites",
+                                             getString(product.getName()),
+                                             buildParamsForProductEvent(product)));
+            }
+        });
+    }
+
+    private TrackerParams buildParamsForProductEvent(Product product) {
+        return new TrackerParams.Builder()
+                .add("productName", getString(product.getName()))
+                .add("SKU", product.getSKU())
+                .add("price", product.getPrice())
+                .build();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Tracker.send(new VisitedScreenEvent(getClass().getSimpleName(),
+                                            new TrackerParams.Builder().add("sku", product.getSKU()).build()));
     }
 
     // ****************************************************************************************************************************************
@@ -103,14 +153,5 @@ public class ProductActivity extends BaseActivity {
         //        cartEvent.setDiscountedPrice(unitPrice);
         //        cartEvent.setRegularPrice(unitPrice);
         return cartEvent;
-    }
-
-    // ****************************************************************************************************************************************
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Tracker.send(new VisitedScreenEvent(getClass().getSimpleName(),
-                                            new TrackerParams.Builder().add("sku", product.getSKU()).build()));
     }
 }

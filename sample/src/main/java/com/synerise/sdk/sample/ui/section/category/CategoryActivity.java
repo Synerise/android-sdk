@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.synerise.sdk.event.Tracker;
 import com.synerise.sdk.event.TrackerParams;
+import com.synerise.sdk.event.model.CustomEvent;
 import com.synerise.sdk.event.model.interaction.VisitedScreenEvent;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.data.Category;
@@ -54,6 +55,11 @@ public class CategoryActivity extends BaseActivity {
     // ****************************************************************************************************************************************
 
     private void onCategorySelected(Category category) {
+        Tracker.send(new CustomEvent("category.view", getString(category.getText()),
+                                     new TrackerParams.Builder()
+                                             .add("label", getString(category.getText()))
+                                             .add("parentCategory", getString(section.getName()))
+                                             .build()));
         startActivity(ProductsActivity.createIntent(this, category));
     }
 }

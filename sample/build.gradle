@@ -10,8 +10,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 27
         applicationId "com.synerise.sample"
-        versionCode 13
-        versionName "3.0.4"
+        versionCode 14
+        versionName "3.0.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -60,13 +60,13 @@ android {
         sourceCompatibility 1.8
     }
     defaultConfig {
-        manifestPlaceholders = [crashlytics:getLocalProperty("crashlytics.key")]
+        manifestPlaceholders = [crashlytics: getLocalProperty("crashlytics.key")]
     }
 }
 
 ext {
     daggerVersion = '2.16'
-    syneriseVersion = '3.2.4'
+    syneriseVersion = '3.2.5'
     playServicesVersion = '17.1.0'
 }
 
@@ -106,6 +106,7 @@ dependencies {
     implementation 'com.chaos.view:pinview:1.3.2'
     // Google Play Services
     implementation 'com.google.android.gms:play-services-vision:15.0.2'
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
     // Process Phoenix
     implementation 'com.jakewharton:process-phoenix:2.0.0'
     // Test
@@ -136,3 +137,4 @@ def getLocalProperty(String propertyName) {
 }
 
 apply plugin: 'com.google.gms.google-services' // get `google-services.json` from Firebase console first
+

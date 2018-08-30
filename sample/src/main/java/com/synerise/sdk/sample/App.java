@@ -8,8 +8,9 @@ import android.util.Log;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.synerise.sdk.core.OnRegisterForPushListener;
 import com.synerise.sdk.core.Synerise;
+import com.synerise.sdk.core.listeners.OnLocationUpdateListener;
+import com.synerise.sdk.core.listeners.OnRegisterForPushListener;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.core.utils.SystemUtils;
 import com.synerise.sdk.injector.callback.InjectorSource;
@@ -20,6 +21,7 @@ import com.synerise.sdk.sample.dagger.ConfigModule;
 import com.synerise.sdk.sample.dagger.DaggerAppComponent;
 import com.synerise.sdk.sample.dagger.MainModule;
 import com.synerise.sdk.sample.persistence.AccountManager;
+import com.synerise.sdk.sample.service.LocationService;
 import com.synerise.sdk.sample.util.FirebaseIdChangeBroadcastReceiver;
 
 import javax.inject.Inject;
@@ -30,7 +32,8 @@ import static com.synerise.sdk.event.BaseViewAspect.TrackMode.FINE;
 
 public class App extends MultiDexApplication
         implements OnInjectorListener, // optional action callback
-                   OnRegisterForPushListener {
+                   OnRegisterForPushListener,
+                   OnLocationUpdateListener {
 
     private static final String TAG = App.class.getSimpleName();
 
@@ -77,6 +80,7 @@ public class App extends MultiDexApplication
                         .trackerAutoFlushTimeout(5000)
                         .injectorAutomatic(true)
                         .pushRegistrationRequired(this)
+                        .locationUpdateRequired(this)
                         .baseUrl(null)
                         //.customClientConfig(new CustomClientAuthConfig("http://your-base-url.com"))
                         .build();
@@ -89,6 +93,11 @@ public class App extends MultiDexApplication
     }
 
     // ****************************************************************************************************************************************
+
+    @Override
+    public void onLocationUpdateRequired() {
+        LocationService.startLocation(this);
+    }
 
     @Override
     public void onRegisterForPushRequired() {
@@ -105,6 +114,8 @@ public class App extends MultiDexApplication
             LocalBroadcastManager.getInstance(App.this).sendBroadcast(intent);
         });
     }
+
+    // ****************************************************************************************************************************************
 
     @Override
     public boolean onOpenUrl(InjectorSource source, String url) {

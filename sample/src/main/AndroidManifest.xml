@@ -5,6 +5,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <uses-feature
         android:name="android.hardware.sensor.accelerometer"
@@ -18,8 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:theme"
-        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning"
+        tools:replace="android:theme">
 
         <!-- ****************************************************************************************************************************** -->
 
@@ -83,6 +85,15 @@
         <activity
             android:name=".ui.dev.qr.QRScannerActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.profile.FragmentContainerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.client.adapter.DevClientActivity"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".ui.dev.profile.promotions.PromotionApisActivity"
+            android:screenOrientation="portrait"/>
 
         <!-- ****************************************************************************************************************************** -->
 
@@ -98,6 +109,11 @@
             android:name="io.fabric.ApiKey"
             android:value="${crashlytics}" />
 
+        <service
+            android:name=".service.LocationService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE">
+        </service>
     </application>
 
 </manifest>

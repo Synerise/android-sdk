@@ -13,10 +13,13 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.injector.Injector;
+import com.synerise.sdk.injector.SilentCommand;
+import com.synerise.sdk.injector.net.exception.ValidationException;
 import com.synerise.sdk.profile.Profile;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.util.FirebaseIdChangeBroadcastReceiver;
 
+import java.util.Map;
 import java.util.Random;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
@@ -27,26 +30,36 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        boolean isSynerisePush = Injector.handlePushPayload(remoteMessage.getData());
+        Map<String, String> data = remoteMessage.getData();
+        if (Injector.isSilentCommand(data)) {
+            try {
+                SilentCommand silentCommand = Injector.getSilentCommand(data);
+                // your logic here
+            } catch (ValidationException e) {
+                e.printStackTrace(); // fixme handle validation exception
+            }
+        } else {
+            boolean isSynerisePush = Injector.handlePushPayload(data);
 
-        if (!isSynerisePush) {
-            // overriding this method causes simple notification to not being displayed while app is visible to user
-            // this is an example usage of building your non-Synerise notification
-            RemoteMessage.Notification notification = remoteMessage.getNotification();
-            if (notification != null) {
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "my_channel_id");
-                builder.setContentTitle(notification.getTitle());
-                builder.setContentText(notification.getBody());
-                // resource of icon to show must be drawable resource (not mipmap) due to Android Oreo adaptive icons restrictions
-                builder.setSmallIcon(R.drawable.ic_cart);
-                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                if (notificationManager != null) {
-                    // mandatory for Android O
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        notificationManager.createNotificationChannel(
-                                new NotificationChannel("my_channel_id", "my_channel_name", NotificationManager.IMPORTANCE_HIGH));
+            if (!isSynerisePush) {
+                // overriding this method causes simple notification to not being displayed while app is visible to user
+                // this is an example usage of building your non-Synerise notification
+                RemoteMessage.Notification notification = remoteMessage.getNotification();
+                if (notification != null) {
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "my_channel_id");
+                    builder.setContentTitle(notification.getTitle());
+                    builder.setContentText(notification.getBody());
+                    // resource of icon to show must be drawable resource (not mipmap) due to Android Oreo adaptive icons restrictions
+                    builder.setSmallIcon(R.drawable.ic_cart);
+                    NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    if (notificationManager != null) {
+                        // mandatory for Android O
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            notificationManager.createNotificationChannel(
+                                    new NotificationChannel("my_channel_id", "my_channel_name", NotificationManager.IMPORTANCE_HIGH));
+                        }
+                        notificationManager.notify(new Random(System.currentTimeMillis()).nextInt(Integer.MAX_VALUE), builder.build());
                     }
-                    notificationManager.notify(new Random(System.currentTimeMillis()).nextInt(Integer.MAX_VALUE), builder.build());
                 }
             }
         }

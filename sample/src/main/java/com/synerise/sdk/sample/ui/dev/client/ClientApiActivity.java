@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.BaseActivity;
-import com.synerise.sdk.sample.ui.dev.client.pager.ClientApiPagerAdapter;
+import com.synerise.sdk.sample.ui.dev.client.adapter.ClientApi;
+import com.synerise.sdk.sample.ui.dev.client.adapter.ClientApiRecyclerAdapter;
+import com.synerise.sdk.sample.ui.dev.client.adapter.DevClientActivity;
 import com.synerise.sdk.sample.util.ToolbarHelper;
 
 public class ClientApiActivity extends BaseActivity {
@@ -23,21 +25,22 @@ public class ClientApiActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dev_client);
+        setContentView(R.layout.activity_client_api);
 
-        ViewPager viewPager = findViewById(R.id.view_pager);
+        RecyclerView recycler = findViewById(R.id.client_api_recycler);
 
         ToolbarHelper.setUpChildToolbar(this, R.string.client_api);
 
-        // adapter
-        ClientApiPagerAdapter adapter = new ClientApiPagerAdapter(this, getSupportFragmentManager());
+        ClientApiRecyclerAdapter adapter = new ClientApiRecyclerAdapter(this, this::onClientApiClick,
+                                                                        ClientApi.values());
 
-        // view pager
-        viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(adapter.getCount() - 1);
+        recycler.setLayoutManager(new LinearLayoutManager(this));
+        recycler.setAdapter(adapter);
+    }
 
-        // tab layout
-        TabLayout tabLayout = findViewById(R.id.tab_layout);
-        tabLayout.setupWithViewPager(viewPager);
+    // ****************************************************************************************************************************************
+
+    private void onClientApiClick(ClientApi clientApi) {
+        startActivity(DevClientActivity.createIntent(this, clientApi.ordinal()));
     }
 }

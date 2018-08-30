@@ -384,4 +384,10 @@
     <string name="client_confirm_phone_update">Confirm phone update</string>
     <string name="no_token">No token found</string>
     <string name="register_without_activation">Register without activation</string>
+    <string name="favourite_title">Favourite products</string>
+    <string name="no_favourities">Add some items as favourite to see them here</string>
+    <string name="default_promotions">Promotions</string>
+    <string name="default_promotion_apis">Promotion API</string>
+    <string name="profile_assign_voucher">Assign voucher</string>
+    <string name="provide_pool_uuid">Pool uuid</string>
 </resources>

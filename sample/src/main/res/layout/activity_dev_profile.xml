@@ -1,51 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.synerise.sdk.sample.ui.dev.profile.FragmentContainerActivity">
 
     <include layout="@layout/include_app_bar" />
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab_layout"
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/primary"
-        app:tabGravity="fill"
-        app:tabIndicatorColor="@color/white"
-        app:tabMode="scrollable"
-        app:tabSelectedTextColor="@color/white"
-        app:tabTextColor="@color/textSecondary" />
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:overScrollMode="never" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
-
-    <!--    <TextView
-            style="@style/TextSecondary.Small"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/click_to_copy" />
-
-        <TextView
-            android:id="@+id/client_id"
-            style="@style/TextPrimary.Medium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/space_small"
-            android:text="@string/id_unknown" />
-
-        <TextView
-            android:id="@+id/client_email"
-            style="@style/TextPrimary.Medium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/space_small"
-            android:text="@string/email_unknown" />-->
-
-

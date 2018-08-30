@@ -7,6 +7,7 @@ import com.synerise.sdk.sample.ui.auth.SignUpActivity;
 import com.synerise.sdk.sample.ui.cart.CartFragment;
 import com.synerise.sdk.sample.ui.dashboard.DashboardActivity;
 import com.synerise.sdk.sample.ui.dev.qr.QRScannerActivity;
+import com.synerise.sdk.sample.ui.favourites.FavouritesFragment;
 import com.synerise.sdk.sample.ui.profile.ProfileFragment;
 import com.synerise.sdk.sample.ui.section.category.products.details.ProductActivity;
 import com.synerise.sdk.sample.ui.settings.SettingsFragment;
@@ -30,4 +31,5 @@ public interface AppComponent {
     void inject(SplashActivity splashActivity);
     void inject(QRScannerActivity QRScannerActivity);
     void inject(ConfirmNumberDialog confirmNumberDialog);
+    void inject(FavouritesFragment favouritesFragment);
 }

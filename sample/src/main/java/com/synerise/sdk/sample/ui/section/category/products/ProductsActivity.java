@@ -7,6 +7,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.synerise.sdk.event.Tracker;
+import com.synerise.sdk.event.TrackerParams;
+import com.synerise.sdk.event.model.CustomEvent;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.data.Category;
 import com.synerise.sdk.sample.data.Product;
@@ -16,6 +19,8 @@ import com.synerise.sdk.sample.ui.section.category.products.details.ProductActiv
 import com.synerise.sdk.sample.util.ToolbarHelper;
 
 public class ProductsActivity extends BaseActivity {
+
+    private Category category;
 
     public static Intent createIntent(Context context, Category category) {
         Intent intent = new Intent(context, ProductsActivity.class);
@@ -30,7 +35,7 @@ public class ProductsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
 
-        Category category = (Category) getIntent().getSerializableExtra(Args.SERIALIZABLE);
+        category = (Category) getIntent().getSerializableExtra(Args.SERIALIZABLE);
 
         ToolbarHelper.setUpChildToolbar(this, category.getText(), category.getBackground());
 
@@ -46,6 +51,13 @@ public class ProductsActivity extends BaseActivity {
     // ****************************************************************************************************************************************
 
     private void onProductSelected(Product product) {
+        Tracker.send(new CustomEvent("product.view", getString(product.getName()),
+                                     new TrackerParams.Builder()
+                                             .add("label", getString(product.getName()))
+                                             .add("category", getString(category.getText()))
+                                             .add("sku", product.getSKU())
+                                             .add("price", product.getPrice())
+                                             .build()));
         startActivity(ProductActivity.createIntent(this, product));
     }
 }

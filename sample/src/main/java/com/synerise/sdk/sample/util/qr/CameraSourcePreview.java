@@ -100,6 +100,8 @@ public class CameraSourcePreview extends ViewGroup {
                 Log.e(TAG, "Do not have permission to start the camera", se);
             } catch (IOException e) {
                 Log.e(TAG, "Could not start camera source.", e);
+            } catch (RuntimeException e) {
+                Log.e(TAG, e.getMessage());
             }
         }
 
@@ -156,6 +158,8 @@ public class CameraSourcePreview extends ViewGroup {
             Log.e(TAG, "Do not have permission to start the camera", se);
         } catch (IOException e) {
             Log.e(TAG, "Could not start camera source.", e);
+        } catch (RuntimeException e) {
+            Log.e(TAG, e.getMessage());
         }
     }
 

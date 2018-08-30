@@ -17,6 +17,10 @@
             android:icon="@drawable/ic_cart"
             android:title="@string/cart_title" />
         <item
+            android:id="@+id/menu_favourites"
+            android:icon="@drawable/ic_heart"
+            android:title="@string/favourite_title" />
+        <item
             android:id="@+id/menu_dev"
             android:icon="@drawable/ic_dev_tools"
             android:title="@string/dev_tools_title" />

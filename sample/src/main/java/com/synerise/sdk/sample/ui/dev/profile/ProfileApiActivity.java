@@ -4,13 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.BaseActivity;
-import com.synerise.sdk.sample.ui.dev.profile.pager.ProfileApiPagerAdapter;
+import com.synerise.sdk.sample.ui.dev.profile.adapter.ProfileApi;
+import com.synerise.sdk.sample.ui.dev.profile.adapter.ProfileApiRecyclerAdapter;
+import com.synerise.sdk.sample.ui.dev.profile.promotions.PromotionApisActivity;
 import com.synerise.sdk.sample.util.ToolbarHelper;
+
+import static com.synerise.sdk.sample.ui.dev.profile.FragmentContainerActivity.DEFAULT_TYPE;
 
 public class ProfileApiActivity extends BaseActivity {
 
@@ -23,21 +27,28 @@ public class ProfileApiActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dev_profile);
+        setContentView(R.layout.activity_profile_api);
 
-        ViewPager viewPager = findViewById(R.id.view_pager);
+        RecyclerView recycler = findViewById(R.id.profile_api_recycler);
 
         ToolbarHelper.setUpChildToolbar(this, R.string.profile_api);
 
-        // adapter
-        ProfileApiPagerAdapter adapter = new ProfileApiPagerAdapter(this, getSupportFragmentManager());
+        ProfileApiRecyclerAdapter adapter = new ProfileApiRecyclerAdapter(this,
+                                                                          this::onProfileApiClicked,
+                                                                          this::onPromotionApiClicked,
+                                                                          ProfileApi.values());
 
-        // view pager
-        viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(adapter.getCount() - 1);
+        recycler.setLayoutManager(new LinearLayoutManager(this));
+        recycler.setAdapter(adapter);
+    }
 
-        // tab layout
-        TabLayout tabLayout = findViewById(R.id.tab_layout);
-        tabLayout.setupWithViewPager(viewPager);
+    // ****************************************************************************************************************************************
+
+    private void onProfileApiClicked(ProfileApi profileApi) {
+        startActivity(FragmentContainerActivity.createIntent(this, profileApi.ordinal(), DEFAULT_TYPE));
+    }
+
+    private void onPromotionApiClicked() {
+        startActivity(PromotionApisActivity.createIntent(this));
     }
 }

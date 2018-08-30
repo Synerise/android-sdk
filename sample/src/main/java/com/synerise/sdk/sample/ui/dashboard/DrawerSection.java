@@ -9,6 +9,7 @@ public enum DrawerSection {
     SECTIONS(R.string.categories_title),
     PROFILE(R.string.profile_title),
     CART(R.string.cart_title),
+    FAVOURITE(R.string.favourite_title),
     DEV_TOOLS(R.string.dev_tools_title),
     SETTINGS(R.string.settings_title);
 

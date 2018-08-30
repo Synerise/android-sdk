@@ -3,6 +3,7 @@ package com.synerise.sdk.sample.persistence.model;
 import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
+import com.synerise.sdk.sample.data.Product;
 import com.synerise.sdk.sample.ui.cart.CartItem;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class StoragePOJO {
     @SerializedName("cart_items") private List<CartItem> cartItems;
     @SerializedName("business_profile_api_key") private String businessProfileApiKey;
     @SerializedName("client_api_key") private String clientApiKey;
+    @SerializedName("favourite_products") private List<Product> favouriteProducts;
 
     // ****************************************************************************************************************************************
 
@@ -84,5 +86,14 @@ public class StoragePOJO {
 
     public String getPhoneNumber() {
         return phone;
+    }
+
+    public List<Product> getFavouriteProducts() {
+        if(favouriteProducts == null) return new ArrayList<>();
+        return favouriteProducts;
+    }
+
+    public void setFavouriteProducts(List<Product> favouriteProducts) {
+        this.favouriteProducts = favouriteProducts;
     }
 }

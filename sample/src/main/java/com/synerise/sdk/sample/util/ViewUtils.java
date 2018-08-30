@@ -1,5 +1,6 @@
 package com.synerise.sdk.sample.util;
 
+import android.animation.Animator;
 import android.graphics.drawable.Animatable;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -33,5 +34,59 @@ public class ViewUtils {
                                                 .build();
             imageView.setController(controller);
         }
+    }
+
+    public static void pulse(View view) {
+        view.animate()
+            .scaleX(1.5f)
+            .scaleY(1.5f)
+            .translationZ(4f)
+            .setDuration(200L)
+            .setListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    view.setEnabled(false);
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    view.animate()
+                        .scaleX(1f)
+                        .scaleY(1f)
+                        .translationZ(0f)
+                        .setDuration(200L)
+                        .setListener(new Animator.AnimatorListener() {
+                            @Override
+                            public void onAnimationStart(Animator animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                view.setEnabled(true);
+                            }
+
+                            @Override
+                            public void onAnimationCancel(Animator animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animator animation) {
+
+                            }
+                        });
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
     }
 }

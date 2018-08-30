@@ -98,6 +98,35 @@ public class AccountManager {
 
     // ****************************************************************************************************************************************
 
+    public void addProductAsFavourite(Product product) {
+        if (!isProductFavourite(product)) {
+            ArrayList<Product> favouriteProductsList = new ArrayList<>(getFavouriteProducts());
+            favouriteProductsList.add(product);
+            storagePOJO.setFavouriteProducts(favouriteProductsList);
+            prefsStorage.saveStoragePOJO(storagePOJO);
+        }
+    }
+
+    public void removeProductFromFavourite(Product product) {
+        if (isProductFavourite(product)) {
+            ArrayList<Product> favouriteProductsList = new ArrayList<>(getFavouriteProducts());
+            favouriteProductsList.remove(product);
+            storagePOJO.setFavouriteProducts(favouriteProductsList);
+            prefsStorage.saveStoragePOJO(storagePOJO);
+        }
+    }
+
+    public List<Product> getFavouriteProducts() {
+        return storagePOJO.getFavouriteProducts();
+    }
+
+    public boolean isProductFavourite(Product product) {
+        List<Product> favouriteProducts = getFavouriteProducts();
+        return favouriteProducts.contains(product);
+    }
+
+    // ****************************************************************************************************************************************
+
     public String getBusinessProfileApiKey() {
         return storagePOJO.getBusinessProfileApiKey();
     }

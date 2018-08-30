@@ -24,6 +24,7 @@ import com.synerise.sdk.sample.ui.BaseFragment;
 import com.synerise.sdk.sample.ui.auth.SignInActivity;
 import com.synerise.sdk.sample.ui.cart.CartFragment;
 import com.synerise.sdk.sample.ui.dev.DeveloperFragment;
+import com.synerise.sdk.sample.ui.favourites.FavouritesFragment;
 import com.synerise.sdk.sample.ui.profile.ProfileFragment;
 import com.synerise.sdk.sample.ui.section.SectionsFragment;
 import com.synerise.sdk.sample.ui.section.UpdateStatusBarColorInterface;
@@ -34,6 +35,7 @@ import javax.inject.Inject;
 
 import static com.synerise.sdk.sample.ui.dashboard.DrawerSection.CART;
 import static com.synerise.sdk.sample.ui.dashboard.DrawerSection.DEV_TOOLS;
+import static com.synerise.sdk.sample.ui.dashboard.DrawerSection.FAVOURITE;
 import static com.synerise.sdk.sample.ui.dashboard.DrawerSection.PROFILE;
 import static com.synerise.sdk.sample.ui.dashboard.DrawerSection.SECTIONS;
 
@@ -139,6 +141,9 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
             case R.id.menu_cart:
                 if (!(currentFragment instanceof CartFragment)) changeFragment(CART);
                 break;
+            case R.id.menu_favourites:
+                if (!(currentFragment instanceof FavouritesFragment)) changeFragment(FAVOURITE);
+                break;
             case R.id.menu_dev:
                 if (!(currentFragment instanceof DeveloperFragment)) changeFragment(DEV_TOOLS);
                 break;
@@ -165,6 +170,10 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
             case CART:
                 currentFragment = CartFragment.newInstance();
                 navigationView.setCheckedItem(R.id.menu_cart);
+                break;
+            case FAVOURITE:
+                currentFragment = FavouritesFragment.newInstance();
+                navigationView.setCheckedItem(R.id.menu_favourites);
                 break;
             case PROFILE:
                 currentFragment = ProfileFragment.newInstance();

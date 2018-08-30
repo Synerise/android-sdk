@@ -1,6 +1,17 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.2.5] - 2018-08-30
+### Added
+- Assign voucher Profile and Client API methods
+- Get assigned vouchers Profile and Client API methods
+- Get or assign voucher Profile and Client API methods
+- Command pushes
+- Location callback
+
+### Changed
+- New auto-tracking labels and actions
+
 ## [3.2.4] - 2018-08-16
 ### Added
 - New Profile activate account feature

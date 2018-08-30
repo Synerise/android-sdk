@@ -11,9 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/synerise_space_medium"
-        android:paddingEnd="@dimen/synerise_space_small"
         android:paddingStart="@dimen/synerise_space_small"
-        android:paddingTop="@dimen/synerise_space_medium">
+        android:paddingTop="@dimen/synerise_space_medium"
+        android:paddingEnd="@dimen/synerise_space_small">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/page_bg"
@@ -62,12 +62,14 @@
 
         <TextView
             android:id="@+id/section_name"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:textColor="@color/white"
             android:textSize="@dimen/text_60"
             android:textStyle="bold"
+            android:maxLines="2"
+            app:autoSizeTextType="uniform"
             tools:text="@string/section_culture" />
 
     </LinearLayout>
