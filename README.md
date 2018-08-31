@@ -44,7 +44,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.2.5'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.2.6'
 }
 ```
 Finally, please make sure your `Instant Run` is disabled.
@@ -87,6 +87,7 @@ public class App extends Application {
                         .injectorAutomatic(false)
                         .pushRegistrationRequired(this)
                         .locationUpdateRequired(this)
+                        .notificationChannelName("testChannelName")
                         .baseUrl("http://your-base-url.com/")
                         .customClientConfig(new CustomClientAuthConfig("http://your-base-url.com/"))
                         .build();
@@ -125,9 +126,10 @@ Also, a default icon will be used if there is no custom icon provided.
 11. `.injectorAutomatic(boolean)` - simple flag may be provided to enable automatic mode in injector. See Injector section for more information.
 12. `.pushRegistrationRequired(OnRegisterForPushListener)` - Synerise SDK may request you to register client for push notifications. This callback is called at after client signs in, signs up or deletes account.
 13. `.locationUpdateRequired(OnLocationUpdateListener)` - this callback is called on demand via push notification, so it may be called at any point of time.
-14. `.baseUrl(String)` - you can provide your custom base URL to use your own API.
-15. `.customClientConfig(CustomClientAuthConfig)` - you can also provide your custom Client `Authorization Configuration`. At this moment, configuration handles `Base URL` changes.
-16. `.build()` - builds Synerise SDK with provided data. Please note, that `Synerise.Builder.with(..)` method is mandatory and `Synerise.Builder.build()` method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.<br>
+14. `.notificationChannelName(String)` - sets name of Push Notification Channel. For more info please check Injector section below.
+15. `.baseUrl(String)` - you can provide your custom base URL to use your own API.
+16. `.customClientConfig(CustomClientAuthConfig)` - you can also provide your custom Client `Authorization Configuration`. At this moment, configuration handles `Base URL` changes.
+17. `.build()` - builds Synerise SDK with provided data. Please note, that `Synerise.Builder.with(..)` method is mandatory and `Synerise.Builder.build()` method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.<br>
 
 ### Errors
 
@@ -560,14 +562,33 @@ private void confirmPhoneUpdate(String phone, String confirmationCode) {
 ```
 
 #### Client.changePassword(password)
-Use this method to change client's password.
+Use this method to change client's password.<br>
+New password will be saved automatically if `Synerise.getClientRefresh()` is true.<br>
 Method returns `IApiCall` to execute request.
 ```
 private void changePassword(String password) {
     if (apiCall != null) apiCall.cancel();
     try {
         apiCall = Client.changePassword(password);
-    } catch (InvalidPhoneNumberException e) { }
+    } catch (InvalidPasswordException e) { }
+
+    apiCall.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Client.changePassword(newPassword, oldPassword)
+Use this method to change client's password.<br>
+Old password will be compared with the one stored within SDK if and only if `Synerise.getClientRefresh()` is true.<br>
+New password will be saved automatically if `Synerise.getClientRefresh()` is true.<br>
+Method returns `IApiCall` to execute request.
+```
+private void changePassword(String newPassword, String oldPassword) {
+    if (apiCall != null) apiCall.cancel();
+    try {
+        apiCall = Client.changePassword(newPassword, oldPassword);
+    } catch (InvalidPasswordException e) { }
+    catch (EmptyStoredPasswordException e1) { }
+    catch (InvalidStoredPasswordException e2) { }
 
     apiCall.execute(this::onSuccess, this::onError);
 }
@@ -1051,30 +1072,10 @@ Please remember to register your service in AndroidManifest as follows:
 
     </application>
 ```
-
-### Location updates
-```
-public class App extends MultiDexApplication implements OnLocationUpdateListener {
-
-    private static final String TAG = App.class.getSimpleName();
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
-         Synerise.Builder.with(this, syneriseBusinessProfileApiKey, syneriseClientApiKey, appId)
-                                .notificationIcon(R.drawable.ic_notification_icon)
-                                .locationUpdateRequired(this)
-                                ...
-                                .build();
-    }
-
-    @Override
-    public void onLocationUpdateRequired() {
-        // your logic here
-    }
-}
-```
+### Notification channel
+Starting in Android 8.0 (API level 26), all notifications must be assigned to a channel or it will not appear.<br>
+Due to this your notifications will be grouped in a channel. If you want to set name for this channel use `notificationChannelName(String)` method of Builder during SDK initialization. <br>
+By default channel name is set to your application name.
 
 ### Campaign banner
 
@@ -1117,6 +1118,10 @@ It is validated by checking if incoming push contains "issuer" key with "Syneris
 It is validated by checking if incoming push contains "content-type" key with "simple-push" value.<br>
 `Injector.isSyneriseBanner(Map<String, String>)` only checks whether provided push data comes from Synerise and is it specifically Synerise Banner.
 It is validated by checking if incoming push contains "content-type" key with "template-banner" value.<br>
+`Injector.isSilentCommand` only checks whether provided push data comes from Synerise and is it specifically Silent Command.
+It is validated by checking if incoming push contains "content-type" key with "silent-command" value.<br>
+`Injector.isSilentSdkCommand` only checks whether provided push data comes from Synerise and is it specifically Silent SDK Command.
+It is validated by checking if incoming push contains "content-type" key with "silent-sdk-command" value.<br>
 
 #### Optional callbacks
 It is not always suitable for you to cover your Activities with any banners which may come.<br>
@@ -1164,6 +1169,98 @@ Callbacks will be fired anyway.<br>
 ### Campaign pushes
 `Injector.getPushes()` gets all available simple and silent pushes for this client.
 `IDataApiCall` with parametrized list of SynerisePushResponse is returned to execute request.
+
+### Silent Commands
+Synerise SDK let you trigger methods from application without user interaction.
+To use silent commands, send silent push from `app.synerise.com` mobile campaign with content:
+```
+"data": {
+    "issuer": "Synerise",
+    "message-type": "dynamic-content",
+    "content-type": "silent-command",
+    "content": {
+        "class_name": "com.example.YourClassName",
+        "method_name": "YourMethodName",
+        "method_parameters": [
+            {
+                "class_name": "com.example.ParameterClassName",
+                "value": someValue,
+                "position": positionOfParameter
+            },
+            ...
+        ]
+    }
+}
+```
+You can receive all the data in your `FirebaseMessagingService`
+```
+public class MyFirebaseMessagingService extends FirebaseMessagingService {
+
+    ...
+
+    @Override
+    public void onMessageReceived(RemoteMessage remoteMessage) {
+
+    ...
+
+    Map<String, String> data = remoteMessage.getData();
+    if (Injector.isSilentCommand(data)) {
+        try {
+            SilentCommand silentCommand = Injector.getSilentCommand(data);
+            // your logic here
+        } catch (ValidationException e) {
+            // handle validation exception
+        }
+    }
+    ...
+```
+
+### Silent SDK Commands
+Synerise SDK has already implemented methods. For now the only one is requesting localization.
+
+#### Silent Localization Command
+To request localization let your Application class implement OnLocationUpdateListener and also provide
+it to Synerise Builder.
+
+```
+public class App extends MultiDexApplication implements OnLocationUpdateListener {
+
+    private static final String TAG = App.class.getSimpleName();
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+         Synerise.Builder.with(this, syneriseBusinessProfileApiKey, syneriseClientApiKey, appId)
+                                .notificationIcon(R.drawable.ic_notification_icon)
+                                .locationUpdateRequired(this)
+                                ...
+                                .build();
+    }
+
+    @Override
+    public void onLocationUpdateRequired() {
+        // your logic here
+    }
+}
+```
+
+Now anytime you send below frame from `app.synerise.com` then your application will receive callback onLocationUpdateRequired where your app can get device location.
+For example implementation check our sample application.
+```
+"data": {
+    "issuer": "Synerise",
+    "message-type": "dynamic-content",
+    "content-type": "silent-command",
+    "content": {
+        "class_name": "com.synerise.sdk.injector.Injector",
+        "method_name": "GET_LOCATION",
+        "method_parameters": []
+    }
+}
+```
+Note that incoming silent push command will awake or launch you application in the background which causes in SDK initialization.<br>
+It means, for instance, that `AppStartedEvent` will be sent and/or banners will get fetched.
 
 ### Walkthrough
 Synerise SDK provides multiple functionalities within Walkthrough implementation.<br>
@@ -1234,23 +1331,41 @@ To make your Activity available for deep linking, please use the following patte
        <activity
             android:name=".ui.linking.DeepLinkingActivity">
             <intent-filter>
-                <action android:name="deep_linking_key" />
+                <action android:name="syne://test" />
                 <category android:name="android.intent.category.DEFAULT" />
+                 <data android:scheme="syne"
+                    android:host="test" />
             </intent-filter>
         </activity>
 ```
+Note that your action name must be same as your uri scheme and host.
 You can also specify which activity you want to be fired after closing deep linking one with:
 ```
        <activity
             android:name=".ui.linking.DeepLinkingActivity"
             android:parentActivityName=".ui.linking.ParentDeepLinkingActivity">
             <intent-filter>
-                <action android:name="deep_linking_key" />
+                <action android:name="syne://test" />
                 <category android:name="android.intent.category.DEFAULT" />
+                 <data android:scheme="syne"
+                    android:host="test" />
             </intent-filter>
-        </activity>
-
+       </activity>
 ```
+To send deeplink from `app.synerise.com` for your mobile campaign define parameter `Deep link` as
+```
+syne://test?param=val
+```
+Where syne and test are scheme and host provided in intent filter, param is parameter name and val is value for the parameter.<br>
+To receive data sent by deep link use below code:
+```
+String data = intent.getDataString();
+    if (data != null) {
+        Uri uri = Uri.parse(data);
+        val = uri.getQueryParameter("param");
+    }
+```
+
 If you are not happy about default behavior, please implement your own behavior like:
 ```
 public class App extends Application implements OnInjectorListener {

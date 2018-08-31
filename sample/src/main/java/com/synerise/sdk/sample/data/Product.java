@@ -1,6 +1,7 @@
 package com.synerise.sdk.sample.data;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 
 import com.synerise.sdk.event.model.model.UnitPrice;
@@ -436,6 +437,8 @@ public enum Product {
         return ratingCount;
     }
 
+    // ****************************************************************************************************************************************
+
     public com.synerise.sdk.event.model.model.Product getEventProduct(Context context, int quantity) {
         com.synerise.sdk.event.model.model.Product product = new com.synerise.sdk.event.model.model.Product();
         product.setSku(getSKU());
@@ -453,5 +456,14 @@ public enum Product {
         }
         product.setCategories(categories);
         return product;
+    }
+
+    @Nullable
+    public static Product getProduct(String sku) {
+        for (Product product : Product.values()) {
+            if (product.getSKU().equals(sku))
+                return product;
+        }
+        return null;
     }
 }

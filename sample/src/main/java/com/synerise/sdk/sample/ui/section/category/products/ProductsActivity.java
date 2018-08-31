@@ -58,6 +58,6 @@ public class ProductsActivity extends BaseActivity {
                                              .add("sku", product.getSKU())
                                              .add("price", product.getPrice())
                                              .build()));
-        startActivity(ProductActivity.createIntent(this, product));
+        startActivity(ProductActivity.createIntent(this, product.getSKU()));
     }
 }

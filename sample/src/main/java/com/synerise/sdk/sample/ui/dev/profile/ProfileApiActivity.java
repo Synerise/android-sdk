@@ -6,15 +6,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.BaseActivity;
-import com.synerise.sdk.sample.ui.dev.profile.adapter.ProfileApi;
-import com.synerise.sdk.sample.ui.dev.profile.adapter.ProfileApiRecyclerAdapter;
+import com.synerise.sdk.sample.ui.dev.apiAdapter.ApiRecyclerAdapter;
+import com.synerise.sdk.sample.ui.dev.apiAdapter.FragmentContainerActivity;
+import com.synerise.sdk.sample.ui.dev.apiAdapter.SyneriseSdkApi;
 import com.synerise.sdk.sample.ui.dev.profile.promotions.PromotionApisActivity;
+import com.synerise.sdk.sample.ui.dev.profile.voucher.ProfileVoucherApisActivity;
 import com.synerise.sdk.sample.util.ToolbarHelper;
-
-import static com.synerise.sdk.sample.ui.dev.profile.FragmentContainerActivity.DEFAULT_TYPE;
 
 public class ProfileApiActivity extends BaseActivity {
 
@@ -27,16 +28,15 @@ public class ProfileApiActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_api);
+        setContentView(R.layout.activity_synerise_sdk_api);
 
-        RecyclerView recycler = findViewById(R.id.profile_api_recycler);
+        RecyclerView recycler = findViewById(R.id.api_recycler);
 
         ToolbarHelper.setUpChildToolbar(this, R.string.profile_api);
 
-        ProfileApiRecyclerAdapter adapter = new ProfileApiRecyclerAdapter(this,
-                                                                          this::onProfileApiClicked,
-                                                                          this::onPromotionApiClicked,
-                                                                          ProfileApi.values());
+        ApiRecyclerAdapter adapter = new ApiRecyclerAdapter(LayoutInflater.from(this),
+                                                            this::onProfileApiClicked,
+                                                            SyneriseSdkApi.getProfileApis());
 
         recycler.setLayoutManager(new LinearLayoutManager(this));
         recycler.setAdapter(adapter);
@@ -44,11 +44,13 @@ public class ProfileApiActivity extends BaseActivity {
 
     // ****************************************************************************************************************************************
 
-    private void onProfileApiClicked(ProfileApi profileApi) {
-        startActivity(FragmentContainerActivity.createIntent(this, profileApi.ordinal(), DEFAULT_TYPE));
-    }
-
-    private void onPromotionApiClicked() {
-        startActivity(PromotionApisActivity.createIntent(this));
+    private void onProfileApiClicked(SyneriseSdkApi syneriseSdkApi) {
+        if (!syneriseSdkApi.isGroup())
+            startActivity(FragmentContainerActivity.createIntent(this, syneriseSdkApi.ordinal()));
+        else if (syneriseSdkApi == SyneriseSdkApi.PROFILE_PROMOTIONS) {
+            startActivity(PromotionApisActivity.createIntent(this));
+        } else if (syneriseSdkApi == SyneriseSdkApi.PROFILE_VOUCHERS) {
+            startActivity(ProfileVoucherApisActivity.createIntent(this));
+        }
     }
 }

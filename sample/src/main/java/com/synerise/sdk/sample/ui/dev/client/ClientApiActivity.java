@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.BaseActivity;
-import com.synerise.sdk.sample.ui.dev.client.adapter.ClientApi;
-import com.synerise.sdk.sample.ui.dev.client.adapter.ClientApiRecyclerAdapter;
-import com.synerise.sdk.sample.ui.dev.client.adapter.DevClientActivity;
+import com.synerise.sdk.sample.ui.dev.apiAdapter.SyneriseSdkApi;
+import com.synerise.sdk.sample.ui.dev.apiAdapter.ApiRecyclerAdapter;
+import com.synerise.sdk.sample.ui.dev.apiAdapter.FragmentContainerActivity;
+import com.synerise.sdk.sample.ui.dev.client.promotions.ClientPromotionApisActivity;
+import com.synerise.sdk.sample.ui.dev.client.vouchers.ClientVoucherApisActivity;
 import com.synerise.sdk.sample.util.ToolbarHelper;
 
 public class ClientApiActivity extends BaseActivity {
@@ -25,14 +28,15 @@ public class ClientApiActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_client_api);
+        setContentView(R.layout.activity_synerise_sdk_api);
 
-        RecyclerView recycler = findViewById(R.id.client_api_recycler);
+        RecyclerView recycler = findViewById(R.id.api_recycler);
 
         ToolbarHelper.setUpChildToolbar(this, R.string.client_api);
 
-        ClientApiRecyclerAdapter adapter = new ClientApiRecyclerAdapter(this, this::onClientApiClick,
-                                                                        ClientApi.values());
+        ApiRecyclerAdapter adapter = new ApiRecyclerAdapter(LayoutInflater.from(this),
+                                                            this::onClientApiClick,
+                                                            SyneriseSdkApi.getClientApis());
 
         recycler.setLayoutManager(new LinearLayoutManager(this));
         recycler.setAdapter(adapter);
@@ -40,7 +44,13 @@ public class ClientApiActivity extends BaseActivity {
 
     // ****************************************************************************************************************************************
 
-    private void onClientApiClick(ClientApi clientApi) {
-        startActivity(DevClientActivity.createIntent(this, clientApi.ordinal()));
+    private void onClientApiClick(SyneriseSdkApi syneriseSdkApi) {
+        if(!syneriseSdkApi.isGroup())
+            startActivity(FragmentContainerActivity.createIntent(this, syneriseSdkApi.ordinal()));
+        else if (syneriseSdkApi == SyneriseSdkApi.CLIENT_PROMOTIONS) {
+            startActivity(ClientPromotionApisActivity.createIntent(this));
+        } else if (syneriseSdkApi == SyneriseSdkApi.CLIENT_VOUCHERS) {
+            startActivity(ClientVoucherApisActivity.createIntent(this));
+        }
     }
 }

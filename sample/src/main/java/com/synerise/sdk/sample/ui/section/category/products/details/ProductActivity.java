@@ -3,8 +3,10 @@ package com.synerise.sdk.sample.ui.section.category.products.details;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -41,9 +43,9 @@ public class ProductActivity extends BaseActivity {
     private Product product;
     private ImageView favIcon;
 
-    public static Intent createIntent(Context context, Product product) {
+    public static Intent createIntent(Context context, String productSKU) {
         Intent intent = new Intent(context, ProductActivity.class);
-        intent.putExtra(Args.SERIALIZABLE, product);
+        intent.putExtra(Args.SERIALIZABLE, productSKU);
         return intent;
     }
 
@@ -58,7 +60,18 @@ public class ProductActivity extends BaseActivity {
 
         ToolbarHelper.setUpChildToolbar(this);
 
-        product = (Product) getIntent().getSerializableExtra(Args.SERIALIZABLE);
+        Intent intent = getIntent();
+        String sku = intent.getStringExtra(Args.SERIALIZABLE);
+        if (sku == null) {
+            String data = intent.getDataString();
+            if (data != null) {
+                Uri uri = Uri.parse(data);
+                sku = uri.getQueryParameter("sku");
+            }
+        }
+
+        product = Product.getProduct(sku);
+        if (product == null) return;
 
         ViewUtils.loadImage(product.getImage(), findViewById(R.id.parallax_image), findViewById(R.id.image_progress_bar));
 
@@ -117,14 +130,6 @@ public class ProductActivity extends BaseActivity {
         });
     }
 
-    private TrackerParams buildParamsForProductEvent(Product product) {
-        return new TrackerParams.Builder()
-                .add("productName", getString(product.getName()))
-                .add("SKU", product.getSKU())
-                .add("price", product.getPrice())
-                .build();
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -133,6 +138,14 @@ public class ProductActivity extends BaseActivity {
     }
 
     // ****************************************************************************************************************************************
+
+    private TrackerParams buildParamsForProductEvent(Product product) {
+        return new TrackerParams.Builder()
+                .add("productName", getString(product.getName()))
+                .add("SKU", product.getSKU())
+                .add("price", product.getPrice())
+                .build();
+    }
 
     private AddedToCartEvent createCartEvent() {
         UnitPrice unitPrice = new UnitPrice(product.getPrice(), Currency.getInstance(Locale.US));

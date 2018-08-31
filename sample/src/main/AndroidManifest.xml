@@ -44,7 +44,14 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.section.category.products.details.ProductActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="syne://product"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="syne"
+                    android:host="product" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.dev.client.ClientApiActivity"
             android:screenOrientation="portrait" />
@@ -86,14 +93,21 @@
             android:name=".ui.dev.qr.QRScannerActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.dev.profile.FragmentContainerActivity"
+            android:name=".ui.dev.apiAdapter.FragmentContainerActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.dev.client.adapter.DevClientActivity"
+            android:name=".ui.dev.client.promotions.ClientPromotionApisActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.dev.profile.promotions.PromotionApisActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.dev.profile.promotions.PromotionApisActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.client.vouchers.ClientVoucherApisActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.profile.voucher.ProfileVoucherApisActivity"
+            android:screenOrientation="portrait" />
 
         <!-- ****************************************************************************************************************************** -->
 

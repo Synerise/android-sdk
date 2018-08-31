@@ -81,6 +81,7 @@ public class App extends MultiDexApplication
                         .injectorAutomatic(true)
                         .pushRegistrationRequired(this)
                         .locationUpdateRequired(this)
+                        .notificationChannelName("testChannelName")
                         .baseUrl(null)
                         //.customClientConfig(new CustomClientAuthConfig("http://your-base-url.com"))
                         .build();

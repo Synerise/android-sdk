@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.synerise.sdk.sample.ui.dev.profile.FragmentContainerActivity">
+    tools:context="com.synerise.sdk.sample.ui.dev.apiAdapter.FragmentContainerActivity">
 
     <include layout="@layout/include_app_bar" />
 

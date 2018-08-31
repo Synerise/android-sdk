@@ -376,7 +376,8 @@
     <string name="profile_redeem_promotions_by_email">Redeem Email</string>
     <string name="provide_promotion_code">Promotion code</string>
     <string name="client_get_promotions">Get promotions</string>
-    <string name="client_activate_promotions">Activate Promotion</string>
+    <string name="client_activate_promotions_by_uuid">Activate Promotion by uuid</string>
+    <string name="client_activate_promotions_by_code">Activate Promotion by code</string>
     <string name="provide_client_uuid">Client uuid</string>
     <string name="delete_account">Delete account</string>
     <string name="client_change_password">Change password</string>
@@ -390,4 +391,10 @@
     <string name="default_promotion_apis">Promotion API</string>
     <string name="profile_assign_voucher">Assign voucher</string>
     <string name="provide_pool_uuid">Pool uuid</string>
+    <string name="default_vouchers_api">Voucher Api</string>
+    <string name="get_or_assign_voucher">Get or assign voucher</string>
+    <string name="assign_voucher_code">Assign voucher code</string>
+    <string name="get_assigned_voucher_codes">Get assigned voucher codes</string>
+    <string name="get_voucher_codes">Get voucher codes</string>
+    <string name="profile_get_voucher_codes">Get voucher codes</string>
 </resources>

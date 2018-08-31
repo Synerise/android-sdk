@@ -74,6 +74,6 @@ public class FavouritesFragment extends BaseDevFragment {
     // ****************************************************************************************************************************************
 
     private void onProductSelected(Product product) {
-        startActivity(ProductActivity.createIntent(getActivity(), product));
+        startActivity(ProductActivity.createIntent(getActivity(), product.getSKU()));
     }
 }

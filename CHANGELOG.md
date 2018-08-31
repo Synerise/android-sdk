@@ -1,12 +1,22 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.2.6] - 2018-08-31
+### Added
+- Silent command pushes
+- New change client's password method
+
+### Changed
+- Deep links are now based on URI scheme which allows to pass extra query data
+
+### Fixed
+- Synerise notification channels
+
 ## [3.2.5] - 2018-08-30
 ### Added
 - Assign voucher Profile and Client API methods
 - Get assigned vouchers Profile and Client API methods
 - Get or assign voucher Profile and Client API methods
-- Command pushes
 - Location callback
 
 ### Changed
