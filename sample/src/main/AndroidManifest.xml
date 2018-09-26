@@ -46,12 +46,16 @@
             android:name=".ui.section.category.products.details.ProductActivity"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="syne://product"/>
+                <action android:name="syne://product" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="syne"
-                    android:host="product" />
+                <data
+                    android:host="product"
+                    android:scheme="syne" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.promotion.details.PromotionActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.dev.client.ClientApiActivity"
             android:screenOrientation="portrait" />

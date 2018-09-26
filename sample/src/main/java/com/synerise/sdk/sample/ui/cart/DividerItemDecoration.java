@@ -6,11 +6,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
+
     private Drawable mDivider;
+
+    // ****************************************************************************************************************************************
 
     public DividerItemDecoration(Drawable divider) {
         mDivider = divider;
     }
+
+    // ****************************************************************************************************************************************
 
     @Override
     public void onDraw(Canvas canvas, RecyclerView parent, RecyclerView.State state) {

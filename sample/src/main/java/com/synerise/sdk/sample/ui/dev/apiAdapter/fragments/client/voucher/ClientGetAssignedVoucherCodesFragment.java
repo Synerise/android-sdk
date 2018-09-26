@@ -3,16 +3,15 @@ package com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.voucher;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.synerise.sdk.client.Client;
+import com.synerise.sdk.client.model.VoucherCodesResponse;
 import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IDataApiCall;
 import com.synerise.sdk.error.ApiError;
-import com.synerise.sdk.profile.model.client.VoucherCodesResponse;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.dev.BaseDevFragment;
 

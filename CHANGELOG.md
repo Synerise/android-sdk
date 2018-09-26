@@ -1,10 +1,25 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.2.7] - 2018-09-26
+### Added
+- Promotion deactivation by uuid and code
+- Profile promotions take `limit` as a parameter to fetch your data
+
+### Changed
+- Get client promotions with new status and presentation options
+- Birth date and phone number are now nullable within Client and Profile's entities
+- `Client.getAssignedVoucherCodes()` return type is now `ClientVoucherCodesResponse`
+- Push campaign  key `push.receiveInBackground` changed to `push.received`
+
+### Fixed
+- Android O activity's screen orientation lock
+- Get client voucher codes endpoint url
+
 ## [3.2.6] - 2018-08-31
 ### Added
 - Silent command pushes
-- New change client's password method
+- Change client's password optional validation
 
 ### Changed
 - Deep links are now based on URI scheme which allows to pass extra query data

@@ -3,8 +3,9 @@ package com.synerise.sdk.sample.persistence.model;
 import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
+import com.synerise.sdk.client.model.Promotion;
 import com.synerise.sdk.sample.data.Product;
-import com.synerise.sdk.sample.ui.cart.CartItem;
+import com.synerise.sdk.sample.ui.cart.adapter.item.CartItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,8 @@ public class StoragePOJO {
     @SerializedName("business_profile_api_key") private String businessProfileApiKey;
     @SerializedName("client_api_key") private String clientApiKey;
     @SerializedName("favourite_products") private List<Product> favouriteProducts;
+    @SerializedName("promotions") private List<Promotion> promotions;
+    @SerializedName("promotions_excluded") private List<Promotion> promotionsExcluded;
 
     // ****************************************************************************************************************************************
 
@@ -88,12 +91,30 @@ public class StoragePOJO {
         return phone;
     }
 
+    @NonNull
     public List<Product> getFavouriteProducts() {
-        if(favouriteProducts == null) return new ArrayList<>();
-        return favouriteProducts;
+        return favouriteProducts == null ? new ArrayList<>() : favouriteProducts;
     }
 
     public void setFavouriteProducts(List<Product> favouriteProducts) {
         this.favouriteProducts = favouriteProducts;
+    }
+
+    @NonNull
+    public List<Promotion> getPromotions() {
+        return promotions == null ? new ArrayList<>() : promotions;
+    }
+
+    public void setPromotions(List<Promotion> promotions) {
+        this.promotions = promotions;
+    }
+
+    @NonNull
+    public List<Promotion> getExcludedPromotions() {
+        return promotionsExcluded == null ? new ArrayList<>() : promotionsExcluded;
+    }
+
+    public void setExcludedPromotions(List<Promotion> promotions) {
+        this.promotionsExcluded = promotions;
     }
 }

@@ -44,7 +44,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.2.6'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.2.7'
 }
 ```
 Finally, please make sure your `Instant Run` is disabled.
@@ -466,13 +466,27 @@ private void getAnalytics(String name) {
 }
 ```
 
-#### Client.getPromotions()
+#### Client.getPromotions(excludeExpired)
 Use this method to get all available promotions that are defined for this client.
+Also, you are able to decide whether include or exclude already expired promotions.
 This method returns `IDataApiCall` with parametrized `List<PromotionResponse>` object to execute request.
 ```
-private void getPromotions() {
+private void getPromotions(boolean excludeExpired) {
     if (apiCall != null) apiCall.cancel();
-    apiCall = Client.getPromotions();
+    apiCall = Client.getPromotions(excludeExpired);
+    apiCall.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Client.getPromotions(excludeExpired, statuses)
+Use this method to get all possible combinations of promotions statuses, which are defined for this client.
+Method returns promotions with statuses provided in the list. A special query is build upon this list.
+Also, you are able to decide whether include or exclude already expired promotions.
+This method returns `IDataApiCall` with parametrized `List<PromotionResponse>` object to execute request.
+```
+private void getPromotions(boolean excludeExpired, PromotionStatus[] statuses) {
+    if (apiCall != null) apiCall.cancel();
+    apiCall = Client.getPromotions(excludeExpired, statuses);
     apiCall.execute(this::onSuccess, this::onError);
 }
 ```
@@ -495,6 +509,28 @@ Method returns `IApiCall` to execute request.
 private void activatePromotionByCode(String code) {
     if (apiCall != null) apiCall.cancel();
     apiCall = Client.activatePromotionByCode(code);
+    apiCall.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Client.deactivatePromotionByUuid(uuid)
+Use this method to deactivate promotion that has uuid passed as parameter.
+Method returns `IApiCall` to execute request.
+```
+private void deactivatePromotionByUuid(String uuid) {
+    if (apiCall != null) apiCall.cancel();
+    apiCall = Client.deactivatePromotionByUuid(uuid);
+    apiCall.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Client.deactivatePromotionByCode(code)
+Use this method to deactivate promotion that has code passed as parameter.
+Method returns `IApiCall` to execute request.
+```
+private void deactivatePromotionByCode(String code) {
+    if (apiCall != null) apiCall.cancel();
+    apiCall = Client.deactivatePromotionByCode(code);
     apiCall.execute(this::onSuccess, this::onError);
 }
 ```
@@ -832,12 +868,24 @@ public void getToken() {
 ```
 
 #### Profile.getPromotions()
-Use this method to get all available promotions that are defined for your business profile.
+Use this method to get all available promotions that are defined for your business profile.<br>
+Note that using this method causes limiting your response data to 100.
 Method returns `IDataApiCall` with parametrized `ProfilePromotionResponse` to execute request.
 ```
 private void getPromotions() {
     if (call != null) call.cancel();
     call = Profile.getPromotions();
+    call.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Profile.getPromotions(limit)
+Use this method to get all available promotions that are defined for your business profile.
+Method returns `IDataApiCall` with parametrized `ProfilePromotionResponse` to execute request.
+```
+private void getPromotions(int limit) {
+    if (call != null) call.cancel();
+    call = Profile.getPromotions(limit);
     call.execute(this::onSuccess, this::onError);
 }
 ```
@@ -1122,6 +1170,124 @@ It is validated by checking if incoming push contains "content-type" key with "t
 It is validated by checking if incoming push contains "content-type" key with "silent-command" value.<br>
 `Injector.isSilentSdkCommand` only checks whether provided push data comes from Synerise and is it specifically Silent SDK Command.
 It is validated by checking if incoming push contains "content-type" key with "silent-sdk-command" value.<br>
+
+#### Push structure
+You can also react to Synerise push notifications by yourself and that is why we would like to share our Synerise Simple Push and Synerise Banner push structure.<br>
+Synerise Simple Push:<br>
+```
+{
+  "data": {
+    "issuer": "Synerise",
+    "message-type": "static-content",
+    "content-type": "simple-push",
+    "content": {
+      "notification": {
+        "title": "Synerise Simple Push title",
+        "body": "Synerise Simple Push message",
+        "sound": "default",
+        "icon": "http://images.synerise.com/marvellous_image.jpg",
+        "priority": "HIGH",
+        "action": {
+          "item": "https://synerise.com",
+          "type": "OPEN_URL"
+        }
+      },
+      "buttons": [
+        {
+          "identifier": "button_1",
+          "action": {
+            "item": "https://synerise.com",
+            "type": "OPEN_URL"
+          },
+          "text": "Button 1"
+        },
+        {
+          "identifier": "button_2",
+          "action": {
+            "item": "syne://product?sku=el-oven",
+            "type": "DEEP_LINKING"
+          },
+          "text": "Button 2"
+        }
+      ],
+      "campaign": {
+        "variant_id": 12345,
+        "type": "Mobile push",
+        "title": "Mobile push test campaign",
+        "hash_id": "1893b5be-79c6-4432-xxxx-81e7bd4ea09d"
+      }
+    }
+  }
+}
+```
+Action types are: `DEEP_LINKING`, `OPEN_URL`, `OPEN_APP`.<br>
+Priority types are: `NORMAL`, `HIGH`.<br>
+<br>
+Synerise Banner:<br>
+```
+{
+  "notification": {
+    "title": "Notification title if app was invisible",
+    "body": "Notification message if app was invisible"
+  },
+  "data": {
+    "issuer": "Synerise",
+    "message-type": "dynamic-content",
+    "content-type": "template-banner",
+    "content": {
+      "page": {
+        "type": "image_with_text_atop",
+        "button": {
+          "is_enabled": true,
+          "corner_radius": 40,
+          "color": "#13e413",
+          "text": "Navigate to Synerise",
+          "text_color": "#1f74d9"
+        },
+        "image": {
+          "url": "http://images.synerise.com/marvellous_image.jpg"
+        },
+        "close_button": {
+          "is_enabled": true,
+          "alignment": "LEFT"
+        },
+        "background": {
+          "color": "#d319d3",
+          "alpha": 0.5
+        },
+        "index": 0,
+        "header": {
+          "color": "#384350",
+          "size": 35,
+          "alpha": 1,
+          "text": "SYNERISE"
+        },
+        "description": {
+          "color": "#384350",
+          "size": 20,
+          "alpha": 1,
+          "text": "Click below button to open Synerise website"
+        },
+        "action": {
+          "item": "http://synerise.com",
+          "type": "OPEN_URL"
+        }
+      },
+      "auto_disappear": {
+        "is_enabled": true,
+        "timeout": 5
+      },
+      "campaign": {
+        "variant_id": 12345,
+        "type": "Mobile banner",
+        "title": "Mobile banner test campaign",
+        "hash_id": "1893b5be-79c6-4432-xxxx-81e7bd4ea09d"
+      }
+    }
+  }
+}
+```
+Banner types are: `color_as_background`, `image_as_background`, `image_with_text_atop`, `image_with_text_below`.
 
 #### Optional callbacks
 It is not always suitable for you to cover your Activities with any banners which may come.<br>

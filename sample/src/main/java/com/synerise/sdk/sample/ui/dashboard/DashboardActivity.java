@@ -26,6 +26,7 @@ import com.synerise.sdk.sample.ui.cart.CartFragment;
 import com.synerise.sdk.sample.ui.dev.DeveloperFragment;
 import com.synerise.sdk.sample.ui.favourites.FavouritesFragment;
 import com.synerise.sdk.sample.ui.profile.ProfileFragment;
+import com.synerise.sdk.sample.ui.promotion.PromotionsFragment;
 import com.synerise.sdk.sample.ui.section.SectionsFragment;
 import com.synerise.sdk.sample.ui.section.UpdateStatusBarColorInterface;
 import com.synerise.sdk.sample.util.KeyboardHelper;
@@ -37,6 +38,7 @@ import static com.synerise.sdk.sample.ui.dashboard.DrawerSection.CART;
 import static com.synerise.sdk.sample.ui.dashboard.DrawerSection.DEV_TOOLS;
 import static com.synerise.sdk.sample.ui.dashboard.DrawerSection.FAVOURITE;
 import static com.synerise.sdk.sample.ui.dashboard.DrawerSection.PROFILE;
+import static com.synerise.sdk.sample.ui.dashboard.DrawerSection.PROMOTIONS;
 import static com.synerise.sdk.sample.ui.dashboard.DrawerSection.SECTIONS;
 
 public class DashboardActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener,
@@ -47,6 +49,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     public static final int BARCODE_SCANNER_REQUEST_CODE = 531;
 
     private MenuItem menuProfile;
+    private MenuItem menuPromotions;
     private MenuItem menuSignOut;
     private View signedInNavHeader;
     private View signInButtonNavHeader;
@@ -86,6 +89,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         Menu menu = navigationView.getMenu();
 
         menuProfile = menu.findItem(R.id.menu_profile);
+        menuPromotions = menu.findItem(R.id.menu_promotions);
         menuSignOut = menu.findItem(R.id.menu_sign_out);
         signedInNavHeader = headerView.findViewById(R.id.signed_in_nav_header);
         signInButtonNavHeader = headerView.findViewById(R.id.sign_in_nav_header_button);
@@ -102,11 +106,37 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         changeFragment(SECTIONS);
     }
 
-    private void updateNavHeader() {
-        if (accountManager.getFirstName() != null && accountManager.getLastName() != null)
-            nameNavHeader.setText(accountManager.getFirstName() + " " + accountManager.getLastName());
-        if (accountManager.getEmail() != null)
-            emailNavHeader.setText(accountManager.getEmail());
+    @Override
+    protected void onStart() {
+        super.onStart();
+        handleSigningVisibility();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            if (currentFragment instanceof SectionsFragment)
+                drawer.openDrawer(GravityCompat.START);
+            else
+                changeFragment(SECTIONS);
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
+     * Outdated due to handling signing visibility in onStart()
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SIGN_IN_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                handleSigningVisibility();
+            }
+            KeyboardHelper.hideKeyboard(this);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -123,6 +153,13 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
 
     // ****************************************************************************************************************************************
 
+    private void updateNavHeader() {
+        if (accountManager.getFirstName() != null && accountManager.getLastName() != null)
+            nameNavHeader.setText(accountManager.getFirstName() + " " + accountManager.getLastName());
+        if (accountManager.getEmail() != null)
+            emailNavHeader.setText(accountManager.getEmail());
+    }
+
     @Override
     @SuppressWarnings("StatementWithEmptyBody")
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -137,6 +174,9 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
             //                break;
             case R.id.menu_profile:
                 if (!(currentFragment instanceof ProfileFragment)) changeFragment(PROFILE);
+                break;
+            case R.id.menu_promotions:
+                if (!(currentFragment instanceof PromotionsFragment)) changeFragment(PROMOTIONS);
                 break;
             case R.id.menu_cart:
                 if (!(currentFragment instanceof CartFragment)) changeFragment(CART);
@@ -179,6 +219,10 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                 currentFragment = ProfileFragment.newInstance();
                 navigationView.setCheckedItem(R.id.menu_profile);
                 break;
+            case PROMOTIONS:
+                currentFragment = PromotionsFragment.newInstance();
+                navigationView.setCheckedItem(R.id.menu_promotions);
+                break;
             default:
                 return;
         }
@@ -193,7 +237,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction
-                //                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
                 .replace(R.id.container, currentFragment)
                 .commit();
     }
@@ -208,27 +252,18 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
             signedInNavHeader.setVisibility(View.VISIBLE);
             signInButtonNavHeader.setVisibility(View.GONE);
             menuProfile.setVisible(true);
+            menuPromotions.setVisible(true);
             menuSignOut.setVisible(true);
         } else {
             signedInNavHeader.setVisibility(View.GONE);
             signInButtonNavHeader.setVisibility(View.VISIBLE);
             menuProfile.setVisible(false);
+            menuPromotions.setVisible(false);
             menuSignOut.setVisible(false);
         }
     }
 
     // ****************************************************************************************************************************************
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SIGN_IN_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                handleSigningVisibility();
-            }
-            KeyboardHelper.hideKeyboard(this);
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
 
     @Override
     public void updateStatusBarColor(int color) {
@@ -243,28 +278,17 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         updateNavHeader();
     }
 
-    public void showHamburgerIcon() {
+    // ****************************************************************************************************************************************
+
+    private void showHamburgerIcon() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_hamburger);
     }
 
-    public void showBackIcon() {
+    private void showBackIcon() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            if (currentFragment instanceof SectionsFragment)
-                drawer.openDrawer(GravityCompat.START);
-            else
-                changeFragment(SECTIONS);
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
     }
 }

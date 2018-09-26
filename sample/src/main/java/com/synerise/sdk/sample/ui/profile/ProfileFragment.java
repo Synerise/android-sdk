@@ -54,6 +54,14 @@ public class ProfileFragment extends BaseFragment {
     // ****************************************************************************************************************************************
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof ProfileUpdatedListener) {
+            profileUpdatedListener = (ProfileUpdatedListener) context;
+        }
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((App) getActivity().getApplication()).getComponent().inject(this);
@@ -88,6 +96,21 @@ public class ProfileFragment extends BaseFragment {
 
         toggleLoading(false);
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (getClientCall != null) getClientCall.cancel();
+        if (updateCall != null) updateCall.cancel();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        profileUpdatedListener = ProfileUpdatedListener.NULL;
+    }
+
+    // ****************************************************************************************************************************************
 
     private void saveChangesButtonClicked(View view) {
         textName.setError(null);
@@ -179,26 +202,5 @@ public class ProfileFragment extends BaseFragment {
             saveChangesButton.setVisibility(VISIBLE);
             saveChangesProgress.setVisibility(GONE);
         }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (getClientCall != null) getClientCall.cancel();
-        if (updateCall != null) updateCall.cancel();
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof ProfileUpdatedListener) {
-            profileUpdatedListener = (ProfileUpdatedListener) context;
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        profileUpdatedListener = ProfileUpdatedListener.NULL;
     }
 }

@@ -1,4 +1,4 @@
-package com.synerise.sdk.sample.ui.cart;
+package com.synerise.sdk.sample.ui.cart.adapter.item;
 
 import com.synerise.sdk.sample.data.Product;
 

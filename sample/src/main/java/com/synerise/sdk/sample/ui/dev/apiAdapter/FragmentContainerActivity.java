@@ -16,6 +16,8 @@ import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientRequestP
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientUpdateAccountFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.promotion.ClientActivatePromotionByCodeFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.promotion.ClientActivatePromotionByUuidFragment;
+import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.promotion.ClientDeactivatePromotionByCodeFragment;
+import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.promotion.ClientDeactivatePromotionByUuidFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.promotion.ClientGetPromotionsFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.voucher.ClientAssignVoucherCodeFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.voucher.ClientGetAssignedVoucherCodesFragment;
@@ -128,7 +130,7 @@ public class FragmentContainerActivity extends BaseActivity {
                 return ProfileGetVoucherCodesFragment.newInstance();
             case PROFILE_ASSIGN_VOUCHER_CODE:
                 return ProfileAssignVoucherCodeFragment.newInstance();
-                // CLIENT
+            // CLIENT
             case GET_ACCOUNT:
                 return ClientGetAccountFragment.newInstance();
             case UPDATE_ACCOUNT:
@@ -150,6 +152,10 @@ public class FragmentContainerActivity extends BaseActivity {
                 return ClientActivatePromotionByUuidFragment.newInstance();
             case ACTIVATE_PROMOTION_BY_CODE:
                 return ClientActivatePromotionByCodeFragment.newInstance();
+            case DEACTIVATE_PROMOTION_BY_UUID:
+                return ClientDeactivatePromotionByUuidFragment.newInstance();
+            case DEACTIVATE_PROMOTION_BY_CODE:
+                return ClientDeactivatePromotionByCodeFragment.newInstance();
             // CLIENT VOUCHER
             case CLIENT_ASSIGN_VOUCHER_CODE:
                 return ClientAssignVoucherCodeFragment.newInstance();

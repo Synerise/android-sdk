@@ -29,8 +29,29 @@
                     android:id="@+id/cart_recycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:max_height="@dimen/cart_default_height"
-                    android:overScrollMode="never" />
+                    android:overScrollMode="never"
+                    app:max_height="@dimen/cart_default_height" />
+
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                style="@style/TextSecondary.Header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/available_promotions" />
+
+            <android.support.v7.widget.CardView
+                style="@style/AppCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- using custom recycler view to override onMeasure() for maxHeight -->
+                <com.synerise.sdk.sample.ui.cart.CartRecyclerView
+                    android:id="@+id/promotions_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never"
+                    app:max_height="@dimen/cart_default_height" />
 
             </android.support.v7.widget.CardView>
 

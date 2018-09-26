@@ -12,6 +12,8 @@ import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.image.ImageInfo;
 
+import static android.view.View.GONE;
+
 public class ViewUtils {
 
     public static void loadImage(String url, SimpleDraweeView imageView) {
@@ -23,11 +25,11 @@ public class ViewUtils {
         if (url != null && imageView != null) {
             // setController must be before setUri to get callback on fast phones
             DraweeController controller = Fresco.newDraweeControllerBuilder()
-                                                .setControllerListener(new BaseControllerListener<ImageInfo>(){
+                                                .setControllerListener(new BaseControllerListener<ImageInfo>() {
                                                     @Override
                                                     public void onFinalImageSet(String id, @Nullable ImageInfo imageInfo,
                                                                                 @Nullable Animatable animatable) {
-                                                        progressBar.setVisibility(View.GONE);
+                                                        progressBar.setVisibility(GONE);
                                                     }
                                                 })
                                                 .setUri(url)

@@ -6,11 +6,50 @@
     android:orientation="vertical"
     android:padding="@dimen/space_large">
 
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checkedButton="@id/radio_exclude"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/promotion_include_expired" />
+
+        <RadioButton
+            android:id="@+id/radio_exclude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/promotion_exclude_expired" />
+
+    </RadioGroup>
+
+    <CheckBox
+        android:id="@+id/checkbox_active"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_medium"
+        android:text="@string/promotion_active" />
+
+    <CheckBox
+        android:id="@+id/checkbox_assigned"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/promotion_assigned" />
+
+    <CheckBox
+        android:id="@+id/checkbox_redeemed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/promotion_redeemed" />
+
     <Button
         android:id="@+id/get_promotions"
         style="@style/ButtonPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_medium"
         android:text="@string/client_get_promotions" />
 
 </LinearLayout>

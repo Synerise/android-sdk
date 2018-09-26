@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="@dimen/space_content">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name"
+            style="@style/TextPrimary.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="iPad Pro for Gold Members" />
+
+        <TextView
+            android:id="@+id/product"
+            style="@style/TextSecondary.Mini"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="iPad Pro 10.5'' Wi-Fi 64GB 8 RAM A12 Bionic - Space Gray" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/discount"
+        style="@style/TextTertiary.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_small"
+        tools:text="-29,99 $" />
+
+    <RadioButton
+        android:id="@+id/radio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_small" />
+
+</LinearLayout>

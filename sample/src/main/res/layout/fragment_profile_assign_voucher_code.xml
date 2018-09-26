@@ -37,11 +37,19 @@
 
     </android.support.design.widget.TextInputLayout>
 
+    <TextView
+        style="@style/TextSecondary.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/leave_empty_for_uuid" />
+
     <Button
         android:id="@+id/assign_voucher"
         style="@style/ButtonPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_medium"
         android:text="@string/profile_assign_voucher" />
 
 </LinearLayout>

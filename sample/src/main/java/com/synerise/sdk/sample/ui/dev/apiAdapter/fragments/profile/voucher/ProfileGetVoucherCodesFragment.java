@@ -10,20 +10,20 @@ import android.view.ViewGroup;
 
 import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IDataApiCall;
-import com.synerise.sdk.core.utils.ValidationUtils;
 import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.profile.Profile;
-import com.synerise.sdk.profile.model.client.AssignVoucherResponse;
-import com.synerise.sdk.profile.model.client.VoucherCodesResponse;
+import com.synerise.sdk.profile.model.client.ProfileVoucherCodesResponse;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.dev.BaseDevFragment;
 
 public class ProfileGetVoucherCodesFragment extends BaseDevFragment {
 
-    private TextInputLayout inputClientId;
-    private IDataApiCall<VoucherCodesResponse> call;
+    private TextInputLayout inputClientUuid;
+    private IDataApiCall<ProfileVoucherCodesResponse> call;
 
-    public static ProfileGetVoucherCodesFragment newInstance() { return new ProfileGetVoucherCodesFragment(); }
+    public static ProfileGetVoucherCodesFragment newInstance() {
+        return new ProfileGetVoucherCodesFragment();
+    }
 
     // ****************************************************************************************************************************************
 
@@ -37,7 +37,7 @@ public class ProfileGetVoucherCodesFragment extends BaseDevFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        inputClientId = view.findViewById(R.id.input_client_id);
+        inputClientUuid = view.findViewById(R.id.input_client_uuid);
         view.findViewById(R.id.get_voucher_codes).setOnClickListener(v -> getVoucherCodes());
     }
 
@@ -51,30 +51,20 @@ public class ProfileGetVoucherCodesFragment extends BaseDevFragment {
 
     @SuppressWarnings("ConstantConditions")
     private void getVoucherCodes() {
-        boolean isValid = true;
 
-        inputClientId.setError(null);
+        String clientUuid = inputClientUuid.getEditText().getText().toString();
 
-        String clientId = inputClientId.getEditText().getText().toString();
-
-        if (ValidationUtils.isEmpty(clientId)) {
-            isValid = false;
-            inputClientId.setError(getString(R.string.error_empty));
-        }
-
-        if (isValid) {
-            if (call != null) call.cancel();
-            call = Profile.getClientVoucherCodes(clientId);
-            call.execute(this::onSuccess, new DataActionListener<ApiError>() {
-                @Override
-                public void onDataAction(ApiError apiError) {
-                    onFailure(apiError);
-                }
-            });
-        }
+        if (call != null) call.cancel();
+        call = Profile.getClientVoucherCodes(clientUuid.isEmpty() ? null : clientUuid);
+        call.execute(this::onSuccess, new DataActionListener<ApiError>() {
+            @Override
+            public void onDataAction(ApiError apiError) {
+                onFailure(apiError);
+            }
+        });
     }
 
-    private void onSuccess(VoucherCodesResponse response) {
+    private void onSuccess(ProfileVoucherCodesResponse response) {
         super.onSuccess();
     }
 }

@@ -55,7 +55,6 @@ public class ProfileAssignVoucherCodeFragment extends BaseDevFragment {
         boolean isValid = true;
 
         inputPool.setError(null);
-        inputClientUuid.setError(null);
 
         String pool = inputPool.getEditText().getText().toString();
         String clientUuid = inputClientUuid.getEditText().getText().toString();
@@ -64,14 +63,10 @@ public class ProfileAssignVoucherCodeFragment extends BaseDevFragment {
             isValid = false;
             inputPool.setError(getString(R.string.error_empty));
         }
-        if (ValidationUtils.isEmpty(clientUuid)) {
-            isValid = false;
-            inputClientUuid.setError(getString(R.string.error_empty));
-        }
 
         if (isValid) {
             if (call != null) call.cancel();
-            call = Profile.assignVoucherCode(pool, clientUuid);
+            call = Profile.assignVoucherCode(pool, clientUuid.isEmpty() ? null : clientUuid);
             call.execute(this::onSuccess, new DataActionListener<ApiError>() {
                 @Override
                 public void onDataAction(ApiError apiError) {

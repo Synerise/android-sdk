@@ -3,9 +3,10 @@ package com.synerise.sdk.sample.persistence;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.synerise.sdk.client.model.Promotion;
 import com.synerise.sdk.sample.data.Product;
 import com.synerise.sdk.sample.persistence.model.StoragePOJO;
-import com.synerise.sdk.sample.ui.cart.CartItem;
+import com.synerise.sdk.sample.ui.cart.adapter.item.CartItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,11 @@ public class AccountManager {
         prefsStorage.saveStoragePOJO(storagePOJO);
     }
 
+    public void setUserPhone(String phone) {
+        storagePOJO.setPhone(phone);
+        prefsStorage.saveStoragePOJO(storagePOJO);
+    }
+
     public String getFirstName() {
         return storagePOJO.getName();
     }
@@ -55,6 +61,10 @@ public class AccountManager {
 
     public String getEmail() {
         return storagePOJO.getEmail();
+    }
+
+    public String getPhone() {
+        return storagePOJO.getPhoneNumber();
     }
 
     // ****************************************************************************************************************************************
@@ -73,9 +83,8 @@ public class AccountManager {
 
     private CartItem isItemInCart(List<CartItem> cartItems, Product product) {
         for (CartItem cartItem : cartItems) {
-            if (cartItem.getProduct().getSKU().equals(product.getSKU())) {
+            if (cartItem.getProduct().getSKU().equals(product.getSKU()))
                 return cartItem;
-            }
         }
         return null;
     }
@@ -116,6 +125,7 @@ public class AccountManager {
         }
     }
 
+    @NonNull
     public List<Product> getFavouriteProducts() {
         return storagePOJO.getFavouriteProducts();
     }
@@ -123,6 +133,28 @@ public class AccountManager {
     public boolean isProductFavourite(Product product) {
         List<Product> favouriteProducts = getFavouriteProducts();
         return favouriteProducts.contains(product);
+    }
+
+    // ****************************************************************************************************************************************
+
+    @NonNull
+    public List<Promotion> getPromotions() {
+        return storagePOJO.getPromotions();
+    }
+
+    public void updatePromotions(List<Promotion> promotions) {
+        storagePOJO.setPromotions(promotions);
+        prefsStorage.saveStoragePOJO(storagePOJO);
+    }
+
+    @NonNull
+    public List<Promotion> getCartPromotions() {
+        return storagePOJO.getExcludedPromotions();
+    }
+
+    public void updateCartPromotions(List<Promotion> promotions) {
+        storagePOJO.setExcludedPromotions(promotions);
+        prefsStorage.saveStoragePOJO(storagePOJO);
     }
 
     // ****************************************************************************************************************************************
@@ -143,14 +175,5 @@ public class AccountManager {
     public void setClientApiKey(String clientApiKey) {
         storagePOJO.setClientApiKey(clientApiKey);
         prefsStorage.saveStoragePOJO(storagePOJO);
-    }
-
-    public void setUserPhone(String phone) {
-        storagePOJO.setPhone(phone);
-        prefsStorage.saveStoragePOJO(storagePOJO);
-    }
-
-    public String getPhoneNumber() {
-        return storagePOJO.getPhoneNumber();
     }
 }

@@ -4,20 +4,31 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
+import com.synerise.sdk.client.Client;
+import com.synerise.sdk.client.model.Promotion;
+import com.synerise.sdk.client.model.PromotionResponse;
+import com.synerise.sdk.core.listeners.DataActionListener;
+import com.synerise.sdk.core.net.IApiCall;
+import com.synerise.sdk.core.net.IDataApiCall;
+import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.event.Tracker;
 import com.synerise.sdk.event.model.interaction.HitTimerEvent;
 import com.synerise.sdk.event.model.model.UnitPrice;
 import com.synerise.sdk.event.model.products.cart.RemovedFromCartEvent;
 import com.synerise.sdk.event.model.transaction.CompletedTransactionEvent;
+import com.synerise.sdk.profile.Profile;
 import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.data.Category;
@@ -25,6 +36,9 @@ import com.synerise.sdk.sample.data.Product;
 import com.synerise.sdk.sample.data.Section;
 import com.synerise.sdk.sample.persistence.AccountManager;
 import com.synerise.sdk.sample.ui.BaseFragment;
+import com.synerise.sdk.sample.ui.cart.adapter.item.CartAdapter;
+import com.synerise.sdk.sample.ui.cart.adapter.item.CartItem;
+import com.synerise.sdk.sample.ui.cart.adapter.promotion.CartPromotionAdapter;
 
 import java.util.ArrayList;
 import java.util.Currency;
@@ -36,9 +50,17 @@ import javax.inject.Inject;
 public class CartFragment extends BaseFragment {
 
     @Inject AccountManager accountManager;
+    private IDataApiCall<PromotionResponse> apiCall;
+    private IApiCall redeemApiCall;
+
+    private Promotion chosenPromotion;
     private CartRecyclerView cartRecycler;
+    private CartPromotionAdapter promotionAdapter;
     private View cartContent;
     private View emptyCart;
+
+    private Button placeOrder;
+    private ProgressBar progressBar;
 
     public static CartFragment newInstance() {
         return new CartFragment();
@@ -83,21 +105,70 @@ public class CartFragment extends BaseFragment {
 
         handleLayoutVisibility();
 
-        Button placeOrder = view.findViewById(R.id.place_order);
-        ProgressBar progressBar = view.findViewById(R.id.place_order_progress_bar);
-        placeOrder.setOnClickListener(v -> {
-            placeOrder.setVisibility(View.GONE);
-            progressBar.setVisibility(View.VISIBLE);
-            new Handler().postDelayed(() -> {
-                placeOrder.setVisibility(View.VISIBLE);
-                progressBar.setVisibility(View.GONE);
-                Tracker.send(createTransactionEvent(accountManager.getCartItems()));
-                accountManager.clearCartItems();
-                showDialog();
-                handleLayoutVisibility();
-                Tracker.send(new HitTimerEvent("Shopping Cart process - end"));
-            }, 2000);
-        });
+        promotionAdapter = new CartPromotionAdapter(LayoutInflater.from(getActivity()), this::onPromotionClicked,
+                                                    filterPromotions(accountManager.getCartPromotions()));
+        CartRecyclerView promotionsRecycler = view.findViewById(R.id.promotions_recycler);
+        promotionsRecycler.setAdapter(promotionAdapter);
+        promotionsRecycler.setHasFixedSize(true);
+        promotionsRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        promotionsRecycler.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), R.drawable.divider)));
+
+        progressBar = view.findViewById(R.id.place_order_progress_bar);
+        placeOrder = view.findViewById(R.id.place_order);
+        placeOrder.setOnClickListener(v -> onPlaceOrderClicked());
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (Client.isSignedIn()) getPromotions();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (apiCall != null) apiCall.cancel();
+        if (redeemApiCall != null) redeemApiCall.cancel();
+    }
+
+    // ****************************************************************************************************************************************
+
+    private void getPromotions() {
+        Toast.makeText(getActivity(), R.string.default_refreshing_promotions, Toast.LENGTH_SHORT).show();
+        if (apiCall != null) apiCall.cancel();
+        apiCall = Client.getPromotions(true);
+        apiCall.execute(response -> {
+            if (response != null) {
+                List<Promotion> promotions = response.getPromotions();
+                promotionAdapter.update(filterPromotions(promotions));
+                accountManager.updateCartPromotions(promotions);
+            }
+        }, error -> Toast.makeText(getActivity(), getErrorMessage(error), Toast.LENGTH_SHORT).show());
+    }
+
+    private List<Pair<Promotion, CartItem>> filterPromotions(List<Promotion> promotions) {
+        List<Pair<Promotion, CartItem>> results = new ArrayList<>();
+        List<CartItem> cartItems = accountManager.getCartItems();
+        for (Promotion promotion : promotions) {
+            List<String> catalogIndexItems = promotion.getCatalogIndexItems();
+            if (catalogIndexItems != null) {
+                if (catalogIndexItems.isEmpty()) {
+                    results.add(new Pair<>(promotion, null));
+                } else if (!cartItems.isEmpty()) {
+                    for (String catalogIndexItem : catalogIndexItems) {
+                        for (CartItem cartItem : cartItems) {
+                            if (catalogIndexItem.equals(cartItem.getProduct().getSKU()))
+                                results.add(new Pair<>(promotion, cartItem));
+                        }
+                    }
+                }
+            }
+        }
+        return results;
+    }
+
+    private void onPromotionClicked(Pair<Promotion, CartItem> promotionPair) {
+        chosenPromotion = promotionPair.first;
     }
 
     // ****************************************************************************************************************************************
@@ -122,9 +193,7 @@ public class CartFragment extends BaseFragment {
             cartRecycler.setAdapter(cartAdapter);
             cartRecycler.setHasFixedSize(true);
             cartRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(ContextCompat.getDrawable(getActivity(),
-                                                                                                              R.drawable.divider));
-            cartRecycler.addItemDecoration(dividerItemDecoration);
+            cartRecycler.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), R.drawable.divider)));
         } else {
             cartContent.setVisibility(View.GONE);
             emptyCart.setVisibility(View.VISIBLE);
@@ -190,6 +259,40 @@ public class CartFragment extends BaseFragment {
     }
 
     // ****************************************************************************************************************************************
+
+    private void onPlaceOrderClicked() {
+        placeOrder.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+        if (chosenPromotion != null) {
+            if (redeemApiCall != null) redeemApiCall.cancel();
+            String email = accountManager.getEmail();
+            if (email != null) {
+                redeemApiCall = Profile.redeemPromotionByEmail(chosenPromotion.getCode(), email);
+            } else {
+                redeemApiCall = Profile.redeemPromotionByPhone(chosenPromotion.getCode(), accountManager.getPhone());
+            }
+            redeemApiCall.execute(this::onOrderPlaced, new DataActionListener<ApiError>() {
+                @Override
+                public void onDataAction(ApiError apiError) {
+                    placeOrder.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+                    Snackbar.make(placeOrder, getErrorMessage(apiError), Snackbar.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            new Handler().postDelayed(this::onOrderPlaced, 2000);
+        }
+    }
+
+    private void onOrderPlaced() {
+        placeOrder.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
+        Tracker.send(createTransactionEvent(accountManager.getCartItems()));
+        accountManager.clearCartItems();
+        showDialog();
+        handleLayoutVisibility();
+        Tracker.send(new HitTimerEvent("Shopping Cart process - end"));
+    }
 
     private void toggleChoice(RadioButton button1, RadioButton button2) {
         button1.setChecked(true);

@@ -65,9 +65,7 @@ public class DevGetClientFragment extends BaseDevFragment {
         if (getClientCall != null) {
             getClientCall.cancel();
             EspressoTestingIdlingResource.increment();
-            getClientCall.execute(clientProfile -> {
-                onSuccess();
-            }, this::onFailure);
+            getClientCall.execute(clientProfile -> onSuccess(), this::onFailure);
         }
     }
 }

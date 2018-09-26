@@ -1,4 +1,4 @@
-package com.synerise.sdk.sample.ui.cart;
+package com.synerise.sdk.sample.ui.cart.adapter.item;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.synerise.sdk.sample.R;
+import com.synerise.sdk.sample.ui.cart.OnCartItemListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
 
     // ****************************************************************************************************************************************
 
-    CartAdapter(LayoutInflater inflater, List<CartItem> cartItems, OnCartItemListener listener) {
+    public CartAdapter(LayoutInflater inflater, List<CartItem> cartItems, OnCartItemListener listener) {
         this.inflater = inflater;
         if (cartItems != null) this.cartItems.addAll(cartItems);
         this.listener = listener;

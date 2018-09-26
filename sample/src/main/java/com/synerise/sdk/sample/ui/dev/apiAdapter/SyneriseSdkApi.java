@@ -55,6 +55,8 @@ public enum SyneriseSdkApi {
     CLIENT_GET_PROMOTIONS(R.string.client_get_promotions),
     ACTIVATE_PROMOTION_BY_UUID(R.string.client_activate_promotions_by_uuid),
     ACTIVATE_PROMOTION_BY_CODE(R.string.client_activate_promotions_by_code),
+    DEACTIVATE_PROMOTION_BY_UUID(R.string.client_deactivate_promotions_by_uuid),
+    DEACTIVATE_PROMOTION_BY_CODE(R.string.client_deactivate_promotions_by_code),
 
     // CLIENT VOUCHERS API
     CLIENT_GET_OR_ASSIGN_VOUCHER(R.string.get_or_assign_voucher),

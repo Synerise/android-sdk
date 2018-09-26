@@ -8,7 +8,9 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.synerise.sdk.sample.BuildConfig;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.dev.client.ClientApiActivity;
 import com.synerise.sdk.sample.ui.dev.injector.InjectorApiActivity;
@@ -43,6 +45,14 @@ public class DeveloperFragment extends BaseDevFragment {
                 ActivityManager activityManager = ((ActivityManager) activity.getSystemService(ACTIVITY_SERVICE));
                 if (activityManager != null) activityManager.clearApplicationUserData();
             });
+
+            ((TextView) view.findViewById(R.id.text_build))
+                    .setText(getString(R.string.developer_info,
+                                       BuildConfig.APPLICATION_ID,
+                                       BuildConfig.BUILD_TYPE,
+                                       BuildConfig.FLAVOR,
+                                       BuildConfig.VERSION_CODE,
+                                       BuildConfig.VERSION_NAME));
         }
     }
 }

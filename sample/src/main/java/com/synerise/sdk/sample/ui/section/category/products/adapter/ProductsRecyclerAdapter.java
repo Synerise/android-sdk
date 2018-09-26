@@ -53,6 +53,8 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsViewHo
         return products.size();
     }
 
+    // ****************************************************************************************************************************************
+
     public void update(List<Product> favouriteProducts) {
         products.clear();
         products.addAll(favouriteProducts);

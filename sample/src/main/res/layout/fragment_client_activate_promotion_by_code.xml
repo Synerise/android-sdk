@@ -27,6 +27,6 @@
         style="@style/ButtonPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/client_activate_promotions_by_uuid" />
+        android:text="@string/client_activate_promotions_by_code" />
 
 </LinearLayout>
