@@ -11,7 +11,7 @@
         android:id="@+id/input_uuid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/provide_uuid"
+        android:hint="@string/default_uuid"
         app:errorEnabled="true"
         app:hintAnimationEnabled="true">
 

@@ -46,10 +46,11 @@ public enum SyneriseSdkApi {
     DELETE_ACCOUNT(R.string.delete_account),
     CHANGE_PASSWORD(R.string.client_change_password),
     CLIENT_GET_TOKEN(R.string.get_token),
-    CLIENT_PROMOTIONS(R.string.default_promotion_apis, true),
-    CLIENT_VOUCHERS(R.string.default_vouchers_api, true),
+    CLIENT_GET_EXTERNAL_TOKEN(R.string.get_external_token),
     REQUEST_PHONE_UPDATE(R.string.client_phone_update),
+    CLIENT_PROMOTIONS(R.string.default_promotion_apis, true),
     CONFIRM_PHONE_UPDATE(R.string.client_confirm_phone_update),
+    CLIENT_VOUCHERS(R.string.default_vouchers_api, true),
 
     // CLIENT PROMOTION API
     CLIENT_GET_PROMOTIONS(R.string.client_get_promotions),
@@ -80,6 +81,8 @@ public enum SyneriseSdkApi {
     public int getTitle() {
         return title;
     }
+
+    // ****************************************************************************************************************************************
 
     public boolean isGroup() {
         return isGroup;
@@ -119,6 +122,7 @@ public enum SyneriseSdkApi {
                              DELETE_ACCOUNT,
                              CHANGE_PASSWORD,
                              CLIENT_GET_TOKEN,
+                             CLIENT_GET_EXTERNAL_TOKEN,
                              REQUEST_PHONE_UPDATE,
                              CONFIRM_PHONE_UPDATE,
                              CLIENT_PROMOTIONS,
@@ -128,7 +132,9 @@ public enum SyneriseSdkApi {
     public static List<SyneriseSdkApi> getClientPromotionApis() {
         return Arrays.asList(CLIENT_GET_PROMOTIONS,
                              ACTIVATE_PROMOTION_BY_UUID,
-                             ACTIVATE_PROMOTION_BY_CODE);
+                             ACTIVATE_PROMOTION_BY_CODE,
+                             DEACTIVATE_PROMOTION_BY_CODE,
+                             DEACTIVATE_PROMOTION_BY_UUID);
     }
 
     public static List<SyneriseSdkApi> getClientVoucherApis() {

@@ -11,6 +11,7 @@ import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientChangePa
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientConfirmPhoneUpdateFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientDeleteAccountFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientGetAccountFragment;
+import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientGetExternalTokenFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientGetTokenFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientRequestPhoneUpdateFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientUpdateAccountFragment;
@@ -141,6 +142,8 @@ public class FragmentContainerActivity extends BaseActivity {
                 return ClientChangePasswordFragment.newInstance();
             case CLIENT_GET_TOKEN:
                 return ClientGetTokenFragment.newInstance();
+            case CLIENT_GET_EXTERNAL_TOKEN:
+                return ClientGetExternalTokenFragment.newInstance();
             case REQUEST_PHONE_UPDATE:
                 return ClientRequestPhoneUpdateFragment.newInstance();
             case CONFIRM_PHONE_UPDATE:

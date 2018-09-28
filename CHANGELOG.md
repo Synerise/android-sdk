@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.2.8] - 2018-09-28
+### Added
+- Client method to obtain external client's authorization token
+
+### Fixed
+- Profile's `getClientVoucherCodes()` entity
+- Profile's `getPromotionsBy(parameter)` entity
+- Client's `getAssignedVoucherCodes()` entity
+
+### Changed
+- Firebase version incrementation (17.3.2)
+
 ## [3.2.7] - 2018-09-26
 ### Added
 - Promotion deactivation by uuid and code

@@ -151,15 +151,13 @@ public class CartFragment extends BaseFragment {
         List<CartItem> cartItems = accountManager.getCartItems();
         for (Promotion promotion : promotions) {
             List<String> catalogIndexItems = promotion.getCatalogIndexItems();
-            if (catalogIndexItems != null) {
-                if (catalogIndexItems.isEmpty()) {
-                    results.add(new Pair<>(promotion, null));
-                } else if (!cartItems.isEmpty()) {
-                    for (String catalogIndexItem : catalogIndexItems) {
-                        for (CartItem cartItem : cartItems) {
-                            if (catalogIndexItem.equals(cartItem.getProduct().getSKU()))
-                                results.add(new Pair<>(promotion, cartItem));
-                        }
+            if (catalogIndexItems.isEmpty()) {
+                results.add(new Pair<>(promotion, null));
+            } else if (!cartItems.isEmpty()) {
+                for (String catalogIndexItem : catalogIndexItems) {
+                    for (CartItem cartItem : cartItems) {
+                        if (catalogIndexItem.equals(cartItem.getProduct().getSKU()))
+                            results.add(new Pair<>(promotion, cartItem));
                     }
                 }
             }

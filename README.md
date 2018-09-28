@@ -44,7 +44,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.2.7'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.2.8'
 }
 ```
 Finally, please make sure your `Instant Run` is disabled.
@@ -638,6 +638,42 @@ private void changePassword(String password) {
    if (deleteCall != null) deleteCall.cancel();
    deleteCall = Client.deleteAccount();
    deleteCall.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Client.createAuthTokenByUuid(uuid)
+Use this method to obtain unregistered client's authorization token.
+Note, that 401 http status code is returned if you used this method for the client already existing in Synerise database.
+Method returns `IApiCall` to execute request.
+```
+private void createAuthTokenByUuid(String uuid) {
+   if (createCall != null) createCall.cancel();
+   createCall = Client.createAuthTokenByUuid(uuid);
+   createCall.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Client.createAuthTokenByEmail(email)
+Use this method to obtain unregistered client's authorization token.
+Note, that 401 http status code is returned if you used this method for the client already existing in Synerise database.
+Method returns `IApiCall` to execute request.
+```
+private void createAuthTokenByEmail(String email) {
+   if (createCall != null) createCall.cancel();
+   createCall = Client.createAuthTokenByEmail(email);
+   createCall.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Client.createAuthTokenByCustomId(customId)
+Use this method to obtain unregistered client's authorization token.
+Note, that 401 http status code is returned if you used this method for the client already existing in Synerise database.
+Method returns `IApiCall` to execute request.
+```
+private void createAuthTokenByCustomId(String customId) {
+   if (createCall != null) createCall.cancel();
+   createCall = Client.createAuthTokenByCustomId(customId);
+   createCall.execute(this::onSuccess, this::onError);
 }
 ```
 
