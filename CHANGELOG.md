@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.2.9] - 2018-10-08
+### Changed
+- Profile promotions response structure
+
+### Removed
+- Overall password validation
+
 ## [3.2.8] - 2018-09-28
 ### Added
 - Client method to obtain external client's authorization token

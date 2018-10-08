@@ -44,7 +44,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.2.8'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.2.9'
 }
 ```
 Finally, please make sure your `Instant Run` is disabled.
@@ -360,7 +360,7 @@ private void setCustomEmail(String customEmail) {
 Sign in a client in order to obtain the JWT token, which could be used in subsequent requests.<br>
 The token is currently valid for 1 hour and SDK will refresh token before each call if it is expiring (but not expired).<br>
 Method requires valid and non-null email and password. Device ID is optional.<br>
-`signInByEmail` method also throws `InvalidEmailException` and `InvalidPasswordException` for you to catch and handle invalid email and/or password.<br>
+`signInByEmail` method also throws `InvalidEmailException` for you to catch and handle invalid email.<br>
 Method returns `IApiCall` to execute request.<br>
 Please note that you should NOT allow to sign in again (or sign up) when user is already signed in. Please sign out user first.<br>
 Moreover, please do not create multiple instances nor call this method multiple times before execution.
@@ -371,8 +371,6 @@ private void signIn(String email, String password) {
         signInCall = Client.signIn(email, password, null);
     } catch (InvalidEmailException e) {
         textEmail.setError(getString(R.string.error_invalid_email));
-    } catch (InvalidPasswordException e) {
-        textPassword.setError(getString(R.string.error_invalid_password));
     }
 
     signInCall.onSubscribe(() -> toggleLoading(true))
@@ -385,7 +383,7 @@ private void signIn(String email, String password) {
 Sign in a client in order to obtain the JWT token, which could be used in subsequent requests.<br>
 The token is currently valid for 1 hour and SDK will refresh token before each call if it is expiring (but not expired).<br>
 Method requires valid and non-null phone number and password. Device ID is optional.<br>
-`signInByPhone` method also throws `InvalidPhoneNumberException` and `InvalidPasswordException` for you to catch and handle invalid phone number and/or password.<br>
+`signInByPhone` method also throws `InvalidPhoneNumberException` for you to catch and handle invalid phone number.<br>
 Method returns `IApiCall` to execute request.<br>
 Please note that you should NOT allow to sign in again (or sign up) when user is already signed in. Please sign out user first.<br>
 Moreover, please do not create multiple instances nor call this method multiple times before execution.
@@ -396,8 +394,6 @@ private void signIn(String phone, String password) {
         signInCall = Client.signIn(phone, password, null);
     } catch (InvalidPhoneNumberException e) {
         textEmail.setError(getString(R.string.error_invalid_phone));
-    } catch (InvalidPasswordException e) {
-        textPassword.setError(getString(R.string.error_invalid_password));
     }
 
     signInCall.onSubscribe(() -> toggleLoading(true))
@@ -604,10 +600,7 @@ Method returns `IApiCall` to execute request.
 ```
 private void changePassword(String password) {
     if (apiCall != null) apiCall.cancel();
-    try {
-        apiCall = Client.changePassword(password);
-    } catch (InvalidPasswordException e) { }
-
+    apiCall = Client.changePassword(password);
     apiCall.execute(this::onSuccess, this::onError);
 }
 ```
@@ -622,8 +615,7 @@ private void changePassword(String newPassword, String oldPassword) {
     if (apiCall != null) apiCall.cancel();
     try {
         apiCall = Client.changePassword(newPassword, oldPassword);
-    } catch (InvalidPasswordException e) { }
-    catch (EmptyStoredPasswordException e1) { }
+    } catch (EmptyStoredPasswordException e1) { }
     catch (InvalidStoredPasswordException e2) { }
 
     apiCall.execute(this::onSuccess, this::onError);
@@ -884,9 +876,7 @@ Method returns `IApiCall` object to execute request.
 ```
 private void confirmResetPassword(String password, String token) {
     if (call != null) call.cancel();
-    try {
-        confirmation = new PasswordResetConfirmation(password, token);
-    } catch (InvalidPasswordException e) { }
+    PasswordResetConfirmation confirmation = new PasswordResetConfirmation(password, token);
     call = Profile.confirmPasswordReset(confirmation);
     call.execute(this::onSuccess, this::onError);
 }

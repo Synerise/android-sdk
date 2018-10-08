@@ -13,7 +13,6 @@ import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.injector.net.exception.InvalidEmailException;
-import com.synerise.sdk.injector.net.exception.InvalidPasswordException;
 import com.synerise.sdk.profile.Profile;
 import com.synerise.sdk.profile.model.client.RegisterClient;
 import com.synerise.sdk.sample.R;
@@ -73,9 +72,6 @@ public class DevRegisterClientFragment extends BaseDevFragment {
                                                  .setPassword(password);
         } catch (InvalidEmailException e) {
             inputEmail.setError(getString(R.string.error_invalid_email));
-            isValid = false;
-        } catch (InvalidPasswordException e) {
-            inputPassword.setError(getString(R.string.error_invalid_password));
             isValid = false;
         }
 

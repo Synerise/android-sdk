@@ -12,7 +12,6 @@ import com.synerise.sdk.client.Client;
 import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.error.ApiError;
-import com.synerise.sdk.injector.net.exception.InvalidPasswordException;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.dev.BaseDevFragment;
 
@@ -56,12 +55,7 @@ public class ClientChangePasswordFragment extends BaseDevFragment {
 
         String password = inputPassword.getEditText().getText().toString();
 
-        try {
-            apiCall = Client.changePassword(password);
-        } catch (InvalidPasswordException e) {
-            isValid = false;
-            inputPassword.setError(getString(R.string.error_invalid_password));
-        }
+        apiCall = Client.changePassword(password);
 
         if (isValid && apiCall != null) {
             apiCall.cancel();

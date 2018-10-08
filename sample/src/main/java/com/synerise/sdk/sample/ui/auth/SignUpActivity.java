@@ -17,7 +17,6 @@ import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.injector.net.exception.InvalidEmailException;
-import com.synerise.sdk.injector.net.exception.InvalidPasswordException;
 import com.synerise.sdk.injector.net.exception.InvalidPhoneNumberException;
 import com.synerise.sdk.profile.LoginType;
 import com.synerise.sdk.profile.Profile;
@@ -116,14 +115,7 @@ public class SignUpActivity extends BaseActivity implements OnPhoneConfirmedList
         String login = textLogin.getEditText().getText().toString();
         String password = textPassword.getEditText().getText().toString();
 
-        RegisterClient registerClient = new RegisterClient();
-
-        try {
-            registerClient = new RegisterClient().setPassword(password);
-        } catch (InvalidPasswordException e) {
-            textPassword.setError(getString(R.string.error_invalid_password));
-            isValid = false;
-        }
+        RegisterClient registerClient = new RegisterClient().setPassword(password);
 
         if (loginType == LoginType.EMAIL) {
             try {

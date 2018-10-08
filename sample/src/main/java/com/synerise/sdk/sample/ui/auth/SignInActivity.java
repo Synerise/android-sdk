@@ -19,7 +19,6 @@ import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.core.net.IDataApiCall;
 import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.injector.net.exception.InvalidEmailException;
-import com.synerise.sdk.injector.net.exception.InvalidPasswordException;
 import com.synerise.sdk.injector.net.exception.InvalidPhoneNumberException;
 import com.synerise.sdk.profile.LoginType;
 import com.synerise.sdk.sample.App;
@@ -113,8 +112,6 @@ public class SignInActivity extends BaseActivity {
             signIn(login, password);
         } catch (InvalidEmailException e) {
             textLogin.setError(getString(R.string.error_invalid_email));
-        } catch (InvalidPasswordException e) {
-            textPassword.setError(getString(R.string.error_invalid_password));
         } catch (InvalidPhoneNumberException e) {
             textLogin.setError(getString(R.string.error_invalid_phone));
         }
@@ -124,7 +121,6 @@ public class SignInActivity extends BaseActivity {
 
     private void signIn(String login, String password) throws
                                                        InvalidEmailException,
-                                                       InvalidPasswordException,
                                                        InvalidPhoneNumberException {
         if (loginType == LoginType.EMAIL) {
             signInCall = Client.signInByEmail(login, password, null);
@@ -144,7 +140,7 @@ public class SignInActivity extends BaseActivity {
     private void onSignInSuccessful(String login) {
         if (loginType == LoginType.EMAIL)
             accountManager.setUserEmail(login);
-        else if(loginType == LoginType.PHONE)
+        else if (loginType == LoginType.PHONE)
             accountManager.setUserPhone(login);
         getAccount();
     }

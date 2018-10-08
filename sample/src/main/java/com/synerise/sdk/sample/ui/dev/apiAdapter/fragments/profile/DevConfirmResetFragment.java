@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.error.ApiError;
-import com.synerise.sdk.injector.net.exception.InvalidPasswordException;
 import com.synerise.sdk.profile.Profile;
 import com.synerise.sdk.profile.model.password.PasswordResetConfirmation;
 import com.synerise.sdk.sample.R;
@@ -64,17 +63,10 @@ public class DevConfirmResetFragment extends BaseDevFragment {
         String password = inputPassword.getEditText().getText().toString();
         String token = inputToken.getEditText().getText().toString();
 
-        PasswordResetConfirmation confirmation = null;
+        PasswordResetConfirmation confirmation = new PasswordResetConfirmation(password, token);
 
         if (TextUtils.isEmpty(token)) {
             inputToken.setError(getString(R.string.error_empty));
-            isValid = false;
-        }
-
-        try {
-            confirmation = new PasswordResetConfirmation(password, token);
-        } catch (InvalidPasswordException e) {
-            inputPassword.setError(getString(R.string.error_invalid_password));
             isValid = false;
         }
 
