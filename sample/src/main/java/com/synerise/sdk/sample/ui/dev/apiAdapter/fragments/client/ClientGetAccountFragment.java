@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.synerise.sdk.client.Client;
-import com.synerise.sdk.client.model.AccountInformation;
+import com.synerise.sdk.client.model.GetAccountInformation;
 import com.synerise.sdk.core.net.IDataApiCall;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.test.EspressoTestingIdlingResource;
@@ -16,7 +16,7 @@ import com.synerise.sdk.sample.ui.dev.BaseDevFragment;
 
 public class ClientGetAccountFragment extends BaseDevFragment {
 
-    private IDataApiCall<AccountInformation> accountInfoCall;
+    private IDataApiCall<GetAccountInformation> accountInfoCall;
 
     public static ClientGetAccountFragment newInstance() { return new ClientGetAccountFragment(); }
 

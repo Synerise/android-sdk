@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.synerise.sdk.client.Client;
-import com.synerise.sdk.client.model.AccountInformation;
+import com.synerise.sdk.client.model.GetAccountInformation;
 import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.core.net.IDataApiCall;
@@ -42,7 +42,7 @@ public class SignInActivity extends BaseActivity {
     @Inject AccountManager accountManager;
 
     private IApiCall signInCall;
-    private IDataApiCall<AccountInformation> getAccountCall;
+    private IDataApiCall<GetAccountInformation> getAccountCall;
     private LoginType loginType = LoginType.EMAIL;
 
     public static Intent createIntent(Context context) {
@@ -158,7 +158,7 @@ public class SignInActivity extends BaseActivity {
         getAccountCall.execute(this::onGetAccountSuccessful, this::onSignInFailure);
     }
 
-    private void onGetAccountSuccessful(AccountInformation accountInformation) {
+    private void onGetAccountSuccessful(GetAccountInformation accountInformation) {
         accountManager.setUserName(accountInformation.getFirstName());
         accountManager.setUserLastName(accountInformation.getLastName());
         toggleLoading(false);

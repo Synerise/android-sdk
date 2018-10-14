@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.synerise.sdk.client.Client;
-import com.synerise.sdk.client.model.AccountInformation;
+import com.synerise.sdk.client.model.UpdateAccountInformation;
 import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.error.ApiError;
@@ -74,7 +74,7 @@ public class ClientUpdateAccountFragment extends BaseDevFragment {
         }
 
         if (isValid) {
-            AccountInformation accountInformation = new AccountInformation();
+            UpdateAccountInformation accountInformation = new UpdateAccountInformation();
             accountInformation.setCity(city).setCompany(company);
 
             if (apiCall != null) apiCall.cancel();

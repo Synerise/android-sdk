@@ -44,7 +44,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.2.9'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.2.10'
 }
 ```
 Finally, please make sure your `Instant Run` is disabled.
@@ -414,7 +414,7 @@ private void signOut() {
 
 #### Client.getAccount()
 Use this method to get client's account information.<br>
-This method returns `IDataApiCall` with parametrized `AccountInformation` object to execute request.
+This method returns `IDataApiCall` with parametrized `GetAccountInformation` object to execute request.
 ```
 private void getAccount() {
     if (accountInfoCall != null) accountInfoCall.cancel();
@@ -425,11 +425,11 @@ private void getAccount() {
 
 #### Client.updateAccount(accountInformation)
 Use this method to update client's account information.<br>
-This method requires `AccountInformation` Builder Pattern object with client's account information. Not provided fields are not modified.
+This method requires `UpdateAccountInformation` Builder Pattern object with client's account information. Not provided fields are not modified.
 Method returns `IApiCall` to execute request.
 ```
 private void updateAccount(String city, String company) {
-    AccountInformation accountInformation = new AccountInformation();
+    UpdateAccountInformation accountInformation = new UpdateAccountInformation();
     accountInformation.setCity(city).setCompany(company);
 
     if (apiCall != null) apiCall.cancel();
@@ -1537,27 +1537,30 @@ You can also specify which activity you want to be fired after closing deep link
             android:name=".ui.linking.DeepLinkingActivity"
             android:parentActivityName=".ui.linking.ParentDeepLinkingActivity">
             <intent-filter>
-                <action android:name="syne://test" />
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-                 <data android:scheme="syne"
-                    android:host="test" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="test"
+                    android:scheme="syne" />
             </intent-filter>
        </activity>
 ```
 To send deeplink from `app.synerise.com` for your mobile campaign define parameter `Deep link` as
 ```
-syne://test?param=val
+syne://test?param=value
 ```
 Where syne and test are scheme and host provided in intent filter, param is parameter name and val is value for the parameter.<br>
 To receive data sent by deep link use below code:
 ```
 String data = intent.getDataString();
-    if (data != null) {
-        Uri uri = Uri.parse(data);
-        val = uri.getQueryParameter("param");
-    }
+if (data != null) {
+    Uri uri = Uri.parse(data);
+    value = uri.getQueryParameter("param");
+}
 ```
-
+If your deep link doesn't contain "://" characters after scheme, it will be treated as a normal String key and set to Intent's action.
+It means that you can set action name (in your AndroidManifest activity's intent filter) to any String and then match it with provided deep link.
 If you are not happy about default behavior, please implement your own behavior like:
 ```
 public class App extends Application implements OnInjectorListener {

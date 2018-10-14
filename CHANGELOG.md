@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.2.10] - 2018-10-14
+### Added
+- `ApiError` public fields like `path`, `message`, `status`, `error`, `timestamp` and `errors` list
+- `Object` value as an argument to `TrackerParams` event optional parameters
+
+### Changed
+- Client's personal information (`AccountInformation`) entity
+- Deep links configuration within Manifest
+
+### Fixed
+- Auto-tracking CompoundButton spannable string exception
+
 ## [3.2.9] - 2018-10-08
 ### Changed
 - Profile promotions response structure
