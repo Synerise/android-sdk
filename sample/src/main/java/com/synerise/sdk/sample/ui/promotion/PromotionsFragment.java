@@ -72,7 +72,7 @@ public class PromotionsFragment extends BaseFragment {
                 recyclerAdapter.update(promotions);
                 accountManager.updatePromotions(promotions);
             }
-        }, error -> Toast.makeText(getActivity(), getErrorMessage(error), Toast.LENGTH_SHORT).show());
+        }, this::showAlertError);
     }
 
     @Override

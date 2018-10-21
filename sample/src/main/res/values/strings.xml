@@ -8,6 +8,9 @@
     <!-- replace with your client key -->
     <string name="synerise_client_api_key">622376F8-4A8F-8B24-D7F9-070FA956E963</string>
 
+    <string name="facebook_app_id">2276466452573053</string>
+    <string name="fb_login_protocol_scheme">fb2276466452573053</string>
+
     <!-- ********************************************************************************************************************************** -->
 
     <string name="sign_in_title">Sign in</string>
@@ -32,6 +35,7 @@
     <string name="error_http">Server error, please try again error</string>
     <string name="error_network">No Internet connection</string>
     <string name="error_default">Unknown error has occurred</string>
+    <string name="default_error">Error</string>
 
     <!-- ********************************************************************************************************************************** -->
 
@@ -417,4 +421,5 @@
     <string name="get_external_token">Get external token</string>
     <string name="create_token_button">Get external token</string>
     <string name="default_client_value">Client value</string>
+    <string name="sign_in_facebook">Sign in with Facebook</string>
 </resources>

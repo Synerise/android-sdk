@@ -29,6 +29,6 @@ public class BaseDevFragment extends BaseFragment {
     }
 
     protected void onFailure(ApiError apiError) {
-        Snackbar.make(view, getErrorMessage(apiError), Snackbar.LENGTH_SHORT).show();
+        showAlertError(apiError);
     }
 }

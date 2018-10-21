@@ -55,12 +55,12 @@ public class ClientActivatePromotionByCodeFragment extends BaseDevFragment {
         boolean isValid = true;
 
         String code = inputCode.getEditText().getText().toString();
-        if(ValidationUtils.isEmpty(code)){
+        if (ValidationUtils.isEmpty(code)) {
             isValid = false;
             inputCode.setError(getString(R.string.error_empty));
         }
 
-        if(isValid) {
+        if (isValid) {
             if (apiCall != null) apiCall.cancel();
             apiCall = Client.activatePromotionByCode(code);
             apiCall.execute(this::onSuccess, new DataActionListener<ApiError>() {

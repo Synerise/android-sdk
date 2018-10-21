@@ -180,7 +180,7 @@ public class SignUpActivity extends BaseActivity implements OnPhoneConfirmedList
     }
 
     private void onSignUpFailure(ApiError apiError) {
-        Snackbar.make(textLogin, getErrorMessage(apiError), Snackbar.LENGTH_SHORT).show();
+        showAlertError(apiError);
     }
 
     // ****************************************************************************************************************************************

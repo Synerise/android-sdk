@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.2.11] - 2018-10-21
+### Added
+- Unique `code` to each `ApiErrorCause`
+- `Client.authenticateByFacebook()` method to obtain client's auth token with Facebook one
+
+### Fixed
+- `Event` local and stream class incompatibility
+- `MobileInfoInterceptor.intercept(Chain)` error causing `OutOfMemoryError` on specific devices 
+
+### Removed
+- Obsolete `GetOrAssignPayload` model class
+
 ## [3.2.10] - 2018-10-14
 ### Added
 - `ApiError` public fields like `path`, `message`, `status`, `error`, `timestamp` and `errors` list

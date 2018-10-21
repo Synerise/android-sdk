@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Pair;
@@ -121,7 +120,8 @@ public class CartFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (Client.isSignedIn()) getPromotions();
+        if (Client.isSignedIn() && !accountManager.getCartItems().isEmpty())
+            getPromotions();
     }
 
     @Override
@@ -143,7 +143,7 @@ public class CartFragment extends BaseFragment {
                 promotionAdapter.update(filterPromotions(promotions));
                 accountManager.updateCartPromotions(promotions);
             }
-        }, error -> Toast.makeText(getActivity(), getErrorMessage(error), Toast.LENGTH_SHORT).show());
+        }, this::showAlertError);
     }
 
     private List<Pair<Promotion, CartItem>> filterPromotions(List<Promotion> promotions) {
@@ -274,7 +274,7 @@ public class CartFragment extends BaseFragment {
                 public void onDataAction(ApiError apiError) {
                     placeOrder.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.GONE);
-                    Snackbar.make(placeOrder, getErrorMessage(apiError), Snackbar.LENGTH_SHORT).show();
+                    showAlertError(apiError);
                 }
             });
         } else {

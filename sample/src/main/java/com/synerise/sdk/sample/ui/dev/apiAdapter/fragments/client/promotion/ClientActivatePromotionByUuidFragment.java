@@ -55,12 +55,12 @@ public class ClientActivatePromotionByUuidFragment extends BaseDevFragment {
         boolean isValid = true;
 
         String uuid = inputUuid.getEditText().getText().toString();
-        if(ValidationUtils.isEmpty(uuid)){
+        if (ValidationUtils.isEmpty(uuid)) {
             isValid = false;
             inputUuid.setError(getString(R.string.error_empty));
         }
 
-        if(isValid) {
+        if (isValid) {
             if (apiCall != null) apiCall.cancel();
             apiCall = Client.activatePromotionByUuid(uuid);
             apiCall.execute(this::onSuccess, new DataActionListener<ApiError>() {

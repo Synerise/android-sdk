@@ -189,7 +189,7 @@ public class ProfileFragment extends BaseFragment {
     }
 
     private void onUpdateClientFailure(ApiError apiError) {
-        Snackbar.make(textEmail, getErrorMessage(apiError), Snackbar.LENGTH_SHORT).show();
+        showAlertError(apiError);
     }
 
     // ****************************************************************************************************************************************

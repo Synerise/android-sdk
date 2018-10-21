@@ -44,7 +44,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.2.10'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.2.11'
 }
 ```
 Finally, please make sure your `Instant Run` is disabled.
@@ -409,6 +409,17 @@ It also clears client's JWT token.
 ```
 private void signOut() {
     Client.signOut();
+}
+```
+
+#### Client.authenticateByFacebook()
+Use this method to sign in with Facebook. Note, that 401 http status code is returned if provided facebook token and/or API Key is invalid.<br>
+This method returns `IApiCall` object to execute request.
+```
+private void authenticateByFacebook(String facebookToken) {
+    if (apiCall != null) apiCall.cancel();
+    apiCall = Client.authenticateByFacebook(facebookToken);
+    apiCall.execute(success -> onSuccess(), this::onError);
 }
 ```
 

@@ -101,7 +101,7 @@ public class PromotionActivity extends BaseActivity {
                         new DataActionListener<ApiError>() {
                             @Override
                             public void onDataAction(ApiError data) {
-                                Toast.makeText(PromotionActivity.this, getErrorMessage(data), Toast.LENGTH_SHORT).show();
+                                showAlertError(data);
                             }
                         });
     }
