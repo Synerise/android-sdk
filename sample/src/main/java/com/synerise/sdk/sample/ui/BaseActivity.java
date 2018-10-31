@@ -51,10 +51,13 @@ public class BaseActivity extends AppCompatActivity {
                         } else {
                             dialog.setMessage(getString(R.string.error_http));
                         }
+                        break;
                     case NETWORK_ERROR:
                         dialog.setMessage(getString(R.string.error_network));
+                        break;
                     case NO_TOKEN:
                         dialog.setMessage(getString(R.string.no_token));
+                        break;
                     default:
                         dialog.setMessage(getString(R.string.error_default));
                 }

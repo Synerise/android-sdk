@@ -1,6 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.2.12] - 2018-10-31
+### Changed
+- `ApiErrorCause` `path` attribute changed to `field`
+- API version incremented to `4.3`
+
+### Fixed
+- `SQLiteStorage.deleteAppStarted` NullPointerException occurring only on specific devices
+- `EventService.onHandleWork` RuntimeException occurring on devices running Android 8.1 and later
+
 ## [3.2.11] - 2018-10-21
 ### Added
 - Unique `code` to each `ApiErrorCause`
