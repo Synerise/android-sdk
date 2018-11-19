@@ -51,8 +51,8 @@
                         android:id="@+id/rating_bar"
                         style="?android:ratingBarStyleSmall"
                         android:layout_width="wrap_content"
-                        android:isIndicator="false"
                         android:layout_height="wrap_content"
+                        android:isIndicator="false"
                         android:theme="@style/RatingBarColors" />
 
                     <TextView
@@ -104,7 +104,8 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/space_small"
                         android:background="@null"
-                        android:src="@drawable/bg_fav_icon" />
+                        android:src="@drawable/bg_fav_icon"
+                        tools:ignore="ContentDescription" />
 
                 </LinearLayout>
 

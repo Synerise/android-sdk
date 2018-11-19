@@ -18,8 +18,6 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
     private final TextView price;
     private final SimpleDraweeView image;
 
-    // ****************************************************************************************************************************************
-
     CartViewHolder(View itemView, OnCartItemRemoved decrementCartItems) {
         super(itemView);
         name = itemView.findViewById(R.id.name);
@@ -45,8 +43,6 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    // ****************************************************************************************************************************************
-
     public void populateData(CartItem cartItem) {
         Product product = cartItem.getProduct();
         name.setText(product.getName());
@@ -54,8 +50,6 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
         price.setText(String.format(Locale.getDefault(), "%dx " + product.getPrice() + " $", cartItem.getQuantity()));
         image.setImageURI(product.getImage());
     }
-
-    // ****************************************************************************************************************************************
 
     protected interface OnCartItemRemoved {
 

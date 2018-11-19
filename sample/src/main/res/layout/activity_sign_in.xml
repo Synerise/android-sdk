@@ -31,49 +31,23 @@
                 android:src="@drawable/image_sign_in"
                 tools:ignore="ContentDescription" />
 
-            <LinearLayout
+            <!--login input-->
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:hint="@string/hint_email"
+                app:errorEnabled="true"
+                app:hintAnimationEnabled="true">
 
-                <!--login input-->
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/text_login"
-                    android:layout_width="0dp"
+                <android.support.design.widget.TextInputEditText
+                    style="@style/TextPrimary.Medium"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="@string/hint_email"
-                    app:errorEnabled="true"
-                    app:hintAnimationEnabled="true">
+                    android:drawableEnd="@drawable/ic_mail_active"
+                    android:inputType="textEmailAddress" />
 
-                    <android.support.design.widget.TextInputEditText
-                        style="@style/TextPrimary.Medium"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <!--email icon-->
-                <ImageView
-                    android:id="@+id/icon_mail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/space_small"
-                    android:src="@drawable/ic_mail_active"
-                    tools:ignore="ContentDescription" />
-
-                <!--phone icon-->
-                <ImageView
-                    android:id="@+id/icon_phone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/space_small"
-                    android:src="@drawable/ic_phone_inactive"
-                    tools:ignore="ContentDescription" />
-
-            </LinearLayout>
+            </android.support.design.widget.TextInputLayout>
 
             <!--password input-->
             <android.support.design.widget.TextInputLayout

@@ -52,8 +52,6 @@ public enum Section {
             R.color.pine,
             R.color.periwinkle);
 
-    // ********************************************************************************************************************************
-
     public static List<Section> getSections() {
         ArrayList<Section> sections = new ArrayList<>();
         sections.add(ELECTRONICS);
@@ -62,8 +60,6 @@ public enum Section {
         sections.add(CULTURE);
         return sections;
     }
-
-    // ********************************************************************************************************************************
 
     private static List<Category> createElectronicsCategories() {
         ArrayList<Category> list = new ArrayList<>();
@@ -100,8 +96,6 @@ public enum Section {
         list.add(Category.GAMES);
         return list;
     }
-
-    // ********************************************************************************************************************************
 
     private final String id;
     @DrawableRes private final int image;

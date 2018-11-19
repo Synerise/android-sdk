@@ -25,8 +25,6 @@ public class TrackerApiActivity extends BaseActivity {
         return new Intent(context, TrackerApiActivity.class);
     }
 
-    // ****************************************************************************************************************************************
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +38,6 @@ public class TrackerApiActivity extends BaseActivity {
         findViewById(R.id.save_random_event).setOnClickListener(v -> addRandomEvent());
         findViewById(R.id.go_view_tracker).setOnClickListener(v -> goToTrackerViewActivity());
     }
-
-    // ****************************************************************************************************************************************
 
     private void addEvent() {
         TrackerParams params = new TrackerParams.Builder()

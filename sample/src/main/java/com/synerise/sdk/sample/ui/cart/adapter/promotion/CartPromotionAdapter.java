@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.synerise.sdk.client.model.Promotion;
+import com.synerise.sdk.promotions.model.promotion.Promotion;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.cart.adapter.item.CartItem;
 import com.synerise.sdk.sample.util.DataActionListener;
@@ -21,16 +21,12 @@ public class CartPromotionAdapter extends RecyclerView.Adapter<CartPromotionView
     private final List<Pair<Promotion, CartItem>> promotions;
     private final DataActionListener<Pair<Promotion, CartItem>> listener;
 
-    // ****************************************************************************************************************************************
-
     public CartPromotionAdapter(LayoutInflater layoutInflater, DataActionListener<Pair<Promotion, CartItem>> listener,
                                 List<Pair<Promotion, CartItem>> promotions) {
         this.inflater = layoutInflater;
         this.listener = listener;
         this.promotions = new ArrayList<>(promotions);
     }
-
-    // ****************************************************************************************************************************************
 
     @NonNull
     @Override
@@ -48,8 +44,6 @@ public class CartPromotionAdapter extends RecyclerView.Adapter<CartPromotionView
     public int getItemCount() {
         return promotions.size();
     }
-
-    // ****************************************************************************************************************************************
 
     public void update(List<Pair<Promotion, CartItem>> promotions) {
         this.promotions.clear();

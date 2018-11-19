@@ -13,8 +13,6 @@ public class CartRecyclerView extends RecyclerView {
 
     private final int maxHeightDp;
 
-    // ****************************************************************************************************************************************
-
     public CartRecyclerView(Context context) {
         super(context);
         maxHeightDp = (int) ViewUtils.px2dp(getResources().getDimensionPixelOffset(R.dimen.cart_default_height), context);
@@ -31,8 +29,6 @@ public class CartRecyclerView extends RecyclerView {
             array.recycle();
         }
     }
-
-    // ****************************************************************************************************************************************
 
     @Override
     protected void onMeasure(int widthSpec, int heightSpec) {

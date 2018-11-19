@@ -27,8 +27,6 @@ public class ClientUpdateAccountFragment extends BaseDevFragment {
 
     public static ClientUpdateAccountFragment newInstance() { return new ClientUpdateAccountFragment(); }
 
-    // ****************************************************************************************************************************************
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,8 +47,6 @@ public class ClientUpdateAccountFragment extends BaseDevFragment {
         super.onStop();
         if (apiCall != null) apiCall.cancel();
     }
-
-    // ****************************************************************************************************************************************
 
     @SuppressWarnings("ConstantConditions")
     private void updateAccount() {

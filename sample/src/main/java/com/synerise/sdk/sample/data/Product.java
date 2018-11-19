@@ -119,7 +119,6 @@ public enum Product {
                    "http://gate.net.pl/mobile/el-micro.png",
                    1999, 4.8, 21),
 
-    // ****************************************************************************************************************************************
     // FOOD
     // VEGETABLES
     TOMATOES(R.string.tomatoes_brand,
@@ -213,7 +212,6 @@ public enum Product {
                 "http://gate.net.pl/mobile/fd-btmilk.png",
                 0.99f, 4.7, 312),
 
-    // ****************************************************************************************************************************************
     // SPORT
     // SHOES
     NIKE_SHOES(R.string.nike_brand,
@@ -277,7 +275,6 @@ public enum Product {
                   "http://gate.net.pl/mobile/sp-tirjack.png",
                   49.89f, 3.9, 33),
 
-    // ****************************************************************************************************************************************
     // CULTURE
     // MUSIC
     SABBATH_BLOODY_SABBATH(R.string.black_sabbath_brand,
@@ -383,8 +380,6 @@ public enum Product {
                   "http://gate.net.pl/mobile/cul-witch.png",
                   19.99f, 4.9, 542);
 
-    // ****************************************************************************************************************************************
-
     private final String SKU;
     private final String image;
     @StringRes private int name;
@@ -436,8 +431,6 @@ public enum Product {
     public int getRatingCount() {
         return ratingCount;
     }
-
-    // ****************************************************************************************************************************************
 
     public com.synerise.sdk.event.model.model.Product getEventProduct(Context context, int quantity) {
         com.synerise.sdk.event.model.model.Product product = new com.synerise.sdk.event.model.model.Product();

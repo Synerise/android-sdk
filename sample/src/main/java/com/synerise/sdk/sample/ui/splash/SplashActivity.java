@@ -34,8 +34,6 @@ public class SplashActivity extends BaseActivity {
         return new Intent(context, SplashActivity.class);
     }
 
-    // ****************************************************************************************************************************************
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,23 +90,19 @@ public class SplashActivity extends BaseActivity {
         Injector.removeBannerListener();
     }
 
-    // ****************************************************************************************************************************************
-
     private void delayNavigation() {
         disposable = Maybe.empty()
                           .delay(1, TimeUnit.SECONDS)
                           .observeOn(AndroidSchedulers.mainThread())
                           .doOnComplete(() -> {
-                              if (!isBannerPresenting)
-                                  navigate();
+                              if (!isBannerPresenting) navigate();
                           })
                           .subscribe();
     }
 
     private void navigate() {
         String clientApiKey = accountManager.getClientProfileApiKey();
-        String businessApiKey = accountManager.getBusinessProfileApiKey();
-        startActivity(TextUtils.isEmpty(clientApiKey) || TextUtils.isEmpty(businessApiKey) ?
+        startActivity(TextUtils.isEmpty(clientApiKey) ?
                               QRScannerActivity.createIntent(this) :
                               DashboardActivity.createIntent(this));
         finish();

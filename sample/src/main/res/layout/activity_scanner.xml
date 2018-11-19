@@ -42,21 +42,6 @@
             android:padding="@dimen/space_content">
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/input_business"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/space_small"
-                android:hint="@string/business_api_key"
-                app:hintAnimationEnabled="true">
-
-                <android.support.design.widget.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textCapCharacters" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
                 android:id="@+id/input_client"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -77,13 +62,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/space_medium"
                 android:text="@string/finish" />
-
-            <!--            <com.google.android.material.button.MaterialButton
-                            android:id="@+id/default_keyss"
-                            style="@style/Widget.MaterialComponents.Button.TextButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/text_button_label_enabled"/>-->
 
         </LinearLayout>
 

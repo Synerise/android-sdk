@@ -20,8 +20,6 @@ public class ClientGetAccountFragment extends BaseDevFragment {
 
     public static ClientGetAccountFragment newInstance() { return new ClientGetAccountFragment(); }
 
-    // ****************************************************************************************************************************************
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -40,8 +38,6 @@ public class ClientGetAccountFragment extends BaseDevFragment {
         super.onStop();
         if (accountInfoCall != null) accountInfoCall.cancel();
     }
-
-    // ****************************************************************************************************************************************
 
     @SuppressWarnings("ConstantConditions")
     private void getAccount() {

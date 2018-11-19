@@ -37,8 +37,6 @@ public class LocationService extends JobIntentService {
         enqueueWork(context, LocationService.class, JOB_ID, intent);
     }
 
-    // ****************************************************************************************************************************************
-
     @Override
     protected void onHandleWork(@NonNull Intent intent) {
         final String action = intent.getAction();
@@ -52,8 +50,6 @@ public class LocationService extends JobIntentService {
         super.onDestroy();
         stopLocationUpdates();
     }
-
-    // ****************************************************************************************************************************************
 
     private void startLocationUpdates() {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -79,7 +75,8 @@ public class LocationService extends JobIntentService {
             Tasks.await(lastLocation, 500, TimeUnit.MILLISECONDS);
             Location result = lastLocation.getResult();
             if (result != null)
-                Tracker.send(new AppearedInLocationEvent("Location required from silent push", result.getLatitude(), result.getLongitude()));
+                Tracker.send(new AppearedInLocationEvent("Location required from silent push", result.getLatitude(),
+                                                         result.getLongitude()));
         } catch (ExecutionException | InterruptedException | TimeoutException e) {
             e.printStackTrace();
             Log.e("LocationTag", "LocationResult Task await failed");

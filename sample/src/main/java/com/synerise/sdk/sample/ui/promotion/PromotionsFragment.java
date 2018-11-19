@@ -10,10 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.synerise.sdk.client.Client;
-import com.synerise.sdk.client.model.Promotion;
-import com.synerise.sdk.client.model.PromotionResponse;
 import com.synerise.sdk.core.net.IDataApiCall;
+import com.synerise.sdk.promotions.Promotions;
+import com.synerise.sdk.promotions.model.promotion.Promotion;
+import com.synerise.sdk.promotions.model.promotion.PromotionResponse;
 import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.persistence.AccountManager;
@@ -21,6 +21,7 @@ import com.synerise.sdk.sample.ui.BaseFragment;
 import com.synerise.sdk.sample.ui.promotion.adapter.PromotionsRecyclerAdapter;
 import com.synerise.sdk.sample.ui.promotion.details.PromotionActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -34,8 +35,6 @@ public class PromotionsFragment extends BaseFragment {
     public static PromotionsFragment newInstance() {
         return new PromotionsFragment();
     }
-
-    // ****************************************************************************************************************************************
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,16 +62,7 @@ public class PromotionsFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        Toast.makeText(getActivity(), R.string.default_refreshing, Toast.LENGTH_SHORT).show();
-        if (apiCall != null) apiCall.cancel();
-        apiCall = Client.getPromotions(false);
-        apiCall.execute(response -> {
-            if (response != null) {
-                List<Promotion> promotions = response.getPromotions();
-                recyclerAdapter.update(promotions);
-                accountManager.updatePromotions(promotions);
-            }
-        }, this::showAlertError);
+        getPromotions();
     }
 
     @Override
@@ -81,7 +71,18 @@ public class PromotionsFragment extends BaseFragment {
         if (apiCall != null) apiCall.cancel();
     }
 
-    // ****************************************************************************************************************************************
+    private void getPromotions() {
+        Toast.makeText(getActivity(), R.string.default_refreshing, Toast.LENGTH_SHORT).show();
+        if (apiCall != null) apiCall.cancel();
+        apiCall = Promotions.getPromotions(new ArrayList<>(), new ArrayList<>(), 1);
+        apiCall.execute(response -> {
+            if (response != null) {
+                List<Promotion> promotions = response.getPromotions();
+                recyclerAdapter.update(promotions);
+                accountManager.updatePromotions(promotions);
+            }
+        }, this::showAlertError);
+    }
 
     private void onPromotionSelected(Promotion promotion) {
         startActivity(PromotionActivity.createIntent(getActivity(), promotion));

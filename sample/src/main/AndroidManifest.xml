@@ -72,7 +72,7 @@
             android:name=".ui.dev.injector.InjectorApiActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.dev.profile.ProfileApiActivity"
+            android:name=".ui.dev.promotions.PromotionsApiActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.section.category.products.ProductsActivity"
@@ -101,19 +101,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.dev.apiAdapter.FragmentContainerActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.dev.client.promotions.ClientPromotionApisActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".ui.dev.profile.promotions.PromotionApisActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.dev.client.vouchers.ClientVoucherApisActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.dev.profile.voucher.ProfileVoucherApisActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.facebook.FacebookActivity"

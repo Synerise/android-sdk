@@ -1,6 +1,58 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.3.0] - 2018-11-19
+### Added
+- `Promotions` module
+- `CacheManager` to obtain cached API models
+
+### Changed
+- Some `Promotion` entity fields types
+- `Client.changePassword()` now requires old client's password
+- `Profile` methods were distributed between `Client` and `Promotions`
+- `Client.getPromotions` -> `Promotions.getPromotions`
+- `Client.getPromotion` -> `Promotions.getPromotion`
+- `Client.activatePromotionBy` -> `Promotions.activatePromotion()`
+- `Client.deactivatePromotionBy` -> `Promotions.deactivatePromotion()`
+- `Client.getOrAssignVoucher` -> `Promotions.getOrAssignVoucher`
+- `Client.assignVoucherCode` -> `Promotions.assignVoucher`
+- `Client.getAssignedVoucherCodes` -> `Promotions.getAssignedVoucherCodes`
+- `Profile.registerClientByEmail` -> `Client.registerAccount`
+- `Profile.registerClientByEmailWithoutActivation` -> `Client.registerAccountWithoutActivation`
+- `Profile.registerForPush` -> `Client.registerForPush`
+- `Profile.activateClient` -> `Client.activateAccount`
+- `Profile.requestPasswordReset` -> `Client.requestPasswordReset`
+- `Profile.confirmResetPassword` -> `Client.confirmPasswordReset`
+- Major parts of authorization module
+
+### Removed
+- Overall validation
+- `Client.getAnalytics` method
+- `Synerise.clientRefresh(boolean)` method
+- `Synerise.poolUuid(String)` method
+- `Client.createAuthToken` method
+- `Profile.getClient` method
+- `Profile.createClient` method
+- `Profile.registerClientByPhone` method
+- `Profile.confirmPhoneRegistration` method
+- `Profile.updateClient` method
+- `Profile.deleteClient` method
+- `Profile.getToken` method
+- `Profile.getPromotions` method
+- `Profile.getPromotionsBy` method
+- `Profile.redeemPromotionBy` method
+- `Profile.getOrAssignVoucher` method
+- `Profile.getClientVoucherCodes` method
+- `Profile.assignVoucherCode` method
+
+## [3.2.14] - 2018-11-12
+### Removed
+- Overall SDK validation
+
+## [3.2.13] - 2018-11-07
+### Fixed
+- `JsonParseException` caused of `birthDate` being a `Date` field type (now is `String`)
+
 ## [3.2.12] - 2018-10-31
 ### Changed
 - `ApiErrorCause` `path` attribute changed to `field`

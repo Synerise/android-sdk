@@ -1,7 +1,6 @@
 package com.synerise.sdk.sample.dagger;
 
 import com.synerise.sdk.sample.App;
-import com.synerise.sdk.sample.ui.auth.ConfirmNumberDialog;
 import com.synerise.sdk.sample.ui.auth.SignInActivity;
 import com.synerise.sdk.sample.ui.auth.SignUpActivity;
 import com.synerise.sdk.sample.ui.cart.CartFragment;
@@ -32,6 +31,5 @@ public interface AppComponent {
     void inject(App app);
     void inject(SplashActivity splashActivity);
     void inject(QRScannerActivity QRScannerActivity);
-    void inject(ConfirmNumberDialog confirmNumberDialog);
     void inject(FavouritesFragment favouritesFragment);
 }

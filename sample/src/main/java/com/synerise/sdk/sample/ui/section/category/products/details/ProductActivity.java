@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -48,8 +47,6 @@ public class ProductActivity extends BaseActivity {
         intent.putExtra(Args.SERIALIZABLE, productSKU);
         return intent;
     }
-
-    // ****************************************************************************************************************************************
 
     @Override
     @SuppressLint("StringFormatMatches")
@@ -136,8 +133,6 @@ public class ProductActivity extends BaseActivity {
         Tracker.send(new VisitedScreenEvent(getClass().getSimpleName(),
                                             new TrackerParams.Builder().add("sku", product.getSKU()).build()));
     }
-
-    // ****************************************************************************************************************************************
 
     private TrackerParams buildParamsForProductEvent(Product product) {
         return new TrackerParams.Builder()

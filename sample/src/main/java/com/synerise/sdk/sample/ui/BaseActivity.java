@@ -22,8 +22,6 @@ public class BaseActivity extends AppCompatActivity {
         String SERIALIZABLE = "serializable";
     }
 
-    // ****************************************************************************************************************************************
-
     protected void showAlertError(ApiError apiError) {
         if (apiError != null) {
             ApiErrorBody errorBody = apiError.getErrorBody();
@@ -39,7 +37,7 @@ public class BaseActivity extends AppCompatActivity {
                 StringBuilder message = new StringBuilder(errorBody.getMessage());
                 if (!errorCauses.isEmpty()) {
                     for (ApiErrorCause errorCause : errorCauses) {
-                        message.append("\n").append(errorCause.getMessage());
+                        message.append("\n").append(errorCause.getCode()).append(": ").append(errorCause.getMessage());
                     }
                 }
                 dialog.setMessage(message.toString());
@@ -65,8 +63,6 @@ public class BaseActivity extends AppCompatActivity {
             dialog.show();
         }
     }
-
-    // ****************************************************************************************************************************************
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

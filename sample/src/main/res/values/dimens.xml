@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="space_micro">1dp</dimen>
     <dimen name="space_mini">5dp</dimen>
     <dimen name="space_small">10dp</dimen>
     <dimen name="space_content">16dp</dimen>
@@ -18,10 +17,7 @@
     <dimen name="text_60">60sp</dimen>
 
     <dimen name="corners_small">5dp</dimen>
-    <dimen name="corners_medium">10dp</dimen>
     <dimen name="corners_large">20dp</dimen>
-
-    <dimen name="stroke_width">1dp</dimen>
 
     <dimen name="elevation">2dp</dimen>
     <dimen name="elevation_on_touch">8dp</dimen>
@@ -29,8 +25,6 @@
     <dimen name="image_icon">25dp</dimen>
     <dimen name="image_small">100dp</dimen>
     <dimen name="image_medium">150dp</dimen>
-    <dimen name="image_large">200dp</dimen>
-    <dimen name="image_huge">300dp</dimen>
 
     <dimen name="separator_height">1dp</dimen>
 
@@ -39,7 +33,6 @@
     <dimen name="parallax_header_height">300dp</dimen>
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="category_card_view_height">200dp</dimen>
-    <dimen name="drawer_width">300dp</dimen>
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
     <dimen name="cart_default_height">300dp</dimen>
 

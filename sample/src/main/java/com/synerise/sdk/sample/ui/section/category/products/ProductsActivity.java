@@ -28,8 +28,6 @@ public class ProductsActivity extends BaseActivity {
         return intent;
     }
 
-    // ****************************************************************************************************************************************
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +45,6 @@ public class ProductsActivity extends BaseActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(productsRecyclerAdapter);
     }
-
-    // ****************************************************************************************************************************************
 
     private void onProductSelected(Product product) {
         Tracker.send(new CustomEvent("product.view", getString(product.getName()),

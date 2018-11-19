@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.synerise.sdk.client.model.Promotion;
+import com.synerise.sdk.promotions.model.promotion.Promotion;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.util.DataActionListener;
 
@@ -20,15 +20,11 @@ public class PromotionsRecyclerAdapter extends RecyclerView.Adapter<PromotionsVi
     private final List<Promotion> promotions;
     private final DataActionListener<Promotion> listener;
 
-    // ****************************************************************************************************************************************
-
     public PromotionsRecyclerAdapter(Context context, DataActionListener<Promotion> listener, List<Promotion> promotions) {
         this.inflater = LayoutInflater.from(context);
         this.listener = listener;
         this.promotions = new ArrayList<>(promotions);
     }
-
-    // ****************************************************************************************************************************************
 
     @NonNull
     @Override
@@ -46,8 +42,6 @@ public class PromotionsRecyclerAdapter extends RecyclerView.Adapter<PromotionsVi
     public int getItemCount() {
         return promotions.size();
     }
-
-    // ****************************************************************************************************************************************
 
     public void update(List<Promotion> promotions) {
         this.promotions.clear();

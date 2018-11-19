@@ -41,7 +41,7 @@ public class ToolbarHelper {
     public static void updateToolbar(AppCompatActivity activity, @StringRes int title) {
         Toolbar toolbar = getSupportToolbar(activity);
         toolbar.setTitle(activity.getString(title));
-        setDefaultToolbarColor(activity,toolbar);
+        setDefaultToolbarColor(activity, toolbar);
     }
 
     private static void setDefaultToolbarColor(AppCompatActivity activity, Toolbar toolbar) {
@@ -69,8 +69,6 @@ public class ToolbarHelper {
         collapsingToolbarLayout.setTitle(title);
     }
 
-    // ****************************************************************************************************************************************
-
     private static Toolbar getToolbar(AppCompatActivity activity) {
         return activity.findViewById(R.id.toolbar);
     }
@@ -80,8 +78,6 @@ public class ToolbarHelper {
         activity.setSupportActionBar(toolbar);
         return toolbar;
     }
-
-    // ****************************************************************************************************************************************
 
     private static void setActionBar(AppCompatActivity activity, @DrawableRes int icon) {
         Toolbar toolbar = createToolbar(activity, icon);

@@ -12,7 +12,6 @@ import com.synerise.sdk.client.Client;
 import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.error.ApiError;
-import com.synerise.sdk.injector.net.exception.InvalidPhoneNumberException;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.dev.BaseDevFragment;
 
@@ -22,8 +21,6 @@ public class ClientRequestPhoneUpdateFragment extends BaseDevFragment {
     private TextInputLayout inputPhone;
 
     public static ClientRequestPhoneUpdateFragment newInstance() { return new ClientRequestPhoneUpdateFragment(); }
-
-    // ****************************************************************************************************************************************
 
     @Nullable
     @Override
@@ -45,32 +42,18 @@ public class ClientRequestPhoneUpdateFragment extends BaseDevFragment {
         if (apiCall != null) apiCall.cancel();
     }
 
-    // ****************************************************************************************************************************************
-
     @SuppressWarnings("ConstantConditions")
     private void requestPhoneUpdate() {
 
-        inputPhone.setError(null);
-
-        boolean isValid = true;
-
         String phone = inputPhone.getEditText().getText().toString();
 
-        try {
-            apiCall = Client.requestPhoneUpdate(phone);
-        } catch (InvalidPhoneNumberException e) {
-            isValid = false;
-            inputPhone.setError(getString(R.string.error_invalid_phone));
-        }
-
-        if (isValid && apiCall != null) {
-            apiCall.cancel();
-            apiCall.execute(this::onSuccess, new DataActionListener<ApiError>() {
-                @Override
-                public void onDataAction(ApiError apiError) {
-                    onFailure(apiError);
-                }
-            });
-        }
+        if (apiCall != null) apiCall.cancel();
+        apiCall = Client.requestPhoneUpdate(phone);
+        apiCall.execute(this::onSuccess, new DataActionListener<ApiError>() {
+            @Override
+            public void onDataAction(ApiError apiError) {
+                onFailure(apiError);
+            }
+        });
     }
 }

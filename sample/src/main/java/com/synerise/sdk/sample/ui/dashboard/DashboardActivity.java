@@ -65,8 +65,6 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         return new Intent(context, DashboardActivity.class);
     }
 
-    // ****************************************************************************************************************************************
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,8 +148,6 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-
-    // ****************************************************************************************************************************************
 
     private void updateNavHeader() {
         if (accountManager.getFirstName() != null && accountManager.getLastName() != null)
@@ -263,8 +259,6 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         }
     }
 
-    // ****************************************************************************************************************************************
-
     @Override
     public void updateStatusBarColor(int color) {
         drawer.setStatusBarBackgroundColor(color);
@@ -277,8 +271,6 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     public void profileUpdated() {
         updateNavHeader();
     }
-
-    // ****************************************************************************************************************************************
 
     private void showHamburgerIcon() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

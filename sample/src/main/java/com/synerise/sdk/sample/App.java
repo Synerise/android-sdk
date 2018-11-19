@@ -6,9 +6,11 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.core.CrashlyticsCore;
 import com.facebook.FacebookSdk;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.synerise.sdk.client.Client;
 import com.synerise.sdk.core.Synerise;
 import com.synerise.sdk.core.listeners.OnLocationUpdateListener;
 import com.synerise.sdk.core.listeners.OnRegisterForPushListener;
@@ -16,7 +18,6 @@ import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.core.utils.SystemUtils;
 import com.synerise.sdk.injector.callback.InjectorSource;
 import com.synerise.sdk.injector.callback.OnInjectorListener;
-import com.synerise.sdk.profile.Profile;
 import com.synerise.sdk.sample.dagger.AppComponent;
 import com.synerise.sdk.sample.dagger.ConfigModule;
 import com.synerise.sdk.sample.dagger.DaggerAppComponent;
@@ -42,12 +43,12 @@ public class App extends MultiDexApplication
 
     @Inject AccountManager accountManager;
 
-    // ****************************************************************************************************************************************
-
     @Override
     public void onCreate() {
         super.onCreate();
-        Fabric.with(this, new Crashlytics());
+        Fabric.with(this,
+                    new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build(),
+                    new Crashlytics());
         FacebookSdk.sdkInitialize(this);
 
         component = DaggerAppComponent
@@ -61,21 +62,16 @@ public class App extends MultiDexApplication
         Fresco.initialize(this);
     }
 
-    // ****************************************************************************************************************************************
-
     private void initSynerise() {
 
         component.inject(this);
 
-        String syneriseBusinessProfileApiKey = accountManager.getBusinessProfileApiKey();
         String syneriseClientApiKey = accountManager.getClientProfileApiKey();
         String appId = getString(R.string.app_name);
 
-        Synerise.Builder.with(this, syneriseBusinessProfileApiKey, syneriseClientApiKey, appId)
+        Synerise.Builder.with(this, syneriseClientApiKey, appId)
                         .notificationIcon(R.drawable.ic_cart)
                         .syneriseDebugMode(true)
-                        .clientRefresh(true)
-                        .poolUuid(null)
                         .trackerTrackMode(FINE)
                         .trackerMinBatchSize(10)
                         .trackerMaxBatchSize(100)
@@ -89,13 +85,9 @@ public class App extends MultiDexApplication
                         .build();
     }
 
-    // ****************************************************************************************************************************************
-
     public AppComponent getComponent() {
         return component;
     }
-
-    // ****************************************************************************************************************************************
 
     @Override
     public void onLocationUpdateRequired() {
@@ -109,7 +101,7 @@ public class App extends MultiDexApplication
             String refreshedToken = instanceIdResult.getToken();
             Log.d(TAG, "Refreshed token: " + refreshedToken);
 
-            IApiCall call = Profile.registerForPush(refreshedToken);
+            IApiCall call = Client.registerForPush(refreshedToken);
             call.execute(() -> Log.d(TAG, "Register for Push succeed: " + refreshedToken),
                          apiError -> Log.w(TAG, "Register for push failed: " + refreshedToken));
 
@@ -117,8 +109,6 @@ public class App extends MultiDexApplication
             LocalBroadcastManager.getInstance(App.this).sendBroadcast(intent);
         });
     }
-
-    // ****************************************************************************************************************************************
 
     @Override
     public boolean onOpenUrl(InjectorSource source, String url) {

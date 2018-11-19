@@ -10,15 +10,11 @@ public class FirebaseIdChangeBroadcastReceiver extends BroadcastReceiver {
 
     private ActionListener listener = ActionListener.NULL;
 
-    // ****************************************************************************************************************************************
-
     public static Intent createFirebaseIdChangedIntent() {
         Intent intent = new Intent();
         intent.setAction(FirebaseIdChangeBroadcastReceiver.ACTION_FIREBASE_ID_CHANGE);
         return intent;
     }
-
-    // ****************************************************************************************************************************************
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -26,8 +22,6 @@ public class FirebaseIdChangeBroadcastReceiver extends BroadcastReceiver {
             this.listener.onAction();
         }
     }
-
-    // ****************************************************************************************************************************************
 
     public void setListener(ActionListener actionListener) {
         if (actionListener == null) this.listener = ActionListener.NULL;

@@ -20,8 +20,6 @@ public class BarcodeGraphicTracker extends Tracker<Barcode> {
 
     private BarcodeUpdateListener mBarcodeUpdateListener;
 
-    // ****************************************************************************************************************************************
-
     /**
      * Consume the item instance detected from an Activity or Fragment level by implementing the
      * BarcodeUpdateListener interface method onBarcodeDetected.
@@ -41,8 +39,6 @@ public class BarcodeGraphicTracker extends Tracker<Barcode> {
             throw new RuntimeException("Hosting activity must implement BarcodeUpdateListener");
         }
     }
-
-    // ****************************************************************************************************************************************
 
     /**
      * Start tracking the detected item instance within the item overlay.

@@ -12,8 +12,6 @@ public class ApiViewHolder extends BaseViewHolder<SyneriseSdkApi> {
     private final TextView label;
     private SyneriseSdkApi syneriseSdkApi;
 
-    // ****************************************************************************************************************************************
-
     public ApiViewHolder(View itemView, DataActionListener<SyneriseSdkApi> listener) {
         super(itemView);
         itemView.setOnClickListener(v -> {
@@ -21,8 +19,6 @@ public class ApiViewHolder extends BaseViewHolder<SyneriseSdkApi> {
         });
         this.label = itemView.findViewById(R.id.api_label);
     }
-
-    // ****************************************************************************************************************************************
 
     @Override
     public void populateData(SyneriseSdkApi syneriseSdkApi) {

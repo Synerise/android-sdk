@@ -2,9 +2,6 @@
 
     <string name="app_name" translatable="false">Synerise Sample App</string>
 
-    <!-- replace with your business key -->
-    <string name="synerise_business_api_key">49475628-E594-6B42-B6AE-8781A9761CC4</string>
-
     <!-- replace with your client key -->
     <string name="synerise_client_api_key">622376F8-4A8F-8B24-D7F9-070FA956E963</string>
 
@@ -45,18 +42,12 @@
 
     <string name="tracker_api">Tracker API</string>
     <string name="client_api">Client API</string>
-    <string name="profile_api">Profile API</string>
     <string name="injector_api">Injector API</string>
 
     <string name="get_account">Get account</string>
     <string name="update_account">Update account</string>
 
-    <string name="provide_client_id">Client ID</string>
-    <string name="profile_get_client">Get client</string>
-    <string name="profile_client_create">Create Client</string>
     <string name="profile_client_register">Register Client</string>
-    <string name="profile_client_update">Update Client</string>
-    <string name="profile_client_delete">Delete Client</string>
     <string name="profile_client_activate">Activate Client</string>
 
     <string name="provide_client_email">Client\'s email</string>
@@ -95,37 +86,23 @@
 
     <string name="default_price_USD">$%1$s</string>
 
-    <string name="default_price">Price</string>
     <string name="default_description">Description</string>
-    <string name="default_name">Name</string>
     <string name="default_sign_out">Sign out</string>
     <string name="default_email">Email</string>
     <string name="default_user_name">Name</string>
     <string name="default_last_name">Last name</string>
 
-    <string name="require_sign_in">Please sign in first</string>
     <string name="provide_client_city">Client\'s city</string>
+    <string name="provide_old_password">Client\'s old assword</string>
     <string name="provide_password">Client\'s password</string>
-    <string name="provide_client_name">Client\'s name</string>
 
     <string name="date_picker_pre26api">date picker pre26api</string>
     <string name="provide_client_company">Client\'s company</string>
     <string name="error_empty">Field can not be empty</string>
-    <string name="error_invalid_email">Invalid email address</string>
-    <string name="error_invalid_phone">Invalid phone number</string>
-    <string name="error_invalid_password">Password must contain at least one uppercase, one lowercase, one special character and be at least 8 characters long</string>
-    <string name="error_invalid_id">Invalid id</string>
-    <string name="email_unknown">Client\'s email is unknown</string>
-    <string name="id_unknown">Client\'s id is unknown</string>
     <string name="deep_linking_title">Deep linking</string>
     <string name="sign_up_email_success">Success! Remember to verify your email.</string>
     <string name="show_walkthrough">Show Walkthrough again</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="title_activity_main">MainActivity</string>
     <string name="dev_tools_title">Developer tools</string>
     <string name="view_products">View products</string>
     <string name="section_electronic">Electronics\n&amp; AGD</string>
@@ -151,8 +128,6 @@
     <string name="profile_title">Profile</string>
     <string name="cart_title">Cart</string>
     <string name="sign_out_title">Sign out</string>
-    <string name="section_title">Sections</string>
-    <string name="or">or</string>
     <string name="create_new_account">Create new account</string>
 
     <string name="shipping_details">Shipping details</string>
@@ -170,10 +145,7 @@
     <string name="please_sign_in">Please sign in</string>
     <string name="credit_card">Credit card:</string>
     <string name="credit_card_number">4276 **** **** ****</string>
-    <string name="empty_cart">Empty cart</string>
-    <string name="quantity">quantity : </string>
     <string name="cart_is_empty">Your cart is empty</string>
-    <string name="save_changes">Save changes</string>
     <string name="congratulations">Congratulations</string>
     <string name="track_your_order">Track your order</string>
     <string name="continue_shopping">Continue shopping</string>
@@ -343,48 +315,17 @@
     <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
     <string name="no_camera_permission">This application needs camera permission to run QR scanner. Nevertheless, you can always provide your keys manually.</string>
     <string name="low_storage_error">Detector dependencies cannot be downloaded due to low device storage.</string>
-    <string name="barcode_header">Click &quot;Read Barcode&quot; to read a barcode</string>
-    <string name="read_barcode">Read Barcode</string>
-    <string name="auto_focus">Auto Focus</string>
-    <string name="use_flash">Use Flash</string>
-    <string name="barcode_success">Barcode read successfully</string>
-    <string name="barcode_failure">No barcode captured</string>
-    <string name="barcode_error">"Error reading barcode: %1$s"</string>
-    <string name="business_api_key">Business Api Key</string>
     <string name="client_api_key">Client Api Key</string>
-    <string name="scan_business">Scan business key</string>
-    <string name="scan_client">Scan client key</string>
     <string name="finish">Finish</string>
     <string name="scanner_hint">Tap to capture. Pinch to zoom.</string>
-    <string name="default_keys">Default keys</string>
-    <string name="hint_phone">Phone number</string>
-    <string name="confirm_phone_number">Confirm phone number</string>
-    <string name="confirm_phone_number_title">Confirm phone number</string>
-    <string name="enter_confirmation_code">Enter confirmation code</string>
-    <string name="profile_get_promotions">Get promotions</string>
-    <string name="profile_get_promotions_by_external_id">Promotion by external id</string>
-    <string name="profile_get_promotions_by_phone">Promotions by phone</string>
-    <string name="profile_get_promotions_by_client_id">Promotion by client id</string>
-    <string name="profile_get_promotions_by_email">Promotion by email</string>
-    <string name="profile_get_promotions_by_code">Promotion by code</string>
-    <string name="profile_get_promotions_by_uuid">Promotion by UUID</string>
-    <string name="provide_external_id">External id</string>
     <string name="provide_phone_number">Phone number</string>
     <string name="default_uuid">UUID</string>
     <string name="provide_code">Code</string>
-    <string name="provide_email">Email</string>
-    <string name="profile_redeem_promotions_by_phone">Redeem by phone</string>
-    <string name="profile_redeem_promotions_by_client_id">Redeem client id</string>
-    <string name="default_custom_id">Custom ID</string>
-    <string name="profile_redeem_promotions_by_custom_id">Redeem custom id</string>
-    <string name="profile_redeem_promotions_by_email">Redeem Email</string>
-    <string name="provide_promotion_code">Promotion code</string>
     <string name="client_get_promotions">Get promotions</string>
     <string name="client_activate_promotions_by_uuid">Activate Promotion by UUID</string>
     <string name="client_activate_promotions_by_code">Activate Promotion by code</string>
     <string name="client_deactivate_promotions_by_uuid">Deactivate Promotion by UUID</string>
     <string name="client_deactivate_promotions_by_code">Deactivate Promotion by code</string>
-    <string name="provide_client_uuid">Client UUID</string>
     <string name="delete_account">Delete account</string>
     <string name="client_change_password">Change password</string>
     <string name="client_phone_update">Phone update</string>
@@ -393,19 +334,14 @@
     <string name="register_without_activation">Register without activation</string>
     <string name="favourite_title">Favourite products</string>
     <string name="no_favourities">Add some items as favourite to see them here</string>
-    <string name="default_promotions">Promotions</string>
     <string name="default_promotion_apis">Promotion API</string>
     <string name="profile_assign_voucher">Assign voucher</string>
     <string name="provide_pool_uuid">Pool UUID</string>
-    <string name="default_vouchers_api">Voucher API</string>
     <string name="get_or_assign_voucher">Get or assign voucher</string>
     <string name="assign_voucher_code">Assign voucher code</string>
     <string name="get_assigned_voucher_codes">Get assigned voucher codes</string>
-    <string name="get_voucher_codes">Get voucher codes</string>
-    <string name="profile_get_voucher_codes">Get voucher codes</string>
-    <string name="leave_empty_for_uuid">Leave empty to use current, internal client\'s UUID</string>
-    <string name="promotion_include_expired">Include expired</string>
-    <string name="promotion_exclude_expired">Exclude expired</string>
+    <string name="promotion_include_metadata">Include metadata</string>
+    <string name="promotion_exclude_metadata">Exclude metadata</string>
     <string name="promotion_active">Active</string>
     <string name="promotion_assigned">Assigned</string>
     <string name="promotion_redeemed">Redeemed</string>
@@ -418,8 +354,15 @@
     <string name="default_refreshing_promotions">Refreshing promotions…</string>
     <string name="default_activating">Activating…</string>
     <string name="available_promotions">Available promotions</string>
-    <string name="get_external_token">Get external token</string>
-    <string name="create_token_button">Get external token</string>
-    <string name="default_client_value">Client value</string>
     <string name="sign_in_facebook">Sign in with Facebook</string>
+    <string name="promotion_general">General</string>
+    <string name="promotion_custom">Custom</string>
+    <string name="promotion_members_only">Members only</string>
+    <string name="promotion_type">Promotion type</string>
+    <string name="promotion_status">Promotion status</string>
+    <string name="metadata">Metadata</string>
+    <string name="query">Query</string>
+    <string name="hint_limit">Limit</string>
+    <string name="hint_page">Page number</string>
+    <string name="error_invalid_value">Invalid value</string>
 </resources>

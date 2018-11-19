@@ -31,8 +31,6 @@ public class FavouritesFragment extends BaseDevFragment {
 
     public static FavouritesFragment newInstance() { return new FavouritesFragment(); }
 
-    // ****************************************************************************************************************************************
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,8 +68,6 @@ public class FavouritesFragment extends BaseDevFragment {
             productsRecyclerAdapter.update(accountManager.getFavouriteProducts());
         }
     }
-
-    // ****************************************************************************************************************************************
 
     private void onProductSelected(Product product) {
         startActivity(ProductActivity.createIntent(getActivity(), product.getSKU()));

@@ -69,14 +69,11 @@ public final class QRScannerActivity extends BaseActivity implements BarcodeGrap
 
     @Inject AccountManager accountManager;
 
-    private TextInputLayout inputBusiness;
     private TextInputLayout inputClient;
 
     public static Intent createIntent(Context context) {
         return new Intent(context, QRScannerActivity.class);
     }
-
-    // ****************************************************************************************************************************************
 
     @Override
     @SuppressWarnings("ConstantConditions")
@@ -87,7 +84,6 @@ public final class QRScannerActivity extends BaseActivity implements BarcodeGrap
 
         cameraSourcePreview = findViewById(R.id.preview);
         graphicOverlay = findViewById(R.id.graphic_overlay);
-        inputBusiness = findViewById(R.id.input_business);
         inputClient = findViewById(R.id.input_client);
         findViewById(R.id.finish_scanning).setOnClickListener(v -> onFinishClicked());
 
@@ -97,10 +93,7 @@ public final class QRScannerActivity extends BaseActivity implements BarcodeGrap
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager != null)
             sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        shakeDetector = new ShakeDetector(count -> {
-            inputBusiness.getEditText().setText(R.string.synerise_business_api_key);
-            inputClient.getEditText().setText(R.string.synerise_client_api_key);
-        });
+        shakeDetector = new ShakeDetector(count -> inputClient.getEditText().setText(R.string.synerise_client_api_key));
 
         int permissionResult = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         if (permissionResult == PackageManager.PERMISSION_GRANTED) {
@@ -128,11 +121,8 @@ public final class QRScannerActivity extends BaseActivity implements BarcodeGrap
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (cameraSourcePreview != null)
-            cameraSourcePreview.release();
+        if (cameraSourcePreview != null) cameraSourcePreview.release();
     }
-
-    // ****************************************************************************************************************************************
 
     @Override
     public boolean onTouchEvent(MotionEvent e) {
@@ -166,21 +156,14 @@ public final class QRScannerActivity extends BaseActivity implements BarcodeGrap
         }
 
         if (bestHit != null) {
-            if (inputClient.hasFocus()) {
-                inputClient.getEditText().setText(bestHit.displayValue);
-            } else {
-                inputBusiness.getEditText().setText(bestHit.displayValue);
-            }
+            inputClient.getEditText().setText(bestHit.displayValue);
             return true;
         }
         return false;
     }
 
-    // ****************************************************************************************************************************************
-
     @SuppressWarnings("ConstantConditions")
     private void onFinishClicked() {
-        accountManager.setBusinessProfileApiKey(inputBusiness.getEditText().getText().toString());
         accountManager.setClientApiKey(inputClient.getEditText().getText().toString());
         HandlerThread ht = new HandlerThread("HandlerThread");
         ht.start();
@@ -237,8 +220,6 @@ public final class QRScannerActivity extends BaseActivity implements BarcodeGrap
         }
     }
 
-    // ****************************************************************************************************************************************
-
     private void requestCameraPermission() {
         final String[] permissions = new String[]{Manifest.permission.CAMERA};
 
@@ -271,8 +252,6 @@ public final class QRScannerActivity extends BaseActivity implements BarcodeGrap
                .setPositiveButton(R.string.ok, (dialog, which) -> dialog.dismiss())
                .show();
     }
-
-    // ****************************************************************************************************************************************
 
     private class CaptureGestureListener extends GestureDetector.SimpleOnGestureListener {
         @Override

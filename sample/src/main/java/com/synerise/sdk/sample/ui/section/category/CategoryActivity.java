@@ -27,8 +27,6 @@ public class CategoryActivity extends BaseActivity {
         return intent;
     }
 
-    // ****************************************************************************************************************************************
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +49,6 @@ public class CategoryActivity extends BaseActivity {
         Tracker.send(new VisitedScreenEvent(getClass().getSimpleName(),
                                             new TrackerParams.Builder().add("category_id", section.getId()).build()));
     }
-
-    // ****************************************************************************************************************************************
 
     private void onCategorySelected(Category category) {
         Tracker.send(new CustomEvent("category.view", getString(category.getText()),

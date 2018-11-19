@@ -11,11 +11,11 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.synerise.sdk.client.Client;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.injector.Injector;
 import com.synerise.sdk.injector.SilentCommand;
 import com.synerise.sdk.injector.net.exception.ValidationException;
-import com.synerise.sdk.profile.Profile;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.util.FirebaseIdChangeBroadcastReceiver;
 
@@ -72,7 +72,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Log.d(TAG, "Refreshed token: " + refreshedToken);
 
         if (refreshedToken != null) {
-            IApiCall call = Profile.registerForPush(refreshedToken);
+            IApiCall call = Client.registerForPush(refreshedToken);
             call.execute(() -> Log.d(TAG, "Register for Push succeed: " + refreshedToken),
                          apiError -> Log.w(TAG, "Register for push failed: " + refreshedToken));
 

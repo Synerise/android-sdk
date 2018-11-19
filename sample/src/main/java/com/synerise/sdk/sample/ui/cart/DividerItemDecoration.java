@@ -9,13 +9,9 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     private Drawable mDivider;
 
-    // ****************************************************************************************************************************************
-
     public DividerItemDecoration(Drawable divider) {
         mDivider = divider;
     }
-
-    // ****************************************************************************************************************************************
 
     @Override
     public void onDraw(Canvas canvas, RecyclerView parent, RecyclerView.State state) {

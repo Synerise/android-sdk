@@ -103,15 +103,6 @@
 
     <!-- ********************************************************************************************************************************** -->
 
-    <style name="TextDrawer" parent="TextPrimary.Medium">
-        <item name="android:drawablePadding">@dimen/space_content</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:padding">@dimen/space_content</item>
-        <item name="android:textColor">@color/textPrimary</item>
-        <item name="android:textSize">@dimen/text_14</item>
-        <item name="android:foreground">?selectableItemBackgroundBorderless</item>
-    </style>
-
     <!-- ********************************************************************************************************************************** -->
 
     <style name="BaseButton" parent="Base.Widget.AppCompat.Button">

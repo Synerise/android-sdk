@@ -25,8 +25,6 @@ public class InjectorApiActivity extends BaseActivity {
         return new Intent(context, InjectorApiActivity.class);
     }
 
-    // ****************************************************************************************************************************************
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +53,6 @@ public class InjectorApiActivity extends BaseActivity {
         super.onStop();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
     }
-
-    // ****************************************************************************************************************************************
 
     private void copyFirebaseIdTv() {
         SystemUtils.copyTextToClipboard(this, firebaseId.getText());

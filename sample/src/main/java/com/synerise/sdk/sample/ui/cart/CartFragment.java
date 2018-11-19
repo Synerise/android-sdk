@@ -16,18 +16,15 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.synerise.sdk.client.Client;
-import com.synerise.sdk.client.model.Promotion;
-import com.synerise.sdk.client.model.PromotionResponse;
-import com.synerise.sdk.core.listeners.DataActionListener;
-import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.core.net.IDataApiCall;
-import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.event.Tracker;
 import com.synerise.sdk.event.model.interaction.HitTimerEvent;
 import com.synerise.sdk.event.model.model.UnitPrice;
 import com.synerise.sdk.event.model.products.cart.RemovedFromCartEvent;
 import com.synerise.sdk.event.model.transaction.CompletedTransactionEvent;
-import com.synerise.sdk.profile.Profile;
+import com.synerise.sdk.promotions.Promotions;
+import com.synerise.sdk.promotions.model.promotion.Promotion;
+import com.synerise.sdk.promotions.model.promotion.PromotionResponse;
 import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.data.Category;
@@ -50,7 +47,6 @@ public class CartFragment extends BaseFragment {
 
     @Inject AccountManager accountManager;
     private IDataApiCall<PromotionResponse> apiCall;
-    private IApiCall redeemApiCall;
 
     private Promotion chosenPromotion;
     private CartRecyclerView cartRecycler;
@@ -64,8 +60,6 @@ public class CartFragment extends BaseFragment {
     public static CartFragment newInstance() {
         return new CartFragment();
     }
-
-    // ****************************************************************************************************************************************
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -105,7 +99,7 @@ public class CartFragment extends BaseFragment {
         handleLayoutVisibility();
 
         promotionAdapter = new CartPromotionAdapter(LayoutInflater.from(getActivity()), this::onPromotionClicked,
-                                                    filterPromotions(accountManager.getCartPromotions()));
+                                                    filterPromotions(accountManager.getPromotions()));
         CartRecyclerView promotionsRecycler = view.findViewById(R.id.promotions_recycler);
         promotionsRecycler.setAdapter(promotionAdapter);
         promotionsRecycler.setHasFixedSize(true);
@@ -128,20 +122,17 @@ public class CartFragment extends BaseFragment {
     public void onStop() {
         super.onStop();
         if (apiCall != null) apiCall.cancel();
-        if (redeemApiCall != null) redeemApiCall.cancel();
     }
-
-    // ****************************************************************************************************************************************
 
     private void getPromotions() {
         Toast.makeText(getActivity(), R.string.default_refreshing_promotions, Toast.LENGTH_SHORT).show();
         if (apiCall != null) apiCall.cancel();
-        apiCall = Client.getPromotions(true);
+        apiCall = Promotions.getPromotions(new ArrayList<>(), new ArrayList<>(), 1);
         apiCall.execute(response -> {
             if (response != null) {
                 List<Promotion> promotions = response.getPromotions();
                 promotionAdapter.update(filterPromotions(promotions));
-                accountManager.updateCartPromotions(promotions);
+                accountManager.updatePromotions(promotions);
             }
         }, this::showAlertError);
     }
@@ -168,8 +159,6 @@ public class CartFragment extends BaseFragment {
     private void onPromotionClicked(Pair<Promotion, CartItem> promotionPair) {
         chosenPromotion = promotionPair.first;
     }
-
-    // ****************************************************************************************************************************************
 
     private void handleLayoutVisibility() {
         List<CartItem> cartItems = accountManager.getCartItems();
@@ -217,8 +206,6 @@ public class CartFragment extends BaseFragment {
         checkoutDialog.show(getChildFragmentManager(), CheckoutDialog.class.getSimpleName());
     }
 
-    // ****************************************************************************************************************************************
-
     private RemovedFromCartEvent createCartEvent(Product product, int quantity) {
         UnitPrice unitPrice = new UnitPrice(product.getPrice(), Currency.getInstance(Locale.getDefault()));
         RemovedFromCartEvent cartEvent = new RemovedFromCartEvent(getString(product.getName()), product.getSKU(), unitPrice, quantity);
@@ -256,30 +243,10 @@ public class CartFragment extends BaseFragment {
         return transactionEvent;
     }
 
-    // ****************************************************************************************************************************************
-
     private void onPlaceOrderClicked() {
         placeOrder.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
-        if (chosenPromotion != null) {
-            if (redeemApiCall != null) redeemApiCall.cancel();
-            String email = accountManager.getEmail();
-            if (email != null) {
-                redeemApiCall = Profile.redeemPromotionByEmail(chosenPromotion.getCode(), email);
-            } else {
-                redeemApiCall = Profile.redeemPromotionByPhone(chosenPromotion.getCode(), accountManager.getPhone());
-            }
-            redeemApiCall.execute(this::onOrderPlaced, new DataActionListener<ApiError>() {
-                @Override
-                public void onDataAction(ApiError apiError) {
-                    placeOrder.setVisibility(View.VISIBLE);
-                    progressBar.setVisibility(View.GONE);
-                    showAlertError(apiError);
-                }
-            });
-        } else {
-            new Handler().postDelayed(this::onOrderPlaced, 2000);
-        }
+        new Handler().postDelayed(this::onOrderPlaced, 2000);
     }
 
     private void onOrderPlaced() {

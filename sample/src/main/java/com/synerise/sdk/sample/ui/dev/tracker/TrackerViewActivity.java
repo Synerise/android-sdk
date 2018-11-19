@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.CheckedTextView;
 import android.widget.DatePicker;
 import android.widget.NumberPicker;
@@ -37,8 +36,6 @@ public class TrackerViewActivity extends BaseActivity {
     public static Intent createIntent(Context context) {
         return new Intent(context, TrackerViewActivity.class);
     }
-
-    // ****************************************************************************************************************************************
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -112,8 +109,8 @@ public class TrackerViewActivity extends BaseActivity {
             }
         });
 
-//        ((CheckBox) findViewById(R.id.checkbox)).setOnCheckedChangeListener(
-//                (buttonView, isChecked) -> Log.d(TAG, "CheckBox~onCheckedChanged: " + isChecked));
+        //        ((CheckBox) findViewById(R.id.checkbox)).setOnCheckedChangeListener(
+        //                (buttonView, isChecked) -> Log.d(TAG, "CheckBox~onCheckedChanged: " + isChecked));
 
         ((RadioButton) findViewById(R.id.radio_button)).setOnCheckedChangeListener(
                 (buttonView, isChecked) -> Log.d(TAG, "RadioButton~onCheckedChanged: " + isChecked));

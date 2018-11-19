@@ -12,7 +12,6 @@
     <color name="porcelain">#f3f5f6</color>
 
     <!-- background drawer -->
-    <color name="alabaster">#fafafa</color>
 
     <!-- text primary-->
     <color name="charcoal">#384350</color>
@@ -53,10 +52,8 @@
 
     <!-- defaults -->
     <color name="white">#fff</color>
-    <color name="translucent_max">#efffffff</color>
     <color name="translucent_half">#77ffffff</color>
     <color name="transparent">#0fff</color>
-    <color name="black">#000</color>
 
     <!-- ********************************************************************************************************************************** -->
 

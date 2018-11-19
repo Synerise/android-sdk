@@ -24,8 +24,6 @@ class ProductsViewHolder extends RecyclerView.ViewHolder {
     private final Context context;
     private Product product;
 
-    // ****************************************************************************************************************************************
-
     ProductsViewHolder(View itemView, final DataActionListener<Product> listener) {
         super(itemView);
         context = itemView.getContext();
@@ -38,8 +36,6 @@ class ProductsViewHolder extends RecyclerView.ViewHolder {
         brand = itemView.findViewById(R.id.product_brand);
         price = itemView.findViewById(R.id.product_price);
     }
-
-    // ****************************************************************************************************************************************
 
     void populateData(@NonNull Product product) {
         this.product = product;

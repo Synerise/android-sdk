@@ -19,14 +19,10 @@ public class SharedPrefsStorage implements IPrefsStorage {
     private final SharedPreferences sharedPreferences;
     private final Gson gson;
 
-    // ******************************************************************************************************
-
     public SharedPrefsStorage(Context context, Gson gson) {
         sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         this.gson = gson;
     }
-
-    // ******************************************************************************************************
 
     @SuppressLint("ApplySharedPref")
     @Override

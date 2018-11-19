@@ -14,15 +14,11 @@ public class BaseDevFragment extends BaseFragment {
 
     private View view;
 
-    // ****************************************************************************************************************************************
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.view = view;
     }
-
-    // ****************************************************************************************************************************************
 
     protected void onSuccess() {
         Snackbar.make(view, R.string.default_success, Snackbar.LENGTH_SHORT).show();

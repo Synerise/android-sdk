@@ -6,10 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
-import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.facebook.CallbackManager;
@@ -22,10 +20,8 @@ import com.synerise.sdk.client.model.GetAccountInformation;
 import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.core.net.IDataApiCall;
+import com.synerise.sdk.core.persistence.manager.CacheManager;
 import com.synerise.sdk.error.ApiError;
-import com.synerise.sdk.injector.net.exception.InvalidEmailException;
-import com.synerise.sdk.injector.net.exception.InvalidPhoneNumberException;
-import com.synerise.sdk.profile.LoginType;
 import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.persistence.AccountManager;
@@ -51,13 +47,10 @@ public class SignInActivity extends BaseActivity {
 
     private IApiCall signInCall, signInFacebookCall;
     private IDataApiCall<GetAccountInformation> getAccountCall;
-    private LoginType loginType = LoginType.EMAIL;
 
     public static Intent createIntent(Context context) {
         return new Intent(context, SignInActivity.class);
     }
-
-    // ****************************************************************************************************************************************
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,27 +66,6 @@ public class SignInActivity extends BaseActivity {
         signInProgress = findViewById(R.id.sign_in_progress);
         facebookButton = findViewById(R.id.sign_in_facebook);
         facebookProgress = findViewById(R.id.sign_in_facebook_progress);
-
-        ImageView iconMail = findViewById(R.id.icon_mail);
-        ImageView iconPhone = findViewById(R.id.icon_phone);
-
-        iconMail.setOnClickListener(v -> {
-            loginType = LoginType.EMAIL;
-            iconMail.setImageResource(R.drawable.ic_mail_active);
-            iconPhone.setImageResource(R.drawable.ic_phone_inactive);
-
-            textLogin.setHint(getString(R.string.hint_email));
-            textLogin.getEditText().setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-        });
-
-        iconPhone.setOnClickListener(v -> {
-            loginType = LoginType.PHONE;
-            iconMail.setImageResource(R.drawable.ic_mail_inactive);
-            iconPhone.setImageResource(R.drawable.ic_phone_active);
-
-            textLogin.setHint(getString(R.string.hint_phone));
-            textLogin.getEditText().setInputType(InputType.TYPE_CLASS_PHONE);
-        });
 
         signInButton.setOnClickListener(this::onSignInButtonClicked);
         facebookButton.setOnClickListener(this::onSignInFacebookButtonClicked);
@@ -117,46 +89,31 @@ public class SignInActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    // ****************************************************************************************************************************************
-
     private void setUpFacebook() {
         callbackManager = CallbackManager.Factory.create();
-        LoginManager.getInstance().registerCallback(callbackManager,
-                                                    new FacebookCallback<LoginResult>() {
-                                                        @Override
-                                                        public void onSuccess(LoginResult loginResult) {
-                                                            String token = loginResult.getAccessToken().getToken();
-                                                            signInFacebook(token);
-                                                        }
+        LoginManager.getInstance()
+                    .registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                        @Override
+                        public void onSuccess(LoginResult loginResult) {
+                            String token = loginResult.getAccessToken().getToken();
+                            signInFacebook(token);
+                        }
 
-                                                        @Override
-                                                        public void onCancel() {
-                                                        }
+                        @Override
+                        public void onCancel() { }
 
-                                                        @Override
-                                                        public void onError(FacebookException exception) {
-                                                        }
-                                                    });
+                        @Override
+                        public void onError(FacebookException exception) { }
+                    });
     }
-
-    // ****************************************************************************************************************************************
 
     @SuppressWarnings("ConstantConditions")
     private void onSignInButtonClicked(View v) {
 
-        textLogin.setError(null);
-        textPassword.setError(null);
-
         String login = textLogin.getEditText().getText().toString();
         String password = textPassword.getEditText().getText().toString();
 
-        try {
-            signIn(login, password);
-        } catch (InvalidEmailException e) {
-            textLogin.setError(getString(R.string.error_invalid_email));
-        } catch (InvalidPhoneNumberException e) {
-            textLogin.setError(getString(R.string.error_invalid_phone));
-        }
+        signIn(login, password);
     }
 
     private void onSignInFacebookButtonClicked(View v) {
@@ -164,33 +121,20 @@ public class SignInActivity extends BaseActivity {
         LoginManager.getInstance().logInWithReadPermissions(this, Collections.singletonList("email"));
     }
 
-    // ****************************************************************************************************************************************
-
-    private void signIn(String login, String password) throws
-                                                       InvalidEmailException,
-                                                       InvalidPhoneNumberException {
-        if (loginType == LoginType.EMAIL) {
-            signInCall = Client.signInByEmail(login, password, null);
-        } else if (loginType == LoginType.PHONE) {
-            signInCall = Client.signInByPhone(login, password, null);
-        }
-        if (signInCall != null) {
-            signInCall.cancel();
-            signInCall.onSubscribe(() -> toggleLoading(true))
-                      .execute(() -> onSignInSuccessful(login), new DataActionListener<ApiError>() {
-                          @Override
-                          public void onDataAction(ApiError apiError) {
-                              onSignInFailure(apiError);
-                          }
-                      });
-        }
+    private void signIn(String login, String password) {
+        if (signInCall != null) signInCall.cancel();
+        signInCall = Client.signIn(login, password, null);
+        signInCall.onSubscribe(() -> toggleLoading(true))
+                  .execute(() -> onSignInSuccessful(login), new DataActionListener<ApiError>() {
+                      @Override
+                      public void onDataAction(ApiError apiError) {
+                          onSignInFailure(apiError);
+                      }
+                  });
     }
 
     private void onSignInSuccessful(String login) {
-        if (loginType == LoginType.EMAIL)
-            accountManager.setUserEmail(login);
-        else if (loginType == LoginType.PHONE)
-            accountManager.setUserPhone(login);
+        accountManager.setUserEmail(login);
         getAccount(false);
     }
 
@@ -198,8 +142,6 @@ public class SignInActivity extends BaseActivity {
         toggleLoading(false);
         showAlertError(apiError);
     }
-
-    // ****************************************************************************************************************************************
 
     private void signInFacebook(String facebookToken) {
         if (signInFacebookCall != null) signInFacebookCall.cancel();
@@ -222,14 +164,17 @@ public class SignInActivity extends BaseActivity {
         showAlertError(apiError);
     }
 
-    // ****************************************************************************************************************************************
-
     private void getAccount(boolean isFacebook) {
         if (getAccountCall != null) getAccountCall.cancel();
         getAccountCall = Client.getAccount();
         getAccountCall.execute(this::onGetAccountSuccessful, apiError -> {
-            if (isFacebook) onSignInFacebookError(apiError);
-            else onSignInFailure(apiError);
+            GetAccountInformation model = (GetAccountInformation) CacheManager.getInstance().get(GetAccountInformation.class);
+            if (model != null) {
+                onGetAccountSuccessful(model);
+            } else {
+                if (isFacebook) onSignInFacebookError(apiError);
+                else onSignInFailure(apiError);
+            }
         });
     }
 
@@ -241,8 +186,6 @@ public class SignInActivity extends BaseActivity {
         setResult(RESULT_OK);
         finish();
     }
-
-    // ****************************************************************************************************************************************
 
     private void toggleLoading(boolean isLoading) {
         if (isLoading) {

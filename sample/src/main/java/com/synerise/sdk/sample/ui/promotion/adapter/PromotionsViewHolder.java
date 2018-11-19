@@ -9,8 +9,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.synerise.sdk.client.model.Promotion;
-import com.synerise.sdk.profile.model.promotion.PromotionDiscountType;
+import com.synerise.sdk.promotions.model.promotion.Promotion;
+import com.synerise.sdk.promotions.model.promotion.PromotionDiscountType;
+import com.synerise.sdk.promotions.model.promotion.PromotionImage;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.util.DataActionListener;
 import com.synerise.sdk.sample.util.ViewUtils;
@@ -28,8 +29,6 @@ class PromotionsViewHolder extends RecyclerView.ViewHolder {
     private final Context context;
     private Promotion promotion;
 
-    // ****************************************************************************************************************************************
-
     PromotionsViewHolder(View itemView, final DataActionListener<Promotion> listener) {
         super(itemView);
         context = itemView.getContext();
@@ -43,18 +42,16 @@ class PromotionsViewHolder extends RecyclerView.ViewHolder {
         expire = itemView.findViewById(R.id.promotion_expire);
     }
 
-    // ****************************************************************************************************************************************
-
     void populateData(@NonNull Promotion promotion) {
         this.promotion = promotion;
-        List<String> images = promotion.getImages();
-        if (!images.isEmpty()) ViewUtils.loadImage(images.get(0), image, imageProgressBar);
+        List<PromotionImage> images = promotion.getImages();
+        if (!images.isEmpty()) ViewUtils.loadImage(images.get(0).getUrl(), image, imageProgressBar);
         this.name.setText(promotion.getHeadline());
-        this.expire.setText(context.getString(R.string.default_valid_to, DateFormat.format("dd.MM.yyyy", promotion.getExpireIn())));
+        this.expire.setText(context.getString(R.string.default_valid_to, DateFormat.format("dd.MM.yyyy", promotion.getExpireAt())));
         if (promotion.getDiscountType() == PromotionDiscountType.AMOUNT) {
-            this.discount.setText(context.getString(R.string.default_value_dollar, promotion.getDiscountValue()));
+            this.discount.setText(context.getString(R.string.default_value_dollar, String.valueOf(promotion.getDiscountValue())));
         } else if (promotion.getDiscountType() == PromotionDiscountType.PERCENT) {
-            this.discount.setText(context.getString(R.string.default_value_percent, promotion.getDiscountValue()));
+            this.discount.setText(context.getString(R.string.default_value_percent, String.valueOf(promotion.getDiscountValue())));
         } else {
             this.discount.setText(promotion.getDiscountValue());
         }

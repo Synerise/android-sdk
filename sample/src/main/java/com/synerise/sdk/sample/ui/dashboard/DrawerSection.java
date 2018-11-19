@@ -14,8 +14,6 @@ public enum DrawerSection {
     DEV_TOOLS(R.string.dev_tools_title),
     SETTINGS(R.string.settings_title);
 
-    // ****************************************************************************************************************************************
-
     @StringRes private int title;
 
     DrawerSection(@StringRes int title) {

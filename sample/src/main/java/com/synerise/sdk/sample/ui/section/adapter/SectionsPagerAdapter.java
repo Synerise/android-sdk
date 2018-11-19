@@ -12,14 +12,10 @@ public class SectionsPagerAdapter extends InfinitePagerAdapter<Section> {
 
     private final List<Section> categories;
 
-    // ****************************************************************************************************************************************
-
     public SectionsPagerAdapter(FragmentManager fm, List<Section> categories) {
         super(fm, true, categories);
         this.categories = categories;
     }
-
-    // ****************************************************************************************************************************************
 
     @Override
     public Fragment getItem(int position) {

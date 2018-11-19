@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.synerise.sdk.client.model.Promotion;
-import com.synerise.sdk.client.model.PromotionStatus;
-import com.synerise.sdk.profile.model.promotion.PromotionDiscountType;
+import com.synerise.sdk.promotions.model.promotion.Promotion;
+import com.synerise.sdk.promotions.model.promotion.PromotionDiscountType;
+import com.synerise.sdk.promotions.model.promotion.PromotionStatus;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.cart.adapter.item.CartItem;
 import com.synerise.sdk.sample.util.DataActionListener;
@@ -25,8 +25,6 @@ public class CartPromotionViewHolder extends RecyclerView.ViewHolder {
     private final Context context;
 
     private static int lastSelectedPosition = -1; // shared among all items
-
-    // ****************************************************************************************************************************************
 
     CartPromotionViewHolder(View view, DataActionListener<Pair<Promotion, CartItem>> listener,
                             CartPromotionAdapter.OnInternalActionListener internalListener) {
@@ -44,8 +42,6 @@ public class CartPromotionViewHolder extends RecyclerView.ViewHolder {
         radio.setOnClickListener(clickListener);
         view.setOnClickListener(clickListener);
     }
-
-    // ****************************************************************************************************************************************
 
     public void populateData(Pair<Promotion, CartItem> promotionPair, int position) {
         this.promotionPair = promotionPair;

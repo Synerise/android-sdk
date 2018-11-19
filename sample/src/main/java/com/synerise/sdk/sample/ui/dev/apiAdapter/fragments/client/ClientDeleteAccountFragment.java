@@ -21,8 +21,6 @@ public class ClientDeleteAccountFragment extends BaseDevFragment {
 
     public static ClientDeleteAccountFragment newInstance() { return new ClientDeleteAccountFragment(); }
 
-    // ****************************************************************************************************************************************
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -41,8 +39,6 @@ public class ClientDeleteAccountFragment extends BaseDevFragment {
         super.onStop();
         if (deleteCall != null) deleteCall.cancel();
     }
-
-    // ****************************************************************************************************************************************
 
     @SuppressWarnings("ConstantConditions")
     private void getAccount() {

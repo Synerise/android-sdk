@@ -8,13 +8,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.synerise.sdk.client.Client;
-import com.synerise.sdk.client.model.Promotion;
-import com.synerise.sdk.client.model.PromotionStatus;
 import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.error.ApiError;
-import com.synerise.sdk.profile.model.promotion.PromotionDiscountType;
+import com.synerise.sdk.promotions.Promotions;
+import com.synerise.sdk.promotions.model.promotion.Promotion;
+import com.synerise.sdk.promotions.model.promotion.PromotionDiscountType;
+import com.synerise.sdk.promotions.model.promotion.PromotionImage;
+import com.synerise.sdk.promotions.model.promotion.PromotionStatus;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.BaseActivity;
 import com.synerise.sdk.sample.util.ToolbarHelper;
@@ -36,8 +37,6 @@ public class PromotionActivity extends BaseActivity {
         return intent;
     }
 
-    // ****************************************************************************************************************************************
-
     @Override
     @SuppressLint("StringFormatMatches")
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +49,9 @@ public class PromotionActivity extends BaseActivity {
         Promotion promotion = ((Promotion) (intent.getSerializableExtra(Args.SERIALIZABLE)));
         if (promotion == null) return;
 
-        List<String> images = promotion.getImages();
+        List<PromotionImage> images = promotion.getImages();
         if (!images.isEmpty())
-            ViewUtils.loadImage(images.get(0), findViewById(R.id.parallax_image), findViewById(R.id.image_progress_bar));
+            ViewUtils.loadImage(images.get(0).getUrl(), findViewById(R.id.parallax_image), findViewById(R.id.image_progress_bar));
 
         String headline = promotion.getHeadline();
         ToolbarHelper.setUpCollapsingToolbar(this, headline);
@@ -87,12 +86,10 @@ public class PromotionActivity extends BaseActivity {
         if (apiCall != null) apiCall.cancel();
     }
 
-    // ****************************************************************************************************************************************
-
     private void activatePromotion(String code) {
         Toast.makeText(this, R.string.default_activating, Toast.LENGTH_SHORT).show();
         if (apiCall != null) apiCall.cancel();
-        apiCall = Client.activatePromotionByCode(code);
+        apiCall = Promotions.activatePromotionByCode(code);
         apiCall.execute(() -> {
                             Toast.makeText(this, R.string.default_success, Toast.LENGTH_SHORT).show();
                             fab.setVisibility(GONE);

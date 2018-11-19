@@ -20,8 +20,6 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsViewHo
     private final List<Product> products;
     private final DataActionListener<Product> listener;
 
-    // ****************************************************************************************************************************************
-
     public ProductsRecyclerAdapter(Context context, DataActionListener<Product> listener) {
         this.inflater = LayoutInflater.from(context);
         this.listener = listener;
@@ -33,8 +31,6 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsViewHo
         this.listener = listener;
         this.products = products;
     }
-
-    // ****************************************************************************************************************************************
 
     @NonNull
     @Override
@@ -52,8 +48,6 @@ public class ProductsRecyclerAdapter extends RecyclerView.Adapter<ProductsViewHo
     public int getItemCount() {
         return products.size();
     }
-
-    // ****************************************************************************************************************************************
 
     public void update(List<Product> favouriteProducts) {
         products.clear();

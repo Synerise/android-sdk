@@ -34,8 +34,6 @@ public class SectionsFragment extends BaseFragment {
         return new SectionsFragment();
     }
 
-    // ****************************************************************************************************************************************
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

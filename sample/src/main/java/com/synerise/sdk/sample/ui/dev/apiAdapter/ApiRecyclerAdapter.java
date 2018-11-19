@@ -13,39 +13,21 @@ import java.util.List;
 
 public class ApiRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder<SyneriseSdkApi>> {
 
-    private static final int GROUP_VIEW_TYPE = 1;
-    private static final int API_VIEW_TYPE = 2;
-
     private final List<SyneriseSdkApi> syneriseSdkApis;
     private final DataActionListener<SyneriseSdkApi> listener;
     private final LayoutInflater inflater;
 
-    // ****************************************************************************************************************************************
-
-    public ApiRecyclerAdapter(LayoutInflater inflater,
-                              DataActionListener<SyneriseSdkApi> listener,
+    public ApiRecyclerAdapter(LayoutInflater inflater, DataActionListener<SyneriseSdkApi> listener,
                               List<SyneriseSdkApi> syneriseSdkApis) {
         this.inflater = inflater;
         this.syneriseSdkApis = syneriseSdkApis;
         this.listener = listener;
     }
 
-    // ****************************************************************************************************************************************
-
     @NonNull
     @Override
     public BaseViewHolder<SyneriseSdkApi> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == API_VIEW_TYPE)
-            return new ApiViewHolder(inflater.inflate(R.layout.item_api, parent, false), listener);
-        else
-            return new GroupApiViewHolder(inflater.inflate(R.layout.item_group_api, parent, false), listener);
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        SyneriseSdkApi syneriseSdkApi = syneriseSdkApis.get(position);
-        if (syneriseSdkApi.isGroup()) return GROUP_VIEW_TYPE;
-        else return API_VIEW_TYPE;
+        return new ApiViewHolder(inflater.inflate(R.layout.item_api, parent, false), listener);
     }
 
     @Override

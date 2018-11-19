@@ -30,8 +30,6 @@ public class SectionsPagerFragment extends BaseFragment {
         return fragment;
     }
 
-    // ****************************************************************************************************************************************
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,8 +47,6 @@ public class SectionsPagerFragment extends BaseFragment {
             }
         }
     }
-
-    // ****************************************************************************************************************************************
 
     private void setUI(View view, Section section) {
 

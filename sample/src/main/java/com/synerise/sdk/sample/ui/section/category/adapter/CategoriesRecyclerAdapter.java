@@ -19,15 +19,11 @@ public class CategoriesRecyclerAdapter extends RecyclerView.Adapter<CategoriesVi
     private final DataActionListener<Category> listener;
     private final LayoutInflater inflater;
 
-    // ****************************************************************************************************************************************
-
     public CategoriesRecyclerAdapter(Context context, DataActionListener<Category> listener, List<Category> categories) {
         this.inflater = LayoutInflater.from(context);
         this.categories = categories;
         this.listener = listener;
     }
-
-    // ****************************************************************************************************************************************
 
     @NonNull
     @Override

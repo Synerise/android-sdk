@@ -14,7 +14,6 @@ import java.util.List;
 public enum Category {
 
     // ELECTRONICS
-    // ****************************************************************************************************************************************
 
     HD_TV(R.color.persian,
           R.drawable.banner_tv,
@@ -38,7 +37,6 @@ public enum Category {
                                    Product.MICROWAVE_OVEN)),
 
     // FOOD
-    // ****************************************************************************************************************************************
 
     VEGETABLES(R.color.christi,
                R.drawable.banner_vegetables,
@@ -58,7 +56,6 @@ public enum Category {
                    createProducts(Product.MILK, Product.BUTTER, Product.BUTTER_MILK)),
 
     // FASHION
-    // ****************************************************************************************************************************************
 
     SHOES(R.color.cinnabar,
           R.drawable.banner_shoes,
@@ -80,7 +77,6 @@ public enum Category {
             createProducts(Product.NIKE_JACKET, Product.ADIDAS_JACKET)),
 
     // CULTURE
-    // ****************************************************************************************************************************************
 
     MUSIC(R.color.amaranth,
           R.drawable.banner_music,
@@ -101,13 +97,9 @@ public enum Category {
           R.string.games,
           createProducts(Product.HALO_5, Product.OVERWATCH, Product.TITANFALL_2, Product.THE_WITCHER_3));
 
-    // ****************************************************************************************************************************************
-
     private static ArrayList<Product> createProducts(Product... products) {
         return new ArrayList<>(Arrays.asList(products));
     }
-
-    // ****************************************************************************************************************************************
 
     @ColorRes private final int background;
     @DrawableRes private final int image;

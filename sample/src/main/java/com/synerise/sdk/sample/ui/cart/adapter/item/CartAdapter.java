@@ -18,15 +18,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     private final List<CartItem> cartItems = new ArrayList<>();
     private final OnCartItemListener listener;
 
-    // ****************************************************************************************************************************************
-
     public CartAdapter(LayoutInflater inflater, List<CartItem> cartItems, OnCartItemListener listener) {
         this.inflater = inflater;
         if (cartItems != null) this.cartItems.addAll(cartItems);
         this.listener = listener;
     }
-
-    // ****************************************************************************************************************************************
 
     @NonNull
     @Override

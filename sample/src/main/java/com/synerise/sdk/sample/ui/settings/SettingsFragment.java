@@ -28,8 +28,6 @@ public class SettingsFragment extends BaseFragment {
 
     public static SettingsFragment newInstance() { return new SettingsFragment(); }
 
-    // ****************************************************************************************************************************************
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

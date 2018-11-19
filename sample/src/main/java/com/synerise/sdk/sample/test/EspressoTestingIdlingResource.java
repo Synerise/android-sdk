@@ -11,8 +11,6 @@ public class EspressoTestingIdlingResource {
 
     private static CountingIdlingResource mCountingIdlingResource = new CountingIdlingResource(RESOURCE);
 
-    // ****************************************************************************************************************************************
-
     public static void increment() {
         if (BuildConfig.DEBUG) mCountingIdlingResource.increment();
     }

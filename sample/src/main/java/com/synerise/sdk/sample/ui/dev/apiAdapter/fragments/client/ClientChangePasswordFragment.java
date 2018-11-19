@@ -18,11 +18,9 @@ import com.synerise.sdk.sample.ui.dev.BaseDevFragment;
 public class ClientChangePasswordFragment extends BaseDevFragment {
 
     private IApiCall apiCall;
-    private TextInputLayout inputPassword;
+    private TextInputLayout inputOldPassword, inputPassword;
 
     public static ClientChangePasswordFragment newInstance() { return new ClientChangePasswordFragment(); }
-
-    // ****************************************************************************************************************************************
 
     @Nullable
     @Override
@@ -34,6 +32,7 @@ public class ClientChangePasswordFragment extends BaseDevFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        inputOldPassword = view.findViewById(R.id.input_old_password);
         inputPassword = view.findViewById(R.id.input_password);
         view.findViewById(R.id.change_password).setOnClickListener(v -> changePassword());
     }
@@ -44,18 +43,18 @@ public class ClientChangePasswordFragment extends BaseDevFragment {
         if (apiCall != null) apiCall.cancel();
     }
 
-    // ****************************************************************************************************************************************
-
     @SuppressWarnings("ConstantConditions")
     private void changePassword() {
 
+        inputOldPassword.setError(null);
         inputPassword.setError(null);
 
         boolean isValid = true;
 
+        String oldPassword = inputOldPassword.getEditText().getText().toString();
         String password = inputPassword.getEditText().getText().toString();
 
-        apiCall = Client.changePassword(password);
+        apiCall = Client.changePassword(oldPassword, password);
 
         if (isValid && apiCall != null) {
             apiCall.cancel();

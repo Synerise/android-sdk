@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="space_micro">2dp</dimen>
     <dimen name="space_mini">10dp</dimen>
     <dimen name="space_small">20dp</dimen>
     <dimen name="space_content">32dp</dimen>
@@ -12,8 +11,6 @@
 
     <dimen name="image_small">150dp</dimen>
     <dimen name="image_medium">200dp</dimen>
-    <dimen name="image_large">250dp</dimen>
-    <dimen name="image_huge">400dp</dimen>
 
     <dimen name="parallax_header_height">400dp</dimen>
     <dimen name="category_card_view_height">300dp</dimen>

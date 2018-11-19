@@ -19,8 +19,6 @@ public class ClientGetTokenFragment extends BaseDevFragment {
 
     public static ClientGetTokenFragment newInstance() { return new ClientGetTokenFragment(); }
 
-    // ****************************************************************************************************************************************
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,8 +37,6 @@ public class ClientGetTokenFragment extends BaseDevFragment {
         super.onStop();
         if (getTokenCall != null) getTokenCall.cancel();
     }
-
-    // ****************************************************************************************************************************************
 
     @SuppressWarnings("ConstantConditions")
     private void getToken() {

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,7 @@ import android.view.ViewGroup;
 import com.synerise.sdk.client.Client;
 import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IApiCall;
-import com.synerise.sdk.core.utils.ValidationUtils;
 import com.synerise.sdk.error.ApiError;
-import com.synerise.sdk.injector.net.exception.InvalidPhoneNumberException;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.dev.BaseDevFragment;
 
@@ -24,8 +23,6 @@ public class ClientConfirmPhoneUpdateFragment extends BaseDevFragment {
     private TextInputLayout inputCode;
 
     public static ClientConfirmPhoneUpdateFragment newInstance() { return new ClientConfirmPhoneUpdateFragment(); }
-
-    // ****************************************************************************************************************************************
 
     @Nullable
     @Override
@@ -48,12 +45,9 @@ public class ClientConfirmPhoneUpdateFragment extends BaseDevFragment {
         if (apiCall != null) apiCall.cancel();
     }
 
-    // ****************************************************************************************************************************************
-
     @SuppressWarnings("ConstantConditions")
     private void confirmPhoneUpdate() {
 
-        inputPhone.setError(null);
         inputCode.setError(null);
 
         boolean isValid = true;
@@ -61,20 +55,14 @@ public class ClientConfirmPhoneUpdateFragment extends BaseDevFragment {
         String phone = inputPhone.getEditText().getText().toString();
         String code = inputCode.getEditText().getText().toString();
 
-        try {
-            apiCall = Client.confirmPhoneUpdate(phone, code);
-        } catch (InvalidPhoneNumberException e) {
-            isValid = false;
-            inputPhone.setError(getString(R.string.error_invalid_phone));
-        }
-
-        if (ValidationUtils.isEmpty(code)) {
+        if (TextUtils.isEmpty(code)) {
             isValid = false;
             inputCode.setError(getString(R.string.error_empty));
         }
 
         if (isValid && apiCall != null) {
             apiCall.cancel();
+            apiCall = Client.confirmPhoneUpdate(phone, code);
             apiCall.execute(this::onSuccess, new DataActionListener<ApiError>() {
                 @Override
                 public void onDataAction(ApiError apiError) {

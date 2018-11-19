@@ -20,8 +20,6 @@ class CategoriesViewHolder extends RecyclerView.ViewHolder {
     private final Context context;
     private Category category;
 
-    // ****************************************************************************************************************************************
-
     CategoriesViewHolder(View itemView, DataActionListener<Category> listener) {
         super(itemView);
         this.context = itemView.getContext();
@@ -31,8 +29,6 @@ class CategoriesViewHolder extends RecyclerView.ViewHolder {
         this.image = itemView.findViewById(R.id.category_image);
         this.name = itemView.findViewById(R.id.category_name);
     }
-
-    // ****************************************************************************************************************************************
 
     void populateData(Category category) {
         this.category = category;

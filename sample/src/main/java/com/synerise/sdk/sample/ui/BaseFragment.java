@@ -19,8 +19,6 @@ public class BaseFragment extends Fragment {
         String CONTENT = "content";
     }
 
-    // ****************************************************************************************************************************************
-
     protected void showAlertError(ApiError apiError) {
         FragmentActivity context = getActivity();
         if (context != null && apiError != null) {

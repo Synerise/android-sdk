@@ -15,8 +15,6 @@ public class ShakeDetector implements SensorEventListener {
     private long shakeTimestamp;
     private int shakeCount;
 
-    // ****************************************************************************************************************************************
-
     public ShakeDetector(OnShakeListener listener) {
         this.shakeListener = listener;
     }
@@ -24,8 +22,6 @@ public class ShakeDetector implements SensorEventListener {
     public interface OnShakeListener {
         void onShake(int count);
     }
-
-    // ****************************************************************************************************************************************
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {

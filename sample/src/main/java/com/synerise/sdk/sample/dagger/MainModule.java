@@ -20,20 +20,14 @@ public class MainModule {
 
     private final Application app;
 
-    // ****************************************************************************************************************************************
-
     public MainModule(Application app) {
         this.app = app;
     }
-
-    // ****************************************************************************************************************************************
 
     @Provides
     Context provideAppContext() {
         return app.getApplicationContext();
     }
-
-    // ****************************************************************************************************************************************
 
     @Singleton
     @Provides
@@ -45,19 +39,15 @@ public class MainModule {
                 .create();
     }
 
-    // ****************************************************************************************************************************************
-
     @Singleton
     @Provides
     IPrefsStorage provideSharedPrefsStorage(Context context, Gson gson) {
         return new SharedPrefsStorage(context, gson);
     }
 
-    // ****************************************************************************************************************************************
-
     @Singleton
     @Provides
-    AccountManager provideAccountManager(Context context, IPrefsStorage storage) {
-        return new AccountManager(context, storage);
+    AccountManager provideAccountManager(IPrefsStorage storage) {
+        return new AccountManager(storage);
     }
 }
