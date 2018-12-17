@@ -17,52 +17,52 @@ import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.test.EspressoTestingIdlingResource;
 import com.synerise.sdk.sample.ui.dev.BaseDevFragment;
 
-public class ClientDeleteAccountFragment extends BaseDevFragment {
+public class DevConfirmClientFragment extends BaseDevFragment {
 
-    private IApiCall deleteCall;
-    private TextInputLayout inputPassword;
+    private TextInputLayout inputToken;
 
-    public static ClientDeleteAccountFragment newInstance() { return new ClientDeleteAccountFragment(); }
+    private IApiCall call;
+
+    public static DevConfirmClientFragment newInstance() { return new DevConfirmClientFragment(); }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_client_delete_account, container, false);
+        return inflater.inflate(R.layout.fragment_profile_confirm_client, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        inputPassword = view.findViewById(R.id.input_password);
-        view.findViewById(R.id.delete_account).setOnClickListener(v -> deleteAccount());
+        inputToken = view.findViewById(R.id.input_token_confirm);
+        view.findViewById(R.id.confirm_client).setOnClickListener(v -> confirmClient());
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (deleteCall != null) deleteCall.cancel();
+        if (call != null) call.cancel();
     }
 
     @SuppressWarnings("ConstantConditions")
-    private void deleteAccount() {
-
+    private void confirmClient() {
         boolean isValid = true;
 
-        inputPassword.setError(null);
+        inputToken.setError(null);
 
-        String password = inputPassword.getEditText().getText().toString();
+        String token = inputToken.getEditText().getText().toString();
 
-        if (TextUtils.isEmpty(password)) {
-            inputPassword.setError(getString(R.string.error_empty));
+        if (TextUtils.isEmpty(token)) {
+            inputToken.setError(getString(R.string.error_empty));
             isValid = false;
         }
 
         if (isValid) {
-            if (deleteCall != null) deleteCall.cancel();
-            deleteCall = Client.deleteAccount(password);
+            if (call != null) call.cancel();
+            call = Client.confirmAccount(token);
             EspressoTestingIdlingResource.increment();
-            deleteCall.execute(this::onSuccess, new DataActionListener<ApiError>() {
+            call.execute(this::onSuccess, new DataActionListener<ApiError>() {
                 @Override
                 public void onDataAction(ApiError apiError) {
                     onFailure(apiError);

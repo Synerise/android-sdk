@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.synerise.sdk.client.Client;
 import com.synerise.sdk.client.model.client.RegisterClient;
@@ -116,7 +117,7 @@ public class SignUpActivity extends BaseActivity implements OnPhoneConfirmedList
     }
 
     private void onSignUpSuccessful() {
-        Snackbar.make(textLogin, R.string.sign_up_email_success, Snackbar.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.sign_up_email_success, Toast.LENGTH_SHORT).show();
         finish();
     }
 

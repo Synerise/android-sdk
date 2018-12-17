@@ -15,6 +15,7 @@ import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientGetToken
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientRequestPhoneUpdateFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientUpdateAccountFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.DevActivateClientFragment;
+import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.DevConfirmClientFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.DevConfirmResetFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.DevRegisterClientFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.DevResetPasswordFragment;
@@ -61,6 +62,8 @@ public class FragmentContainerActivity extends BaseActivity {
                 return DevRegisterClientFragment.newInstance();
             case ACTIVATE_CLIENT:
                 return DevActivateClientFragment.newInstance();
+            case CONFIRM_CLIENT:
+                return DevConfirmClientFragment.newInstance();
             case RESET_PASSWORD:
                 return DevResetPasswordFragment.newInstance();
             case CONFIRM_RESET:

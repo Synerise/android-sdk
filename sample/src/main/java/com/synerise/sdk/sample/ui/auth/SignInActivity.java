@@ -4,11 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -182,7 +182,7 @@ public class SignInActivity extends BaseActivity {
         accountManager.setUserName(accountInformation.getFirstName());
         accountManager.setUserLastName(accountInformation.getLastName());
         toggleLoading(false);
-        Snackbar.make(textLogin, R.string.default_success, Snackbar.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.default_success, Toast.LENGTH_SHORT).show();
         setResult(RESULT_OK);
         finish();
     }

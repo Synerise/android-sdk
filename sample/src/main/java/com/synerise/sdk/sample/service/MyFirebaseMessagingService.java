@@ -26,6 +26,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = MyFirebaseMessagingService.class.getSimpleName();
 
+    public static final String CHANNEL_ID = "synerise_sample_channel_id";
+    public static final String CHANNEL_NAME = "Synerise Sample";
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
@@ -56,7 +59,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         // mandatory for Android O
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                             notificationManager.createNotificationChannel(
-                                    new NotificationChannel("my_channel_id", "my_channel_name", NotificationManager.IMPORTANCE_HIGH));
+                                    new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH));
                         }
                         notificationManager.notify(new Random(System.currentTimeMillis()).nextInt(Integer.MAX_VALUE), builder.build());
                     }

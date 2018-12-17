@@ -8,42 +8,25 @@
     android:padding="@dimen/space_large">
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_email_register"
+        android:id="@+id/input_token_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/provide_client_email"
+        android:hint="@string/provide_token"
         app:errorEnabled="true"
         app:hintAnimationEnabled="true">
 
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
-
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_password_register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/provide_password"
-        app:errorEnabled="true"
-        app:hintAnimationEnabled="true"
-        app:passwordToggleEnabled="true">
-
-        <android.support.design.widget.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:inputType="text" />
 
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/register_client"
+        android:id="@+id/confirm_client"
         style="@style/ButtonPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_content"
-        android:text="@string/profile_client_register" />
+        android:text="@string/profile_client_confirm" />
 
 </LinearLayout>

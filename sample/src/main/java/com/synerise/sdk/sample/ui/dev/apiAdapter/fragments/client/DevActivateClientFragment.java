@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,15 +47,27 @@ public class DevActivateClientFragment extends BaseDevFragment {
 
     @SuppressWarnings("ConstantConditions")
     private void activateClient() {
-        if (call != null) call.cancel();
+        boolean isValid = true;
+
+        inputEmail.setError(null);
+
         String email = inputEmail.getEditText().getText().toString();
-        call = Client.activateAccount(email);
-        EspressoTestingIdlingResource.increment();
-        call.execute(this::onSuccess, new DataActionListener<ApiError>() {
-            @Override
-            public void onDataAction(ApiError apiError) {
-                onFailure(apiError);
-            }
-        });
+
+        if (TextUtils.isEmpty(email)) {
+            inputEmail.setError(getString(R.string.error_empty));
+            isValid = false;
+        }
+
+        if (isValid) {
+            if (call != null) call.cancel();
+            call = Client.activateAccount(email);
+            EspressoTestingIdlingResource.increment();
+            call.execute(this::onSuccess, new DataActionListener<ApiError>() {
+                @Override
+                public void onDataAction(ApiError apiError) {
+                    onFailure(apiError);
+                }
+            });
+        }
     }
 }

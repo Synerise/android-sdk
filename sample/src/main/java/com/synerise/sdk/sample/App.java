@@ -31,6 +31,8 @@ import javax.inject.Inject;
 import io.fabric.sdk.android.Fabric;
 
 import static com.synerise.sdk.event.BaseViewAspect.TrackMode.FINE;
+import static com.synerise.sdk.sample.service.MyFirebaseMessagingService.CHANNEL_ID;
+import static com.synerise.sdk.sample.service.MyFirebaseMessagingService.CHANNEL_NAME;
 
 public class App extends MultiDexApplication
         implements OnInjectorListener, // optional action callback
@@ -79,7 +81,8 @@ public class App extends MultiDexApplication
                         .injectorAutomatic(true)
                         .pushRegistrationRequired(this)
                         .locationUpdateRequired(this)
-                        .notificationChannelName("testChannelName")
+                        .notificationChannelId(CHANNEL_ID)
+                        .notificationChannelName(CHANNEL_NAME)
                         .baseUrl(null)
                         //.customClientConfig(new CustomClientAuthConfig("http://your-base-url.com"))
                         .build();

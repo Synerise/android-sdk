@@ -7,7 +7,6 @@ import android.support.design.widget.TextInputLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 
 import com.synerise.sdk.client.Client;
 import com.synerise.sdk.client.model.client.RegisterClient;
@@ -22,7 +21,6 @@ public class DevRegisterClientFragment extends BaseDevFragment {
 
     private TextInputLayout inputEmail;
     private TextInputLayout inputPassword;
-    private CheckBox registerWithoutActivation;
 
     private IApiCall call;
 
@@ -40,7 +38,6 @@ public class DevRegisterClientFragment extends BaseDevFragment {
 
         inputEmail = view.findViewById(R.id.input_email_register);
         inputPassword = view.findViewById(R.id.input_password_register);
-        registerWithoutActivation = view.findViewById(R.id.register_without_activation);
         view.findViewById(R.id.register_client).setOnClickListener(v -> registerClient());
     }
 
@@ -56,9 +53,7 @@ public class DevRegisterClientFragment extends BaseDevFragment {
         String password = inputPassword.getEditText().getText().toString();
         RegisterClient registerClient = new RegisterClient().setEmail(email).setPassword(password);
         if (call != null) call.cancel();
-        call = registerWithoutActivation.isChecked() ?
-                Client.registerAccountWithoutActivation(registerClient) :
-                Client.registerAccount(registerClient);
+        call = Client.registerAccount(registerClient);
         EspressoTestingIdlingResource.increment();
         call.execute(this::onSuccess, new DataActionListener<ApiError>() {
             @Override

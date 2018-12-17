@@ -1,6 +1,21 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.3.1] - 2018-12-18
+### Added
+- `Synerise.notificationChannelId(String)` method
+- `Client.confirmAccount(String)` method
+
+### Changed
+- Unknown notification priority is now treated with default importance
+- `Client.deleteAccount()` from now requires client's password
+
+### Fixed
+- `Promotions.getPromotions` method from now handles empty lists
+
+### Removed
+- `Client.registerAccountWithoutActivation` method. Now you can use `Client.registerAccount` and control behaviour from the backend
+
 ## [3.3.0] - 2018-11-19
 ### Added
 - `Promotions` module

@@ -22,6 +22,7 @@ public class BaseFragment extends Fragment {
     protected void showAlertError(ApiError apiError) {
         FragmentActivity context = getActivity();
         if (context != null && apiError != null) {
+            apiError.printStackTrace();
             ApiErrorBody errorBody = apiError.getErrorBody();
             int httpCode = apiError.getHttpCode();
             AlertDialog.Builder dialog = new AlertDialog.Builder(context).setIcon(R.drawable.sygnet_synerise);

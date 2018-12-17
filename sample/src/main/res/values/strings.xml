@@ -365,4 +365,5 @@
     <string name="hint_limit">Limit</string>
     <string name="hint_page">Page number</string>
     <string name="error_invalid_value">Invalid value</string>
+    <string name="profile_client_confirm">Confirm client</string>
 </resources>

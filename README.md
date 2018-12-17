@@ -44,7 +44,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.0'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.1'
 }
 ```
 Finally, please make sure your `Instant Run` is disabled.
@@ -84,7 +84,8 @@ public class App extends Application {
                         .injectorAutomatic(false)
                         .pushRegistrationRequired(this)
                         .locationUpdateRequired(this)
-                        .notificationChannelName("testChannelName")
+                        .notificationChannelId("your-channel-id")
+                        .notificationChannelName("your-channel-name")
                         .baseUrl("http://your-base-url.com/")
                         .customClientConfig(new CustomClientAuthConfig("http://your-base-url.com/"))
                         .build();
@@ -120,10 +121,11 @@ Also, a default icon will be used if there is no custom icon provided.
 9. `.injectorAutomatic(boolean)` - simple flag may be provided to enable automatic mode in injector. See Injector section for more information.
 10. `.pushRegistrationRequired(OnRegisterForPushListener)` - Synerise SDK may request you to register client for push notifications. This callback is called at after client signs in, signs up or deletes account.
 11. `.locationUpdateRequired(OnLocationUpdateListener)` - this callback is called on demand via push notification, so it may be called at any point of time.
-12. `.notificationChannelName(String)` - sets name of Push Notification Channel. For more info please check Injector section below.
-13. `.baseUrl(String)` - you can provide your custom base URL to use your own API.
-14. `.customClientConfig(CustomClientAuthConfig)` - you can also provide your custom Client `Authorization Configuration`. At this moment, configuration handles `Base URL` changes.
-15. `.build()` - builds Synerise SDK with provided data. Please note, that `Synerise.Builder.with(..)` method is mandatory and `Synerise.Builder.build()` method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.<br>
+12. `.notificationChannelId(String)` - sets id of Push Notification Channel. For more info please check Injector section below.
+13. `.notificationChannelName(String)` - sets name of Push Notification Channel. For more info please check Injector section below.
+14. `.baseUrl(String)` - you can provide your custom base URL to use your own API.
+15. `.customClientConfig(CustomClientAuthConfig)` - you can also provide your custom Client `Authorization Configuration`. At this moment, configuration handles `Base URL` changes.
+16. `.build()` - builds Synerise SDK with provided data. Please note, that `Synerise.Builder.with(..)` method is mandatory and `Synerise.Builder.build()` method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.<br>
 
 ### Errors
 
@@ -447,8 +449,7 @@ private void signIn(String email, String password) {
 ```
 
 #### Client.signOut()
-Signing client out clears email, id and generates new UUID for anonymous one.<br>
-It also clears client's JWT token.
+Signing client out clears client's JWT token.
 ```
 private void signOut() {
     Client.signOut();
@@ -484,23 +485,6 @@ private void signUp(RegisterClient registerClient, String name, String lastName)
 }
 ```
 
-#### Client.registerAccountWithoutActivation(registerClient)
-Register new Client with email, password and optional data.
-This method requires `RegisterClient` Builder Pattern object with client's email, password and optional data. Not provided fields are not modified.
-Method returns `IApiCall` object to execute request. Remember that account registered with this method becomes active without email verification.<br>
-Please note that you should NOT allow to sign in again (or sign up) when user is already signed in. Please sign out user first.<br>
-Moreover, please do not create multiple instances nor call this method multiple times before execution.
-This method is a global operation and does not require authorization.
-```
-private void signUp(RegisterClient registerClient, String name, String lastName) {
-    if (signUpCall != null) signUpCall.cancel();
-    signUpCall = Client.registerAccountWithoutActivation(registerClient.setFirstName(name).setLastName(lastName));
-    signUpCall.onSubscribe(() -> toggleLoading(true))
-              .doFinally(() -> toggleLoading(false))
-              .execute(this::onSignUpSuccessful, this::onSignUpFailure);
-}
-```
-
 #### Client.activateAccount(email)
 Activate client with email.
 This method requires client's email.
@@ -510,6 +494,19 @@ This method is a global operation and does not require authorization.
 private void activateAccount(String email){
     if(call != null) call.cancel()
     call = Client.activateAccount(email);
+    call.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Client.confirmAccount(token)
+Confirm client's account with token.<br>
+Method returns 400 http status code if account is already confirmed or 404 if account does not exist.
+Method returns `IApiCall` object to execute request.
+This method is a global operation and does not require authorization.
+```
+private void confirmAccount(String token){
+    if(call != null) call.cancel()
+    call = Client.confirmAccount(token);
     call.execute(this::onSuccess, this::onError);
 }
 ```
@@ -567,13 +564,14 @@ private void updateAccount(String city, String company) {
 }
 ```
 
-#### Client.deleteAccount()
-Use this method to delete client's account.
+#### Client.deleteAccount(password)
+Use this method to delete client's account.<br>
+403 http status code will be returned if provided password is invalid.
 Method returns `IApiCall` to execute request.
 ```
-private void deleteAccount() {
+private void deleteAccount(String password) {
    if (deleteCall != null) deleteCall.cancel();
-   deleteCall = Client.deleteAccount();
+   deleteCall = Client.deleteAccount(password);
    deleteCall.execute(this::onSuccess, this::onError);
 }
 ```
@@ -840,7 +838,9 @@ Please remember to register your service in AndroidManifest as follows:
 ```
 ### Notification channel
 Starting in Android 8.0 (API level 26), all notifications must be assigned to a channel or it will not appear.<br>
-Due to this your notifications will be grouped in a channel. If you want to set name for this channel use `notificationChannelName(String)` method of Builder during SDK initialization. <br>
+Due to this your notifications will be grouped in a channel.<br>
+If you want to set id for this channel use `notificationChannelId(String)` method of Builder during SDK initialization.
+If you want to set name for this channel use `notificationChannelName(String)` method of Builder during SDK initialization. <br>
 By default channel name is set to your application name.
 
 ### Campaign banner
