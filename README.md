@@ -44,7 +44,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.1'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.2'
 }
 ```
 Finally, please make sure your `Instant Run` is disabled.
@@ -84,6 +84,7 @@ public class App extends Application {
                         .injectorAutomatic(false)
                         .pushRegistrationRequired(this)
                         .locationUpdateRequired(this)
+                        .locationAutomatic(true)
                         .notificationChannelId("your-channel-id")
                         .notificationChannelName("your-channel-name")
                         .baseUrl("http://your-base-url.com/")
@@ -121,6 +122,7 @@ Also, a default icon will be used if there is no custom icon provided.
 9. `.injectorAutomatic(boolean)` - simple flag may be provided to enable automatic mode in injector. See Injector section for more information.
 10. `.pushRegistrationRequired(OnRegisterForPushListener)` - Synerise SDK may request you to register client for push notifications. This callback is called at after client signs in, signs up or deletes account.
 11. `.locationUpdateRequired(OnLocationUpdateListener)` - this callback is called on demand via push notification, so it may be called at any point of time.
+12. `.locationAutomatic(boolean)` - to obtain user location and send location event automatically.
 12. `.notificationChannelId(String)` - sets id of Push Notification Channel. For more info please check Injector section below.
 13. `.notificationChannelName(String)` - sets name of Push Notification Channel. For more info please check Injector section below.
 14. `.baseUrl(String)` - you can provide your custom base URL to use your own API.
@@ -176,8 +178,11 @@ Sometimes AndroidManifest Merger errors may occur. In that case please paste fol
     ...
     tools:replace="android:theme">
 ```
-in your AndroidManifest application tag.
-
+in your AndroidManifest application tag. <br>
+Also, if your app did not ask for location permission, remove it from your app with:
+```
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" tools:node="remove"/>
+```
 ## Tracker
 
 ### View tracking
@@ -1105,7 +1110,6 @@ Synerise SDK has already implemented methods. For now the only one is requesting
 #### Silent Localization Command
 To request localization let your Application class implement OnLocationUpdateListener and also provide
 it to Synerise Builder.
-
 ```
 public class App extends MultiDexApplication implements OnLocationUpdateListener {
 
@@ -1128,14 +1132,13 @@ public class App extends MultiDexApplication implements OnLocationUpdateListener
     }
 }
 ```
-
 Now anytime you send below frame from `app.synerise.com` then your application will receive callback onLocationUpdateRequired where your app can get device location.
 For example implementation check our sample application.
 ```
 "data": {
     "issuer": "Synerise",
     "message-type": "dynamic-content",
-    "content-type": "silent-command",
+    "content-type": "silent-sdk-command",
     "content": {
         "class_name": "com.synerise.sdk.injector.Injector",
         "method_name": "GET_LOCATION",
@@ -1143,9 +1146,13 @@ For example implementation check our sample application.
     }
 }
 ```
-Note that incoming silent push command will awake or launch you application in the background which causes in SDK initialization.<br>
-It means, for instance, that `AppStartedEvent` will be sent and/or banners will get fetched.
-
+Note that incoming silent push command will awake or launch you application in the background which causes in SDK initialization (if not already).<br>
+It means, for instance, that `AppStartedEvent` will be sent and/or banners will get fetched.<br>
+In addition, location event may be sent automatically on demand. It is done with `Synerise.locationAutomatic(boolean)` initialization method.
+Note, that Synerise SDK asks for `ACCESS_FINE_LOCATION` permission. To remove this permission from your application, use following solution in your AndroidManifest:
+```
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" tools:node="remove"/>
+```
 ### Walkthrough
 Synerise SDK provides multiple functionalities within Walkthrough implementation.<br>
 First of all, you are able to specify Walkthrough behavior the moment SDK initializes:

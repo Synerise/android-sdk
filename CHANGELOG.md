@@ -1,6 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.3.2] - 2019-01-01
+### Added
+- `Synerise.locationAutomatic(boolean)` method to obtain user location and send location event automatically.
+
+### Changed
+- RxJava2 version updated to 2.2.4
+
+### Fixed
+- `UndeliverableException` exceptions won't be thrown (via setting error handler with `RxJavaPlugins`)
+
 ## [3.3.1] - 2018-12-18
 ### Added
 - `Synerise.notificationChannelId(String)` method

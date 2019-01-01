@@ -23,7 +23,6 @@ import com.synerise.sdk.sample.dagger.ConfigModule;
 import com.synerise.sdk.sample.dagger.DaggerAppComponent;
 import com.synerise.sdk.sample.dagger.MainModule;
 import com.synerise.sdk.sample.persistence.AccountManager;
-import com.synerise.sdk.sample.service.LocationService;
 import com.synerise.sdk.sample.util.FirebaseIdChangeBroadcastReceiver;
 
 import javax.inject.Inject;
@@ -81,6 +80,7 @@ public class App extends MultiDexApplication
                         .injectorAutomatic(true)
                         .pushRegistrationRequired(this)
                         .locationUpdateRequired(this)
+                        .locationAutomatic(true)
                         .notificationChannelId(CHANNEL_ID)
                         .notificationChannelName(CHANNEL_NAME)
                         .baseUrl(null)
@@ -94,7 +94,8 @@ public class App extends MultiDexApplication
 
     @Override
     public void onLocationUpdateRequired() {
-        LocationService.startLocation(this);
+        // allow SDK to send location event automatically
+        // LocationService.startLocation(this);
     }
 
     @Override

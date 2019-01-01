@@ -221,7 +221,7 @@ public final class QRScannerActivity extends BaseActivity implements BarcodeGrap
     }
 
     private void requestCameraPermission() {
-        final String[] permissions = new String[]{Manifest.permission.CAMERA};
+        final String[] permissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION};
 
         if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
             ActivityCompat.requestPermissions(this, permissions, CAMERA_PERMISSION);

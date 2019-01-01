@@ -33,7 +33,7 @@ allprojects {
 
 ext {
     supportVersion = '27.1.1'
-    rxJavaVersion = '2.1.16'
+    rxJavaVersion = '2.2.4'
     rxAndroidVersion = '2.0.2'
     okHttpVersion = '3.10.0'
     retrofitVersion = '2.4.0'

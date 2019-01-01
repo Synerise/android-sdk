@@ -1,15 +1,12 @@
 package com.synerise.sdk.sample.service;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.JobIntentService;
-import android.util.Log;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -23,6 +20,9 @@ import com.synerise.sdk.event.model.interaction.AppearedInLocationEvent;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public class LocationService extends JobIntentService {
 
@@ -54,8 +54,7 @@ public class LocationService extends JobIntentService {
     private void startLocationUpdates() {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.e("LocationTag", "No permissions for location updates");
+        if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PERMISSION_GRANTED) {
             return;
         }
 
@@ -79,7 +78,6 @@ public class LocationService extends JobIntentService {
                                                          result.getLongitude()));
         } catch (ExecutionException | InterruptedException | TimeoutException e) {
             e.printStackTrace();
-            Log.e("LocationTag", "LocationResult Task await failed");
         }
     }
 
