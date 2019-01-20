@@ -22,6 +22,8 @@ public enum SyneriseSdkApi {
     CLIENT_GET_TOKEN(R.string.get_token),
     REQUEST_PHONE_UPDATE(R.string.client_phone_update),
     CONFIRM_PHONE_UPDATE(R.string.client_confirm_phone_update),
+    REQUEST_EMAIL_CHANGE(R.string.client_request_email_change),
+    CONFIRM_EMAIL_CHANGE(R.string.client_confirm_email_change),
 
     // PROMOTIONS API
     CLIENT_GET_PROMOTIONS(R.string.client_get_promotions),
@@ -33,7 +35,8 @@ public enum SyneriseSdkApi {
     CLIENT_ASSIGN_VOUCHER_CODE(R.string.assign_voucher_code),
     CLIENT_GET_ASSIGNED_VOUCHER_CODES(R.string.get_assigned_voucher_codes);
 
-    @StringRes private final int title;
+    @StringRes
+    private final int title;
 
     SyneriseSdkApi(@StringRes int title) {
         this.title = title;
@@ -46,27 +49,29 @@ public enum SyneriseSdkApi {
 
     public static List<SyneriseSdkApi> getClientApis() {
         return Arrays.asList(GET_ACCOUNT,
-                             REGISTER_CLIENT,
-                             ACTIVATE_CLIENT,
-                             CONFIRM_CLIENT,
-                             RESET_PASSWORD,
-                             CONFIRM_RESET,
-                             UPDATE_ACCOUNT,
-                             DELETE_ACCOUNT,
-                             CHANGE_PASSWORD,
-                             CLIENT_GET_TOKEN,
-                             REQUEST_PHONE_UPDATE,
-                             CONFIRM_PHONE_UPDATE);
+                REGISTER_CLIENT,
+                ACTIVATE_CLIENT,
+                CONFIRM_CLIENT,
+                RESET_PASSWORD,
+                CONFIRM_RESET,
+                UPDATE_ACCOUNT,
+                DELETE_ACCOUNT,
+                CHANGE_PASSWORD,
+                CLIENT_GET_TOKEN,
+                REQUEST_PHONE_UPDATE,
+                CONFIRM_PHONE_UPDATE,
+                REQUEST_EMAIL_CHANGE,
+                CONFIRM_EMAIL_CHANGE);
     }
 
     public static List<SyneriseSdkApi> getPromotionApis() {
         return Arrays.asList(CLIENT_GET_PROMOTIONS,
-                             ACTIVATE_PROMOTION_BY_UUID,
-                             ACTIVATE_PROMOTION_BY_CODE,
-                             DEACTIVATE_PROMOTION_BY_CODE,
-                             DEACTIVATE_PROMOTION_BY_UUID,
-                             CLIENT_GET_OR_ASSIGN_VOUCHER,
-                             CLIENT_ASSIGN_VOUCHER_CODE,
-                             CLIENT_GET_ASSIGNED_VOUCHER_CODES);
+                ACTIVATE_PROMOTION_BY_UUID,
+                ACTIVATE_PROMOTION_BY_CODE,
+                DEACTIVATE_PROMOTION_BY_CODE,
+                DEACTIVATE_PROMOTION_BY_UUID,
+                CLIENT_GET_OR_ASSIGN_VOUCHER,
+                CLIENT_ASSIGN_VOUCHER_CODE,
+                CLIENT_GET_ASSIGNED_VOUCHER_CODES);
     }
 }

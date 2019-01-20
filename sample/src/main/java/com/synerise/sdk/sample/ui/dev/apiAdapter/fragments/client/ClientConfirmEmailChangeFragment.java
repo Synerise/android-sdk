@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 
 import com.synerise.sdk.client.Client;
 import com.synerise.sdk.core.listeners.DataActionListener;
@@ -16,29 +17,30 @@ import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.dev.BaseDevFragment;
 
-public class ClientConfirmPhoneUpdateFragment extends BaseDevFragment {
+public class ClientConfirmEmailChangeFragment extends BaseDevFragment {
 
     private IApiCall apiCall;
-    private TextInputLayout inputPhone;
-    private TextInputLayout inputCode;
+    private TextInputLayout inputPassword, inputToken;
+    private CheckBox newsletterAgreement;
 
-    public static ClientConfirmPhoneUpdateFragment newInstance() {
-        return new ClientConfirmPhoneUpdateFragment();
+    public static ClientConfirmEmailChangeFragment newInstance() {
+        return new ClientConfirmEmailChangeFragment();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_client_confirm_phone_update, container, false);
+        return inflater.inflate(R.layout.fragment_client_confirm_email_change, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        inputPhone = view.findViewById(R.id.input_phone);
-        inputCode = view.findViewById(R.id.input_code);
-        view.findViewById(R.id.phone_update).setOnClickListener(v -> confirmPhoneUpdate());
+        inputPassword = view.findViewById(R.id.input_password);
+        inputToken = view.findViewById(R.id.input_token);
+        newsletterAgreement = view.findViewById(R.id.newsletter_agreement);
+        view.findViewById(R.id.email_change).setOnClickListener(v -> confirmEmailChange());
     }
 
     @Override
@@ -48,23 +50,29 @@ public class ClientConfirmPhoneUpdateFragment extends BaseDevFragment {
     }
 
     @SuppressWarnings("ConstantConditions")
-    private void confirmPhoneUpdate() {
+    private void confirmEmailChange() {
 
-        inputCode.setError(null);
+        inputPassword.setError(null);
+        inputToken.setError(null);
 
         boolean isValid = true;
 
-        String phone = inputPhone.getEditText().getText().toString();
-        String code = inputCode.getEditText().getText().toString();
+        String password = inputPassword.getEditText().getText().toString();
+        String token = inputToken.getEditText().getText().toString();
 
-        if (TextUtils.isEmpty(code)) {
+        if (TextUtils.isEmpty(password)) {
             isValid = false;
-            inputCode.setError(getString(R.string.error_empty));
+            inputPassword.setError(getString(R.string.error_empty));
+        }
+
+        if (TextUtils.isEmpty(token)) {
+            isValid = false;
+            inputToken.setError(getString(R.string.error_empty));
         }
 
         if (isValid) {
             if (apiCall != null) apiCall.cancel();
-            apiCall = Client.confirmPhoneUpdate(phone, code);
+            apiCall = Client.confirmEmailChange(password, token, newsletterAgreement.isChecked());
             apiCall.execute(this::onSuccess, new DataActionListener<ApiError>() {
                 @Override
                 public void onDataAction(ApiError apiError) {

@@ -53,7 +53,7 @@
     <string name="provide_client_email">Client\'s email</string>
     <string name="profile_password_reset">Reset Password</string>
     <string name="provide_new_password">New password</string>
-    <string name="provide_token">Confirmation token</string>
+    <string name="provide_confirmation_token">Confirmation token</string>
     <string name="profile_password_confirm">Confirm Reset Password</string>
     <string name="get_token">Get token</string>
 
@@ -366,4 +366,8 @@
     <string name="hint_page">Page number</string>
     <string name="error_invalid_value">Invalid value</string>
     <string name="profile_client_confirm">Confirm client</string>
+    <string name="client_request_email_change">Request email change</string>
+    <string name="client_confirm_email_change">Confirm email change</string>
+    <string name="newsletter_agreement">Newsletter agreement</string>
+    <string name="get_sdk_uuid">Get UUID from SDK</string>
 </resources>

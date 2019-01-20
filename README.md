@@ -44,7 +44,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.2'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.3'
 }
 ```
 Finally, please make sure your `Instant Run` is disabled.
@@ -428,7 +428,7 @@ This example shows sample way to handle API error:
     }
 ```
 But obviously you can handle API errors your way.<br>
-`ApiErrorBody` provides attributes like `error`, `message`, `path`, `timestamp`, `status` and list of causes `errors`.<br>
+`ApiErrorBody` provides attributes like `error`, `message`, `path`, `status` and list of causes `errors`.<br>
 `ApiErrorCause` provides attributes like `field`, `code`, `message`, `rejectedValue`.
 
 ## Client
@@ -469,6 +469,20 @@ This method is a global operation and does not require authorization.
 private void authenticateByFacebook(String facebookToken) {
     if (apiCall != null) apiCall.cancel();
     apiCall = Client.authenticateByFacebook(facebookToken);
+    apiCall.execute(success -> onSuccess(), this::onError);
+}
+```
+
+#### Client.authenticateByFacebookRegistered()
+Use this method to sign in with already registered Facebook account.<br>
+Note, that 401 http status code is returned if there is no associated account with provided facebook token.
+This method is a global operation and does not require authorization.<br>
+This method returns `IApiCall` object to execute request.
+This method is a global operation and does not require authorization.
+```
+private void authenticateByFacebookRegistered(String facebookToken) {
+    if (apiCall != null) apiCall.cancel();
+    apiCall = Client.authenticateByFacebookRegistered(facebookToken);
     apiCall.execute(success -> onSuccess(), this::onError);
 }
 ```
@@ -569,6 +583,20 @@ private void updateAccount(String city, String company) {
 }
 ```
 
+#### Client.deleteAccountByFacebook(password)
+Use this method to delete account by facebook.<br>
+This method may ends up with 400 http status code if provided data is invalid.
+This method may ends up with 403 http status code if provided token is invalid.
+This method may ends up with 404 http status code if facebook user does not exist.
+Method returns `IApiCall` to execute request.
+```
+private void deleteAccountByFacebook(String facebookToken, String uuid, @Nullable String deviceId) {
+   if (deleteCall != null) deleteCall.cancel();
+   deleteCall = Client.deleteAccountByFacebook(facebookToken, uuid, deviceId);
+   deleteCall.execute(this::onSuccess, this::onError);
+}
+```
+
 #### Client.deleteAccount(password)
 Use this method to delete client's account.<br>
 403 http status code will be returned if provided password is invalid.
@@ -603,6 +631,30 @@ private void confirmPhoneUpdate(String phone, String confirmationCode) {
 }
 ```
 
+#### Client.requestEmailChange(email, uuid, deviceId)
+Use this method to request email change.<br>
+This method may ends up with 403 http status code if provided uuid does not exist.
+Method returns `IApiCall` to execute request.
+```
+private void requestEmailChange(String email, String uuid, String deviceId) {
+    if (apiCall != null) apiCall.cancel();
+    apiCall = Client.requestEmailChange(email, uuid, deviceId);
+    apiCall.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Client.confirmEmailChange(password, token, newsletterAgreement)
+Use this method to confirm email change.<br>
+This method may ends up with 403 http status code if provided token or password is invalid.
+Method returns `IApiCall` to execute request.
+```
+private void confirmEmailChange(String password, String token, boolean newsletterAgreement) {
+    if (apiCall != null) apiCall.cancel();
+    apiCall = Client.confirmEmailChange(password, token, newsletterAgreement);
+    apiCall.execute(this::onSuccess, this::onError);
+}
+```
+
 #### Client.changePassword(oldPassword, password)
 Use this method to change client's password.<br>
 This method may ends up with 403 http status code if provided old password is invalid.
@@ -616,9 +668,9 @@ private void changePassword(String oldPassword, String password) {
 ```
 
 #### Client.getToken()
-Get valid JWT login token.<br>
+Get valid and refreshed JWT login token.<br>
 Note, that error is thrown when Client is not logged in or token has expired and cannot be refreshed.<br>
-Method returns `IDataApiCall` with parametrized `String` to execute request.
+Method returns `IDataApiCall` with parametrized `Token` to execute request.
 ```
 private void getToken() {
     if (apiCall != null) apiCall.cancel();

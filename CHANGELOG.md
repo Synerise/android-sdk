@@ -1,6 +1,24 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.3.3] - 2019-01-20
+### Added
+- `Client.requestEmailChange()` method
+- `Client.confirmEmailChange()` method
+- `Client.deleteAccountByFacebook()` method
+- `Client.authenticateByFacebookRegistered()` method
+
+### Changed
+- Google Services updated to 4.2.0
+- `Client.getToken()` from now returns Token instance instead of JWT String
+- Auto-tracking labels
+
+### Fixed
+- `Synerise Simple Push` containing long message and image did not display text properly
+
+### Removed
+- `timestamp` field from `ApiErrorBody` class
+
 ## [3.3.2] - 2019-01-01
 ### Added
 - `Synerise.locationAutomatic(boolean)` method to obtain user location and send location event automatically.

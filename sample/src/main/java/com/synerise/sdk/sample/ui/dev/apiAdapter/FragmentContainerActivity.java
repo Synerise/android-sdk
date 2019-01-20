@@ -8,10 +8,12 @@ import android.support.v4.app.Fragment;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.BaseActivity;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientChangePasswordFragment;
+import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientConfirmEmailChangeFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientConfirmPhoneUpdateFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientDeleteAccountFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientGetAccountFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientGetTokenFragment;
+import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientRequestEmailChangeFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientRequestPhoneUpdateFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientUpdateAccountFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.DevActivateClientFragment;
@@ -82,6 +84,10 @@ public class FragmentContainerActivity extends BaseActivity {
                 return ClientRequestPhoneUpdateFragment.newInstance();
             case CONFIRM_PHONE_UPDATE:
                 return ClientConfirmPhoneUpdateFragment.newInstance();
+            case REQUEST_EMAIL_CHANGE:
+                return ClientRequestEmailChangeFragment.newInstance();
+            case CONFIRM_EMAIL_CHANGE:
+                return ClientConfirmEmailChangeFragment.newInstance();
             // PROMOTIONS
             case CLIENT_GET_PROMOTIONS:
                 return ClientGetPromotionsFragment.newInstance();

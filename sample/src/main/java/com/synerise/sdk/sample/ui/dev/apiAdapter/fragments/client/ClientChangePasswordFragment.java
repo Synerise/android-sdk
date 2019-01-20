@@ -20,7 +20,9 @@ public class ClientChangePasswordFragment extends BaseDevFragment {
     private IApiCall apiCall;
     private TextInputLayout inputOldPassword, inputPassword;
 
-    public static ClientChangePasswordFragment newInstance() { return new ClientChangePasswordFragment(); }
+    public static ClientChangePasswordFragment newInstance() {
+        return new ClientChangePasswordFragment();
+    }
 
     @Nullable
     @Override
@@ -54,10 +56,10 @@ public class ClientChangePasswordFragment extends BaseDevFragment {
         String oldPassword = inputOldPassword.getEditText().getText().toString();
         String password = inputPassword.getEditText().getText().toString();
 
-        apiCall = Client.changePassword(oldPassword, password);
 
-        if (isValid && apiCall != null) {
-            apiCall.cancel();
+        if (isValid) {
+            if (apiCall != null) apiCall.cancel();
+            apiCall = Client.changePassword(oldPassword, password);
             apiCall.execute(this::onSuccess, new DataActionListener<ApiError>() {
                 @Override
                 public void onDataAction(ApiError apiError) {

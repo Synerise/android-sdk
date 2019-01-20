@@ -11,7 +11,7 @@
         android:id="@+id/input_token_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/provide_token"
+        android:hint="@string/provide_confirmation_token"
         app:errorEnabled="true"
         app:hintAnimationEnabled="true">
 

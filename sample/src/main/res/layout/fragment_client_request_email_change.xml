@@ -8,26 +8,25 @@
     android:padding="@dimen/space_large">
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_password_confirm"
+        android:id="@+id/input_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/provide_new_password"
+        android:hint="@string/provide_client_email"
         app:errorEnabled="true"
-        app:hintAnimationEnabled="true"
-        app:passwordToggleEnabled="true">
+        app:hintAnimationEnabled="true">
 
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:inputType="textEmailAddress" />
 
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_token_confirm"
+        android:id="@+id/input_uuid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/provide_confirmation_token"
+        android:hint="@string/default_uuid"
         app:errorEnabled="true"
         app:hintAnimationEnabled="true">
 
@@ -39,10 +38,18 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/confirm_password"
+        android:id="@+id/generate_uuid"
+        style="@style/ButtonSecondary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/get_sdk_uuid" />
+
+    <Button
+        android:id="@+id/email_change"
         style="@style/ButtonPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/profile_password_confirm" />
+        android:layout_marginTop="@dimen/space_medium"
+        android:text="@string/client_request_email_change" />
 
 </LinearLayout>

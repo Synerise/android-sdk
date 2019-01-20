@@ -16,29 +16,29 @@ import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.dev.BaseDevFragment;
 
-public class ClientConfirmPhoneUpdateFragment extends BaseDevFragment {
+public class ClientRequestEmailChangeFragment extends BaseDevFragment {
 
     private IApiCall apiCall;
-    private TextInputLayout inputPhone;
-    private TextInputLayout inputCode;
+    private TextInputLayout inputEmail, inputUuid;
 
-    public static ClientConfirmPhoneUpdateFragment newInstance() {
-        return new ClientConfirmPhoneUpdateFragment();
+    public static ClientRequestEmailChangeFragment newInstance() {
+        return new ClientRequestEmailChangeFragment();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_client_confirm_phone_update, container, false);
+        return inflater.inflate(R.layout.fragment_client_request_email_change, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        inputPhone = view.findViewById(R.id.input_phone);
-        inputCode = view.findViewById(R.id.input_code);
-        view.findViewById(R.id.phone_update).setOnClickListener(v -> confirmPhoneUpdate());
+        inputEmail = view.findViewById(R.id.input_email);
+        inputUuid = view.findViewById(R.id.input_uuid);
+        view.findViewById(R.id.email_change).setOnClickListener(v -> requestEmailChange());
+        view.findViewById(R.id.generate_uuid).setOnClickListener(this::onGenerateUuidClicked);
     }
 
     @Override
@@ -48,23 +48,23 @@ public class ClientConfirmPhoneUpdateFragment extends BaseDevFragment {
     }
 
     @SuppressWarnings("ConstantConditions")
-    private void confirmPhoneUpdate() {
+    private void requestEmailChange() {
 
-        inputCode.setError(null);
+        inputUuid.setError(null);
 
         boolean isValid = true;
 
-        String phone = inputPhone.getEditText().getText().toString();
-        String code = inputCode.getEditText().getText().toString();
+        String email = inputEmail.getEditText().getText().toString();
+        String uuid = inputUuid.getEditText().getText().toString();
 
-        if (TextUtils.isEmpty(code)) {
+        if (TextUtils.isEmpty(uuid)) {
             isValid = false;
-            inputCode.setError(getString(R.string.error_empty));
+            inputUuid.setError(getString(R.string.error_empty));
         }
 
         if (isValid) {
             if (apiCall != null) apiCall.cancel();
-            apiCall = Client.confirmPhoneUpdate(phone, code);
+            apiCall = Client.requestEmailChange(email, uuid, null);
             apiCall.execute(this::onSuccess, new DataActionListener<ApiError>() {
                 @Override
                 public void onDataAction(ApiError apiError) {
@@ -72,5 +72,10 @@ public class ClientConfirmPhoneUpdateFragment extends BaseDevFragment {
                 }
             });
         }
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    private void onGenerateUuidClicked(View v) {
+        inputUuid.getEditText().setText(Client.getUuid());
     }
 }

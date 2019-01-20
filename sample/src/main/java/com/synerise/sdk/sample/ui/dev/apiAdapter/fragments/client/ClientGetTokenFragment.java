@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.synerise.sdk.client.Client;
+import com.synerise.sdk.core.model.Token;
 import com.synerise.sdk.core.net.IDataApiCall;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.test.EspressoTestingIdlingResource;
@@ -15,9 +16,11 @@ import com.synerise.sdk.sample.ui.dev.BaseDevFragment;
 
 public class ClientGetTokenFragment extends BaseDevFragment {
 
-    private IDataApiCall<String> getTokenCall;
+    private IDataApiCall<Token> getTokenCall;
 
-    public static ClientGetTokenFragment newInstance() { return new ClientGetTokenFragment(); }
+    public static ClientGetTokenFragment newInstance() {
+        return new ClientGetTokenFragment();
+    }
 
     @Nullable
     @Override
