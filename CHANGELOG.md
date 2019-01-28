@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.3.4] - 2019-01-28
+### Changed
+- `AspectJ` version update (to 1.9.2)
+- `Synerise Gradle Plugin` version update (to 3.0.3)
+
+### Fixed
+- `Client.deleteAccountByFacebook()` from now signs out client properly
+
 ## [3.3.3] - 2019-01-20
 ### Added
 - `Client.requestEmailChange()` method

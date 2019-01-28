@@ -28,8 +28,8 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.3'
 
-        classpath 'com.synerise.sdk:synerise-gradle-plugin:3.0.2'
-        classpath 'org.aspectj:aspectjtools:1.8.13'
+        classpath 'com.synerise.sdk:synerise-gradle-plugin:3.0.3'
+        classpath 'org.aspectj:aspectjtools:1.9.2'
     }
 }
 ```
@@ -44,7 +44,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.3'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.4'
 }
 ```
 Finally, please make sure your `Instant Run` is disabled.
