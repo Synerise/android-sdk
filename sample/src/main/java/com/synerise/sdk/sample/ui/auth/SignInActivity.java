@@ -145,7 +145,7 @@ public class SignInActivity extends BaseActivity {
 
     private void signInFacebook(String facebookToken) {
         if (signInFacebookCall != null) signInFacebookCall.cancel();
-        signInFacebookCall = Client.authenticateByFacebook(facebookToken);
+        signInFacebookCall = Client.authenticateByFacebook(facebookToken, null, null);
         signInFacebookCall.onSubscribe(() -> toggleFacebookLoading(true))
                           .execute(this::onSignInFacebookSuccess, new DataActionListener<ApiError>() {
                               @Override

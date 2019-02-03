@@ -19,7 +19,7 @@ import com.synerise.sdk.sample.ui.dev.BaseDevFragment;
 public class ClientRequestEmailChangeFragment extends BaseDevFragment {
 
     private IApiCall apiCall;
-    private TextInputLayout inputEmail, inputUuid;
+    private TextInputLayout inputEmail, inputPassword, inputUuid;
 
     public static ClientRequestEmailChangeFragment newInstance() {
         return new ClientRequestEmailChangeFragment();
@@ -36,6 +36,7 @@ public class ClientRequestEmailChangeFragment extends BaseDevFragment {
         super.onViewCreated(view, savedInstanceState);
 
         inputEmail = view.findViewById(R.id.input_email);
+        inputPassword = view.findViewById(R.id.input_password);
         inputUuid = view.findViewById(R.id.input_uuid);
         view.findViewById(R.id.email_change).setOnClickListener(v -> requestEmailChange());
         view.findViewById(R.id.generate_uuid).setOnClickListener(this::onGenerateUuidClicked);
@@ -50,12 +51,19 @@ public class ClientRequestEmailChangeFragment extends BaseDevFragment {
     @SuppressWarnings("ConstantConditions")
     private void requestEmailChange() {
 
+        inputPassword.setError(null);
         inputUuid.setError(null);
 
         boolean isValid = true;
 
         String email = inputEmail.getEditText().getText().toString();
+        String password = inputPassword.getEditText().getText().toString();
         String uuid = inputUuid.getEditText().getText().toString();
+
+        if (TextUtils.isEmpty(password)) {
+            isValid = false;
+            inputPassword.setError(getString(R.string.error_empty));
+        }
 
         if (TextUtils.isEmpty(uuid)) {
             isValid = false;
@@ -64,7 +72,7 @@ public class ClientRequestEmailChangeFragment extends BaseDevFragment {
 
         if (isValid) {
             if (apiCall != null) apiCall.cancel();
-            apiCall = Client.requestEmailChange(email, uuid, null);
+            apiCall = Client.requestEmailChange(email, password, uuid, null);
             apiCall.execute(this::onSuccess, new DataActionListener<ApiError>() {
                 @Override
                 public void onDataAction(ApiError apiError) {

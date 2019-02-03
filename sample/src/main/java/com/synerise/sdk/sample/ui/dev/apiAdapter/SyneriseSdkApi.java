@@ -12,6 +12,7 @@ public enum SyneriseSdkApi {
     // CLIENT API
     GET_ACCOUNT(R.string.get_account),
     REGISTER_CLIENT(R.string.profile_client_register),
+    AUTHENTICATE_OAUTH(R.string.authenticate_oauth),
     ACTIVATE_CLIENT(R.string.profile_client_activate),
     CONFIRM_CLIENT(R.string.profile_client_confirm),
     RESET_PASSWORD(R.string.profile_password_reset),
@@ -20,6 +21,7 @@ public enum SyneriseSdkApi {
     DELETE_ACCOUNT(R.string.delete_account),
     CHANGE_PASSWORD(R.string.client_change_password),
     CLIENT_GET_TOKEN(R.string.get_token),
+    CLIENT_REGENERATE_UUID(R.string.regenerate_uuid),
     REQUEST_PHONE_UPDATE(R.string.client_phone_update),
     CONFIRM_PHONE_UPDATE(R.string.client_confirm_phone_update),
     REQUEST_EMAIL_CHANGE(R.string.client_request_email_change),
@@ -48,16 +50,18 @@ public enum SyneriseSdkApi {
     }
 
     public static List<SyneriseSdkApi> getClientApis() {
-        return Arrays.asList(GET_ACCOUNT,
-                REGISTER_CLIENT,
+        return Arrays.asList(REGISTER_CLIENT,
+                AUTHENTICATE_OAUTH,
                 ACTIVATE_CLIENT,
                 CONFIRM_CLIENT,
                 RESET_PASSWORD,
                 CONFIRM_RESET,
+                GET_ACCOUNT,
                 UPDATE_ACCOUNT,
                 DELETE_ACCOUNT,
                 CHANGE_PASSWORD,
                 CLIENT_GET_TOKEN,
+                CLIENT_REGENERATE_UUID,
                 REQUEST_PHONE_UPDATE,
                 CONFIRM_PHONE_UPDATE,
                 REQUEST_EMAIL_CHANGE,

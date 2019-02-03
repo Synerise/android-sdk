@@ -13,10 +13,12 @@ import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientConfirmP
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientDeleteAccountFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientGetAccountFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientGetTokenFragment;
+import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientRegenerateUuidFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientRequestEmailChangeFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientRequestPhoneUpdateFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientUpdateAccountFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.DevActivateClientFragment;
+import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.DevAuthenticateOAuthFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.DevConfirmClientFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.DevConfirmResetFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.DevRegisterClientFragment;
@@ -62,6 +64,8 @@ public class FragmentContainerActivity extends BaseActivity {
             // CLIENT
             case REGISTER_CLIENT:
                 return DevRegisterClientFragment.newInstance();
+            case AUTHENTICATE_OAUTH:
+                return DevAuthenticateOAuthFragment.newInstance();
             case ACTIVATE_CLIENT:
                 return DevActivateClientFragment.newInstance();
             case CONFIRM_CLIENT:
@@ -80,6 +84,8 @@ public class FragmentContainerActivity extends BaseActivity {
                 return ClientChangePasswordFragment.newInstance();
             case CLIENT_GET_TOKEN:
                 return ClientGetTokenFragment.newInstance();
+            case CLIENT_REGENERATE_UUID:
+                return ClientRegenerateUuidFragment.newInstance();
             case REQUEST_PHONE_UPDATE:
                 return ClientRequestPhoneUpdateFragment.newInstance();
             case CONFIRM_PHONE_UPDATE:

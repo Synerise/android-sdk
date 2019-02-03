@@ -10,8 +10,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 27
         applicationId "com.synerise.sample"
-        versionCode 28
-        versionName "3.3.4"
+        versionCode 29
+        versionName "3.3.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -66,7 +66,7 @@ android {
 
 ext {
     daggerVersion = '2.16'
-    syneriseVersion = '3.3.4'
+    syneriseVersion = '3.3.5'
 }
 
 dependencies {
@@ -99,7 +99,7 @@ dependencies {
     implementation 'com.facebook.android:facebook-login:4.40.0'
     // Firebase
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
-    implementation 'com.google.firebase:firebase-core:16.0.6'
+    implementation 'com.google.firebase:firebase-core:16.0.7'
     // Google Play Services
     implementation 'com.google.android.gms:play-services-vision:17.0.2'
     implementation 'com.google.android.gms:play-services-location:16.0.0'

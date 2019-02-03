@@ -8,10 +8,10 @@
     android:padding="@dimen/space_large">
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_token"
+        android:id="@+id/input_access_token"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/provide_confirmation_token"
+        android:hint="@string/provide_access_token"
         app:errorEnabled="true"
         app:hintAnimationEnabled="true">
 
@@ -22,18 +22,11 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <CheckBox
-        android:id="@+id/newsletter_agreement"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/newsletter_agreement" />
-
     <Button
-        android:id="@+id/email_change"
+        android:id="@+id/authenticate_oauth"
         style="@style/ButtonPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_medium"
-        android:text="@string/client_confirm_email_change" />
+        android:text="@string/authenticate_oauth" />
 
 </LinearLayout>

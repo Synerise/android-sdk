@@ -370,4 +370,10 @@
     <string name="client_confirm_email_change">Confirm email change</string>
     <string name="newsletter_agreement">Newsletter agreement</string>
     <string name="get_sdk_uuid">Get UUID from SDK</string>
+    <string name="regenerate_uuid">Regenerate UUID</string>
+    <string name="generate_uuid_description">Regenerating UUID works only if current client is anonymous. Operation ends up with clearing authentication token, eventual login, custom email and custom identifier. New UUID is also generated.</string>
+    <string name="current_uuid">Current UUID:</string>
+    <string name="regenerate_uuid_error">Client is not anonymous</string>
+    <string name="authenticate_oauth">Authenticate by OAuth</string>
+    <string name="provide_access_token">Access token</string>
 </resources>

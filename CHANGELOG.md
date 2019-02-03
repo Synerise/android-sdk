@@ -1,6 +1,19 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.3.5] - 2019-02-03
+### Added
+- `Client.regenerateUuid()` method to generate new uuid for anonymous client.
+- `Client.authenticateByOAuth()` method to sign in with already prepared OAuth authorization.
+- Optional `Agreements` and `Attributes` parameters to `Client.authenticateByFacebook()` and `Client.authenticateByFacebookRegistered()` methods
+
+### Changed
+- `Firebase Core` version update (to 16.0.7)
+- Password moved from `Client.confirmEmailChange()` to `Client.requestEmailChange()`
+
+### Fixed
+- Anonymous token will not overwrite authenticated one anymore, during some possible cases.
+
 ## [3.3.4] - 2019-01-28
 ### Changed
 - `AspectJ` version update (to 1.9.2)

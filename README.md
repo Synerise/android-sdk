@@ -44,7 +44,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.4'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.5'
 }
 ```
 Finally, please make sure your `Instant Run` is disabled.
@@ -461,28 +461,41 @@ private void signOut() {
 }
 ```
 
-#### Client.authenticateByFacebook()
-Use this method to sign in with Facebook. Note, that 401 http status code is returned if provided facebook token and/or API Key is invalid.<br>
+#### Client.authenticateByFacebook(facebookToken, agreements, attributes)
+Use this method to sign in with Facebook.
+Note, that 401 http status code is returned if provided facebook token and/or API Key is invalid.<br>
 This method returns `IApiCall` object to execute request.
 This method is a global operation and does not require authorization.
 ```
-private void authenticateByFacebook(String facebookToken) {
+private void authenticateByFacebook(String facebookToken, Agreements agreements, Attributes attributes) {
     if (apiCall != null) apiCall.cancel();
-    apiCall = Client.authenticateByFacebook(facebookToken);
+    apiCall = Client.authenticateByFacebook(facebookToken, agreements, attributes);
     apiCall.execute(success -> onSuccess(), this::onError);
 }
 ```
 
-#### Client.authenticateByFacebookRegistered()
+#### Client.authenticateByFacebookRegistered(facebookToken, agreements, attributes)
 Use this method to sign in with already registered Facebook account.<br>
 Note, that 401 http status code is returned if there is no associated account with provided facebook token.
-This method is a global operation and does not require authorization.<br>
 This method returns `IApiCall` object to execute request.
 This method is a global operation and does not require authorization.
 ```
-private void authenticateByFacebookRegistered(String facebookToken) {
+private void authenticateByFacebookRegistered(String facebookToken, Agreements agreements, Attributes attributes) {
     if (apiCall != null) apiCall.cancel();
-    apiCall = Client.authenticateByFacebookRegistered(facebookToken);
+    apiCall = Client.authenticateByFacebookRegistered(facebookToken, agreements, attributes);
+    apiCall.execute(success -> onSuccess(), this::onError);
+}
+```
+
+#### Client.authenticateByOAuth(accessToken, agreements, attributes)
+Use this method to sign in with already prepared OAuth authorization.
+Note, that 401 http status code is returned if provided access token and/or API Key is invalid.
+This method returns `IApiCall` object to execute request.
+This method is a global operation and does not require authorization.
+```
+private void authenticateByOAuth(String accessToken, Agreements agreements, Attributes attributes) {
+    if (apiCall != null) apiCall.cancel();
+    apiCall = Client.authenticateByOAuth(accessToken, agreements, attributes);
     apiCall.execute(success -> onSuccess(), this::onError);
 }
 ```
@@ -631,26 +644,26 @@ private void confirmPhoneUpdate(String phone, String confirmationCode) {
 }
 ```
 
-#### Client.requestEmailChange(email, uuid, deviceId)
+#### Client.requestEmailChange(email, password, uuid, deviceId)
 Use this method to request email change.<br>
-This method may ends up with 403 http status code if provided uuid does not exist.
+This method may ends up with 403 http status code if provided uuid does not exist or password is invalid.
 Method returns `IApiCall` to execute request.
 ```
-private void requestEmailChange(String email, String uuid, String deviceId) {
+private void requestEmailChange(String email, String password, String uuid, String deviceId) {
     if (apiCall != null) apiCall.cancel();
-    apiCall = Client.requestEmailChange(email, uuid, deviceId);
+    apiCall = Client.requestEmailChange(email, password, uuid, deviceId);
     apiCall.execute(this::onSuccess, this::onError);
 }
 ```
 
-#### Client.confirmEmailChange(password, token, newsletterAgreement)
+#### Client.confirmEmailChange(token, newsletterAgreement)
 Use this method to confirm email change.<br>
-This method may ends up with 403 http status code if provided token or password is invalid.
+This method may ends up with 403 http status code if provided token is invalid.
 Method returns `IApiCall` to execute request.
 ```
-private void confirmEmailChange(String password, String token, boolean newsletterAgreement) {
+private void confirmEmailChange(String token, boolean newsletterAgreement) {
     if (apiCall != null) apiCall.cancel();
-    apiCall = Client.confirmEmailChange(password, token, newsletterAgreement);
+    apiCall = Client.confirmEmailChange(token, newsletterAgreement);
     apiCall.execute(this::onSuccess, this::onError);
 }
 ```
@@ -684,6 +697,16 @@ Retrieve current client UUID.
 ```
 private String getUuid() {
     return Client.getUuid();
+}
+```
+
+#### Client.regenerateUuid()
+Regenerate uuid and clear authentication token, eventual login, custom email and custom identifier.<br>
+This operation works only if current client is anonymous.<br>
+Method returns true if current client is anonymous and operation succeed, false otherwise.
+```
+private boolean regenerateUuid() {
+    return Client.regenerateUuid();
 }
 ```
 
