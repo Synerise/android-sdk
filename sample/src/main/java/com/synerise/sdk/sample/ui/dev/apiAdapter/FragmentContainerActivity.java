@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.BaseActivity;
+import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientChangeApiKeyFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientChangePasswordFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientConfirmEmailChangeFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientConfirmPhoneUpdateFragment;
@@ -62,6 +63,8 @@ public class FragmentContainerActivity extends BaseActivity {
     private Fragment getDevProfileFragment(SyneriseSdkApi syneriseSdkApi) {
         switch (syneriseSdkApi) {
             // CLIENT
+            case CHANGE_API_KEY:
+                return ClientChangeApiKeyFragment.newInstance();
             case REGISTER_CLIENT:
                 return DevRegisterClientFragment.newInstance();
             case AUTHENTICATE_OAUTH:

@@ -11,7 +11,6 @@ import com.synerise.sdk.client.Client;
 import com.synerise.sdk.core.model.Token;
 import com.synerise.sdk.core.net.IDataApiCall;
 import com.synerise.sdk.sample.R;
-import com.synerise.sdk.sample.test.EspressoTestingIdlingResource;
 import com.synerise.sdk.sample.ui.dev.BaseDevFragment;
 
 public class ClientGetTokenFragment extends BaseDevFragment {
@@ -45,7 +44,6 @@ public class ClientGetTokenFragment extends BaseDevFragment {
     private void getToken() {
         if (getTokenCall != null) getTokenCall.cancel();
         getTokenCall = Client.getToken();
-        EspressoTestingIdlingResource.increment();
         getTokenCall.execute(success -> onSuccess(), this::onFailure);
     }
 }

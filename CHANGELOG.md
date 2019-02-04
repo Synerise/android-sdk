@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.3.6] - 2019-02-05
+### Added
+- `Client.changeApiKey()` method to dynamically change API Key
+
+### Removed
+- Optional `Agreements` and `Attributes` parameters from `Client.authenticateByFacebookRegistered()` method
+
 ## [3.3.5] - 2019-02-03
 ### Added
 - `Client.regenerateUuid()` method to generate new uuid for anonymous client.

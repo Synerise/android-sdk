@@ -376,4 +376,6 @@
     <string name="regenerate_uuid_error">Client is not anonymous</string>
     <string name="authenticate_oauth">Authenticate by OAuth</string>
     <string name="provide_access_token">Access token</string>
+    <string name="provide_new_api_key">New API Key</string>
+    <string name="client_change_api_key">Change API Key</string>
 </resources>

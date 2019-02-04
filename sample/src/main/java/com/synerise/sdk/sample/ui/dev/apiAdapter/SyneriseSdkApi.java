@@ -10,13 +10,14 @@ import java.util.List;
 public enum SyneriseSdkApi {
 
     // CLIENT API
-    GET_ACCOUNT(R.string.get_account),
+    CHANGE_API_KEY(R.string.client_change_api_key),
     REGISTER_CLIENT(R.string.profile_client_register),
     AUTHENTICATE_OAUTH(R.string.authenticate_oauth),
     ACTIVATE_CLIENT(R.string.profile_client_activate),
     CONFIRM_CLIENT(R.string.profile_client_confirm),
     RESET_PASSWORD(R.string.profile_password_reset),
     CONFIRM_RESET(R.string.profile_password_confirm),
+    GET_ACCOUNT(R.string.get_account),
     UPDATE_ACCOUNT(R.string.update_account),
     DELETE_ACCOUNT(R.string.delete_account),
     CHANGE_PASSWORD(R.string.client_change_password),
@@ -50,7 +51,8 @@ public enum SyneriseSdkApi {
     }
 
     public static List<SyneriseSdkApi> getClientApis() {
-        return Arrays.asList(REGISTER_CLIENT,
+        return Arrays.asList(CHANGE_API_KEY,
+                REGISTER_CLIENT,
                 AUTHENTICATE_OAUTH,
                 ACTIVATE_CLIENT,
                 CONFIRM_CLIENT,

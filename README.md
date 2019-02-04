@@ -44,7 +44,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.5'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.6'
 }
 ```
 Finally, please make sure your `Instant Run` is disabled.
@@ -474,15 +474,15 @@ private void authenticateByFacebook(String facebookToken, Agreements agreements,
 }
 ```
 
-#### Client.authenticateByFacebookRegistered(facebookToken, agreements, attributes)
+#### Client.authenticateByFacebookRegistered(facebookToken)
 Use this method to sign in with already registered Facebook account.<br>
 Note, that 401 http status code is returned if there is no associated account with provided facebook token.
 This method returns `IApiCall` object to execute request.
 This method is a global operation and does not require authorization.
 ```
-private void authenticateByFacebookRegistered(String facebookToken, Agreements agreements, Attributes attributes) {
+private void authenticateByFacebookRegistered(String facebookToken) {
     if (apiCall != null) apiCall.cancel();
-    apiCall = Client.authenticateByFacebookRegistered(facebookToken, agreements, attributes);
+    apiCall = Client.authenticateByFacebookRegistered(facebookToken);
     apiCall.execute(success -> onSuccess(), this::onError);
 }
 ```
@@ -715,6 +715,15 @@ Retrieve whether client is signed in (whether client's token is authorized).
 ```
 private boolean isSignedIn() {
     return Client.isSignedIn();
+}
+```
+
+#### Client.changeApiKey(newApiKey)
+Change API Key dynamically. If currently saved API Key is different than provided, authentication token will be cleared.<br>
+Nevertheless, client's uuid, eventual login, custom email and custom identifier will always be cleared.
+```
+private void changeApiKey(String newApiKey) {
+    Client.changeApiKey(newApiKey);
 }
 ```
 
