@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 
 import com.synerise.sdk.client.Client;
 import com.synerise.sdk.core.listeners.DataActionListener;
@@ -21,6 +22,7 @@ public class ClientConfirmPhoneUpdateFragment extends BaseDevFragment {
     private IApiCall apiCall;
     private TextInputLayout inputPhone;
     private TextInputLayout inputCode;
+    private CheckBox smsAgreement, enableAgreement;
 
     public static ClientConfirmPhoneUpdateFragment newInstance() {
         return new ClientConfirmPhoneUpdateFragment();
@@ -38,6 +40,17 @@ public class ClientConfirmPhoneUpdateFragment extends BaseDevFragment {
 
         inputPhone = view.findViewById(R.id.input_phone);
         inputCode = view.findViewById(R.id.input_code);
+        smsAgreement = view.findViewById(R.id.sms_agreement);
+        enableAgreement = view.findViewById(R.id.enable_agreement);
+        enableAgreement.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                smsAgreement.setAlpha(0.5f);
+                smsAgreement.setEnabled(false);
+            } else {
+                smsAgreement.setAlpha(1f);
+                smsAgreement.setEnabled(true);
+            }
+        });
         view.findViewById(R.id.phone_update).setOnClickListener(v -> confirmPhoneUpdate());
     }
 
@@ -64,7 +77,7 @@ public class ClientConfirmPhoneUpdateFragment extends BaseDevFragment {
 
         if (isValid) {
             if (apiCall != null) apiCall.cancel();
-            apiCall = Client.confirmPhoneUpdate(phone, code);
+            apiCall = Client.confirmPhoneUpdate(phone, code, enableAgreement.isChecked() ? null : smsAgreement.isChecked());
             apiCall.execute(this::onSuccess, new DataActionListener<ApiError>() {
                 @Override
                 public void onDataAction(ApiError apiError) {

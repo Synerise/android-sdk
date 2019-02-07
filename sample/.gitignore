@@ -11,7 +11,7 @@ build
 captures
 .externalNativeBuild
 
+sample/google-services.json
+
 src/test
 src/androidTest
-
-sample/google-services.json

@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.3.7] - 2019-02-07
+### Added
+- Optional `smsAgreement` parameter to `Client.confirmPhoneUpdate()` method
+
 ## [3.3.6] - 2019-02-05
 ### Added
 - `Client.changeApiKey()` method to dynamically change API Key

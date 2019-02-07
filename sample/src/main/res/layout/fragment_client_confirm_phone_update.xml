@@ -37,11 +37,25 @@
 
     </android.support.design.widget.TextInputLayout>
 
+    <CheckBox
+        android:id="@+id/sms_agreement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sms_agreement" />
+
+    <CheckBox
+        android:id="@+id/enable_agreement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_small"
+        android:text="@string/do_not_send_anything" />
+
     <Button
         android:id="@+id/phone_update"
         style="@style/ButtonPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_medium"
         android:text="@string/client_confirm_phone_update" />
 
 </LinearLayout>

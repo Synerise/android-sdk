@@ -44,7 +44,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.6'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.7'
 }
 ```
 Finally, please make sure your `Instant Run` is disabled.
@@ -633,13 +633,13 @@ private void requestPhoneUpdate(String phone) {
 }
 ```
 
-#### Client.confirmPhoneUpdate(phone, confirmationCode)
+#### Client.confirmPhoneUpdate(phone, confirmationCode, smsAgreement)
 Use this method to confirm phone number update. This action requires to pass phone number and confirmation code as parameters.
 Method returns `IApiCall` to execute request.
 ```
-private void confirmPhoneUpdate(String phone, String confirmationCode) {
+private void confirmPhoneUpdate(String phone, String confirmationCode, Boolean smsAgreement) {
     if (apiCall != null) apiCall.cancel();
-    apiCall = Client.confirmPhoneUpdate(phone, confirmationCode);
+    apiCall = Client.confirmPhoneUpdate(phone, confirmationCode, smsAgreement);
     apiCall.execute(this::onSuccess, this::onError);
 }
 ```

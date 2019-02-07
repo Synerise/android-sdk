@@ -378,4 +378,6 @@
     <string name="provide_access_token">Access token</string>
     <string name="provide_new_api_key">New API Key</string>
     <string name="client_change_api_key">Change API Key</string>
+    <string name="sms_agreement">SMS agreement</string>
+    <string name="do_not_send_anything">Do not send agreement</string>
 </resources>
