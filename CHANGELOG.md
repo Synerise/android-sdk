@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.3.8] - 2019-02-07
+### Added
+- `Agreements` fields getters
+
 ## [3.3.7] - 2019-02-07
 ### Added
 - Optional `smsAgreement` parameter to `Client.confirmPhoneUpdate()` method
