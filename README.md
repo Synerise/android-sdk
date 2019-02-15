@@ -44,7 +44,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.8'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.9'
 }
 ```
 Finally, please make sure your `Instant Run` is disabled.
@@ -592,6 +592,30 @@ private void updateAccount(String city, String company) {
 
     if (apiCall != null) apiCall.cancel();
     apiCall = Client.updateAccount(accountInformation);
+    apiCall.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Client.requestEmailChangeByFacebook(email, uuid, deviceId)
+Use this method to request email change.<br>
+This method may ends up with 403 http status code if provided uuid does not exist.
+Method returns `IApiCall` to execute request.
+```
+private void requestEmailChangeByFacebook(String email, String uuid, String deviceId) {
+    if (apiCall != null) apiCall.cancel();
+    apiCall = Client.requestEmailChangeByFacebook(email, uuid, deviceId);
+    apiCall.execute(this::onSuccess, this::onError);
+}
+```
+
+#### Client.confirmEmailChangeByFacebook(token, newsletterAgreement)
+Use this method to confirm email change.<br>
+This method may ends up with 403 http status code if provided token is invalid.
+Method returns `IApiCall` to execute request.
+```
+private void confirmEmailChangeByFacebook(String token, boolean newsletterAgreement) {
+    if (apiCall != null) apiCall.cancel();
+    apiCall = Client.confirmEmailChangeByFacebook(token, newsletterAgreement);
     apiCall.execute(this::onSuccess, this::onError);
 }
 ```

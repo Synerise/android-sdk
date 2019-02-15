@@ -1,6 +1,17 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.3.9] - 2019-02-15
+### Added
+- `Client.requestEmailChangeByFacebook()` method
+- `Client.confirmEmailChangeByFacebook()` method
+
+### Changed
+- Internal UUID mechanism in case of account deletion
+
+### Fixed
+- `OnErrorNotImplementedException` error will not crash your app anymore
+
 ## [3.3.8] - 2019-02-07
 ### Added
 - `Agreements` fields getters
