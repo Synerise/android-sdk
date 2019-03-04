@@ -20,7 +20,6 @@ All notable changes to this project will be documented in this file.
 ## [3.3.9] - 2019-02-15
 ### Added
 - `Client.requestEmailChangeByFacebook()` method
-- `Client.confirmEmailChangeByFacebook()` method
 
 ### Changed
 - Internal UUID mechanism in case of account deletion
