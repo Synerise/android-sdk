@@ -28,7 +28,6 @@ public enum SyneriseSdkApi {
     REQUEST_EMAIL_CHANGE(R.string.client_request_email_change),
     CONFIRM_EMAIL_CHANGE(R.string.client_confirm_email_change),
     REQUEST_EMAIL_CHANGE_FACEBOOK(R.string.client_request_email_change_facebook),
-    CONFIRM_EMAIL_CHANGE_FACEBOOK(R.string.client_confirm_email_change_facebook),
 
     // PROMOTIONS API
     CLIENT_GET_PROMOTIONS(R.string.client_get_promotions),
@@ -70,8 +69,7 @@ public enum SyneriseSdkApi {
                 CONFIRM_PHONE_UPDATE,
                 REQUEST_EMAIL_CHANGE,
                 CONFIRM_EMAIL_CHANGE,
-                REQUEST_EMAIL_CHANGE_FACEBOOK,
-                CONFIRM_EMAIL_CHANGE_FACEBOOK);
+                REQUEST_EMAIL_CHANGE_FACEBOOK);
     }
 
     public static List<SyneriseSdkApi> getPromotionApis() {

@@ -44,7 +44,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.9'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.10'
 }
 ```
 Finally, please make sure your `Instant Run` is disabled.
@@ -284,6 +284,27 @@ Tracker.send(new CancelledTransactionEvent("Cancelled transaction label"));
 Record a 'client completed transaction' event.
 ```
 Tracker.send(new CompletedTransactionEvent("Completed transaction label"));
+```
+
+#### - AI Events
+Group of events processed by AI engine.
+
+##### ProductViewEvent
+Record a 'product view' event.
+```
+Tracker.send(new ProductViewEvent("Product view label"));
+```
+
+##### RecommendationClickEvent
+Record a 'recommendation click' event.
+```
+Tracker.send(new RecommendationClickEvent("Recommendation click label"));
+```
+
+##### RecommendationSeenEvent
+Record a 'recommendation seen' event.
+```
+Tracker.send(new RecommendationSeenEvent("Recommendation seen label"));
 ```
 
 #### - Other Events
@@ -604,18 +625,6 @@ Method returns `IApiCall` to execute request.
 private void requestEmailChangeByFacebook(String email, String uuid, String deviceId) {
     if (apiCall != null) apiCall.cancel();
     apiCall = Client.requestEmailChangeByFacebook(email, uuid, deviceId);
-    apiCall.execute(this::onSuccess, this::onError);
-}
-```
-
-#### Client.confirmEmailChangeByFacebook(token, newsletterAgreement)
-Use this method to confirm email change.<br>
-This method may ends up with 403 http status code if provided token is invalid.
-Method returns `IApiCall` to execute request.
-```
-private void confirmEmailChangeByFacebook(String token, boolean newsletterAgreement) {
-    if (apiCall != null) apiCall.cancel();
-    apiCall = Client.confirmEmailChangeByFacebook(token, newsletterAgreement);
     apiCall.execute(this::onSuccess, this::onError);
 }
 ```

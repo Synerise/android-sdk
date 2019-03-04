@@ -1,6 +1,22 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.3.10] - 2019-03-04
+### Added
+- `ProductViewEvent` event type
+- `RecommendationClickEvent` event type
+- `RecommendationSeenEvent` event type
+
+### Changed
+- `Promotions.getPromotions()` params are now optional (nullable)
+
+### Fixed
+- Notifications content text on some devices were not displayed properly
+
+### Removed
+- `Client.confirmEmailChangeByFacebook()` method, use `Client.confirmEmailChange()` instead
+- `_` character validation when adding custom `Attributes`
+
 ## [3.3.9] - 2019-02-15
 ### Added
 - `Client.requestEmailChangeByFacebook()` method

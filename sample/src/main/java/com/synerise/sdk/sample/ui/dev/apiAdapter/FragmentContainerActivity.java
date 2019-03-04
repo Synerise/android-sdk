@@ -9,7 +9,6 @@ import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.BaseActivity;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientChangeApiKeyFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientChangePasswordFragment;
-import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientConfirmEmailChangeByFacebookFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientConfirmEmailChangeFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientConfirmPhoneUpdateFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientDeleteAccountFragment;
@@ -101,8 +100,6 @@ public class FragmentContainerActivity extends BaseActivity {
                 return ClientConfirmEmailChangeFragment.newInstance();
             case REQUEST_EMAIL_CHANGE_FACEBOOK:
                 return ClientRequestEmailChangeByFacebookFragment.newInstance();
-            case CONFIRM_EMAIL_CHANGE_FACEBOOK:
-                return ClientConfirmEmailChangeByFacebookFragment.newInstance();
             // PROMOTIONS
             case CLIENT_GET_PROMOTIONS:
                 return ClientGetPromotionsFragment.newInstance();

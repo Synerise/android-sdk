@@ -380,6 +380,5 @@
     <string name="client_change_api_key">Change API Key</string>
     <string name="sms_agreement">SMS agreement</string>
     <string name="do_not_send_anything">Do not send agreement</string>
-    <string name="client_confirm_email_change_facebook">Confirm email change by Facebook</string>
     <string name="client_request_email_change_facebook">Request email change by Facebook</string>
 </resources>
