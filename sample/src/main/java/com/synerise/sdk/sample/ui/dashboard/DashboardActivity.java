@@ -116,7 +116,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
             if (currentFragment instanceof SectionsFragment)
                 drawer.openDrawer(GravityCompat.START);
             else
-                changeFragment(SECTIONS);
+                changeFragment(SECTIONS); //closing the drawer. Returning to dashboard
             return true;
         } else {
             return super.onOptionsItemSelected(item);

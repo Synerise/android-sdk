@@ -61,7 +61,7 @@ public class DevAuthenticateOAuthFragment extends BaseDevFragment {
 
         if (isValid) {
             if (call != null) call.cancel();
-            call = Client.authenticateByOAuth(token, null, null);
+            call = Client.authenticateByOAuth(token, null, null, null);
             call.execute(this::onSuccess, new DataActionListener<ApiError>() {
                 @Override
                 public void onDataAction(ApiError apiError) {

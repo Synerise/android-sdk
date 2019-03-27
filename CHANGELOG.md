@@ -1,6 +1,17 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [3.3.11] - 2019-03-27
+### Added
+- `authId` optional parameter added to `Client.authenticateByOAuth`, `Client.authenticateByFacebookRegistered` and `Client.authenticateByFacebook` methods
+
+### Changed
+- `TargetSdkVersion` upgraded to 28
+- `CompileSdkVersion` upgraded to 28
+
+### Removed
+- `Push.RECEIVED` event will not be tracked
+
 ## [3.3.10] - 2019-03-04
 ### Added
 - `ProductViewEvent` event type
@@ -20,6 +31,7 @@ All notable changes to this project will be documented in this file.
 ## [3.3.9] - 2019-02-15
 ### Added
 - `Client.requestEmailChangeByFacebook()` method
+- `Client.confirmEmailChangeByFacebook()` method
 
 ### Changed
 - Internal UUID mechanism in case of account deletion

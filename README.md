@@ -44,7 +44,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.10'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.11'
 }
 ```
 Finally, please make sure your `Instant Run` is disabled.

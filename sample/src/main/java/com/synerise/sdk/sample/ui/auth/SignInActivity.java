@@ -28,7 +28,8 @@ import com.synerise.sdk.sample.persistence.AccountManager;
 import com.synerise.sdk.sample.ui.BaseActivity;
 import com.synerise.sdk.sample.util.ToolbarHelper;
 
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -118,7 +119,8 @@ public class SignInActivity extends BaseActivity {
 
     private void onSignInFacebookButtonClicked(View v) {
         LoginManager.getInstance().logOut();
-        LoginManager.getInstance().logInWithReadPermissions(this, Collections.singletonList("email"));
+        List<String> permissions = Arrays.asList("email", "public_profile", "user_friends");
+        LoginManager.getInstance().logInWithReadPermissions(this, permissions);
     }
 
     private void signIn(String login, String password) {
@@ -145,7 +147,7 @@ public class SignInActivity extends BaseActivity {
 
     private void signInFacebook(String facebookToken) {
         if (signInFacebookCall != null) signInFacebookCall.cancel();
-        signInFacebookCall = Client.authenticateByFacebook(facebookToken, null, null);
+        signInFacebookCall = Client.authenticateByFacebook(facebookToken, null, null, null);
         signInFacebookCall.onSubscribe(() -> toggleFacebookLoading(true))
                           .execute(this::onSignInFacebookSuccess, new DataActionListener<ApiError>() {
                               @Override
