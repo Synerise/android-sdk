@@ -1,5 +1,8 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.3.12] - 2019-04-01
+### Changed
+- `baseUrl` to "https://api.snrapi.com/"
 
 ## [3.3.11] - 2019-03-27
 ### Added
