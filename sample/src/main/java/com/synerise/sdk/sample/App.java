@@ -2,6 +2,7 @@ package com.synerise.sdk.sample;
 
 import android.content.Intent;
 import android.support.multidex.MultiDexApplication;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
@@ -72,6 +73,7 @@ public class App extends MultiDexApplication
 
         Synerise.Builder.with(this, syneriseClientApiKey, appId)
                         .notificationIcon(R.drawable.ic_cart)
+                        .notificationIconColor(ContextCompat.getColor(this, R.color.amaranth))
                         .syneriseDebugMode(true)
                         .trackerTrackMode(FINE)
                         .trackerMinBatchSize(10)

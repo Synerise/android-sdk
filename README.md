@@ -44,7 +44,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.12'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.13'
 }
 ```
 Finally, please make sure your `Instant Run` is disabled.
@@ -76,6 +76,7 @@ public class App extends Application {
 
         Synerise.Builder.with(this, syneriseClientApiKey, appId)
                         .notificationIcon(R.drawable.notification_icon)
+                        .notificationIconColor(ContextCompat.getColor(this, R.color.amaranth))
                         .syneriseDebugMode(DEBUG_MODE)
                         .trackerTrackMode(FINE)
                         .trackerMinBatchSize(10)
@@ -292,19 +293,19 @@ Group of events processed by AI engine.
 ##### ProductViewEvent
 Record a 'product view' event.
 ```
-Tracker.send(new ProductViewEvent("Product view label"));
+Tracker.send(new ProductViewEvent(("My Awesome Product", "ipad10", "iPad", params));
 ```
 
 ##### RecommendationClickEvent
 Record a 'recommendation click' event.
 ```
-Tracker.send(new RecommendationClickEvent("Recommendation click label"));
+Tracker.send(new RecommendationClickEvent("My Awesome Product", "ipad10", "iPad", ”1234id”, ”1234”, params));
 ```
 
 ##### RecommendationSeenEvent
 Record a 'recommendation seen' event.
 ```
-Tracker.send(new RecommendationSeenEvent("Recommendation seen label"));
+Tracker.send(new RecommendationSeenEvent("My Awesome Product", "ipad10", "iPad", ”1234id”, ”1234”, params));
 ```
 
 #### - Other Events

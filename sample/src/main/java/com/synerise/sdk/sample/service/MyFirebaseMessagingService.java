@@ -53,6 +53,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     builder.setContentTitle(notification.getTitle());
                     builder.setContentText(notification.getBody());
                     // resource of icon to show must be drawable resource (not mipmap) due to Android Oreo adaptive icons restrictions
+                    // remember about adding icon as a firebase_default_icon in AndroidManifest
                     builder.setSmallIcon(R.drawable.ic_cart);
                     NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                     if (notificationManager != null) {

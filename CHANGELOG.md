@@ -1,5 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.3.13] - 2019-04-03
+### Added
+- `isNotificationLaunched` flag to stop asking for banners and walkthrough when notification is launched
+- `notificationIconColor` method to define color of notification icon
+- `ProductEvent` and `RecommendationEvent` classes to create specific events
+- `ProductViewEvent`, `RecommendationSeenEvent`, `RecommendationClickEvent` events
+
+### Fixed
+- notification icon were not displayed properly
+
 ## [3.3.12] - 2019-04-01
 ### Changed
 - `baseUrl` to "https://api.snrapi.com/"
