@@ -1,5 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.3.14] - 2019-04-11
+### Added
+- new synerise plugin version which requires another apply plugin: 'android-aspectjx'
+- `usesCleartextTraffic` flag as true in manifest to support loading images on Android 9.0 +
+
+### Fixed
+- Retrieving app state when starting app from notification banner.
+- Upgraded version of fresco.
+
 ## [3.3.13] - 2019-04-03
 ### Added
 - `isNotificationLaunched` flag to stop asking for banners and walkthrough when notification is launched

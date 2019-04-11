@@ -48,7 +48,6 @@ public class SignInActivity extends BaseActivity {
 
     private IApiCall signInCall, signInFacebookCall;
     private IDataApiCall<GetAccountInformation> getAccountCall;
-
     public static Intent createIntent(Context context) {
         return new Intent(context, SignInActivity.class);
     }

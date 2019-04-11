@@ -3,6 +3,7 @@ package com.synerise.sdk.sample.util;
 import android.animation.Animator;
 import android.graphics.drawable.Animatable;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -30,6 +31,10 @@ public class ViewUtils {
                                                     public void onFinalImageSet(String id, @Nullable ImageInfo imageInfo,
                                                                                 @Nullable Animatable animatable) {
                                                         progressBar.setVisibility(GONE);
+                                                    }
+                                                    @Override
+                                                    public void onFailure(String id, Throwable throwable) {
+                                                        Log.i("DraweeUpdate", "Image failed to load: " + throwable.getMessage());
                                                     }
                                                 })
                                                 .setUri(url)
