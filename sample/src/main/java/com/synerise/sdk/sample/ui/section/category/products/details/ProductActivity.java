@@ -25,6 +25,7 @@ import com.synerise.sdk.sample.data.Product;
 import com.synerise.sdk.sample.data.Section;
 import com.synerise.sdk.sample.persistence.AccountManager;
 import com.synerise.sdk.sample.ui.BaseActivity;
+import com.synerise.sdk.sample.ui.splash.SplashActivity;
 import com.synerise.sdk.sample.util.ToolbarHelper;
 import com.synerise.sdk.sample.util.ViewUtils;
 
@@ -161,5 +162,18 @@ public class ProductActivity extends BaseActivity {
         //        cartEvent.setDiscountedPrice(unitPrice);
         //        cartEvent.setRegularPrice(unitPrice);
         return cartEvent;
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Override onBackPressed in deeplink activities to start an app when it is shut down.
+        if (isTaskRoot()) {
+            // Start the app before finishing
+            Intent startAppIntent = new Intent(getApplicationContext(), SplashActivity.class);
+            startAppIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(startAppIntent);
+            finish();
+        } else
+            super.onBackPressed();
     }
 }

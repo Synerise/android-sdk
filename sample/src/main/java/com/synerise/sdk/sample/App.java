@@ -2,6 +2,7 @@ package com.synerise.sdk.sample;
 
 import android.content.Intent;
 import android.support.multidex.MultiDexApplication;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -31,6 +32,8 @@ import javax.inject.Inject;
 import io.fabric.sdk.android.Fabric;
 
 import static com.synerise.sdk.event.BaseViewAspect.TrackMode.FINE;
+import static com.synerise.sdk.sample.service.MyFirebaseMessagingService.CHANNEL_HIGH_PRIORITY_ID;
+import static com.synerise.sdk.sample.service.MyFirebaseMessagingService.CHANNEL_HIGH_PRIORITY_NAME;
 import static com.synerise.sdk.sample.service.MyFirebaseMessagingService.CHANNEL_ID;
 import static com.synerise.sdk.sample.service.MyFirebaseMessagingService.CHANNEL_NAME;
 
@@ -68,6 +71,7 @@ public class App extends MultiDexApplication
 
         component.inject(this);
 
+        NotificationManagerCompat.from(getApplicationContext()).areNotificationsEnabled();
         String syneriseClientApiKey = accountManager.getClientProfileApiKey();
         String appId = getString(R.string.app_name);
 
@@ -83,8 +87,10 @@ public class App extends MultiDexApplication
                         .pushRegistrationRequired(this)
                         .locationUpdateRequired(this)
                         .locationAutomatic(true)
-                        .notificationChannelId(CHANNEL_ID)
-                        .notificationChannelName(CHANNEL_NAME)
+                        .notificationDefaultChannelId(CHANNEL_ID)
+                        .notificationDefaultChannelName(CHANNEL_NAME)
+                        .notificationHighPriorityChannelId(CHANNEL_HIGH_PRIORITY_ID)
+                        .notificationHighPriorityChannelName(CHANNEL_HIGH_PRIORITY_NAME)
                         .baseUrl(null)
                         //.customClientConfig(new CustomClientAuthConfig("http://your-base-url.com"))
                         .build();

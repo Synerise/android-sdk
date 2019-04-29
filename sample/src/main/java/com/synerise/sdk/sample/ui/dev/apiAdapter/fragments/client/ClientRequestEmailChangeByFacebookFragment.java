@@ -64,7 +64,7 @@ public class ClientRequestEmailChangeByFacebookFragment extends BaseDevFragment 
 
         if (isValid) {
             if (apiCall != null) apiCall.cancel();
-            apiCall = Client.requestEmailChangeByFacebook(email, uuid, null);
+            apiCall = Client.requestEmailChangeByFacebook(email, uuid);
             apiCall.execute(this::onSuccess, new DataActionListener<ApiError>() {
                 @Override
                 public void onDataAction(ApiError apiError) {

@@ -1,5 +1,19 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.3.15] - 2019-04-29
+### Added
+- High Priority notification channel for Android Oreo+ `NotificationHighPriorityChannelId` and `NotificationHighPriorityChannelName`
+- `Settings` module
+- separate event for autotracking
+
+### Fixed
+- BackStack is not overrided when push notification comes up
+- BackStack is now working with deeplinking
+
+### Changed
+- `time` from Event moved to `params` as `sourceTime`
+- `notificationChannelName` and `NotificationChannelId` changed to `NotificationDefaultChannelName` and `NotificationDefaultChannelId`
+
 ## [3.3.14] - 2019-04-11
 ### Added
 - new synerise plugin version which requires another apply plugin: 'android-aspectjx'

@@ -41,6 +41,7 @@
     <!-- ********************************************************************************************************************************** -->
 
     <string name="tracker_api">Tracker API</string>
+    <string name="settings">Settings</string>
     <string name="client_api">Client API</string>
     <string name="injector_api">Injector API</string>
 
@@ -81,7 +82,18 @@
     <string name="this_is_a_textview">This is a TextView</string>
 
     <!-- ********************************************************************************************************************************** -->
+    <string name="Settings_chosen">Setting chosen:</string>
+    <string name="sdk_enable">Sdk enable</string>
+    <string name="sdk_disable">Sdk disable</string>
+    <string name="autotracking_enable">Autotracking enable</string>
+    <string name="autotracking_disabled">Autotracking disable</string>
+    <string name="tracking_enable">CustomTracking enable</string>
+    <string name="tracking_disable">CustomTracking disable</string>
+    <string name="notification_enable">Notifications enable</string>
+    <string name="notification_disable">Notifications disable</string>
+    <string name="default_settings">Settings</string>
 
+    <!-- ********************************************************************************************************************************** -->
     <string name="default_success">Success!</string>
 
     <string name="default_price_USD">$%1$s</string>

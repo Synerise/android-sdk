@@ -72,7 +72,7 @@ public class ClientRequestEmailChangeFragment extends BaseDevFragment {
 
         if (isValid) {
             if (apiCall != null) apiCall.cancel();
-            apiCall = Client.requestEmailChange(email, password, uuid, null);
+            apiCall = Client.requestEmailChange(email, password, uuid);
             apiCall.execute(this::onSuccess, new DataActionListener<ApiError>() {
                 @Override
                 public void onDataAction(ApiError apiError) {

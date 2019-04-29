@@ -96,8 +96,10 @@ public class App extends Application {
                         .pushRegistrationRequired(this)
                         .locationUpdateRequired(this)
                         .locationAutomatic(true)
-                        .notificationChannelId("your-channel-id")
-                        .notificationChannelName("your-channel-name")
+                        .notificationDefaultChannelId("your-channel-id")
+                        .notificationDefaultChannelName("your-channel-name")
+                        .notificationHighPriorityChannelId("your-high-channel-id")
+                        .notificationHighPriorityChannelName("your-high-channel-name")
                         .baseUrl("http://your-base-url.com/")
                         .customClientConfig(new CustomClientAuthConfig("http://your-base-url.com/"))
                         .build();
@@ -134,11 +136,13 @@ Also, a default icon will be used if there is no custom icon provided.
 10. `.pushRegistrationRequired(OnRegisterForPushListener)` - Synerise SDK may request you to register client for push notifications. This callback is called at after client signs in, signs up or deletes account.
 11. `.locationUpdateRequired(OnLocationUpdateListener)` - this callback is called on demand via push notification, so it may be called at any point of time.
 12. `.locationAutomatic(boolean)` - to obtain user location and send location event automatically.
-12. `.notificationChannelId(String)` - sets id of Push Notification Channel. For more info please check Injector section below.
-13. `.notificationChannelName(String)` - sets name of Push Notification Channel. For more info please check Injector section below.
-14. `.baseUrl(String)` - you can provide your custom base URL to use your own API.
-15. `.customClientConfig(CustomClientAuthConfig)` - you can also provide your custom Client `Authorization Configuration`. At this moment, configuration handles `Base URL` changes.
-16. `.build()` - builds Synerise SDK with provided data. Please note, that `Synerise.Builder.with(..)` method is mandatory and `Synerise.Builder.build()` method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.<br>
+12. `.notificationDefaultChannelId(String)` - sets id of Push Notification Channel. For more info please check Injector section below.
+13. `.notificationDefaultChannelName(String)` - sets name of Push Notification Channel. For more info please check Injector section below.
+14. `.notificationHighPriorityChannelId(String)` - sets id of Push Notification Channel. For more info please check Injector section below.
+15. `.notificationHighPriorityChannelName(String)` - sets name of Push Notification Channel. For more info please check Injector section below.
+16. `.baseUrl(String)` - you can provide your custom base URL to use your own API.
+17. `.customClientConfig(CustomClientAuthConfig)` - you can also provide your custom Client `Authorization Configuration`. At this moment, configuration handles `Base URL` changes.
+18. `.build()` - builds Synerise SDK with provided data. Please note, that `Synerise.Builder.with(..)` method is mandatory and `Synerise.Builder.build()` method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.<br>
 
 ### Errors
 

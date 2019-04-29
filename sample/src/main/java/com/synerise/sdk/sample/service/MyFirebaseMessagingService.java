@@ -28,6 +28,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     public static final String CHANNEL_ID = "synerise_sample_channel_id";
     public static final String CHANNEL_NAME = "Synerise Sample";
+    public static final String CHANNEL_HIGH_PRIORITY_ID = "synerise_sample_high_channel_id";
+    public static final String CHANNEL_HIGH_PRIORITY_NAME = "Synerise High Sample";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {

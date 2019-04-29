@@ -124,7 +124,7 @@ public class SignInActivity extends BaseActivity {
 
     private void signIn(String login, String password) {
         if (signInCall != null) signInCall.cancel();
-        signInCall = Client.signIn(login, password, null);
+        signInCall = Client.signIn(login, password);
         signInCall.onSubscribe(() -> toggleLoading(true))
                   .execute(() -> onSignInSuccessful(login), new DataActionListener<ApiError>() {
                       @Override

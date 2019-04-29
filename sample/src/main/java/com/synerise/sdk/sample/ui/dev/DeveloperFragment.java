@@ -15,6 +15,7 @@ import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.dev.client.ClientApiActivity;
 import com.synerise.sdk.sample.ui.dev.injector.InjectorApiActivity;
 import com.synerise.sdk.sample.ui.dev.promotions.PromotionsApiActivity;
+import com.synerise.sdk.sample.ui.dev.settings.SettingsActivity;
 import com.synerise.sdk.sample.ui.dev.tracker.TrackerApiActivity;
 
 import static android.content.Context.ACTIVITY_SERVICE;
@@ -44,6 +45,7 @@ public class DeveloperFragment extends BaseDevFragment {
                 ActivityManager activityManager = ((ActivityManager) activity.getSystemService(ACTIVITY_SERVICE));
                 if (activityManager != null) activityManager.clearApplicationUserData();
             });
+            view.findViewById(R.id.settings).setOnClickListener(v -> startActivity(SettingsActivity.createIntent(activity)));
             ((TextView) view.findViewById(R.id.text_build)).setText(getString(R.string.developer_info,
                                                                               BuildConfig.APPLICATION_ID,
                                                                               BuildConfig.BUILD_TYPE,

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.synerise.sdk.event.Tracker;
 import com.synerise.sdk.event.TrackerParams;
 import com.synerise.sdk.event.model.CustomEvent;
+import com.synerise.sdk.event.model.interaction.AutoTrackingEvent;
 import com.synerise.sdk.event.model.interaction.VisitedScreenEvent;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.data.Category;
