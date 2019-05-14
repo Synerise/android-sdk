@@ -45,7 +45,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.14'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.15'
 }
 ```
 ### Optionally
@@ -198,6 +198,26 @@ Also, if your app did not ask for location permission, remove it from your app w
 ```
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" tools:node="remove"/>
 ```
+
+## Settings
+
+Settings enabling and disabling sdk.
+```
+Synerise.settings.sdk.enabled = true/false;
+```
+Settings enabling and disabling autotracking.
+```
+Synerise.settings.tracker.autoTracking.enabled = true/false;
+```
+Settings enabling and disabling custom tracking.
+```
+Synerise.settings.tracker.tracking.enabled = true/false;
+```
+Settings enabling and disabling notifications.
+```
+Synerise.settings.notifications.enabled = true/false;
+```
+
 ## Tracker
 
 ### View tracking
