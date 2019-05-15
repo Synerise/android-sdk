@@ -45,7 +45,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.15'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.16'
 }
 ```
 ### Optionally
@@ -818,6 +818,28 @@ private void getPromotions(List<PromotionStatus> statuses, List<PromotionType> t
     apiCall = Promotions.getPromotions(statuses, types, limit, page, includeMeta);
     apiCall.execute(this::onSuccess, this::onError);
 }
+```
+
+#### Promotions.getPromotionByUuid(uuid)
+Use this method to get promotion by uuid.
+This method return `IDataApiCall` with parametrized `SinglePromotionResponse` object to execute request.
+```
+private void getPromotion(String uuid) {
+if (apiCall != null) apiCall.cancel();
+    apiCall = Promotions.getPromotionByUuid(uuid);
+    apiCall.execute(this::onSuccess, this::onError);
+    }
+```
+
+#### Promotions.getPromotionByCode(code)
+Use this method to get promotion by code.
+This method return `IDataApiCall` with parametrized `SinglePromotionResponse` object to execute request.
+```
+private void getPromotion(String code) {
+if (apiCall != null) apiCall.cancel();
+    apiCall = Promotions.getPromotionByCode(code);
+    apiCall.execute(this::onSuccess, this::onError);
+    }
 ```
 
 #### Promotions.activatePromotionByUuid(uuid)

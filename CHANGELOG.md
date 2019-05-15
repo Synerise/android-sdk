@@ -1,5 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.3.16] - 2019-05-15
+### Added
+- `GetPromotionByCode` and `GetPromotionByUuid` methods
+- push.click event
+
 ## [3.3.15] - 2019-04-29
 ### Added
 - High Priority notification channel for Android Oreo+ `NotificationHighPriorityChannelId` and `NotificationHighPriorityChannelName`
