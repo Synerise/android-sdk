@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.3.17] - 2019-05-22
+### Fixed
+- Prevented from file descriptor leakage
+
 ## [3.3.16] - 2019-05-15
 ### Added
 - `GetPromotionByCode` and `GetPromotionByUuid` methods

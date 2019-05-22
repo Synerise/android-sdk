@@ -45,7 +45,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.16'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.3.17'
 }
 ```
 ### Optionally
