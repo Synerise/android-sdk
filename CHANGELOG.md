@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.3.18] - 2019-06-03
+### Added
+ - `setMinTokenRefreshInterval` method in `settings.sdk` to manage refresh interval
+
 ## [3.3.17] - 2019-05-22
 ### Fixed
 - Prevented from file descriptor leakage
