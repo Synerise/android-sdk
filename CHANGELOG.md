@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.3.19] - 2019-06-10
+### Fixed
+- MandatoryUpdate will not fire push notification any more.
+
 ## [3.3.18] - 2019-06-03
 ### Added
  - `setMinTokenRefreshInterval` method in `settings.sdk` to manage refresh interval
