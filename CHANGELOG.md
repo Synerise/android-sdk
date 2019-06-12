@@ -1,8 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.3.21] - 2019-06-12
+### Changed
+- `eventTime` is not send via event anymore
+
+## [3.3.20] - 2019-06-11
+### Fixed
+- NullPointerException when adding event to storage
+
 ## [3.3.19] - 2019-06-10
 ### Fixed
-- MandatoryUpdate will not fire push notification any more.
+- MandatoryUpdate will not fire push notification any more
 
 ## [3.3.18] - 2019-06-03
 ### Added
