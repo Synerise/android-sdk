@@ -9,7 +9,6 @@ import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
-import com.facebook.FacebookSdk;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.synerise.sdk.client.Client;
@@ -54,7 +53,6 @@ public class App extends MultiDexApplication
         Fabric.with(this,
                     new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build(),
                     new Crashlytics());
-        FacebookSdk.sdkInitialize(this);
 
         component = DaggerAppComponent
                 .builder()

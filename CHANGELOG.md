@@ -1,5 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.2.22] - 2019-06-25
+### Added
+- `cellCarrier`, `cellCountry`, `cellType`, `networkType`, `networkCountry` and `cellRoaming` attributes to `AppStartedEvent`
+- detector for smartphone/tablet detection
+
+### Changed
+- `facebookSdk` updated to version 4.41.0
+
+### Removed
+- `TransactionEvent`, `CompletedTransactionEvent` and `CancelledTransactionEvent` classes
+
 ## [3.3.21] - 2019-06-12
 ### Changed
 - `eventTime` is not send via event anymore

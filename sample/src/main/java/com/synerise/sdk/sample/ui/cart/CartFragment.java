@@ -21,7 +21,6 @@ import com.synerise.sdk.event.Tracker;
 import com.synerise.sdk.event.model.interaction.HitTimerEvent;
 import com.synerise.sdk.event.model.model.UnitPrice;
 import com.synerise.sdk.event.model.products.cart.RemovedFromCartEvent;
-import com.synerise.sdk.event.model.transaction.CompletedTransactionEvent;
 import com.synerise.sdk.promotions.Promotions;
 import com.synerise.sdk.promotions.model.promotion.Promotion;
 import com.synerise.sdk.promotions.model.promotion.PromotionResponse;
@@ -176,7 +175,6 @@ public class CartFragment extends BaseFragment {
         if (cartItems.size() > 0) {
             cartContent.setVisibility(View.VISIBLE);
             emptyCart.setVisibility(View.GONE);
-
             cartRecycler.setAdapter(cartAdapter);
             cartRecycler.setHasFixedSize(true);
             cartRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -211,7 +209,6 @@ public class CartFragment extends BaseFragment {
         RemovedFromCartEvent cartEvent = new RemovedFromCartEvent(getString(product.getName()), product.getSKU(), unitPrice, quantity);
         cartEvent.setName(getString(product.getName()));
         cartEvent.setProducer(getString(product.getBrand()));
-
         Category category = Category.getCategory(product);
         if (category != null) {
             cartEvent.setCategory(getString(category.getText()));
@@ -222,25 +219,7 @@ public class CartFragment extends BaseFragment {
             cartEvent.setCategories(categories);
         }
         cartEvent.setOffline(false);
-        //        cartEvent.setDiscountedPrice(unitPrice);
-        //        cartEvent.setRegularPrice(unitPrice);
         return cartEvent;
-    }
-
-    private CompletedTransactionEvent createTransactionEvent(List<CartItem> cartItems) {
-        CompletedTransactionEvent transactionEvent = new CompletedTransactionEvent("Transaction completed");
-        List<com.synerise.sdk.event.model.model.Product> products = new ArrayList<>();
-        float finalPrice = 0;
-        for (CartItem cartItem : cartItems) {
-            Product cartProduct = cartItem.getProduct();
-            for (int i = 0; i < cartItem.getQuantity(); i++) {
-                finalPrice += cartProduct.getPrice();
-                products.add(cartProduct.getEventProduct(getActivity(), cartItem.getQuantity()));
-            }
-        }
-        transactionEvent.setValue(new UnitPrice(finalPrice, Currency.getInstance(Locale.getDefault())));
-        transactionEvent.setProducts(products);
-        return transactionEvent;
     }
 
     private void onPlaceOrderClicked() {
@@ -252,7 +231,6 @@ public class CartFragment extends BaseFragment {
     private void onOrderPlaced() {
         placeOrder.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
-        Tracker.send(createTransactionEvent(accountManager.getCartItems()));
         accountManager.clearCartItems();
         showDialog();
         handleLayoutVisibility();
