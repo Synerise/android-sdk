@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import com.synerise.sdk.injector.Injector;
 import com.synerise.sdk.injector.callback.OnBannerListener;
+import com.synerise.sdk.injector.net.model.push.banner.TemplateBanner;
 import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.persistence.AccountManager;
@@ -41,6 +42,7 @@ public class SplashActivity extends BaseActivity {
         ((App) getApplication()).getComponent().inject(this);
 
         Injector.setOnBannerListener(new OnBannerListener() {
+
             @Override
             public void onPresented() {
                 isBannerPresenting = true;

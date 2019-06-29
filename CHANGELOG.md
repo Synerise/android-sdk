@@ -1,5 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.4.0] - 2019-06-29
+### Added
+- `Content` module to SDK
+- `ContentWidget` widget with Slider and Grid Layouts
+
 ## [3.2.22] - 2019-06-25
 ### Added
 - `cellCarrier`, `cellCountry`, `cellType`, `networkType`, `networkCountry` and `cellRoaming` attributes to `AppStartedEvent`

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.synerise.sdk.sample.BuildConfig;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.dev.client.ClientApiActivity;
+import com.synerise.sdk.sample.ui.dev.content.ContentApiActivity;
 import com.synerise.sdk.sample.ui.dev.injector.InjectorApiActivity;
 import com.synerise.sdk.sample.ui.dev.promotions.PromotionsApiActivity;
 import com.synerise.sdk.sample.ui.dev.settings.SettingsActivity;
@@ -46,6 +47,7 @@ public class DeveloperFragment extends BaseDevFragment {
                 if (activityManager != null) activityManager.clearApplicationUserData();
             });
             view.findViewById(R.id.settings).setOnClickListener(v -> startActivity(SettingsActivity.createIntent(activity)));
+            view.findViewById(R.id.content_api).setOnClickListener(v -> startActivity(ContentApiActivity.createIntent(activity)));
             ((TextView) view.findViewById(R.id.text_build)).setText(getString(R.string.developer_info,
                                                                               BuildConfig.APPLICATION_ID,
                                                                               BuildConfig.BUILD_TYPE,

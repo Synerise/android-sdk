@@ -3,13 +3,29 @@ package com.synerise.sdk.sample.ui.section.category.products.details;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.synerise.sdk.content.model.BaseModel;
+import com.synerise.sdk.content.model.recommendation.Recommendation;
+import com.synerise.sdk.content.widgets.ContentWidget;
+import com.synerise.sdk.content.widgets.layout.ContentWidgetHorizontalSliderLayout;
+import com.synerise.sdk.content.widgets.layout.ContentWidgetItemLayout;
+import com.synerise.sdk.content.widgets.listener.OnContentWidgetListener;
+import com.synerise.sdk.content.widgets.model.ContentWidgetAppearance;
+import com.synerise.sdk.content.widgets.model.ContentWidgetOptions;
+import com.synerise.sdk.core.Synerise;
+import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.event.Tracker;
 import com.synerise.sdk.event.TrackerParams;
 import com.synerise.sdk.event.model.CustomEvent;
@@ -25,6 +41,7 @@ import com.synerise.sdk.sample.data.Product;
 import com.synerise.sdk.sample.data.Section;
 import com.synerise.sdk.sample.persistence.AccountManager;
 import com.synerise.sdk.sample.ui.BaseActivity;
+import com.synerise.sdk.sample.ui.dev.content.WidgetRecommendedProductDetailsActivity;
 import com.synerise.sdk.sample.ui.splash.SplashActivity;
 import com.synerise.sdk.sample.util.ToolbarHelper;
 import com.synerise.sdk.sample.util.ViewUtils;
@@ -42,6 +59,7 @@ public class ProductActivity extends BaseActivity {
 
     private Product product;
     private ImageView favIcon;
+    private LinearLayout insertPoint;
 
     public static Intent createIntent(Context context, String productSKU) {
         Intent intent = new Intent(context, ProductActivity.class);
@@ -57,6 +75,10 @@ public class ProductActivity extends BaseActivity {
         setContentView(R.layout.activity_product);
 
         ToolbarHelper.setUpChildToolbar(this);
+
+        insertPoint = findViewById(R.id.insert_point);
+
+        loadWidget();
 
         Intent intent = getIntent();
         String sku = intent.getStringExtra(Args.SERIALIZABLE);
@@ -162,6 +184,70 @@ public class ProductActivity extends BaseActivity {
         //        cartEvent.setDiscountedPrice(unitPrice);
         //        cartEvent.setRegularPrice(unitPrice);
         return cartEvent;
+    }
+
+    public void loadWidget() {
+        String productId = "10214";
+        String slug = "similar";
+
+        ContentWidgetOptions options = new ContentWidgetOptions(this, slug, productId);
+
+        ContentWidgetItemLayout itemLayoutDetails = new ContentWidgetItemLayout();
+        ContentWidgetHorizontalSliderLayout layout = new ContentWidgetHorizontalSliderLayout();
+        //CardView parameters
+
+        layout.setCardViewSize(160, 250);
+        itemLayoutDetails.cardViewElevation = 5;
+        itemLayoutDetails.cardViewCornerRadius = 5;
+        layout.cardViewBackgroundColor = ContextCompat.getColor(Synerise.getApplicationContext(), R.color.regent);
+        //Image size as ratio to cardview size
+        itemLayoutDetails.imageHeightToCardHeightRatio = 0.6;
+        itemLayoutDetails.imageWidthToCardWidthRatio = 1;
+        itemLayoutDetails.imageMargin = 0; //have to be set when you set cardViewElevation
+        //TextView product name
+        itemLayoutDetails.itemTitleStyle = Typeface.create("sans-serif-condensed", Typeface.NORMAL);
+        itemLayoutDetails.itemTitleSize = 12;
+        itemLayoutDetails.itemTitleColor = ContextCompat.getColor(Synerise.getApplicationContext(), R.color.charcoal);
+        itemLayoutDetails.itemTitleGravity = Gravity.LEFT;
+        itemLayoutDetails.setItemTitleMargins(10, 0, 10, 0);
+        //TextView Product price
+        itemLayoutDetails.itemPriceStyle = Typeface.create("sans-serif-light", Typeface.BOLD);
+        itemLayoutDetails.itemPriceSize = 12;
+        itemLayoutDetails.itemPriceColor = ContextCompat.getColor(Synerise.getApplicationContext(), R.color.charcoal);
+        itemLayoutDetails.itemPriceGravity = Gravity.LEFT;
+        itemLayoutDetails.setItemPriceMargins(10, 0, 10, 0);
+        ContentWidgetAppearance contentWidgetAppearance = new ContentWidgetAppearance(new ContentWidgetHorizontalSliderLayout(), itemLayoutDetails);
+        ContentWidget widget = new ContentWidget(options, contentWidgetAppearance);
+
+        widget.setOnContentWidgetListener(new OnContentWidgetListener() {
+            @Override
+            public void widgetIsLoading(ContentWidget contentWidget, boolean isLoading) {
+
+            }
+
+            @Override
+            public void widgetDidNotLoad(ContentWidget contentWidget, ApiError apiError) {
+
+            }
+
+            @Override
+            public void widgetDidLoad(ContentWidget contentWidget) {
+
+            }
+
+            @Override
+            public void widgetDidReceiveClickAction(ContentWidget contentWidget, BaseModel itemSelected) {
+                Recommendation recommendation = (Recommendation)itemSelected;
+                startActivity(WidgetRecommendedProductDetailsActivity.createIntent(getApplicationContext(), recommendation.getProductRetailerPartNo()));
+            }
+
+            @Override
+            public void widgetSizeDidChange(ContentWidget contentWidget, ViewGroup.LayoutParams scrollableSize) {
+
+            }
+        });
+        View view = widget.getView();
+        insertPoint.addView(view);
     }
 
     @Override

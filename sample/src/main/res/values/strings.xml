@@ -44,6 +44,7 @@
     <string name="settings">Settings</string>
     <string name="client_api">Client API</string>
     <string name="injector_api">Injector API</string>
+    <string name="content_api">Content API</string>
 
     <string name="get_account">Get account</string>
     <string name="update_account">Update account</string>
@@ -389,8 +390,24 @@
     <string name="authenticate_oauth">Authenticate by OAuth</string>
     <string name="provide_access_token">Access token</string>
     <string name="provide_new_api_key">New API Key</string>
+    <string name="provide_product_id">Product Id</string>
     <string name="client_change_api_key">Change API Key</string>
     <string name="sms_agreement">SMS agreement</string>
     <string name="do_not_send_anything">Do not send agreement</string>
     <string name="client_request_email_change_facebook">Request email change by Facebook</string>
+    <string name="load_widget">Load Widget</string>
+    <string name="load_widget_halfscreen">Load HalfScreen widget</string>
+    <string name="load_widget_fullscreen">Load FullScreen widget</string>
+    <string name="change_size_text">Change Size</string>
+    <string name="gridview_widget">GridView Widget</string>
+    <string name="full_screen_widget">Full Screen Widget</string>
+    <string name="horizontal_slider">Horizontal Slider</string>
+    <string name="provide_elevation">Elevation</string>
+    <string name="provide_corner_radius">Corner radius</string>
+    <string name="provide_cardview_width">Item width</string>
+    <string name="provide_cardview_height">Item height</string>
+    <string name="provide_image_width_ratio">Image to item width ratio 0-1</string>
+    <string name="provide_image_height_ratio">Image to item height ratio 0-1</string>
+    <string name="provide_horizontal_spacing">Horizontal spacing</string>
+    <string name="provide_vertical_spacing">Vertical spacing</string>
 </resources>

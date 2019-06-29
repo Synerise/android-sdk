@@ -97,6 +97,21 @@
 
     </android.support.v7.widget.CardView>
 
+    <android.support.v7.widget.CardView
+        android:id="@+id/content_api"
+        style="@style/AppCardView.Space"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/TextPrimary.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_content"
+            android:text="@string/content_api" />
+
+    </android.support.v7.widget.CardView>
+
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"

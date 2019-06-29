@@ -119,6 +119,13 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/insert_point"
+                android:layout_width="match_parent"
+                android:layout_height="300dp">
+            </LinearLayout>
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

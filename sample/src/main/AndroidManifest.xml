@@ -72,6 +72,18 @@
             android:name=".ui.dev.settings.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.dev.content.ContentApiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.content.WidgetHorizontalSliderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.content.WidgetGridViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.content.WidgetRecommendedProductDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.dev.injector.InjectorApiActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -143,6 +155,10 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_cart" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/buddha" />
 
         <service
             android:name=".service.LocationService"
