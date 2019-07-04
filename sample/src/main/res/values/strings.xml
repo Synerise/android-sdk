@@ -410,4 +410,5 @@
     <string name="provide_image_height_ratio">Image to item height ratio 0-1</string>
     <string name="provide_horizontal_spacing">Horizontal spacing</string>
     <string name="provide_vertical_spacing">Vertical spacing</string>
+    <string name="get_simple_push">Get simple push</string>
 </resources>

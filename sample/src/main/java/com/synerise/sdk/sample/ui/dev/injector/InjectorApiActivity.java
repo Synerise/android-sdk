@@ -10,11 +10,20 @@ import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.synerise.sdk.injector.Injector;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.BaseActivity;
 import com.synerise.sdk.sample.util.FirebaseIdChangeBroadcastReceiver;
 import com.synerise.sdk.sample.util.SystemUtils;
 import com.synerise.sdk.sample.util.ToolbarHelper;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.synerise.sdk.injector.SynerisePushKeys.CONTENT;
+import static com.synerise.sdk.injector.SynerisePushKeys.CONTENT_TYPE;
+import static com.synerise.sdk.injector.SynerisePushKeys.ISSUER;
+import static com.synerise.sdk.injector.SynerisePushKeys.MESSAGE_TYPE;
 
 public class InjectorApiActivity extends BaseActivity {
 
@@ -35,6 +44,7 @@ public class InjectorApiActivity extends BaseActivity {
         firebaseId = findViewById(R.id.firebase_id);
         firebaseId.setOnClickListener(v -> copyFirebaseIdTv());
         findViewById(R.id.click_copy).setOnClickListener(v -> copyFirebaseIdTv());
+        findViewById(R.id.get_simple_push).setOnClickListener(v -> getSimplePush());
 
         broadcastReceiver = new FirebaseIdChangeBroadcastReceiver();
         broadcastReceiver.setListener(this::onFirebaseIdChanged);
@@ -66,5 +76,15 @@ public class InjectorApiActivity extends BaseActivity {
         } else {
             firebaseId.setText(refreshedToken);
         }
+    }
+
+    private void getSimplePush() {
+        Map<String, String> data = new HashMap<>();
+        String content = "{\"notification\":{\"action\":{\"item\":\"https://app.synerise.com/login\",\"type\":\"OPEN_URL\"},\"body\":\"Zobacz co słychać w Synerise! \",\"title\":\"Synerise test push \"},\"campaign\":{\"variant_id\":1157896,\"title\":\"testSynerise\",\"type\":\"Mobile push\",\"hash_id\":\"085cf70c-0239-452d-bbed-d1f9c94e21e5\"}}";
+        data.put(ISSUER.getApiKey(), "Synerise");
+        data.put(CONTENT_TYPE.getApiKey(), "simple-push");
+        data.put(MESSAGE_TYPE.getApiKey(), "static-content");
+        data.put(CONTENT.getApiKey(), content);
+        boolean isSynerisePush = Injector.handlePushPayload(data);
     }
 }
