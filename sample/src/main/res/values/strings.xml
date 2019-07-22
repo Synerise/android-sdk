@@ -333,6 +333,7 @@
     <string name="scanner_hint">Tap to capture. Pinch to zoom.</string>
     <string name="provide_phone_number">Phone number</string>
     <string name="default_uuid">UUID</string>
+    <string name="input_custom_identify">Custom Identify</string>
     <string name="provide_code">Code</string>
     <string name="client_get_promotions">Get promotions</string>
     <string name="client_activate_promotions_by_uuid">Activate Promotion by UUID</string>
@@ -391,10 +392,12 @@
     <string name="provide_access_token">Access token</string>
     <string name="provide_new_api_key">New API Key</string>
     <string name="provide_product_id">Product Id</string>
+    <string name="provide_slug_name">Slug name</string>
     <string name="client_change_api_key">Change API Key</string>
     <string name="sms_agreement">SMS agreement</string>
     <string name="do_not_send_anything">Do not send agreement</string>
     <string name="client_request_email_change_facebook">Request email change by Facebook</string>
+    <string name="client_reconize_anonymus">Recognize anonymous client</string>
     <string name="load_widget">Load Widget</string>
     <string name="load_widget_halfscreen">Load HalfScreen widget</string>
     <string name="load_widget_fullscreen">Load FullScreen widget</string>
@@ -411,4 +414,5 @@
     <string name="provide_horizontal_spacing">Horizontal spacing</string>
     <string name="provide_vertical_spacing">Vertical spacing</string>
     <string name="get_simple_push">Get simple push</string>
+    <string name="get_document_text">Get Document</string>
 </resources>

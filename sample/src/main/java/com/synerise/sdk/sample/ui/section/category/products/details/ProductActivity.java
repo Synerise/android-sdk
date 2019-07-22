@@ -20,7 +20,7 @@ import com.synerise.sdk.content.model.BaseModel;
 import com.synerise.sdk.content.model.recommendation.Recommendation;
 import com.synerise.sdk.content.widgets.ContentWidget;
 import com.synerise.sdk.content.widgets.layout.ContentWidgetHorizontalSliderLayout;
-import com.synerise.sdk.content.widgets.layout.ContentWidgetItemLayout;
+import com.synerise.sdk.content.widgets.layout.ContentWidgetBasicItemLayout;
 import com.synerise.sdk.content.widgets.listener.OnContentWidgetListener;
 import com.synerise.sdk.content.widgets.model.ContentWidgetAppearance;
 import com.synerise.sdk.content.widgets.model.ContentWidgetOptions;
@@ -187,12 +187,11 @@ public class ProductActivity extends BaseActivity {
     }
 
     public void loadWidget() {
-        String productId = "10214";
+        //String productId = "10214";
         String slug = "similar";
-
-        ContentWidgetOptions options = new ContentWidgetOptions(this, slug, productId);
-
-        ContentWidgetItemLayout itemLayoutDetails = new ContentWidgetItemLayout();
+        ContentWidgetOptions options = new ContentWidgetOptions(this, slug);
+        options.attributes.put(ContentWidgetOptions.ContentWidgetOptionsAttributeKeyProductId, "10214");
+        ContentWidgetBasicItemLayout itemLayoutDetails = new ContentWidgetBasicItemLayout();
         ContentWidgetHorizontalSliderLayout layout = new ContentWidgetHorizontalSliderLayout();
         //CardView parameters
 
@@ -221,28 +220,28 @@ public class ProductActivity extends BaseActivity {
 
         widget.setOnContentWidgetListener(new OnContentWidgetListener() {
             @Override
-            public void widgetIsLoading(ContentWidget contentWidget, boolean isLoading) {
+            public void onLoading(ContentWidget contentWidget, boolean isLoading) {
 
             }
 
             @Override
-            public void widgetDidNotLoad(ContentWidget contentWidget, ApiError apiError) {
+            public void onLoadingError(ContentWidget contentWidget, ApiError apiError) {
 
             }
 
             @Override
-            public void widgetDidLoad(ContentWidget contentWidget) {
+            public void onLoad(ContentWidget contentWidget) {
 
             }
 
             @Override
-            public void widgetDidReceiveClickAction(ContentWidget contentWidget, BaseModel itemSelected) {
-                Recommendation recommendation = (Recommendation)itemSelected;
+            public void onClickActionReceive(ContentWidget contentWidget, BaseModel model) {
+                Recommendation recommendation = (Recommendation)model;
                 startActivity(WidgetRecommendedProductDetailsActivity.createIntent(getApplicationContext(), recommendation.getProductRetailerPartNo()));
             }
 
             @Override
-            public void widgetSizeDidChange(ContentWidget contentWidget, ViewGroup.LayoutParams scrollableSize) {
+            public void onSizeChange(ContentWidget contentWidget, ViewGroup.LayoutParams size) {
 
             }
         });

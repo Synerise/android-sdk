@@ -10,17 +10,21 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 
+import com.synerise.sdk.core.types.enums.ApiQuerySortingOrder;
 import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IDataApiCall;
 import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.promotions.Promotions;
 import com.synerise.sdk.promotions.model.promotion.PromotionResponse;
+import com.synerise.sdk.promotions.model.promotion.PromotionSortingKey;
 import com.synerise.sdk.promotions.model.promotion.PromotionStatus;
 import com.synerise.sdk.promotions.model.promotion.PromotionType;
+import com.synerise.sdk.promotions.model.promotion.PromotionsApiQuery;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.dev.BaseDevFragment;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class ClientGetPromotionsFragment extends BaseDevFragment {
@@ -96,7 +100,18 @@ public class ClientGetPromotionsFragment extends BaseDevFragment {
 
         if (isValid) {
             if (apiCall != null) apiCall.cancel();
-            apiCall = Promotions.getPromotions(statuses, types, limit, page, includeButton.isChecked());
+            PromotionsApiQuery query = new PromotionsApiQuery();
+            query.limit = limit;
+            query.statuses = statuses;
+            query.page = page;
+            query.includeMeta = includeButton.isChecked();
+            //Hardcoded parameters
+            LinkedHashMap<PromotionSortingKey, ApiQuerySortingOrder> sortParams = new LinkedHashMap<>();
+            sortParams.put(PromotionSortingKey.TYPE, ApiQuerySortingOrder.ASCENDING);
+            sortParams.put(PromotionSortingKey.CREATED_AT, ApiQuerySortingOrder.ASCENDING);
+            sortParams.put(PromotionSortingKey.EXPIRE_AT, ApiQuerySortingOrder.DESCENDING);
+            query.setSortParameters(sortParams);
+            apiCall = Promotions.getPromotions(query);
             apiCall.execute(this::onSuccess, new DataActionListener<ApiError>() {
                 @Override
                 public void onDataAction(ApiError apiError) {

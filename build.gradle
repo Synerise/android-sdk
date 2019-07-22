@@ -30,7 +30,6 @@ allprojects {
 
 ext {
     supportVersion = '27.1.1'
-    rxJavaVersion = '2.2.4'
     rxAndroidVersion = '2.1.0'
     okHttpVersion = '3.11.0'
     retrofitVersion = '2.4.0'
@@ -42,7 +41,6 @@ ext {
     supportV4 = "com.android.support:support-v4:$supportVersion"
     design = "com.android.support:design:$supportVersion"
     // RxJava
-    rxJava2 = "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
     rxAndroid = "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
     // OkHttp
     okhttp3 = "com.squareup.okhttp3:okhttp:$okHttpVersion"

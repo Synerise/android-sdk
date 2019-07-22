@@ -1,11 +1,20 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.4.2] - 2019-07-22
+### Added
+- `getDocument` method
+- `recognizeAnonymus` method to Client module
+- `agreement` flag to registerForPush method
+- `PromotionsApiQuery` model to create payload for getPromotions methods
+
+### Changed
+- `productId` in `ContentWidgetOptions` moved to HashMap
+- `getPromotions` are now replaced with getPromotions using `PromotionsApiQuery`
+- `getPromotions` using arguments are now deprecated
+
 ## [3.4.1] - 2019-07-04
 ### Added
 - SimplePush test to developer section
-
-### Fixed
-- @NonNull annotations caused bugs in push notifications
 
 ## [3.4.0] - 2019-06-29
 ### Added

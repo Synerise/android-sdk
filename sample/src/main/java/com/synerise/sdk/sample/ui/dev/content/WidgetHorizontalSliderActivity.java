@@ -17,7 +17,7 @@ import com.synerise.sdk.content.model.BaseModel;
 import com.synerise.sdk.content.model.recommendation.Recommendation;
 import com.synerise.sdk.content.widgets.ContentWidget;
 import com.synerise.sdk.content.widgets.layout.ContentWidgetHorizontalSliderLayout;
-import com.synerise.sdk.content.widgets.layout.ContentWidgetItemLayout;
+import com.synerise.sdk.content.widgets.layout.ContentWidgetBasicItemLayout;
 import com.synerise.sdk.content.widgets.listener.OnContentWidgetListener;
 import com.synerise.sdk.content.widgets.model.ContentWidgetAppearance;
 import com.synerise.sdk.content.widgets.model.ContentWidgetOptions;
@@ -66,9 +66,9 @@ public class WidgetHorizontalSliderActivity extends BaseActivity {
         String slug = "similar";
         if (!productInputId.getEditText().getText().toString().matches(""))
             productId = productInputId.getEditText().getText().toString();
-        ContentWidgetOptions options = new ContentWidgetOptions(this, slug, productId);
-
-        ContentWidgetItemLayout itemLayoutDetails = new ContentWidgetItemLayout();
+        ContentWidgetOptions options = new ContentWidgetOptions(this, slug);
+        options.attributes.put(ContentWidgetOptions.ContentWidgetOptionsAttributeKeyProductId, productId);
+        ContentWidgetBasicItemLayout itemLayoutDetails = new ContentWidgetBasicItemLayout();
         ContentWidgetHorizontalSliderLayout layout = new ContentWidgetHorizontalSliderLayout();
 
         //CardView parameters
@@ -107,32 +107,32 @@ public class WidgetHorizontalSliderActivity extends BaseActivity {
 
         widget.setOnContentWidgetListener(new OnContentWidgetListener() {
             @Override
-            public void widgetIsLoading(ContentWidget contentWidget, boolean isLoading) {
+            public void onLoading(ContentWidget contentWidget, boolean isLoading) {
 
             }
 
             @Override
-            public void widgetDidNotLoad(ContentWidget contentWidget, ApiError apiError) {
+            public void onLoadingError(ContentWidget contentWidget, ApiError apiError) {
                 Toast.makeText(getApplicationContext(), apiError.toString(),Toast.LENGTH_LONG).show();
             }
 
             @Override
-            public void widgetDidLoad(ContentWidget contentWidget) {
+            public void onLoad(ContentWidget contentWidget) {
                 insertPoint.removeAllViews();
                 View view = widget.getView(); // our widget
                 insertPoint.addView(view); // your view which will receive widget
             }
 
             @Override
-            public void widgetDidReceiveClickAction(ContentWidget contentWidget, BaseModel itemSelected) {
-                Recommendation recommendation = (Recommendation)itemSelected;
+            public void onClickActionReceive(ContentWidget contentWidget, BaseModel model) {
+                Recommendation recommendation = (Recommendation)model;
                 startActivity(WidgetRecommendedProductDetailsActivity.createIntent(getApplicationContext(), recommendation.getProductRetailerPartNo()));
             }
 
             @Override
-            public void widgetSizeDidChange(ContentWidget contentWidget, ViewGroup.LayoutParams scrollableSize) {
+            public void onSizeChange(ContentWidget contentWidget, ViewGroup.LayoutParams size) {
                 ViewGroup.LayoutParams params = insertPoint.getLayoutParams();
-                params.height = scrollableSize.height;
+                params.height = size.height;
                 insertPoint.setLayoutParams(params);
             }
         });
