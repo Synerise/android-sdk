@@ -1,5 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.4.3] - 2019-07-31
+### Added
+- flatten library
+- `excludedClasses` to exclude views from autotracking
+
+### Fixed
+- bitmap IllegalArgumentException fixed
+
 ## [3.4.2] - 2019-07-22
 ### Added
 - `getDocument` method
