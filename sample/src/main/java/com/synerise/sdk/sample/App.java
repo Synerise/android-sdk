@@ -73,18 +73,20 @@ public class App extends MultiDexApplication
         String syneriseClientApiKey = accountManager.getClientProfileApiKey();
         String appId = getString(R.string.app_name);
 
+        Synerise.settings.sdk.enabled = true;
+        Synerise.settings.tracker.autoTracking.trackMode = FINE;
+        Synerise.settings.tracker.setMinimumBatchSize(11);
+        Synerise.settings.tracker.setMaximumBatchSize(99);
+        Synerise.settings.tracker.setAutoFlushTimeout(4999);
+        Synerise.settings.injector.automatic = true;
+        Synerise.settings.tracker.locationAutomatic = true;
+
         Synerise.Builder.with(this, syneriseClientApiKey, appId)
                         .notificationIcon(R.drawable.ic_cart)
                         .notificationIconColor(ContextCompat.getColor(this, R.color.amaranth))
                         .syneriseDebugMode(true)
-                        .trackerTrackMode(FINE)
-                        .trackerMinBatchSize(10)
-                        .trackerMaxBatchSize(100)
-                        .trackerAutoFlushTimeout(5000)
-                        .injectorAutomatic(true)
                         .pushRegistrationRequired(this)
                         .locationUpdateRequired(this)
-                        .locationAutomatic(true)
                         .notificationDefaultChannelId(CHANNEL_ID)
                         .notificationDefaultChannelName(CHANNEL_NAME)
                         .notificationHighPriorityChannelId(CHANNEL_HIGH_PRIORITY_ID)

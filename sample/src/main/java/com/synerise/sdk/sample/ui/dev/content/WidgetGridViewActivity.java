@@ -18,7 +18,7 @@ import com.synerise.sdk.content.model.BaseModel;
 import com.synerise.sdk.content.model.recommendation.Recommendation;
 import com.synerise.sdk.content.widgets.ContentWidget;
 import com.synerise.sdk.content.widgets.layout.ContentWidgetGridLayout;
-import com.synerise.sdk.content.widgets.layout.ContentWidgetBasicItemLayout;
+import com.synerise.sdk.content.widgets.layout.ContentWidgetBasicProductItemLayout;
 import com.synerise.sdk.content.widgets.listener.OnContentWidgetListener;
 import com.synerise.sdk.content.widgets.model.ContentWidgetAppearance;
 import com.synerise.sdk.content.widgets.model.ContentWidgetOptions;
@@ -73,7 +73,7 @@ public class WidgetGridViewActivity extends BaseActivity {
             productId = productInputId.getEditText().getText().toString();
         ContentWidgetOptions options = new ContentWidgetOptions(this, slug);
         options.attributes.put(ContentWidgetOptions.ContentWidgetOptionsAttributeKeyProductId, productId);
-        ContentWidgetBasicItemLayout itemLayoutDetails = new ContentWidgetBasicItemLayout();
+        ContentWidgetBasicProductItemLayout itemLayoutDetails = new ContentWidgetBasicProductItemLayout();
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         float screenWidthDp = displayMetrics.widthPixels;
@@ -113,6 +113,15 @@ public class WidgetGridViewActivity extends BaseActivity {
         itemLayoutDetails.itemPriceColor = ContextCompat.getColor(Synerise.getApplicationContext(), R.color.charcoal);
         itemLayoutDetails.itemPriceGravity = Gravity.LEFT;
         itemLayoutDetails.setItemPriceMargins(10, 0, 10, 0);
+
+        //TextView Product Sale price
+        itemLayoutDetails.itemSalePriceStyle = Typeface.create("sans-serif", Typeface.BOLD);
+        itemLayoutDetails.itemSalePriceSize = 13;
+        itemLayoutDetails.itemSalePriceColor = ContextCompat.getColor(Synerise.getApplicationContext(), R.color.red);
+        itemLayoutDetails.itemSalePriceOrientation = LinearLayout.VERTICAL;
+        itemLayoutDetails.isItemSalePriceVisible = true;
+        itemLayoutDetails.setItemSalePriceMargins(0, 0, 10, 0);
+
         ContentWidgetAppearance contentWidgetAppearance = new ContentWidgetAppearance(layout, itemLayoutDetails);
         ContentWidget widget = new ContentWidget(options, contentWidgetAppearance);
 
@@ -160,7 +169,7 @@ public class WidgetGridViewActivity extends BaseActivity {
             productId = productInputId.getEditText().getText().toString();
         ContentWidgetOptions options = new ContentWidgetOptions(this, slug);
         options.attributes.put(ContentWidgetOptions.ContentWidgetOptionsAttributeKeyProductId, productId);
-        ContentWidgetBasicItemLayout itemLayoutDetails = new ContentWidgetBasicItemLayout();
+        ContentWidgetBasicProductItemLayout itemLayoutDetails = new ContentWidgetBasicProductItemLayout();
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         float screenWidthDp = displayMetrics.widthPixels;
@@ -200,6 +209,15 @@ public class WidgetGridViewActivity extends BaseActivity {
         itemLayoutDetails.itemPriceColor = ContextCompat.getColor(Synerise.getApplicationContext(), R.color.charcoal);
         itemLayoutDetails.itemPriceGravity = Gravity.LEFT;
         itemLayoutDetails.setItemPriceMargins(10, 0, 10, 0);
+
+        //TextView Product Sale price
+        itemLayoutDetails.itemSalePriceStyle = Typeface.create("sans-serif", Typeface.BOLD);
+        itemLayoutDetails.itemSalePriceSize = 13;
+        itemLayoutDetails.itemSalePriceColor = ContextCompat.getColor(Synerise.getApplicationContext(), R.color.red);
+        itemLayoutDetails.itemSalePriceOrientation = LinearLayout.VERTICAL;
+        itemLayoutDetails.isItemSalePriceVisible = false;
+        itemLayoutDetails.setItemSalePriceMargins(10, 0, 10, 0);
+
         ContentWidgetAppearance contentWidgetAppearance = new ContentWidgetAppearance(layout, itemLayoutDetails);
         ContentWidget widget = new ContentWidget(options, contentWidgetAppearance);
 

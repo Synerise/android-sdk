@@ -7,7 +7,7 @@ import android.text.TextUtils;
 
 import com.synerise.sdk.injector.Injector;
 import com.synerise.sdk.injector.callback.OnBannerListener;
-import com.synerise.sdk.injector.net.model.push.banner.TemplateBanner;
+import com.synerise.sdk.injector.callback.OnWalkthroughListener;
 import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.persistence.AccountManager;
@@ -29,7 +29,7 @@ public class SplashActivity extends BaseActivity {
     @Inject AccountManager accountManager;
     private Disposable disposable;
 
-    private boolean isBannerPresenting;
+    private boolean isContentPresenting;
 
     public static Intent createIntent(Context context) {
         return new Intent(context, SplashActivity.class);
@@ -41,16 +41,38 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
         ((App) getApplication()).getComponent().inject(this);
 
-        Injector.setOnBannerListener(new OnBannerListener() {
+        Injector.setOnWalkthroughListener(new OnWalkthroughListener() {
+            @Override
+            public void onLoaded() {
+                super.onLoaded();
+            }
 
             @Override
             public void onPresented() {
-                isBannerPresenting = true;
+                super.onPresented();
+                isContentPresenting = true;
             }
 
             @Override
             public void onClosed() {
-                isBannerPresenting = false;
+                super.onClosed();
+                isContentPresenting = false;
+                delayNavigation();
+            }
+        });
+
+        Injector.setOnBannerListener(new OnBannerListener() {
+
+            @Override
+            public void onPresented() {
+                super.onPresented();
+                isContentPresenting = true;
+            }
+
+            @Override
+            public void onClosed() {
+                super.onClosed();
+                isContentPresenting = false;
                 delayNavigation();
             }
         });
@@ -97,7 +119,7 @@ public class SplashActivity extends BaseActivity {
                           .delay(1, TimeUnit.SECONDS)
                           .observeOn(AndroidSchedulers.mainThread())
                           .doOnComplete(() -> {
-                              if (!isBannerPresenting) navigate();
+                              if (!isContentPresenting) navigate();
                           })
                           .subscribe();
     }

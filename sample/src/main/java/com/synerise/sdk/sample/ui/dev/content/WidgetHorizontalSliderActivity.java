@@ -17,7 +17,7 @@ import com.synerise.sdk.content.model.BaseModel;
 import com.synerise.sdk.content.model.recommendation.Recommendation;
 import com.synerise.sdk.content.widgets.ContentWidget;
 import com.synerise.sdk.content.widgets.layout.ContentWidgetHorizontalSliderLayout;
-import com.synerise.sdk.content.widgets.layout.ContentWidgetBasicItemLayout;
+import com.synerise.sdk.content.widgets.layout.ContentWidgetBasicProductItemLayout;
 import com.synerise.sdk.content.widgets.listener.OnContentWidgetListener;
 import com.synerise.sdk.content.widgets.model.ContentWidgetAppearance;
 import com.synerise.sdk.content.widgets.model.ContentWidgetOptions;
@@ -68,7 +68,7 @@ public class WidgetHorizontalSliderActivity extends BaseActivity {
             productId = productInputId.getEditText().getText().toString();
         ContentWidgetOptions options = new ContentWidgetOptions(this, slug);
         options.attributes.put(ContentWidgetOptions.ContentWidgetOptionsAttributeKeyProductId, productId);
-        ContentWidgetBasicItemLayout itemLayoutDetails = new ContentWidgetBasicItemLayout();
+        ContentWidgetBasicProductItemLayout itemLayoutDetails = new ContentWidgetBasicProductItemLayout();
         ContentWidgetHorizontalSliderLayout layout = new ContentWidgetHorizontalSliderLayout();
 
         //CardView parameters
@@ -102,6 +102,14 @@ public class WidgetHorizontalSliderActivity extends BaseActivity {
         itemLayoutDetails.itemPriceColor = ContextCompat.getColor(Synerise.getApplicationContext(), R.color.charcoal);
         itemLayoutDetails.itemPriceGravity = Gravity.LEFT;
         itemLayoutDetails.setItemPriceMargins(10, 0, 3, 0);
+
+        //TextView Product Sale price
+        itemLayoutDetails.itemSalePriceStyle = Typeface.create("sans-serif", Typeface.BOLD);
+        itemLayoutDetails.itemSalePriceSize = 13;
+        itemLayoutDetails.itemSalePriceColor = ContextCompat.getColor(Synerise.getApplicationContext(), R.color.red);
+        itemLayoutDetails.itemSalePriceOrientation = LinearLayout.HORIZONTAL;
+        itemLayoutDetails.isItemSalePriceVisible = true;
+        itemLayoutDetails.setItemSalePriceMargins(0, 0, 3, 0);
         ContentWidgetAppearance contentWidgetAppearance = new ContentWidgetAppearance(layout, itemLayoutDetails);
         ContentWidget widget = new ContentWidget(options, contentWidgetAppearance);
 

@@ -20,7 +20,7 @@ import com.synerise.sdk.content.model.BaseModel;
 import com.synerise.sdk.content.model.recommendation.Recommendation;
 import com.synerise.sdk.content.widgets.ContentWidget;
 import com.synerise.sdk.content.widgets.layout.ContentWidgetHorizontalSliderLayout;
-import com.synerise.sdk.content.widgets.layout.ContentWidgetBasicItemLayout;
+import com.synerise.sdk.content.widgets.layout.ContentWidgetBasicProductItemLayout;
 import com.synerise.sdk.content.widgets.listener.OnContentWidgetListener;
 import com.synerise.sdk.content.widgets.model.ContentWidgetAppearance;
 import com.synerise.sdk.content.widgets.model.ContentWidgetOptions;
@@ -191,7 +191,7 @@ public class ProductActivity extends BaseActivity {
         String slug = "similar";
         ContentWidgetOptions options = new ContentWidgetOptions(this, slug);
         options.attributes.put(ContentWidgetOptions.ContentWidgetOptionsAttributeKeyProductId, "10214");
-        ContentWidgetBasicItemLayout itemLayoutDetails = new ContentWidgetBasicItemLayout();
+        ContentWidgetBasicProductItemLayout itemLayoutDetails = new ContentWidgetBasicProductItemLayout();
         ContentWidgetHorizontalSliderLayout layout = new ContentWidgetHorizontalSliderLayout();
         //CardView parameters
 

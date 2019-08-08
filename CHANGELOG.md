@@ -1,5 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.4.4] - 2019-08-08
+### Added
+- `app-version` as a query parameter in getWalkthrough
+- Sale price as a additional feature to `ContentWidget`
+- `Client.getEvents` method to retrieve events for a client
+- Event's label max length
+
+### Changed
+- `injectorAutomatic`, `locationAutomatic`, `maxBatchSize`, `minBatchSize` moved to `Settings` module
+
 ## [3.4.3] - 2019-07-31
 ### Added
 - flatten library

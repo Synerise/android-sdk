@@ -33,6 +33,9 @@
     <color name="pine">#02776d</color>
     <color name="periwinkle">#d0d1e7</color>
 
+    <!--widget Sale price-->
+    <color name="red">#ff0000</color>
+
     <!--categories-->
     <color name="endeavour">#005cb2</color>
     <color name="pacific">#009dc4</color>
