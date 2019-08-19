@@ -3,6 +3,7 @@ package com.synerise.sdk.sample.ui.dev.content;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -11,14 +12,18 @@ import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.synerise.sdk.content.model.BaseModel;
 import com.synerise.sdk.content.model.recommendation.Recommendation;
 import com.synerise.sdk.content.widgets.ContentWidget;
+import com.synerise.sdk.content.widgets.action.ImageButtonCustomAction;
+import com.synerise.sdk.content.widgets.action.PredefinedActionType;
 import com.synerise.sdk.content.widgets.layout.ContentWidgetGridLayout;
 import com.synerise.sdk.content.widgets.layout.ContentWidgetBasicProductItemLayout;
+import com.synerise.sdk.content.widgets.listener.OnActionItemStateListener;
 import com.synerise.sdk.content.widgets.listener.OnContentWidgetListener;
 import com.synerise.sdk.content.widgets.model.ContentWidgetAppearance;
 import com.synerise.sdk.content.widgets.model.ContentWidgetOptions;
@@ -27,6 +32,7 @@ import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.BaseActivity;
 import com.synerise.sdk.sample.util.ToolbarHelper;
+import com.synerise.sdk.sample.util.ViewUtils;
 
 public class WidgetGridViewActivity extends BaseActivity {
 
@@ -121,6 +127,28 @@ public class WidgetGridViewActivity extends BaseActivity {
         itemLayoutDetails.itemSalePriceOrientation = LinearLayout.VERTICAL;
         itemLayoutDetails.isItemSalePriceVisible = true;
         itemLayoutDetails.setItemSalePriceMargins(0, 0, 10, 0);
+
+        //ImageButton
+        ImageButtonCustomAction favouriteIcon = new ImageButtonCustomAction();
+        Drawable likeHeart = ContextCompat.getDrawable(this, R.drawable.ic_heart);
+        Drawable unlikeHeart = ContextCompat.getDrawable(this, R.drawable.ic_heart_outline);
+        favouriteIcon.setStateDrawables(unlikeHeart, likeHeart);
+        favouriteIcon.setImageButtonCustomActionMargins(0, 0, 0, 0);
+        favouriteIcon.predefinedAction = PredefinedActionType.SEND_LIKE_EVENT;
+        favouriteIcon.setOnItemActionListener(new OnActionItemStateListener() {
+            @Override
+            public void onReceiveClickAction(BaseModel model, boolean isSelected, ImageButton imageButton) {
+                Recommendation recommendation = (Recommendation) model;
+                ViewUtils.pulse(imageButton);
+            }
+
+            @Override
+            public boolean onStateCheck(BaseModel model) {
+                return true;
+            }
+        });
+
+        itemLayoutDetails.setItemAction(favouriteIcon);
 
         ContentWidgetAppearance contentWidgetAppearance = new ContentWidgetAppearance(layout, itemLayoutDetails);
         ContentWidget widget = new ContentWidget(options, contentWidgetAppearance);

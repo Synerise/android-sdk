@@ -1,5 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.4.5] - 2019-08-19
+### Added
+- Like/Dislike imageButton to `ContentWidget`
+- `timeFrom` is not optional in `ClientEventsQuery`
+
 ## [3.4.4] - 2019-08-08
 ### Added
 - `app-version` as a query parameter in getWalkthrough
