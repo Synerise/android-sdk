@@ -1,5 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.4.6] - 2019-09-02
+### Added
+- `OTHER` as a sex value
+
+### Fixed
+- AssertionError when parsing `Event` toString
+
 ## [3.4.5] - 2019-08-19
 ### Added
 - Like/Dislike imageButton to `ContentWidget`
