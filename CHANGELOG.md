@@ -1,5 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.4.7] - 2019-09-20
+## Added
+- `Chat` module to communicate with users
+- Possibility to sign out remotely
+
 ## [3.4.6] - 2019-09-02
 ### Added
 - `OTHER` as a sex value
