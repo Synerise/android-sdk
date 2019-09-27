@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.synerise.sdk.client.Client;
+import com.synerise.sdk.client.model.listener.OnClientStateChangeListener;
+import com.synerise.sdk.core.types.enums.ClientSessionEndReason;
 import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.persistence.AccountManager;
@@ -102,6 +104,16 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         handleSigningVisibility();
 
         changeFragment(SECTIONS);
+
+        Client.setOnClientStateChangeListener(new OnClientStateChangeListener() {
+            @Override
+            public void onClientSignedIn() {
+            }
+
+            @Override
+            public void onClientSignedOut(ClientSessionEndReason reason) {
+            }
+        });
     }
 
     @Override
@@ -159,7 +171,6 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     @Override
     @SuppressWarnings("StatementWithEmptyBody")
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START, true);
 

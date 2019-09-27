@@ -1,7 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.4.8] - 2019-09-27
+### Added
+- `SyneriseExceptionHandler` to get information about crashes
+- `OnClientStateChangeListener` to listen for signIn/SignOut changes
+
+### Fixed
+- `isSignedIn` method is taking expirationTime into account
+
 ## [3.4.7] - 2019-09-20
-## Added
+### Added
 - `Chat` module to communicate with users
 - Possibility to sign out remotely
 

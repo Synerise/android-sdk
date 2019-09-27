@@ -16,6 +16,7 @@ import com.synerise.sdk.core.Synerise;
 import com.synerise.sdk.core.listeners.OnLocationUpdateListener;
 import com.synerise.sdk.core.listeners.OnRegisterForPushListener;
 import com.synerise.sdk.core.net.IApiCall;
+import com.synerise.sdk.core.types.handler.SyneriseExceptionHandler;
 import com.synerise.sdk.core.utils.SystemUtils;
 import com.synerise.sdk.injector.callback.InjectorSource;
 import com.synerise.sdk.injector.callback.OnInjectorListener;
@@ -63,6 +64,11 @@ public class App extends MultiDexApplication
         initSynerise();
 
         Fresco.initialize(this);
+
+        //Implementation of SyneriseExceptionHandler into application
+        if(!(Thread.getDefaultUncaughtExceptionHandler() instanceof SyneriseExceptionHandler)) {
+            Thread.setDefaultUncaughtExceptionHandler(new SyneriseExceptionHandler());
+        }
     }
 
     private void initSynerise() {
