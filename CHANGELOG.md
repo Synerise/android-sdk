@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.4.9] - 2019-09-30
+### Fixed
+- `SecurityException` in JobIntentService
+
 ## [3.4.8] - 2019-09-27
 ### Added
 - `SyneriseExceptionHandler` to get information about crashes
