@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.Nullable;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.core.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
@@ -121,11 +121,11 @@ public class WidgetGridViewActivity extends BaseActivity {
         itemLayoutDetails.setItemPriceMargins(10, 0, 10, 0);
 
         //TextView Product Sale price
+        itemLayoutDetails.isItemSalePriceVisible = true;
         itemLayoutDetails.itemSalePriceStyle = Typeface.create("sans-serif", Typeface.BOLD);
         itemLayoutDetails.itemSalePriceSize = 13;
         itemLayoutDetails.itemSalePriceColor = ContextCompat.getColor(Synerise.getApplicationContext(), R.color.red);
         itemLayoutDetails.itemSalePriceOrientation = LinearLayout.VERTICAL;
-        itemLayoutDetails.isItemSalePriceVisible = true;
         itemLayoutDetails.setItemSalePriceMargins(0, 0, 10, 0);
 
         //ImageButton
@@ -239,12 +239,7 @@ public class WidgetGridViewActivity extends BaseActivity {
         itemLayoutDetails.setItemPriceMargins(10, 0, 10, 0);
 
         //TextView Product Sale price
-        itemLayoutDetails.itemSalePriceStyle = Typeface.create("sans-serif", Typeface.BOLD);
-        itemLayoutDetails.itemSalePriceSize = 13;
-        itemLayoutDetails.itemSalePriceColor = ContextCompat.getColor(Synerise.getApplicationContext(), R.color.red);
-        itemLayoutDetails.itemSalePriceOrientation = LinearLayout.VERTICAL;
         itemLayoutDetails.isItemSalePriceVisible = false;
-        itemLayoutDetails.setItemSalePriceMargins(10, 0, 10, 0);
 
         ContentWidgetAppearance contentWidgetAppearance = new ContentWidgetAppearance(layout, itemLayoutDetails);
         ContentWidget widget = new ContentWidget(options, contentWidgetAppearance);

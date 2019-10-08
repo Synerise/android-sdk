@@ -1,8 +1,8 @@
 package com.synerise.sdk.sample.data;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 
 import com.synerise.sdk.event.model.model.UnitPrice;
 import com.synerise.sdk.sample.R;

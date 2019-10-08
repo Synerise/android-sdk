@@ -11,9 +11,9 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
         applicationId "com.synerise.sample"
-        versionCode 58
-        versionName "3.4.9"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        versionCode 59
+        versionName "3.5.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
     signingConfigs {
@@ -67,7 +67,7 @@ android {
 
 ext {
     daggerVersion = '2.16'
-    syneriseVersion = '3.4.9'
+    syneriseVersion = '3.5.0'
 }
 
 dependencies {
@@ -89,7 +89,7 @@ dependencies {
     implementation rootProject.ext.retrofit2Converter
     implementation rootProject.ext.retrofit2Adapter
     // MultiDex
-    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'androidx.multidex:multidex:2.0.0'
     // Dagger
     implementation "com.google.dagger:dagger:$daggerVersion"
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
@@ -98,8 +98,8 @@ dependencies {
     // Facebook
     implementation 'com.facebook.android:facebook-login:4.41.0'
     // Firebase
-    implementation 'com.google.firebase:firebase-messaging:17.3.4'
-    implementation 'com.google.firebase:firebase-core:16.0.7'
+    implementation 'com.google.firebase:firebase-messaging:20.0.0'
+    implementation 'com.google.firebase:firebase-core:17.2.0'
     // Google Play Services
     implementation 'com.google.android.gms:play-services-vision:17.0.2'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
@@ -113,11 +113,11 @@ dependencies {
     // Crashlytics
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.8'
     // Test
-    implementation 'com.android.support.test.espresso:espresso-idling-resource:3.0.2'
+    implementation 'androidx.test.espresso:espresso-idling-resource:3.1.0'
     testImplementation rootProject.ext.junit
     androidTestImplementation rootProject.ext.supportTestRunner
     androidTestImplementation rootProject.ext.espressoCore
-    androidTestImplementation('com.android.support.test.espresso:espresso-contrib:3.0.1') {
+    androidTestImplementation('androidx.test.espresso:espresso-contrib:3.1.0') {
         // needed for PickedActions class used in TrackerViewActivityTest
         exclude group: 'com.android.support', module: 'appcompat'
         exclude module: 'support-annotations'

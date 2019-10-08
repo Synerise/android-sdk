@@ -1,10 +1,10 @@
 package com.synerise.sdk.sample;
 
 import android.content.Intent;
-import android.support.multidex.MultiDexApplication;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.LocalBroadcastManager;
+import androidx.multidex.MultiDexApplication;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
@@ -16,7 +16,6 @@ import com.synerise.sdk.core.Synerise;
 import com.synerise.sdk.core.listeners.OnLocationUpdateListener;
 import com.synerise.sdk.core.listeners.OnRegisterForPushListener;
 import com.synerise.sdk.core.net.IApiCall;
-import com.synerise.sdk.core.types.handler.SyneriseExceptionHandler;
 import com.synerise.sdk.core.utils.SystemUtils;
 import com.synerise.sdk.injector.callback.InjectorSource;
 import com.synerise.sdk.injector.callback.OnInjectorListener;
@@ -64,11 +63,6 @@ public class App extends MultiDexApplication
         initSynerise();
 
         Fresco.initialize(this);
-
-        //Implementation of SyneriseExceptionHandler into application
-        if(!(Thread.getDefaultUncaughtExceptionHandler() instanceof SyneriseExceptionHandler)) {
-            Thread.setDefaultUncaughtExceptionHandler(new SyneriseExceptionHandler());
-        }
     }
 
     private void initSynerise() {
@@ -91,6 +85,7 @@ public class App extends MultiDexApplication
                         .notificationIcon(R.drawable.ic_cart)
                         .notificationIconColor(ContextCompat.getColor(this, R.color.amaranth))
                         .syneriseDebugMode(true)
+                        .crashHandlingEnabled(true)
                         .pushRegistrationRequired(this)
                         .locationUpdateRequired(this)
                         .notificationDefaultChannelId(CHANNEL_ID)

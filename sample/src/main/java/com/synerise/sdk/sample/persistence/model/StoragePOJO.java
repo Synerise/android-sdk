@@ -1,6 +1,6 @@
 package com.synerise.sdk.sample.persistence.model;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 import com.synerise.sdk.promotions.model.promotion.Promotion;

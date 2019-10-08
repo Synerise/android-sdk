@@ -1,5 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.5.0]
+### Added
+- `crashHandlingEnabled()` method to Synerise init
+
+### Fixed
+- migration to androidX
+
 ## [3.4.9] - 2019-09-30
 ### Fixed
 - `SecurityException` in JobIntentService

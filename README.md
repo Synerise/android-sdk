@@ -28,10 +28,9 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.3'
-
-        classpath 'com.synerise.sdk:synerise-gradle-plugin:3.0.4'
-        classpath 'org.aspectj:aspectjtools:1.9.2'
+            classpath 'com.android.tools.build:gradle:3.4.2'
+            classpath 'org.aspectj:aspectjtools:1.9.4'
+            classpath 'com.synerise.sdk:synerise-gradle-plugin:3.0.4'
     }
 }
 ```
@@ -47,7 +46,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.4.9'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.5.0'
 }
 ```
 ### Optionally

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/tracker_api"
         style="@style/AppCardView.Space"
         android:layout_width="match_parent"
@@ -20,9 +20,9 @@
             android:padding="@dimen/space_content"
             android:text="@string/tracker_api" />
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/client_api"
         style="@style/AppCardView.Space"
         android:layout_width="match_parent"
@@ -35,9 +35,9 @@
             android:padding="@dimen/space_content"
             android:text="@string/client_api" />
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/promotions_api"
         style="@style/AppCardView.Space"
         android:layout_width="match_parent"
@@ -50,9 +50,9 @@
             android:padding="@dimen/space_content"
             android:text="@string/default_promotion_apis" />
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/injector_api"
         style="@style/AppCardView.Space"
         android:layout_width="match_parent"
@@ -65,9 +65,9 @@
             android:padding="@dimen/space_content"
             android:text="@string/injector_api" />
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/reset"
         style="@style/AppCardView.Space"
         android:layout_width="match_parent"
@@ -80,9 +80,9 @@
             android:padding="@dimen/space_content"
             android:text="@string/default_reset" />
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/settings"
         style="@style/AppCardView.Space"
         android:layout_width="match_parent"
@@ -95,9 +95,9 @@
             android:padding="@dimen/space_content"
             android:text="@string/default_settings" />
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/content_api"
         style="@style/AppCardView.Space"
         android:layout_width="match_parent"
@@ -110,9 +110,9 @@
             android:padding="@dimen/space_content"
             android:text="@string/content_api" />
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/chat"
         style="@style/AppCardView.Space"
         android:layout_width="match_parent"
@@ -125,7 +125,7 @@
             android:padding="@dimen/space_content"
             android:text="@string/chat" />
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
     <Space
         android:layout_width="match_parent"

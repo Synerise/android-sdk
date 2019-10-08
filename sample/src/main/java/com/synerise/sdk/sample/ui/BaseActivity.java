@@ -1,8 +1,8 @@
 package com.synerise.sdk.sample.ui;
 
 import android.annotation.SuppressLint;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.synerise.sdk.error.ApiError;

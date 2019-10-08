@@ -1,6 +1,6 @@
 package com.synerise.sdk.sample.persistence;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.synerise.sdk.promotions.model.promotion.Promotion;
 import com.synerise.sdk.sample.data.Product;

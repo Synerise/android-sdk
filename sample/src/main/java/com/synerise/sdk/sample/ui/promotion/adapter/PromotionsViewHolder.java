@@ -1,8 +1,8 @@
 package com.synerise.sdk.sample.ui.promotion.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -45,7 +45,11 @@ class PromotionsViewHolder extends RecyclerView.ViewHolder {
     void populateData(@NonNull Promotion promotion) {
         this.promotion = promotion;
         List<PromotionImage> images = promotion.getImages();
-        if (!images.isEmpty()) ViewUtils.loadImage(images.get(0).getUrl(), image, imageProgressBar);
+        if (images != null) {
+            if (!images.isEmpty()) {
+                ViewUtils.loadImage(images.get(0).getUrl(), image, imageProgressBar);
+            }
+        }
         this.name.setText(promotion.getHeadline());
         this.expire.setText(context.getString(R.string.default_valid_to, DateFormat.format("dd.MM.yyyy", promotion.getExpireAt())));
         if (promotion.getDiscountType() == PromotionDiscountType.AMOUNT) {

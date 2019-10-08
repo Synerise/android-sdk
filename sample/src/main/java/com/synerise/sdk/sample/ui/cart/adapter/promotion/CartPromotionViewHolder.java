@@ -1,7 +1,7 @@
 package com.synerise.sdk.sample.ui.cart.adapter.promotion;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Pair;
 import android.view.View;
 import android.widget.RadioButton;

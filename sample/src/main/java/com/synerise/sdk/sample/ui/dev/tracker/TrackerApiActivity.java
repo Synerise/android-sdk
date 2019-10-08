@@ -3,7 +3,7 @@ package com.synerise.sdk.sample.ui.dev.tracker;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.widget.TextView;
 
 import com.synerise.sdk.event.Tracker;

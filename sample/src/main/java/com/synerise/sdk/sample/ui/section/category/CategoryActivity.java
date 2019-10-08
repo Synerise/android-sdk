@@ -3,12 +3,11 @@ package com.synerise.sdk.sample.ui.section.category;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.synerise.sdk.event.Tracker;
 import com.synerise.sdk.event.TrackerParams;
 import com.synerise.sdk.event.model.CustomEvent;
-import com.synerise.sdk.event.model.interaction.AutoTrackingEvent;
 import com.synerise.sdk.event.model.interaction.VisitedScreenEvent;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.data.Category;

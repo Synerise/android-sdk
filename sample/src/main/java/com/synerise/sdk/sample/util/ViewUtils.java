@@ -2,7 +2,7 @@ package com.synerise.sdk.sample.util;
 
 import android.animation.Animator;
 import android.graphics.drawable.Animatable;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;

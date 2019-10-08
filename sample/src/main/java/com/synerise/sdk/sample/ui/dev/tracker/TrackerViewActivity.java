@@ -5,12 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
@@ -61,26 +63,50 @@ public class TrackerViewActivity extends BaseActivity {
             }
         });
 
-        ((RatingBar) findViewById(R.id.rating_bar)).setOnRatingBarChangeListener(
-                (ratingBar, rating, fromUser) -> Log.d(TAG, "RatingBar~onRatingChanged: " + rating));
+        ((RatingBar) findViewById(R.id.rating_bar)).setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                Log.d(TAG, "RatingBar~onRatingChanged: " + rating);
+            }
+        });
 
-        findViewById(R.id.date_picker_pre_26_api_button).setOnClickListener(
-                v -> new DatePickerDialog(TrackerViewActivity.this, (view, year, month, dayOfMonth) -> Log.d(TAG,
-                                                                                                             "DatePicker~onDateChanged: " + year + "/" + month + "/" + dayOfMonth),
-                                          10, 10, 10).show());
+        findViewById(R.id.date_picker_pre_26_api_button).setOnClickListener(new View.OnClickListener() {
+                                                                                @Override
+                                                                                public void onClick(View v) {
+                                                                                    new DatePickerDialog(TrackerViewActivity.this, new DatePickerDialog.OnDateSetListener() {
+                                                                                        @Override
+                                                                                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                                                                            Log.d(TAG, "DatePicker~onDateChanged: " + year + "/" + month + "/" + dayOfMonth);
+                                                                                        }
+                                                                                    },
+                                                                                            10, 10, 10).show();
+                                                                                }
+                                                                            });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            ((DatePicker) findViewById(R.id.date_picker)).setOnDateChangedListener((view, year, monthOfYear, dayOfMonth) -> Log.d(TAG,
-                                                                                                                                  "DatePicker~onDateChanged: " + year + "/" + monthOfYear + "/" + dayOfMonth));
+            ((DatePicker) findViewById(R.id.date_picker)).setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+                @Override
+                public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    Log.d(TAG, "DatePicker~onDateChanged: " + year + "/" + monthOfYear + "/" + dayOfMonth);
+                }
+            });
         }
 
-        ((TimePicker) findViewById(R.id.time_picker)).setOnTimeChangedListener(
-                (view, hourOfDay, minute) -> Log.d(TAG, "TimePicker~onTimeChanged: " + hourOfDay + ":" + minute));
+        ((TimePicker) findViewById(R.id.time_picker)).setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                Log.d(TAG, "TimePicker~onTimeChanged: " + hourOfDay + ":" + minute);
+            }
+        });
 
         NumberPicker numberPicker = findViewById(R.id.number_picker);
         numberPicker.setMaxValue(30);
-        numberPicker.setOnValueChangedListener(
-                (picker, oldVal, newVal) -> Log.d(TAG, "NumberPicker~onValueChange: " + oldVal + " -> " + newVal));
+        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                Log.d(TAG, "NumberPicker~onValueChange: " + oldVal + " -> " + newVal);
+            }
+        });
 
         Spinner spinner = findViewById(R.id.spinner);
         final List<String> list = new ArrayList<String>() {{
@@ -112,38 +138,67 @@ public class TrackerViewActivity extends BaseActivity {
         //        ((CheckBox) findViewById(R.id.checkbox)).setOnCheckedChangeListener(
         //                (buttonView, isChecked) -> Log.d(TAG, "CheckBox~onCheckedChanged: " + isChecked));
 
-        ((RadioButton) findViewById(R.id.radio_button)).setOnCheckedChangeListener(
-                (buttonView, isChecked) -> Log.d(TAG, "RadioButton~onCheckedChanged: " + isChecked));
+        ((RadioButton) findViewById(R.id.radio_button)).setOnCheckedChangeListener(new RadioButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.d(TAG, "RadioButton~onCheckedChanged: " + isChecked);
+            }
+        });
 
-        ((Switch) findViewById(R.id.a_switch)).setOnCheckedChangeListener(
-                (buttonView, isChecked) -> Log.d(TAG, "Switch~onCheckedChanged: " + isChecked));
+        ((Switch) findViewById(R.id.a_switch)).setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.d(TAG, "Switch~onCheckedChanged: " + isChecked);
+            }
+        });
 
-        ((RadioGroup) findViewById(R.id.radio_group)).setOnCheckedChangeListener(
-                (group, checkedId) -> Log.d(TAG, "RadioGroup~onCheckedChanged: " + checkedId));
+        ((RadioGroup) findViewById(R.id.radio_group)).setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                Log.d(TAG, "RadioGroup~onCheckedChanged: " + checkedId);
+            }
+        });
 
-        findViewById(R.id.edit_text).setOnTouchListener((v, event) -> {
-            Log.d(TAG, "EditText~onTouch");
-            return false;
+        findViewById(R.id.edit_text).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Log.d(TAG, "EditText~onTouch");
+                return false;
+            }
         });
 
         final CheckedTextView checkedTextView = findViewById(R.id.checked_text_view);
-        checkedTextView.setOnClickListener(v -> {
-            Log.d(TAG, "CheckedTextView~onClick");
-            checkedTextView.setChecked(!checkedTextView.isChecked());
+        checkedTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "CheckedTextView~onClick");
+                checkedTextView.setChecked(!checkedTextView.isChecked());
+            }
         });
-        checkedTextView.setOnLongClickListener(v -> {
-            Log.d(TAG, "CheckedTextView~OnLongClickListener");
-            return false;
+
+        checkedTextView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Log.d(TAG, "CheckedTextView~OnLongClickListener");
+                return false;
+            }
         });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            findViewById(R.id.text_view).setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> Log.d(TAG,
-                                                                                                                          "TextView~onScrollChange: [" + oldScrollX + "," + oldScrollY + "] -> [" + scrollX + "," + scrollY + "]"));
+            findViewById(R.id.text_view).setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    Log.d(TAG, "TextView~onScrollChange: [" + oldScrollX + "," + oldScrollY + "] -> [" + scrollX + "," + scrollY + "]");
+                }
+            });
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            findViewById(R.id.scroll_view).setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-                //Log.d(TAG, "ScrollView~onScrollChange: [" + oldScrollX + "," + oldScrollY + "] -> [" + scrollX + "," + scrollY + "]");
+            findViewById(R.id.scroll_view).setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    Log.d(TAG, "ScrollView~onScrollChange: [" + oldScrollX + "," + oldScrollY + "] -> [" + scrollX + "," + scrollY + "]");
+                }
             });
         }
     }

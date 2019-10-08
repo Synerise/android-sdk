@@ -3,7 +3,7 @@ package com.synerise.sdk.sample.persistence;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.google.gson.Gson;
 import com.synerise.sdk.sample.persistence.model.StoragePOJO;

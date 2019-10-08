@@ -1,6 +1,6 @@
 package com.synerise.sdk.sample.ui.dev.apiAdapter;
 
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 import com.synerise.sdk.sample.R;
 

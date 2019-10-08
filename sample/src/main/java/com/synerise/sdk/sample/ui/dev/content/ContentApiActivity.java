@@ -3,16 +3,12 @@ package com.synerise.sdk.sample.ui.dev.content;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
+import androidx.annotation.Nullable;
+import com.google.android.material.textfield.TextInputLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.synerise.sdk.content.Content;
-import com.synerise.sdk.content.model.recommendation.Recommendation;
-import com.synerise.sdk.content.model.recommendation.RecommendationRequestBody;
-import com.synerise.sdk.content.widgets.viewModel.BaseViewModel;
-import com.synerise.sdk.content.widgets.viewModel.RecommendationViewModel;
 import com.synerise.sdk.core.net.IDataApiCall;
 import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.sample.R;
@@ -21,7 +17,6 @@ import com.synerise.sdk.sample.util.ToolbarHelper;
 import com.synerise.sdk.sample.util.ViewUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
 

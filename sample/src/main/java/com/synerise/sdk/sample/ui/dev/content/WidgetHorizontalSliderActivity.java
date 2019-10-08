@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.Nullable;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.core.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,14 +110,12 @@ public class WidgetHorizontalSliderActivity extends BaseActivity {
         itemLayoutDetails.setItemPriceMargins(10, 0, 3, 0);
 
         //TextView Product Sale price
+        itemLayoutDetails.isItemSalePriceVisible = true;
         itemLayoutDetails.itemSalePriceStyle = Typeface.create("sans-serif", Typeface.BOLD);
         itemLayoutDetails.itemSalePriceSize = 13;
         itemLayoutDetails.itemSalePriceColor = ContextCompat.getColor(Synerise.getApplicationContext(), R.color.red);
         itemLayoutDetails.itemSalePriceOrientation = LinearLayout.HORIZONTAL;
-        itemLayoutDetails.isItemSalePriceVisible = true;
         itemLayoutDetails.setItemSalePriceMargins(5, 0, 3, 0);
-        ContentWidgetAppearance contentWidgetAppearance = new ContentWidgetAppearance(layout, itemLayoutDetails);
-        ContentWidget widget = new ContentWidget(options, contentWidgetAppearance);
 
         //ImageButton
         ImageButtonCustomAction favouriteIcon = new ImageButtonCustomAction();
@@ -140,6 +138,9 @@ public class WidgetHorizontalSliderActivity extends BaseActivity {
         });
 
         itemLayoutDetails.setItemAction(favouriteIcon);
+
+        ContentWidgetAppearance contentWidgetAppearance = new ContentWidgetAppearance(layout, itemLayoutDetails);
+        ContentWidget widget = new ContentWidget(options, contentWidgetAppearance);
 
         widget.setOnContentWidgetListener(new OnContentWidgetListener() {
             @Override

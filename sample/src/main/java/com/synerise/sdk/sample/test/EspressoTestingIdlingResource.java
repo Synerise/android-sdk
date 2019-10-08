@@ -1,7 +1,7 @@
 package com.synerise.sdk.sample.test;
 
-import android.support.test.espresso.IdlingResource;
-import android.support.test.espresso.idling.CountingIdlingResource;
+import androidx.test.espresso.IdlingResource;
+import androidx.test.espresso.idling.CountingIdlingResource;
 
 import com.synerise.sdk.sample.BuildConfig;
 
