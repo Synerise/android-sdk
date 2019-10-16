@@ -1,11 +1,17 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.5.1]
+### Added
+- `getDocuments()` method to get documents by schema
+
 ## [3.5.0]
 ### Added
-- `crashHandlingEnabled()` method to Synerise init
+- `crashHandlingEnabled()` method to Synerise init (1).
 
 ### Fixed
 - migration to androidX
+
+1. [Crash Handler documentation](http://localhost:1313/developers/android-sdk/installation-and-configuration/)
 
 ## [3.4.9] - 2019-09-30
 ### Fixed

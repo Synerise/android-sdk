@@ -60,25 +60,25 @@
                 android:text="@string/this_is_a_switch" />
 
             <RadioGroup
-                android:id="@+id/radio_group"
+            android:id="@+id/radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/space_content">
+
+            <RadioButton
+                android:id="@+id/radio_button_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/space_content">
+                android:layout_marginBottom="@dimen/space_medium"
+                android:text="@string/this_is_a_radiobutton_1" />
 
-                <RadioButton
-                    android:id="@+id/radio_button_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/space_medium"
-                    android:text="@string/this_is_a_radiobutton_1" />
-
-                <RadioButton
-                    android:id="@+id/radio_button_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/space_medium"
-                    android:text="@string/this_is_a_radiobutton_2" />
+            <RadioButton
+                android:id="@+id/radio_button_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_medium"
+                android:text="@string/this_is_a_radiobutton_2" />
 
                 <RadioButton
                     android:id="@+id/radio_button_3"

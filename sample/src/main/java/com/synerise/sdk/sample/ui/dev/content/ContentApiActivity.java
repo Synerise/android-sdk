@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import com.google.android.material.textfield.TextInputLayout;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.synerise.sdk.content.Content;
+import com.synerise.sdk.content.model.DocumentsApiQuery;
+import com.synerise.sdk.content.model.DocumentsApiQueryType;
 import com.synerise.sdk.core.net.IDataApiCall;
 import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.sample.R;
@@ -22,7 +25,7 @@ import okhttp3.ResponseBody;
 
 public class ContentApiActivity extends BaseActivity {
 
-    private TextInputLayout slugNameInput;
+    private TextInputLayout valueInput;
     private IDataApiCall<ResponseBody> apiCall;
     private TextView getDocumentResponse;
 
@@ -37,21 +40,22 @@ public class ContentApiActivity extends BaseActivity {
 
         ToolbarHelper.setUpChildToolbar(this, R.string.content_api);
 
-        slugNameInput = findViewById(R.id.input_slug_name);
+        valueInput = findViewById(R.id.input_value);
         getDocumentResponse = findViewById(R.id.get_document_response);
         findViewById(R.id.slider_widget).setOnClickListener(v -> startActivity(WidgetHorizontalSliderActivity.createIntent(this)));
         findViewById(R.id.gridview_widget).setOnClickListener(v -> startActivity(WidgetGridViewActivity.createIntent(this)));
         findViewById(R.id.get_document).setOnClickListener(v -> getDocument());
+        findViewById(R.id.get_documents).setOnClickListener(v -> getDocuments());
     }
 
     private void getDocument() {
-        if (!slugNameInput.getEditText().getText().toString().matches("")) {
-            slugNameInput.getEditText().getText().toString();
+        if (!valueInput.getEditText().getText().toString().matches("")) {
+            valueInput.getEditText().getText().toString();
 
             if (apiCall != null) {
                 apiCall.cancel();
             }
-            apiCall = Content.getDocument(slugNameInput.getEditText().getText().toString());
+            apiCall = Content.getDocument(valueInput.getEditText().getText().toString());
             apiCall.execute(response -> {
                 if (response != null) {
                     try {
@@ -62,7 +66,32 @@ public class ContentApiActivity extends BaseActivity {
                 }
             }, this::onFailure);
         } else {
-            Toast.makeText(getApplicationContext(), "Please fill slug name",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Please fill value name", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void getDocuments() {
+        if (!valueInput.getEditText().getText().toString().matches("")) {
+            valueInput.getEditText().getText().toString();
+
+            if (apiCall != null) {
+                apiCall.cancel();
+            }
+            DocumentsApiQuery documentsApiQuery = new DocumentsApiQuery();
+            documentsApiQuery.setVersion("1.0.0");
+            documentsApiQuery.setDocumentQueryParameters(DocumentsApiQueryType.SCHEMA, valueInput.getEditText().getText().toString());
+            apiCall = Content.getDocuments(documentsApiQuery);
+            apiCall.execute(response -> {
+                if (response != null) {
+                    try {
+                        getDocumentResponse.setText(ViewUtils.formatStringToJsonLook(response.string()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, this::onFailure);
+        } else {
+            Toast.makeText(getApplicationContext(), "Please fill value name", Toast.LENGTH_LONG).show();
         }
     }
 
