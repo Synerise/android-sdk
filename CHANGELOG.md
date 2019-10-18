@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.5.2]
+### Added
+- `itemRegularPriceColor`, `itemRegularPriceSize`, `priceGroupSeparator` and `priceDecimalSeparator` to ContentWidgetBasicProductItemLayout
+
 ## [3.5.1]
 ### Added
 - `getDocuments()` method to get documents by schema

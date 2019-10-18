@@ -116,6 +116,11 @@ public class WidgetHorizontalSliderActivity extends BaseActivity {
         itemLayoutDetails.itemSalePriceColor = ContextCompat.getColor(Synerise.getApplicationContext(), R.color.red);
         itemLayoutDetails.itemSalePriceOrientation = LinearLayout.HORIZONTAL;
         itemLayoutDetails.setItemSalePriceMargins(5, 0, 3, 0);
+        // CrossedOut Price color
+        itemLayoutDetails.itemRegularPriceColor = ContextCompat.getColor(Synerise.getApplicationContext(), R.color.com_facebook_blue);
+
+        itemLayoutDetails.priceDecimalSeparator = ',';
+        itemLayoutDetails.priceGroupSeparator = ' ';
 
         //ImageButton
         ImageButtonCustomAction favouriteIcon = new ImageButtonCustomAction();
