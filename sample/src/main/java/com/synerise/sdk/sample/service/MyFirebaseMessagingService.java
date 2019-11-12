@@ -35,7 +35,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        Log.i("milan", "message received");
         Map<String, String> data = remoteMessage.getData();
         if (Injector.isSilentCommand(data)) {
             try {

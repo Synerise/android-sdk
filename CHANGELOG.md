@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.5.3]
+### Fixed
+- SecurityException on JobIntentService
+
 ## [3.5.2]
 ### Added
 - `itemRegularPriceColor`, `itemRegularPriceSize`, `priceGroupSeparator` and `priceDecimalSeparator` to ContentWidgetBasicProductItemLayout
@@ -15,7 +19,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - migration to androidX
 
-1. [Crash Handler documentation](http://localhost:1313/developers/android-sdk/installation-and-configuration/)
+1. [Crash Handler documentation](https://help.synerise.com/developers/android-sdk/installation-and-configuration/)
 
 ## [3.4.9] - 2019-09-30
 ### Fixed
