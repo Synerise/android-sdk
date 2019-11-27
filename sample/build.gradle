@@ -11,8 +11,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 28
         applicationId "com.synerise.sample"
-        versionCode 62
-        versionName "3.5.3"
+        versionCode 63
+        versionName "3.5.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -20,7 +20,7 @@ android {
         releaseConfig {
             keyAlias project.syneriseSampleKeyAlias
             keyPassword project.syneriseSampleKeyPassword
-            storeFile file(homePath + '/.android/release_synerise_sample.jks')
+            storeFile file(homePath + '../.android/release_synerise_sample.jks')
             storePassword project.syneriseSampleStorePassword
         }
         developmentConfig {
@@ -67,7 +67,7 @@ android {
 
 ext {
     daggerVersion = '2.16'
-    syneriseVersion = '3.5.3'
+    syneriseVersion = '3.5.4'
 }
 
 dependencies {

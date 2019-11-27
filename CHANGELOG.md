@@ -1,18 +1,23 @@
 # Changelog
 All notable changes to this project will be documented in this file.
-## [3.5.3]
+## [3.5.4] 2019-11-27
+### Fixed
+- `itemPriceColor` showing wrong color
+- `type` in events: `CancelledPushEvent`, `ClickedPushEvent`, `ViewedPushEvent`
+
+## [3.5.3] 2019-11-13
 ### Fixed
 - SecurityException on JobIntentService
 
-## [3.5.2]
+## [3.5.2] 2019-10-18
 ### Added
 - `itemRegularPriceColor`, `itemRegularPriceSize`, `priceGroupSeparator` and `priceDecimalSeparator` to ContentWidgetBasicProductItemLayout
 
-## [3.5.1]
+## [3.5.1] 2019-10-16
 ### Added
 - `getDocuments()` method to get documents by schema
 
-## [3.5.0]
+## [3.5.0] 2019-10-08
 ### Added
 - `crashHandlingEnabled()` method to Synerise init (1).
 
