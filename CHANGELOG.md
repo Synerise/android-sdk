@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.5.5] 2019-12-03
+### Added
+- `InjectorActionHandler`
+
 ## [3.5.4] 2019-11-27
 ### Fixed
 - `itemPriceColor` showing wrong color
