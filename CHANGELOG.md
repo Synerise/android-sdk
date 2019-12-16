@@ -1,27 +1,35 @@
 # Changelog
 All notable changes to this project will be documented in this file.
-## [3.5.5] 2019-12-03
+## [3.5.6] - 2019-12-16
+### Added
+- 'priority' field to `Promotion`
+- `priority` as a sorting parameter to `PromotionApiQuery`
+
+### Fixed
+- removing events mechanism
+
+## [3.5.5] - 2019-12-03
 ### Added
 - `InjectorActionHandler`
 
-## [3.5.4] 2019-11-27
+## [3.5.4] - 2019-11-27
 ### Fixed
 - `itemPriceColor` showing wrong color
 - `type` in events: `CancelledPushEvent`, `ClickedPushEvent`, `ViewedPushEvent`
 
-## [3.5.3] 2019-11-13
+## [3.5.3] - 2019-11-13
 ### Fixed
 - SecurityException on JobIntentService
 
-## [3.5.2] 2019-10-18
+## [3.5.2] - 2019-10-18
 ### Added
 - `itemRegularPriceColor`, `itemRegularPriceSize`, `priceGroupSeparator` and `priceDecimalSeparator` to ContentWidgetBasicProductItemLayout
 
-## [3.5.1] 2019-10-16
+## [3.5.1] - 2019-10-16
 ### Added
 - `getDocuments()` method to get documents by schema
 
-## [3.5.0] 2019-10-08
+## [3.5.0] - 2019-10-08
 ### Added
 - `crashHandlingEnabled()` method to Synerise init (1).
 
