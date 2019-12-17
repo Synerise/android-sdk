@@ -46,7 +46,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.5.6'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.5.7'
 }
 ```
 ### Optionally
@@ -85,18 +85,21 @@ public class App extends Application {
 
         final boolean DEBUG_MODE = BuildConfig.DEBUG;
 
+        Synerise.settings.sdk.enabled = true;
+        Synerise.settings.tracker.autoTracking.trackMode = FINE;
+        Synerise.settings.tracker.setMinimumBatchSize(11);
+        Synerise.settings.tracker.setMaximumBatchSize(99);
+        Synerise.settings.tracker.setAutoFlushTimeout(4999);
+        Synerise.settings.injector.automatic = true;
+        Synerise.settings.tracker.locationAutomatic = true;
+
         Synerise.Builder.with(this, syneriseClientApiKey, appId)
                         .notificationIcon(R.drawable.notification_icon)
                         .notificationIconColor(ContextCompat.getColor(this, R.color.amaranth))
-                        .syneriseDebugMode(DEBUG_MODE)
-                        .trackerTrackMode(FINE)
-                        .trackerMinBatchSize(10)
-                        .trackerMaxBatchSize(100)
-                        .trackerAutoFlushTimeout(5000)
-                        .injectorAutomatic(false)
+                        .syneriseDebugMode(true)
+                        .crashHandlingEnabled(true)
                         .pushRegistrationRequired(this)
                         .locationUpdateRequired(this)
-                        .locationAutomatic(true)
                         .notificationDefaultChannelId("your-channel-id")
                         .notificationDefaultChannelName("your-channel-name")
                         .notificationHighPriorityChannelId("your-high-channel-id")
@@ -104,6 +107,7 @@ public class App extends Application {
                         .baseUrl("http://your-base-url.com/")
                         .customClientConfig(new CustomClientAuthConfig("http://your-base-url.com/"))
                         .build();
+
     }
 }
 ```
@@ -120,27 +124,3 @@ and in your /values strings file (e.g. `strings.xml`):
 
 </resources>
 ```
-
-For your convenience, `Synerise.Builder` makes it possible to configure SDK the way you want it!<br>
-Let's dive into some configurable functionalities:
-1. `.notificationIcon(@DrawableRes int)` - if you're using campaign banners or push messages, it is recommended to pass your custom notification icon.
-This icon is presented as a small notification icon. Note, that required icon must be a drawable resource (not mipmap) due to Android O adaptive icons restrictions.
-Also, a default icon will be used if there is no custom icon provided.
-2. `.syneriseDebugMode(boolean)` - simple flag may be provided in order to enable full network traffic logs. It is not recommended to use debug mode in release version of your app.
-3. `.trackerDebugMode(boolean)` - you can receive some simple logs about sending events (like success, failure etc.) by enabling debug mode, which is disabled by default.
-4. `.injectorDebugMode(boolean)` - you can receive some simple logs about Injector actions (like Walkthrough screen availability) by enabling debug mode, which is disabled by default.
-5. `.trackerTrackMode(TrackMode)` - sets proper mode for view tracking. See Tracker section below.
-6. `.trackerMinBatchSize(int)` - sets minimum number of events in queue required to send them.
-7. `.trackerMaxBatchSize(int)` - sets maximum number of events, which may be sent in a single batch.
-8. `.trackerAutoFlushTimeout(int)` - sets time required to elapse before event's queue will attempt to be sent.
-9. `.injectorAutomatic(boolean)` - simple flag may be provided to enable automatic mode in injector. See Injector section for more information.
-10. `.pushRegistrationRequired(OnRegisterForPushListener)` - Synerise SDK may request you to register client for push notifications. This callback is called at after client signs in, signs up or deletes account.
-11. `.locationUpdateRequired(OnLocationUpdateListener)` - this callback is called on demand via push notification, so it may be called at any point of time.
-12. `.locationAutomatic(boolean)` - to obtain user location and send location event automatically.
-12. `.notificationDefaultChannelId(String)` - sets id of Push Notification Channel. For more info please check Injector section below.
-13. `.notificationDefaultChannelName(String)` - sets name of Push Notification Channel. For more info please check Injector section below.
-14. `.notificationHighPriorityChannelId(String)` - sets id of Push Notification Channel. For more info please check Injector section below.
-15. `.notificationHighPriorityChannelName(String)` - sets name of Push Notification Channel. For more info please check Injector section below.
-16. `.baseUrl(String)` - you can provide your custom base URL to use your own API.
-17. `.customClientConfig(CustomClientAuthConfig)` - you can also provide your custom Client `Authorization Configuration`. At this moment, configuration handles `Base URL` changes.
-18. `.build()` - builds Synerise SDK with provided data. Please note, that `Synerise.Builder.with(..)` method is mandatory and `Synerise.Builder.build()` method can be called only once during whole application lifecycle, so it is recommended to call this method in your `Application` class.<br>

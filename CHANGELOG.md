@@ -1,5 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.5.7] - 2019-12-17
+### Fixed
+- IllegalArgumentException x must be < bitmap.width
+- Added encoding to query parameters in PromotionsApi
+
 ## [3.5.6] - 2019-12-16
 ### Added
 - 'priority' field to `Promotion`
