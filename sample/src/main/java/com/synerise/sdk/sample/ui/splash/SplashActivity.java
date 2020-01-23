@@ -57,7 +57,7 @@ public class SplashActivity extends BaseActivity {
             public void onClosed() {
                 super.onClosed();
                 isContentPresenting = false;
-                delayNavigation();
+                //delayNavigation();
             }
         });
 

@@ -93,7 +93,6 @@ public class App extends MultiDexApplication
                         .notificationHighPriorityChannelId(CHANNEL_HIGH_PRIORITY_ID)
                         .notificationHighPriorityChannelName(CHANNEL_HIGH_PRIORITY_NAME)
                         .baseUrl(null)
-                        //.customClientConfig(new CustomClientAuthConfig("http://your-base-url.com"))
                         .build();
     }
 

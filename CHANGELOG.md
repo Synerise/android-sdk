@@ -1,5 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.5.8] - 2020-01-23
+### Added
+- `customId` to OAuthPayload
+- reinitialization mechanism
+
+### Removed
+- `CustomClientAuthConfig` from Synerise
+
 ## [3.5.7] - 2019-12-17
 ### Fixed
 - IllegalArgumentException x must be < bitmap.width

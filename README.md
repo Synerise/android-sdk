@@ -46,7 +46,7 @@ apply plugin: 'synerise-plugin'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.5.7'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.5.8'
 }
 ```
 ### Optionally
@@ -105,7 +105,6 @@ public class App extends Application {
                         .notificationHighPriorityChannelId("your-high-channel-id")
                         .notificationHighPriorityChannelName("your-high-channel-name")
                         .baseUrl("http://your-base-url.com/")
-                        .customClientConfig(new CustomClientAuthConfig("http://your-base-url.com/"))
                         .build();
 
     }
