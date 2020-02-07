@@ -1,5 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.6.0] - 2020-02-06
+### Changed
+- crashHandler is now sending whole stacktrace
+- Security related changes and refactoring
+
+### Removed
+- setting `tags` in Client
+
 ## [3.5.8] - 2020-01-23
 ### Added
 - `customId` to OAuthPayload

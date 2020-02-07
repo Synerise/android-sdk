@@ -4,10 +4,10 @@
         <domain includeSubdomains="true">gate.net.pl</domain>
         <domain includeSubdomains="true">mobilechat.snrbox.com</domain>
 </domain-config>
-    <debug-overrides>
-        <trust-anchors>
-            <!-- Trust user added CAs while debuggable only -->
-            <certificates src="user" />
-        </trust-anchors>
-    </debug-overrides>
+<debug-overrides>
+    <trust-anchors>
+        <!-- Trust user added CAs while debuggable only -->
+        <certificates src="user" />
+    </trust-anchors>
+</debug-overrides>
 </network-security-config>

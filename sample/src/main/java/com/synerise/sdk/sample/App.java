@@ -113,7 +113,7 @@ public class App extends MultiDexApplication
             String refreshedToken = instanceIdResult.getToken();
             Log.d(TAG, "Refreshed token: " + refreshedToken);
 
-            IApiCall call = Client.registerForPush(refreshedToken);
+            IApiCall call = Client.registerForPush(refreshedToken, true);
             call.execute(() -> Log.d(TAG, "Register for Push succeed: " + refreshedToken),
                          apiError -> Log.w(TAG, "Register for push failed: " + refreshedToken));
 
