@@ -1,12 +1,17 @@
 # Changelog
 All notable changes to this project will be documented in this file.
-## [3.6.0] - 2020-02-06
+## [3.6.0] - 2020-02-11
 ### Changed
+- autotracking is not working (KNOWN ISSUE)
 - crashHandler is now sending whole stacktrace
 - Security related changes and refactoring
 
 ### Removed
 - setting `tags` in Client
+
+## [3.5.9] - 2020-02-11
+### Changed
+- aspectJ config for androidX
 
 ## [3.5.8] - 2020-01-23
 ### Added
