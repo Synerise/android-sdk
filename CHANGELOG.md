@@ -1,5 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.6.1] - 2020-02-28
+### Changed
+- autotracking 2.0 is now working
+- local Walkthrough is cleared while changing apiKey
+- android-aspectjx and synerise-plugin plugin is no longer needed
+
 ## [3.6.0] - 2020-02-11
 ### Changed
 - autotracking is not working (KNOWN ISSUE)

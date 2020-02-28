@@ -4,7 +4,7 @@
 Most up-to-date documentation is available at: https://help.synerise.com/developers/android-sdk/
 ## Requirements
 
-- Minimum Android SDK version - 19
+- Minimum Android SDK version - 20
 
 ## Installation
 
@@ -38,26 +38,16 @@ buildscript {
 Moreover, import dependency in your app/build.gradle file and apply plugin:
 ```
 apply plugin: 'com.android.application'
-apply plugin: 'android-aspectjx'
-apply plugin: 'synerise-plugin'
 ```
 ```
 ...
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.6.0'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.6.1'
 }
 ```
-### Optionally
-You should use google play services auth version 15.0.0 as newer versions cause problems with tracking features of our SDK (we still work on that)
 
-dependencies {
-  ...
-  // Google Play Services
-  implementation 'com.google.android.gms:play-services-auth:15.0.0'
-}
-```
 Finally, please make sure your `Instant Run` is disabled.
 
 ### Initialize

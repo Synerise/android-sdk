@@ -101,6 +101,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
 
         signInButtonNavHeader.setOnClickListener(v -> startActivityForResult(SignInActivity.createIntent(this), SIGN_IN_REQUEST_CODE));
 
+
         handleSigningVisibility();
 
         changeFragment(SECTIONS);

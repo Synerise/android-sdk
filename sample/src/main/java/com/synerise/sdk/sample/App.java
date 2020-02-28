@@ -1,10 +1,12 @@
 package com.synerise.sdk.sample;
 
 import android.content.Intent;
+
 import androidx.multidex.MultiDexApplication;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
@@ -16,6 +18,7 @@ import com.synerise.sdk.core.Synerise;
 import com.synerise.sdk.core.listeners.OnLocationUpdateListener;
 import com.synerise.sdk.core.listeners.OnRegisterForPushListener;
 import com.synerise.sdk.core.net.IApiCall;
+import com.synerise.sdk.core.types.enums.TrackMode;
 import com.synerise.sdk.core.utils.SystemUtils;
 import com.synerise.sdk.injector.callback.InjectorSource;
 import com.synerise.sdk.injector.callback.OnInjectorListener;
@@ -30,7 +33,6 @@ import javax.inject.Inject;
 
 import io.fabric.sdk.android.Fabric;
 
-import static com.synerise.sdk.event.BaseViewAspect.TrackMode.FINE;
 import static com.synerise.sdk.sample.service.MyFirebaseMessagingService.CHANNEL_HIGH_PRIORITY_ID;
 import static com.synerise.sdk.sample.service.MyFirebaseMessagingService.CHANNEL_HIGH_PRIORITY_NAME;
 import static com.synerise.sdk.sample.service.MyFirebaseMessagingService.CHANNEL_ID;
@@ -74,7 +76,7 @@ public class App extends MultiDexApplication
         String appId = getString(R.string.app_name);
 
         Synerise.settings.sdk.enabled = true;
-        Synerise.settings.tracker.autoTracking.trackMode = FINE;
+        Synerise.settings.tracker.autoTracking.trackMode = TrackMode.FINE;
         Synerise.settings.tracker.setMinimumBatchSize(11);
         Synerise.settings.tracker.setMaximumBatchSize(99);
         Synerise.settings.tracker.setAutoFlushTimeout(4999);
@@ -94,6 +96,7 @@ public class App extends MultiDexApplication
                         .notificationHighPriorityChannelName(CHANNEL_HIGH_PRIORITY_NAME)
                         .baseUrl(null)
                         .build();
+
     }
 
     public AppComponent getComponent() {
