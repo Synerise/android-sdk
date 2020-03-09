@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.6.2] - 2020-03-09
+### Fixed
+- autotracking collecting clicks on ViewGroup instances
+
 ## [3.6.1] - 2020-02-28
 ### Changed
 - autotracking 2.0 is now working
