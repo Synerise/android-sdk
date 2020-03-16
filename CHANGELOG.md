@@ -1,5 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.6.3] - 2020-03-16
+### Fixed
+- problem with facebook login
+- pre marshmallow errors on start
+
 ## [3.6.2] - 2020-03-09
 ### Fixed
 - autotracking collecting clicks on ViewGroup instances
