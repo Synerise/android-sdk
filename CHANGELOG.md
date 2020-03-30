@@ -1,5 +1,17 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.6.4] - 2020-03-30
+### Added
+- `Client.destroySession` method
+- AutoTracking for click's on actionButtons in Push Notifications
+- `Client.regenerateUuid` method with customerIdentifier as a argument
+
+### Fixed
+- issues with autoBackup
+
+### Removed
+- deprecated methods in Promotions Module
+
 ## [3.6.3] - 2020-03-16
 ### Fixed
 - problem with facebook login

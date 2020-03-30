@@ -126,7 +126,7 @@ public class CartFragment extends BaseFragment {
     private void getPromotions() {
         Toast.makeText(getActivity(), R.string.default_refreshing_promotions, Toast.LENGTH_SHORT).show();
         if (apiCall != null) apiCall.cancel();
-        apiCall = Promotions.getPromotions(new ArrayList<>(), new ArrayList<>(), 1);
+        apiCall = Promotions.getPromotions();
         apiCall.execute(response -> {
             if (response != null) {
                 List<Promotion> promotions = response.getPromotions();

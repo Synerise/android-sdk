@@ -19,6 +19,7 @@ import com.synerise.sdk.injector.net.exception.ValidationException;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.util.FirebaseIdChangeBroadcastReceiver;
 
+import java.security.SecureRandom;
 import java.util.Map;
 import java.util.Random;
 
@@ -64,7 +65,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                             notificationManager.createNotificationChannel(
                                     new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH));
                         }
-                        notificationManager.notify(new Random(System.currentTimeMillis()).nextInt(Integer.MAX_VALUE), builder.build());
+                        Random random = new SecureRandom();
+                        notificationManager.notify(random.nextInt(Integer.MAX_VALUE), builder.build());
                     }
                 }
             }

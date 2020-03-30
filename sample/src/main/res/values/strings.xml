@@ -401,6 +401,7 @@
     <string name="do_not_send_anything">Do not send agreement</string>
     <string name="client_request_email_change_facebook">Request email change by Facebook</string>
     <string name="client_reconize_anonymus">Recognize anonymous client</string>
+    <string name="client_destroy_session">Destroy session</string>
     <string name="load_widget">Load Widget</string>
     <string name="load_widget_halfscreen">Load HalfScreen widget</string>
     <string name="load_widget_fullscreen">Load FullScreen widget</string>

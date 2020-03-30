@@ -127,8 +127,8 @@ public class SplashActivity extends BaseActivity {
     private void navigate() {
         String clientApiKey = accountManager.getClientProfileApiKey();
         startActivity(TextUtils.isEmpty(clientApiKey) ?
-                              QRScannerActivity.createIntent(this) :
-                              DashboardActivity.createIntent(this));
+                QRScannerActivity.createIntent(this) :
+                DashboardActivity.createIntent(this));
         finish();
     }
 }
