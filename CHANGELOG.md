@@ -1,5 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.6.5] - 2020-04-06
+### Added
+- dontusemixedcaseclassnames to proguard file
+
+### Fixed
+- `Settings` change to non static fields
+- JavaDoc not showing issue
+- BuildConfig is now visible
+
 ## [3.6.4] - 2020-03-30
 ### Added
 - `Client.destroySession` method

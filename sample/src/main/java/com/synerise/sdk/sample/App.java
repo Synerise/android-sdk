@@ -75,7 +75,7 @@ public class App extends MultiDexApplication
         String syneriseClientApiKey = accountManager.getClientProfileApiKey();
         String appId = getString(R.string.app_name);
 
-        Synerise.settings.sdk.enabled = true;
+
         Synerise.settings.tracker.autoTracking.trackMode = TrackMode.FINE;
         Synerise.settings.tracker.setMinimumBatchSize(11);
         Synerise.settings.tracker.setMaximumBatchSize(99);
@@ -96,7 +96,6 @@ public class App extends MultiDexApplication
                         .notificationHighPriorityChannelName(CHANNEL_HIGH_PRIORITY_NAME)
                         .baseUrl(null)
                         .build();
-
     }
 
     public AppComponent getComponent() {
