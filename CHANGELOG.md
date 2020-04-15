@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.6.6] - 2020-04-15
+### Changed
+- `excludedClasses` is now also excluding screen-visited event
+
 ## [3.6.5] - 2020-04-06
 ### Added
 - dontusemixedcaseclassnames to proguard file
