@@ -19,14 +19,13 @@ import com.synerise.sdk.sample.ui.BaseActivity;
 import com.synerise.sdk.sample.util.ToolbarHelper;
 import com.synerise.sdk.sample.util.ViewUtils;
 
-import java.io.IOException;
-
-import okhttp3.ResponseBody;
+import java.util.List;
 
 public class ContentApiActivity extends BaseActivity {
 
     private TextInputLayout valueInput;
-    private IDataApiCall<ResponseBody> apiCall;
+    private IDataApiCall<Object> apiCall;
+    private IDataApiCall<List<Object>> apiCallDocuments;
     private TextView getDocumentResponse;
 
     public static Intent createIntent(Context context) {
@@ -58,11 +57,7 @@ public class ContentApiActivity extends BaseActivity {
             apiCall = Content.getDocument(valueInput.getEditText().getText().toString());
             apiCall.execute(response -> {
                 if (response != null) {
-                    try {
-                        getDocumentResponse.setText(ViewUtils.formatStringToJsonLook(response.string()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    getDocumentResponse.setText(ViewUtils.formatStringToJsonLook(response.toString()));
                 }
             }, this::onFailure);
         } else {
@@ -74,20 +69,16 @@ public class ContentApiActivity extends BaseActivity {
         if (!valueInput.getEditText().getText().toString().matches("")) {
             valueInput.getEditText().getText().toString();
 
-            if (apiCall != null) {
-                apiCall.cancel();
+            if (apiCallDocuments != null) {
+                apiCallDocuments.cancel();
             }
             DocumentsApiQuery documentsApiQuery = new DocumentsApiQuery();
             documentsApiQuery.setVersion("1.0.0");
             documentsApiQuery.setDocumentQueryParameters(DocumentsApiQueryType.SCHEMA, valueInput.getEditText().getText().toString());
-            apiCall = Content.getDocuments(documentsApiQuery);
-            apiCall.execute(response -> {
+            apiCallDocuments = Content.getDocuments(documentsApiQuery);
+            apiCallDocuments.execute(response -> {
                 if (response != null) {
-                    try {
-                        getDocumentResponse.setText(ViewUtils.formatStringToJsonLook(response.string()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    getDocumentResponse.setText(ViewUtils.formatStringToJsonLook(response.toString()));
                 }
             }, this::onFailure);
         } else {

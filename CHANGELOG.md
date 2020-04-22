@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.6.7] - 2020-04-22
+### Changed
+- `getDocument` and `getDocuments` are now returning Object and a List of Objects
+
 ## [3.6.6] - 2020-04-15
 ### Changed
 - `excludedClasses` is now also excluding screen-visited event
