@@ -11,6 +11,14 @@
         style="@style/ButtonPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:text="@string/get_token" />
+
+    <Button
+        android:id="@+id/refresh_token"
+        style="@style/ButtonPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/refresh_token" />
 
 </LinearLayout>

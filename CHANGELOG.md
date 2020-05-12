@@ -1,5 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.6.9] - 2020-05-12
+### Added
+- `refreshToken` method
+- `getCustomId` method to `Token`
+
+### Fixed
+- invalidCastException in `Campaign`
+
 ## [3.6.8] - 2020-04-29
 ### Fixed
 - Token issues
