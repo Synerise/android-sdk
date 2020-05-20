@@ -24,6 +24,7 @@ public class AccountManager {
         setUserName(null);
         setUserLastName(null);
         setUserEmail(null);
+        setUserPoints(null);
     }
 
     public void setUserName(String name) {
@@ -41,6 +42,11 @@ public class AccountManager {
         prefsStorage.saveStoragePOJO(storagePOJO);
     }
 
+    public void setUserPoints(String points) {
+        storagePOJO.setPoints(points);
+        prefsStorage.saveStoragePOJO(storagePOJO);
+    }
+
     public String getFirstName() {
         return storagePOJO.getName();
     }
@@ -51,6 +57,10 @@ public class AccountManager {
 
     public String getEmail() {
         return storagePOJO.getEmail();
+    }
+
+    public String getUserPoints() {
+        return storagePOJO.getPoints();
     }
 
     public void addCartItem(Product product) {

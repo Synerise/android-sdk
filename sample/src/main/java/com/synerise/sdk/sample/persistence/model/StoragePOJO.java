@@ -24,6 +24,8 @@ public class StoragePOJO {
 
     @SerializedName("promotions") private List<Promotion> promotions;
 
+    private String points;
+
     public String getName() {
         return name;
     }
@@ -89,5 +91,13 @@ public class StoragePOJO {
 
     public void setPromotions(List<Promotion> promotions) {
         this.promotions = promotions;
+    }
+
+    public void setPoints(String points) {
+        this.points = points;
+    }
+
+    public String getPoints() {
+        return points;
     }
 }

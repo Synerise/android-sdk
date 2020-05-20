@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.6.10] - 2020-05-20
+### Fixed
+- mixed cases in class names after obfuscation
+
 ## [3.6.9] - 2020-05-12
 ### Added
 - `refreshToken` method

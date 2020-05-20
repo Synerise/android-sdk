@@ -36,6 +36,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        <TextView
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:id="@+id/header_points_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 
     <Button

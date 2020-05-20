@@ -10,16 +10,22 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.synerise.sdk.client.Client;
 import com.synerise.sdk.client.model.listener.OnClientStateChangeListener;
+import com.synerise.sdk.content.Content;
+import com.synerise.sdk.core.net.IDataApiCall;
 import com.synerise.sdk.core.types.enums.ClientSessionEndReason;
 import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
+import com.synerise.sdk.sample.model.LoyaltyPoints;
 import com.synerise.sdk.sample.persistence.AccountManager;
 import com.synerise.sdk.sample.ui.BaseActivity;
 import com.synerise.sdk.sample.ui.BaseFragment;
@@ -49,6 +55,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
 
     private static final int SIGN_IN_REQUEST_CODE = 830;
     public static final int BARCODE_SCANNER_REQUEST_CODE = 531;
+    private static final String POINTS = "points";
 
     private MenuItem menuProfile;
     private MenuItem menuPromotions;
@@ -61,7 +68,9 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     private DrawerLayout drawer;
     private TextView nameNavHeader;
     private TextView emailNavHeader;
+    private TextView pointsNavHeader;
     private NavigationView navigationView;
+
 
     public static Intent createIntent(Context context) {
         return new Intent(context, DashboardActivity.class);
@@ -87,7 +96,6 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         View headerView = navigationView.getHeaderView(0);
 
         Menu menu = navigationView.getMenu();
-
         menuProfile = menu.findItem(R.id.menu_profile);
         menuPromotions = menu.findItem(R.id.menu_promotions);
         menuSignOut = menu.findItem(R.id.menu_sign_out);
@@ -96,6 +104,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
 
         nameNavHeader = headerView.findViewById(R.id.header_name_textview);
         emailNavHeader = headerView.findViewById(R.id.header_email_textview);
+        pointsNavHeader = headerView.findViewById(R.id.header_points_textview);
 
         updateNavHeader();
 
@@ -167,6 +176,9 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
             nameNavHeader.setText(accountManager.getFirstName() + " " + accountManager.getLastName());
         if (accountManager.getEmail() != null)
             emailNavHeader.setText(accountManager.getEmail());
+        if (accountManager.getUserPoints() != null) {
+            pointsNavHeader.setText("Available points: " + accountManager.getUserPoints());
+        }
     }
 
     @Override
@@ -256,6 +268,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
 
     private void handleSigningVisibility() {
         if (Client.isSignedIn()) {
+            getLoyaltyPoints();
             updateNavHeader();
             signedInNavHeader.setVisibility(View.VISIBLE);
             signInButtonNavHeader.setVisibility(View.GONE);
@@ -294,5 +307,16 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+    }
+
+    private void getLoyaltyPoints() {
+        Gson gson = new Gson();
+        IDataApiCall<Object> loyaltyApiCall;
+        loyaltyApiCall = Content.getDocument(POINTS);
+        loyaltyApiCall.execute(response -> {
+            LoyaltyPoints loyaltyPoints = gson.fromJson(response.toString(), LoyaltyPoints.class);
+            accountManager.setUserPoints(loyaltyPoints.getPointsContent().getPoints());
+            updateNavHeader();
+        }, this:: showAlertError);
     }
 }

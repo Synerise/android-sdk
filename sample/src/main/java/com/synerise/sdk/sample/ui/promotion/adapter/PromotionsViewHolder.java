@@ -51,13 +51,15 @@ class PromotionsViewHolder extends RecyclerView.ViewHolder {
             }
         }
         this.name.setText(promotion.getHeadline());
-        this.expire.setText(context.getString(R.string.default_valid_to, DateFormat.format("dd.MM.yyyy", promotion.getExpireAt())));
+        if (promotion.getExpireAt() != null) {
+            this.expire.setText(context.getString(R.string.default_valid_to, DateFormat.format("dd.MM.yyyy", promotion.getExpireAt())));
+        }
         if (promotion.getDiscountType() == PromotionDiscountType.AMOUNT) {
             this.discount.setText(context.getString(R.string.default_value_dollar, String.valueOf(promotion.getDiscountValue())));
         } else if (promotion.getDiscountType() == PromotionDiscountType.PERCENT) {
             this.discount.setText(context.getString(R.string.default_value_percent, String.valueOf(promotion.getDiscountValue())));
         } else {
-            this.discount.setText(promotion.getDiscountValue());
+            this.discount.setText(String.valueOf(promotion.getDiscountValue()));
         }
     }
 }
