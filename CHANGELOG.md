@@ -1,5 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.6.11] - 2020-06-09
+### Fixed
+- nullPointerException on Android 5.0
+- flattenException while deserialization
+
 ## [3.6.10] - 2020-05-20
 ### Fixed
 - mixed cases in class names after obfuscation
