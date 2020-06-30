@@ -82,6 +82,7 @@ public class App extends MultiDexApplication
         Synerise.settings.tracker.setAutoFlushTimeout(4999);
         Synerise.settings.injector.automatic = true;
         Synerise.settings.tracker.locationAutomatic = true;
+        Synerise.settings.sdk.shouldDestroySessionOnApiKeyChange = true;
 
         Synerise.Builder.with(this, syneriseClientApiKey, appId)
                         .notificationIcon(R.drawable.ic_cart)

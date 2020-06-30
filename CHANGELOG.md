@@ -1,5 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.6.12] - 2020-06-30
+### Added
+- maintaining session when changing apiKey within business profile
+- `shouldDestroySessionOnApiKeyChange` in Settings
+
 ## [3.6.11] - 2020-06-09
 ### Fixed
 - nullPointerException on Android 5.0
