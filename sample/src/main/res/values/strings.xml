@@ -391,6 +391,8 @@
     <string name="current_uuid">Current UUID:</string>
     <string name="regenerate_uuid_error">Client is not anonymous</string>
     <string name="authenticate_oauth">Authenticate by OAuth</string>
+    <string name="authenticate_oauth_if_registered">Authenticate by OAuth If Registered</string>
+    <string name="delete_account_by_oauth">Delete account by OAuth</string>
     <string name="provide_access_token">Access token</string>
     <string name="provide_new_api_key">New API Key</string>
     <string name="provide_product_id">Product Id</string>

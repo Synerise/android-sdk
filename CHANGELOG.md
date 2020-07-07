@@ -1,5 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.6.13] - 2020-07-07
+### Added
+- `authenticateByOAuthIfRegistered` and  `deleteAccountByOAuth` method in Client module
+
+### Changed
+- `authenticateByFacebookRegistered` to `authenticateByFacebookIfRegistered`
+
 ## [3.6.12] - 2020-06-30
 ### Added
 - maintaining session when changing apiKey within business profile

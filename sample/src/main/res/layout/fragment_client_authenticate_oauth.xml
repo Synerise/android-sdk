@@ -29,4 +29,20 @@
         android:layout_height="wrap_content"
         android:text="@string/authenticate_oauth" />
 
+    <Button
+        android:id="@+id/authenticate_oauth_if_registered"
+        style="@style/ButtonPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_medium"
+        android:text="@string/authenticate_oauth_if_registered" />
+
+    <Button
+        android:id="@+id/delete_account_by_oauth"
+        style="@style/ButtonPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_medium"
+        android:text="@string/delete_account_by_oauth" />
+
 </LinearLayout>

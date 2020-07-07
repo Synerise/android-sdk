@@ -38,6 +38,8 @@ public class DevAuthenticateOAuthFragment extends BaseDevFragment {
 
         inputToken = view.findViewById(R.id.input_access_token);
         view.findViewById(R.id.authenticate_oauth).setOnClickListener(v -> authenticateByOAuth());
+        view.findViewById(R.id.authenticate_oauth_if_registered).setOnClickListener(v -> authenticateByOAuthIfRegistered());
+        view.findViewById(R.id.delete_account_by_oauth).setOnClickListener(v -> deleteAccountByOAuth());
     }
 
     @Override
@@ -62,6 +64,56 @@ public class DevAuthenticateOAuthFragment extends BaseDevFragment {
         if (isValid) {
             if (call != null) call.cancel();
             call = Client.authenticateByOAuth(token, null, null, null);
+            call.execute(this::onSuccess, new DataActionListener<ApiError>() {
+                @Override
+                public void onDataAction(ApiError apiError) {
+                    onFailure(apiError);
+                }
+            });
+        }
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    private void authenticateByOAuthIfRegistered() {
+        boolean isValid = true;
+
+        inputToken.setError(null);
+
+        String token = inputToken.getEditText().getText().toString();
+
+        if (TextUtils.isEmpty(token)) {
+            inputToken.setError(getString(R.string.error_empty));
+            isValid = false;
+        }
+
+        if (isValid) {
+            if (call != null) call.cancel();
+            call = Client.authenticateByOAuthIfRegistered(token, null);
+            call.execute(this::onSuccess, new DataActionListener<ApiError>() {
+                @Override
+                public void onDataAction(ApiError apiError) {
+                    onFailure(apiError);
+                }
+            });
+        }
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    private void deleteAccountByOAuth() {
+        boolean isValid = true;
+
+        inputToken.setError(null);
+
+        String token = inputToken.getEditText().getText().toString();
+
+        if (TextUtils.isEmpty(token)) {
+            inputToken.setError(getString(R.string.error_empty));
+            isValid = false;
+        }
+
+        if (isValid) {
+            if (call != null) call.cancel();
+            call = Client.deleteAccountByOAuth(token, Client.getUuid());
             call.execute(this::onSuccess, new DataActionListener<ApiError>() {
                 @Override
                 public void onDataAction(ApiError apiError) {
