@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.6.14] - 2020-07-28
+### Changed
+- timeout to 60s
+
 ## [3.6.13] - 2020-07-07
 ### Added
 - `authenticateByOAuthIfRegistered` and  `deleteAccountByOAuth` method in Client module
