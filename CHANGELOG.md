@@ -1,5 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.6.15] - 2020-08-24
+### Added
+- time synchronization with server
+- `time` parameter to events
+
 ## [3.6.14] - 2020-07-28
 ### Changed
 - timeout to 60s
