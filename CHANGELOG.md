@@ -1,5 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.6.16] - 2020-09-08
+### Added
+- push encryption mechanism
+- `Injector.decryptPushPayload` and `Injector.isPushEncrypted` methods.
+- `setEncryption` method in `NotificationSettings`
+
+### Changed
+- `client.applicationCrashed` in `SyneriseNotification` into CustomEvent `push.imageTimeout`
+
 ## [3.6.15] - 2020-08-24
 ### Added
 - time synchronization with server

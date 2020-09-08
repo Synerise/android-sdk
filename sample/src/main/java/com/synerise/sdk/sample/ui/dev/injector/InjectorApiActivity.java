@@ -81,10 +81,10 @@ public class InjectorApiActivity extends BaseActivity {
     private void getSimplePush() {
         Map<String, String> data = new HashMap<>();
         String content = "{\"notification\":{\"action\":{\"item\":\"https://app.synerise.com/login\",\"type\":\"OPEN_URL\"},\"body\":\"Zobacz co słychać w Synerise! \",\"title\":\"Synerise test push \"},\"campaign\":{\"variant_id\":1157896,\"title\":\"testSynerise\",\"type\":\"Mobile push\",\"hash_id\":\"085cf70c-0239-452d-bbed-d1f9c94e21e5\"}}";
-        data.put(ISSUER.getApiKey(), "Synerise");
-        data.put(CONTENT_TYPE.getApiKey(), "simple-push");
-        data.put(MESSAGE_TYPE.getApiKey(), "static-content");
-        data.put(CONTENT.getApiKey(), content);
+        data.put(ISSUER.getKey(), "Synerise");
+        data.put(CONTENT_TYPE.getKey(), "simple-push");
+        data.put(MESSAGE_TYPE.getKey(), "static-content");
+        data.put(CONTENT.getKey(), content);
         boolean isSynerisePush = Injector.handlePushPayload(data);
     }
 }

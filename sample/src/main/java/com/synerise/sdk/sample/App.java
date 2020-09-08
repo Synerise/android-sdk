@@ -75,7 +75,6 @@ public class App extends MultiDexApplication
         String syneriseClientApiKey = accountManager.getClientProfileApiKey();
         String appId = getString(R.string.app_name);
 
-
         Synerise.settings.tracker.autoTracking.trackMode = TrackMode.FINE;
         Synerise.settings.tracker.setMinimumBatchSize(11);
         Synerise.settings.tracker.setMaximumBatchSize(99);
@@ -83,6 +82,7 @@ public class App extends MultiDexApplication
         Synerise.settings.injector.automatic = true;
         Synerise.settings.tracker.locationAutomatic = true;
         Synerise.settings.sdk.shouldDestroySessionOnApiKeyChange = true;
+        Synerise.settings.notifications.setEncryption(false);
 
         Synerise.Builder.with(this, syneriseClientApiKey, appId)
                         .notificationIcon(R.drawable.ic_cart)

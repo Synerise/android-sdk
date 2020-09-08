@@ -39,6 +39,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Map<String, String> data = remoteMessage.getData();
         if (Injector.isSilentCommand(data)) {
             try {
+                data = Injector.decryptPushPayload(data);
                 SilentCommand silentCommand = Injector.getSilentCommand(data);
                 // your logic here
             } catch (ValidationException e) {
@@ -80,7 +81,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Log.d(TAG, "Refreshed token: " + refreshedToken);
 
         if (refreshedToken != null) {
-            IApiCall call = Client.registerForPush(refreshedToken);
+            IApiCall call = Client.registerForPush(refreshedToken, true);
             call.execute(() -> Log.d(TAG, "Register for Push succeed: " + refreshedToken),
                          apiError -> Log.w(TAG, "Register for push failed: " + refreshedToken));
 
