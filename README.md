@@ -4,7 +4,7 @@
 Most up-to-date documentation is available at: https://help.synerise.com/developers/android-sdk/
 ## Requirements
 
-- Minimum Android SDK version - 20
+- Minimum Android SDK version - 21
 
 ## Installation
 
@@ -44,7 +44,7 @@ apply plugin: 'com.android.application'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.6.16'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.6.17'
 }
 ```
 

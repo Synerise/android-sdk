@@ -1,5 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.6.17] - 2020-09-24
+### Changed
+- minimum android sdk version to 21
+- memory optimalisation in autoTracking module
+
 ## [3.6.16] - 2020-09-08
 ### Added
 - push encryption mechanism

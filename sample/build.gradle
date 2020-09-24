@@ -6,11 +6,11 @@ def homePath = System.properties['user.home']
 android {
     compileSdkVersion 29
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 29
         applicationId "com.synerise.sample"
-        versionCode 84
-        versionName "3.6.15"
+        versionCode 86
+        versionName "3.6.17"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -65,7 +65,7 @@ android {
 
 ext {
     daggerVersion = '2.16'
-    syneriseVersion = '3.6.15'
+    syneriseVersion = '3.6.17'
 }
 
 dependencies {
