@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.synerise.sdk.chat.Chat;
-import com.synerise.sdk.chat.listener.OnChatListener;
 import com.synerise.sdk.core.Synerise;
 import com.synerise.sdk.sample.BuildConfig;
 import com.synerise.sdk.sample.R;
@@ -53,7 +51,6 @@ public class DeveloperFragment extends BaseDevFragment {
             });
             view.findViewById(R.id.settings).setOnClickListener(v -> startActivity(SettingsActivity.createIntent(activity)));
             view.findViewById(R.id.content_api).setOnClickListener(v -> startActivity(ContentApiActivity.createIntent(activity)));
-            view.findViewById(R.id.chat).setOnClickListener(v -> initializeChat());
             ((TextView) view.findViewById(R.id.text_build)).setText(getString(R.string.developer_info,
                                                                               BuildConfig.APPLICATION_ID,
                                                                               BuildConfig.BUILD_TYPE,
@@ -61,32 +58,5 @@ public class DeveloperFragment extends BaseDevFragment {
                                                                               BuildConfig.VERSION_CODE,
                                                                               BuildConfig.VERSION_NAME));
         }
-    }
-
-    private void initializeChat() {
-        Chat chat = new Chat("5C89955F-9C9F-86A6-607D-211DED21F7BF");
-        chat.toolbarBackgroundColor = R.color.charcoal;
-        chat.toolbarTitleColor = R.color.white;
-        chat.toolbarTitle = "Chat Communicator";
-        chat.closeButtonAlignment = RelativeLayout.ALIGN_PARENT_LEFT;
-        chat.setCloseButtonImage(ContextCompat.getDrawable(Synerise.getApplicationContext(), R.drawable.ic_arrow_back));
-        chat.closeButtonText = "CloseButton";
-        chat.errorText = "Sorry for problems!";
-        chat.errorTextColor = R.color.amaranth;
-        chat.setChatListener(new OnChatListener() {
-            @Override
-            public void onLoad() {
-                chat.show();
-            }
-
-            @Override
-            public void onError(Error error) {
-            }
-
-            @Override
-            public void onLoading() {
-            }
-        });
-        chat.load();
     }
 }

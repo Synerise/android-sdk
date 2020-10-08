@@ -112,21 +112,6 @@
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/chat"
-        style="@style/AppCardView.Space"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            style="@style/TextPrimary.Medium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/space_content"
-            android:text="@string/chat" />
-
-    </androidx.cardview.widget.CardView>
-
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"

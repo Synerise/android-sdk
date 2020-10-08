@@ -45,7 +45,6 @@
     <string name="client_api">Client API</string>
     <string name="injector_api">Injector API</string>
     <string name="content_api">Content API</string>
-    <string name="chat">Chat</string>
 
     <string name="get_account">Get account</string>
     <string name="update_account">Update account</string>

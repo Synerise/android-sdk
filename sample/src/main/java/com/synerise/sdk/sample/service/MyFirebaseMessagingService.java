@@ -39,7 +39,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Map<String, String> data = remoteMessage.getData();
         if (Injector.isSilentCommand(data)) {
             try {
-                data = Injector.decryptPushPayload(data);
                 SilentCommand silentCommand = Injector.getSilentCommand(data);
                 // your logic here
             } catch (ValidationException e) {

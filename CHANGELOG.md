@@ -1,5 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.6.18] - 2020-10-08
+### Changed
+- `Injector.decryptPushPayload` is now throwing `DecryptionException`
+- `systemPushConsent` state depends on available notificationChannels for Oreo + versions
+
+### Deleted
+- `Chat` module
+
 ## [3.6.17] - 2020-09-24
 ### Changed
 - minimum android sdk version to 21
