@@ -337,6 +337,7 @@
     <string name="input_custom_identify">Custom Identify</string>
     <string name="provide_code">Code</string>
     <string name="client_get_promotions">Get promotions</string>
+    <string name="client_get_promotions_by_uuid">Get promotions by UUID</string>
     <string name="client_activate_promotions_by_uuid">Activate Promotion by UUID</string>
     <string name="client_activate_promotions_by_code">Activate Promotion by code</string>
     <string name="client_deactivate_promotions_by_uuid">Deactivate Promotion by UUID</string>

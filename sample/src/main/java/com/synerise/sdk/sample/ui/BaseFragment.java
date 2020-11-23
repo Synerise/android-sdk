@@ -31,7 +31,7 @@ public class BaseFragment extends Fragment {
             } else {
                 dialog.setTitle(R.string.default_error);
             }
-            if (errorBody != null) {
+            if (errorBody != null && errorBody.getMessage() != null) {
                 List<ApiErrorCause> errorCauses = errorBody.getErrorCauses();
                 StringBuilder message = new StringBuilder(errorBody.getMessage());
                 if (!errorCauses.isEmpty()) {

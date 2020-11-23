@@ -34,6 +34,7 @@ import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.promotion.ClientDeact
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.promotion.ClientDeactivatePromotionByUuidFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.promotion.ClientGetAssignedVoucherCodesFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.promotion.ClientGetOrAssignVoucherFragment;
+import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.promotion.ClientGetPromotionByUuidFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.promotion.ClientGetPromotionsFragment;
 import com.synerise.sdk.sample.util.ToolbarHelper;
 
@@ -110,6 +111,8 @@ public class FragmentContainerActivity extends BaseActivity {
             // PROMOTIONS
             case CLIENT_GET_PROMOTIONS:
                 return ClientGetPromotionsFragment.newInstance();
+            case CLIENT_GET_PROMOTIONS_BY_UUID:
+                return ClientGetPromotionByUuidFragment.newInstance();
             case ACTIVATE_PROMOTION_BY_UUID:
                 return ClientActivatePromotionByUuidFragment.newInstance();
             case ACTIVATE_PROMOTION_BY_CODE:

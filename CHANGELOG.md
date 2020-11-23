@@ -1,5 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.6.19] - 2020-11-23
+## Added
+- `WalkthroughResponse` returned in Walkthrough callback `onLoaded`
+- `deleteAccount` method
+- `isBackendTimeSyncRequired` property in `TrackerSettings`
+
+## Changed
+- Information about device root is moved to applicationStarted event
+
 ## [3.6.18] - 2020-10-08
 ### Changed
 - `Injector.decryptPushPayload` is now throwing `DecryptionException`

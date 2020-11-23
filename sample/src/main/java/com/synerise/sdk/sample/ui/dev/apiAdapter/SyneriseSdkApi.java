@@ -33,6 +33,7 @@ public enum SyneriseSdkApi {
 
     // PROMOTIONS API
     CLIENT_GET_PROMOTIONS(R.string.client_get_promotions),
+    CLIENT_GET_PROMOTIONS_BY_UUID(R.string.client_get_promotions_by_uuid),
     ACTIVATE_PROMOTION_BY_UUID(R.string.client_activate_promotions_by_uuid),
     ACTIVATE_PROMOTION_BY_CODE(R.string.client_activate_promotions_by_code),
     DEACTIVATE_PROMOTION_BY_UUID(R.string.client_deactivate_promotions_by_uuid),
@@ -78,6 +79,7 @@ public enum SyneriseSdkApi {
 
     public static List<SyneriseSdkApi> getPromotionApis() {
         return Arrays.asList(CLIENT_GET_PROMOTIONS,
+                CLIENT_GET_PROMOTIONS_BY_UUID,
                 ACTIVATE_PROMOTION_BY_UUID,
                 ACTIVATE_PROMOTION_BY_CODE,
                 DEACTIVATE_PROMOTION_BY_CODE,

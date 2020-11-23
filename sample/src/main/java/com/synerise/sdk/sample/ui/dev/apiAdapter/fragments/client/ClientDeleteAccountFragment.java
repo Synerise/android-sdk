@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.synerise.sdk.client.Client;
+import com.synerise.sdk.client.model.ClientIdentityProvider;
 import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.error.ApiError;
@@ -60,7 +61,7 @@ public class ClientDeleteAccountFragment extends BaseDevFragment {
 
         if (isValid) {
             if (deleteCall != null) deleteCall.cancel();
-            deleteCall = Client.deleteAccount(password);
+            deleteCall = Client.deleteAccount(password, ClientIdentityProvider.SYNERISE, null);
             EspressoTestingIdlingResource.increment();
             deleteCall.execute(this::onSuccess, new DataActionListener<ApiError>() {
                 @Override

@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import com.synerise.sdk.injector.Injector;
 import com.synerise.sdk.injector.callback.OnBannerListener;
 import com.synerise.sdk.injector.callback.OnWalkthroughListener;
+import com.synerise.sdk.injector.net.model.inject.walkthrough.WalkthroughResponse;
 import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.persistence.AccountManager;
@@ -43,8 +44,8 @@ public class SplashActivity extends BaseActivity {
 
         Injector.setOnWalkthroughListener(new OnWalkthroughListener() {
             @Override
-            public void onLoaded() {
-                super.onLoaded();
+            public void onLoaded(WalkthroughResponse walkthrough) {
+                super.onLoaded(walkthrough);
             }
 
             @Override
