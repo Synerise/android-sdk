@@ -1,5 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.6.20] - 2020-12-04
+## Changed
+- Upgrade of FCM dependencies
+- Upgrade of AGP
+- Added retry mechanism on image downloading in push notifications
+
 ## [3.6.19] - 2020-11-23
 ## Added
 - `WalkthroughResponse` returned in Walkthrough callback `onLoaded`

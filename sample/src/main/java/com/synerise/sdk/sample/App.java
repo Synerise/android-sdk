@@ -9,9 +9,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.util.Log;
 
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.core.CrashlyticsCore;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.synerise.sdk.client.Client;
 import com.synerise.sdk.core.Synerise;
@@ -30,8 +29,6 @@ import com.synerise.sdk.sample.persistence.AccountManager;
 import com.synerise.sdk.sample.util.FirebaseIdChangeBroadcastReceiver;
 
 import javax.inject.Inject;
-
-import io.fabric.sdk.android.Fabric;
 
 import static com.synerise.sdk.sample.service.MyFirebaseMessagingService.CHANNEL_HIGH_PRIORITY_ID;
 import static com.synerise.sdk.sample.service.MyFirebaseMessagingService.CHANNEL_HIGH_PRIORITY_NAME;
@@ -52,9 +49,8 @@ public class App extends MultiDexApplication
     @Override
     public void onCreate() {
         super.onCreate();
-        Fabric.with(this,
-                    new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build(),
-                    new Crashlytics());
+
+        FirebaseApp.initializeApp(getApplicationContext());
 
         component = DaggerAppComponent
                 .builder()
