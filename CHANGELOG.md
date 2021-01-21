@@ -1,5 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.6.21] - 2021-01-21
+## Added
+- `backgroundRestricted` field to appStarted event
+## Changed
+- ACCESS FINE LOCATION is no longer required by sdk
+
+## Fixed
+- System time change during session will not affect events time
+- Currency issues on ContentWidget
+- autotracking fix: Stop counting fragments/activities with no view
+
 ## [3.6.20] - 2020-12-04
 ## Changed
 - Upgrade of FCM dependencies

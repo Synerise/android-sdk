@@ -26,6 +26,7 @@ import com.synerise.sdk.sample.dagger.ConfigModule;
 import com.synerise.sdk.sample.dagger.DaggerAppComponent;
 import com.synerise.sdk.sample.dagger.MainModule;
 import com.synerise.sdk.sample.persistence.AccountManager;
+import com.synerise.sdk.sample.service.LocationService;
 import com.synerise.sdk.sample.util.FirebaseIdChangeBroadcastReceiver;
 
 import javax.inject.Inject;
@@ -76,9 +77,8 @@ public class App extends MultiDexApplication
         Synerise.settings.tracker.setMaximumBatchSize(99);
         Synerise.settings.tracker.setAutoFlushTimeout(4999);
         Synerise.settings.injector.automatic = true;
-        Synerise.settings.tracker.locationAutomatic = true;
         Synerise.settings.sdk.shouldDestroySessionOnApiKeyChange = true;
-        Synerise.settings.notifications.setEncryption(false);
+        Synerise.settings.notifications.setEncryption(true);
 
         Synerise.Builder.with(this, syneriseClientApiKey, appId)
                         .notificationIcon(R.drawable.ic_cart)
@@ -101,8 +101,9 @@ public class App extends MultiDexApplication
 
     @Override
     public void onLocationUpdateRequired() {
-        // allow SDK to send location event automatically
-        // LocationService.startLocation(this);
+        // Retrieving location is on application side.
+        // AppearedInLocation event should be send.
+        LocationService.startLocation(this);
     }
 
     @Override

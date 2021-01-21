@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Looper;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.JobIntentService;
@@ -73,9 +74,10 @@ public class LocationService extends JobIntentService {
         try {
             Tasks.await(lastLocation, 500, TimeUnit.MILLISECONDS);
             Location result = lastLocation.getResult();
-            if (result != null)
+            if (result != null) {
                 Tracker.send(new AppearedInLocationEvent("Location required from silent push", result.getLatitude(),
-                                                         result.getLongitude()));
+                        result.getLongitude()));
+            }
         } catch (ExecutionException | InterruptedException | TimeoutException e) {
             e.printStackTrace();
         }
