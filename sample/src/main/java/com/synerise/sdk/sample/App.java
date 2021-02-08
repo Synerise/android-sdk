@@ -16,7 +16,9 @@ import com.synerise.sdk.client.Client;
 import com.synerise.sdk.core.Synerise;
 import com.synerise.sdk.core.listeners.OnLocationUpdateListener;
 import com.synerise.sdk.core.listeners.OnRegisterForPushListener;
+import com.synerise.sdk.core.listeners.SyneriseListener;
 import com.synerise.sdk.core.net.IApiCall;
+import com.synerise.sdk.core.types.enums.HostApplicationType;
 import com.synerise.sdk.core.types.enums.TrackMode;
 import com.synerise.sdk.core.utils.SystemUtils;
 import com.synerise.sdk.injector.callback.InjectorSource;
@@ -39,7 +41,8 @@ import static com.synerise.sdk.sample.service.MyFirebaseMessagingService.CHANNEL
 public class App extends MultiDexApplication
         implements OnInjectorListener, // optional action callback
                    OnRegisterForPushListener,
-                   OnLocationUpdateListener {
+                   OnLocationUpdateListener,
+                   SyneriseListener {
 
     private static final String TAG = App.class.getSimpleName();
 
@@ -87,11 +90,13 @@ public class App extends MultiDexApplication
                         .crashHandlingEnabled(true)
                         .pushRegistrationRequired(this)
                         .locationUpdateRequired(this)
+                        .initializationListener(this)
                         .notificationDefaultChannelId(CHANNEL_ID)
                         .notificationDefaultChannelName(CHANNEL_NAME)
                         .notificationHighPriorityChannelId(CHANNEL_HIGH_PRIORITY_ID)
                         .notificationHighPriorityChannelName(CHANNEL_HIGH_PRIORITY_NAME)
                         .baseUrl(null)
+                        .hostApplicationType(HostApplicationType.NATIVE_ANDROID)
                         .build();
     }
 
@@ -134,5 +139,10 @@ public class App extends MultiDexApplication
         // your action here
         SystemUtils.openDeepLink(this, deepLink); // default behavior
         return source != InjectorSource.WALKTHROUGH; // default behavior
+    }
+
+    @Override
+    public void onInitializationCompleted() {
+        // your action here
     }
 }

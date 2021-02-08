@@ -38,7 +38,7 @@ public class SettingsActivity extends BaseActivity {
     }
 
     private void sdkEnable(boolean enabled) {
-        Synerise.settings.sdk.enabled = enabled;
+        Synerise.settings.sdk.setSDKEnabled(enabled);
         settingChosen.setText("sdk enabled = " + enabled);
     }
 

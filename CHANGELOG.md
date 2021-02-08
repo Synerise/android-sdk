@@ -1,29 +1,37 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.6.22] - 2021-02-08
+### Added
+- `SyneriseListener` as a callback. Called when Synerise sdk initialization is completed.
+- 'hostApplicationType' to Synerise builder.
+- Sending app Started event after first change of setting: sdk.enable
+### Fixed
+- RuntimeException on TimeChangedReceiver
+
 ## [3.6.21] - 2021-01-21
-## Added
+### Added
 - `backgroundRestricted` field to appStarted event
-## Changed
+### Changed
 - ACCESS FINE LOCATION is no longer required by sdk
 
-## Fixed
+### Fixed
 - System time change during session will not affect events time
 - Currency issues on ContentWidget
 - autotracking fix: Stop counting fragments/activities with no view
 
 ## [3.6.20] - 2020-12-04
-## Changed
+### Changed
 - Upgrade of FCM dependencies
 - Upgrade of AGP
 - Added retry mechanism on image downloading in push notifications
 
 ## [3.6.19] - 2020-11-23
-## Added
+### Added
 - `WalkthroughResponse` returned in Walkthrough callback `onLoaded`
 - `deleteAccount` method
 - `isBackendTimeSyncRequired` property in `TrackerSettings`
 
-## Changed
+### Changed
 - Information about device root is moved to applicationStarted event
 
 ## [3.6.18] - 2020-10-08
