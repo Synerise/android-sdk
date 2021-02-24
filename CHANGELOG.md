@@ -1,5 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.7.0] - 2021-02-23
+### Added
+- `OnRecommendationModelMapper` callback responsible for mapping objects
+- `ContentWidgetRecommendationOptions` new object for configuration of ContentWidget
+- `ContentWidgetRecommendationDataModel` model needed for displaying items in widget
+
+### Changed
+- `ContentWidget` is now using recommendation v2
+- Images in ContentWidget are now scalling as centerInside
+
 ## [3.6.22] - 2021-02-08
 ### Added
 - `SyneriseListener` as a callback. Called when Synerise sdk initialization is completed.

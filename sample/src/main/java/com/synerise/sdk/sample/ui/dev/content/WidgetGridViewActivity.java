@@ -17,22 +17,30 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.synerise.sdk.content.model.BaseModel;
-import com.synerise.sdk.content.model.recommendation.Recommendation;
 import com.synerise.sdk.content.widgets.ContentWidget;
 import com.synerise.sdk.content.widgets.action.ImageButtonCustomAction;
 import com.synerise.sdk.content.widgets.action.PredefinedActionType;
+import com.synerise.sdk.content.widgets.dataModel.ContentWidgetRecommendationDataModel;
+import com.synerise.sdk.content.widgets.dataModel.Recommendation;
 import com.synerise.sdk.content.widgets.layout.ContentWidgetGridLayout;
 import com.synerise.sdk.content.widgets.layout.ContentWidgetBasicProductItemLayout;
 import com.synerise.sdk.content.widgets.listener.OnActionItemStateListener;
 import com.synerise.sdk.content.widgets.listener.OnContentWidgetListener;
+import com.synerise.sdk.content.widgets.listener.OnRecommendationModelMapper;
 import com.synerise.sdk.content.widgets.model.ContentWidgetAppearance;
 import com.synerise.sdk.content.widgets.model.ContentWidgetOptions;
+import com.synerise.sdk.content.widgets.model.ContentWidgetRecommendationsOptions;
 import com.synerise.sdk.core.Synerise;
 import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.BaseActivity;
 import com.synerise.sdk.sample.util.ToolbarHelper;
 import com.synerise.sdk.sample.util.ViewUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 public class WidgetGridViewActivity extends BaseActivity {
 
@@ -73,11 +81,31 @@ public class WidgetGridViewActivity extends BaseActivity {
     }
 
     private void loadFullScreenWidget() {
-        String slug = "similar";
-        String productId = "10214";
+        String slug = "recommend2";
+        String productId = "100004";
         if (!productInputId.getEditText().getText().toString().matches(""))
             productId = productInputId.getEditText().getText().toString();
-        ContentWidgetOptions options = new ContentWidgetOptions(this, slug);
+        ContentWidgetOptions options = new ContentWidgetRecommendationsOptions(this, slug, new OnRecommendationModelMapper() {
+            @Override
+            public ContentWidgetRecommendationDataModel onRecommendationMapping(Recommendation recommendation) {
+                HashMap<String, Object> data = recommendation.getFeed();
+                String imageLink = (String) data.get("imageLink");
+                String productName = (String) data.get("title");
+
+                String price = null;
+                String salePrice = null;
+                try {
+                    JSONObject json = new JSONObject(data.get("price").toString());
+                    price = json.getString("value");
+                    if (data.containsKey("salePrice")) {
+                        JSONObject jsonSalePrice = new JSONObject(data.get("salePrice").toString());
+                        salePrice = jsonSalePrice.getString("value");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                return new ContentWidgetRecommendationDataModel(productName, imageLink, price, salePrice, "USD");
+            }});
         options.attributes.put(ContentWidgetOptions.ContentWidgetOptionsAttributeKeyProductId, productId);
         ContentWidgetBasicProductItemLayout itemLayoutDetails = new ContentWidgetBasicProductItemLayout();
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -138,7 +166,7 @@ public class WidgetGridViewActivity extends BaseActivity {
         favouriteIcon.setOnItemActionListener(new OnActionItemStateListener() {
             @Override
             public void onReceiveClickAction(BaseModel model, boolean isSelected, ImageButton imageButton) {
-                Recommendation recommendation = (Recommendation) model;
+                Recommendation recommendationModel = (Recommendation) model;
                 ViewUtils.pulse(imageButton);
             }
 
@@ -174,8 +202,9 @@ public class WidgetGridViewActivity extends BaseActivity {
 
             @Override
             public void onClickActionReceive(ContentWidget contentWidget, BaseModel model) {
-                Recommendation recommendation = (Recommendation)model;
-                startActivity(WidgetRecommendedProductDetailsActivity.createIntent(getApplicationContext(), recommendation.getProductRetailerPartNo()));
+                Recommendation recommendationModel = (Recommendation) model;
+                String itemId = recommendationModel.getItemId();
+                startActivity(WidgetRecommendedProductDetailsActivity.createIntent(getApplicationContext(), itemId));
             }
 
             @Override
@@ -191,11 +220,31 @@ public class WidgetGridViewActivity extends BaseActivity {
         ViewGroup.LayoutParams params = insertPoint.getLayoutParams();
         params.height = 450; //constant height for half screen
         insertPoint.setLayoutParams(params);
-        String slug = "similar";
-        String productId = "10214";
+        String slug = "recommend2";
+        String productId = "100004";
         if (!productInputId.getEditText().getText().toString().matches(""))
             productId = productInputId.getEditText().getText().toString();
-        ContentWidgetOptions options = new ContentWidgetOptions(this, slug);
+        ContentWidgetOptions options = new ContentWidgetRecommendationsOptions(this, slug, new OnRecommendationModelMapper() {
+            @Override
+            public ContentWidgetRecommendationDataModel onRecommendationMapping(Recommendation recommendation) {
+                HashMap<String, Object> data = recommendation.getFeed();
+                String imageLink = (String) data.get("imageLink");
+                String productName = (String) data.get("title");
+
+                String price = null;
+                String salePrice = null;
+                try {
+                    JSONObject jsonPrice = new JSONObject(data.get("price").toString());
+                    price = jsonPrice.getString("value");
+                    if (data.containsKey("salePrice")) {
+                        JSONObject jsonSalePrice = new JSONObject(data.get("salePrice").toString());
+                        salePrice = jsonSalePrice.getString("value");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                return new ContentWidgetRecommendationDataModel(productName, imageLink, price, salePrice, null);
+            }});
         options.attributes.put(ContentWidgetOptions.ContentWidgetOptionsAttributeKeyProductId, productId);
         ContentWidgetBasicProductItemLayout itemLayoutDetails = new ContentWidgetBasicProductItemLayout();
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -265,8 +314,9 @@ public class WidgetGridViewActivity extends BaseActivity {
 
             @Override
             public void onClickActionReceive(ContentWidget contentWidget, BaseModel model) {
-                Recommendation recommendation = (Recommendation)model;
-                startActivity(WidgetRecommendedProductDetailsActivity.createIntent(getApplicationContext(), recommendation.getProductRetailerPartNo()));
+                Recommendation recommendationModel = (Recommendation) model;
+                String itemId = recommendationModel.getItemId();
+                startActivity(WidgetRecommendedProductDetailsActivity.createIntent(getApplicationContext(), itemId));
             }
 
             @Override
