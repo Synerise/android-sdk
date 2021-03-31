@@ -1,5 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.7.1] - 2021-03-31
+### Added
+- `getScreenView()` method
+- `requestEmailChange` method
+
+### Changed
+- 'requestEmailChangeByFacebook' is now deprecated
+- `requestEmailChange(String email, String password, @Nullable String uuid)` is now deprecated
+
 ## [3.7.0] - 2021-02-23
 ### Added
 - `OnRecommendationModelMapper` callback responsible for mapping objects

@@ -38,28 +38,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_uuid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/default_uuid"
-        app:errorEnabled="true"
-        app:hintAnimationEnabled="true">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
-        android:id="@+id/generate_uuid"
-        style="@style/ButtonSecondary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/get_sdk_uuid" />
-
     <Button
         android:id="@+id/email_change"
         style="@style/ButtonPrimary"

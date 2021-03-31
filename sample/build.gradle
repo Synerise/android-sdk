@@ -1,25 +1,28 @@
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
+apply plugin: 'org.sonarqube'
 
-def homePath = System.properties['user.home']
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         applicationId "com.synerise.sample"
-        versionCode 92
-        versionName "3.7.0"
+        versionCode 93
+        versionName "3.7.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
     signingConfigs {
         releaseConfig {
-            keyAlias project.syneriseSampleKeyAlias
-            keyPassword project.syneriseSampleKeyPassword
-            storeFile file(homePath + '../.android/release_synerise_sample.jks')
-            storePassword project.syneriseSampleStorePassword
+            keyAlias keystoreProperties['syneriseSampleKeyAlias']
+            keyPassword keystoreProperties['syneriseSampleKeyPassword']
+            storeFile file(rootDir.getCanonicalPath() + '/' + keystoreProperties['syneriseSampleKeyStore'])
+            storePassword keystoreProperties['syneriseSampleStorePassword']
         }
         developmentConfig {
             keyAlias "debugKey"
@@ -62,7 +65,7 @@ android {
 
 ext {
     daggerVersion = '2.16'
-    syneriseVersion = '3.7.0'
+    syneriseVersion = '3.7.1'
 }
 
 dependencies {

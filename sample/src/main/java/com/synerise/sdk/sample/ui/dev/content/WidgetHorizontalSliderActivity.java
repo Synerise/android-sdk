@@ -76,7 +76,7 @@ public class WidgetHorizontalSliderActivity extends BaseActivity {
     }
 
     public void loadWidget() {
-        String productId = "100004";
+        String productId = "0000206438331-XS";
         String slug = "recommend2";
         if (!productInputId.getEditText().getText().toString().matches(""))
             productId = productInputId.getEditText().getText().toString();
