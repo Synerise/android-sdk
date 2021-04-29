@@ -1,5 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.7.3]
+### Changed
+- Upgraded retrofit and gson libraries
+
+### Fixed
+- `EventService` crash when getting back from DozeMode
+
 ## [3.7.2] - 2021-04-13
 ### Fixed
 - `itemId` not initialized in Recommendation class
