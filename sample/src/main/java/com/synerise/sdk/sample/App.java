@@ -19,6 +19,7 @@ import com.synerise.sdk.core.listeners.OnRegisterForPushListener;
 import com.synerise.sdk.core.listeners.SyneriseListener;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.core.types.enums.HostApplicationType;
+import com.synerise.sdk.core.types.enums.MessagingServiceType;
 import com.synerise.sdk.core.types.enums.TrackMode;
 import com.synerise.sdk.core.utils.SystemUtils;
 import com.synerise.sdk.injector.callback.InjectorSource;
@@ -40,15 +41,16 @@ import static com.synerise.sdk.sample.service.MyFirebaseMessagingService.CHANNEL
 
 public class App extends MultiDexApplication
         implements OnInjectorListener, // optional action callback
-                   OnRegisterForPushListener,
-                   OnLocationUpdateListener,
-                   SyneriseListener {
+        OnRegisterForPushListener,
+        OnLocationUpdateListener,
+        SyneriseListener {
 
     private static final String TAG = App.class.getSimpleName();
 
     private AppComponent component;
 
-    @Inject AccountManager accountManager;
+    @Inject
+    AccountManager accountManager;
 
     @Override
     public void onCreate() {
@@ -84,20 +86,21 @@ public class App extends MultiDexApplication
         Synerise.settings.notifications.setEncryption(true);
 
         Synerise.Builder.with(this, syneriseClientApiKey, appId)
-                        .notificationIcon(R.drawable.ic_cart)
-                        .notificationIconColor(ContextCompat.getColor(this, R.color.amaranth))
-                        .syneriseDebugMode(true)
-                        .crashHandlingEnabled(true)
-                        .pushRegistrationRequired(this)
-                        .locationUpdateRequired(this)
-                        .initializationListener(this)
-                        .notificationDefaultChannelId(CHANNEL_ID)
-                        .notificationDefaultChannelName(CHANNEL_NAME)
-                        .notificationHighPriorityChannelId(CHANNEL_HIGH_PRIORITY_ID)
-                        .notificationHighPriorityChannelName(CHANNEL_HIGH_PRIORITY_NAME)
-                        .baseUrl(null)
-                        .hostApplicationType(HostApplicationType.NATIVE_ANDROID)
-                        .build();
+                .mesaggingServiceType(MessagingServiceType.GMS)
+                .notificationIcon(R.drawable.ic_cart)
+                .notificationIconColor(ContextCompat.getColor(this, R.color.amaranth))
+                .syneriseDebugMode(true)
+                .crashHandlingEnabled(true)
+                .pushRegistrationRequired(this)
+                .locationUpdateRequired(this)
+                .initializationListener(this)
+                .notificationDefaultChannelId(CHANNEL_ID)
+                .notificationDefaultChannelName(CHANNEL_NAME)
+                .notificationHighPriorityChannelId(CHANNEL_HIGH_PRIORITY_ID)
+                .notificationHighPriorityChannelName(CHANNEL_HIGH_PRIORITY_NAME)
+                .baseUrl(null)
+                .hostApplicationType(HostApplicationType.NATIVE_ANDROID)
+                .build();
     }
 
     public AppComponent getComponent() {
@@ -120,7 +123,7 @@ public class App extends MultiDexApplication
 
             IApiCall call = Client.registerForPush(refreshedToken, true);
             call.execute(() -> Log.d(TAG, "Register for Push succeed: " + refreshedToken),
-                         apiError -> Log.w(TAG, "Register for push failed: " + refreshedToken));
+                    apiError -> Log.w(TAG, "Register for push failed: " + refreshedToken));
 
             Intent intent = FirebaseIdChangeBroadcastReceiver.createFirebaseIdChangedIntent();
             LocalBroadcastManager.getInstance(App.this).sendBroadcast(intent);
