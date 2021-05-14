@@ -15,7 +15,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url "https://synerise.bintray.com/Android" }
+        maven {  url 'https://pkgs.dev.azure.com/Synerise/AndroidSDK/_packaging/prod/maven/v1' }
     }
 }
 ```
@@ -30,7 +30,6 @@ buildscript {
     dependencies {
                     classpath 'com.android.tools.build:gradle:3.4.2'
                     classpath 'com.google.gms:google-services:4.3.3'
-                    classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
                     classpath 'io.fabric.tools:gradle:1.30.0'
     }
 }
@@ -45,7 +44,7 @@ apply plugin: 'com.android.application'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.7.4'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:3.7.5'
 }
 ```
 

@@ -1,6 +1,6 @@
 # Changelog
 All notable changes to this project will be documented in this file.
-## [3.7.4]
+## [3.7.5]
 ### Added
 - `messagingServiceType` method to Synerise.Builder. Distinguish between hms and gms
 - `rxJavaErrorHandlingEnabled` method to Synerise.Builder
