@@ -1,10 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
-## [3.7.5]
+## [3.7.6] - 2021-07-05
+### Fixed
+- IOException when doing a lot of calls to Synerise
+
+## [3.7.5] - 2021-05-14
 ### Added
 - `messagingServiceType` method to Synerise.Builder. Distinguish between hms and gms
 - `rxJavaErrorHandlingEnabled` method to Synerise.Builder
-## [3.7.3]
+## [3.7.3] - 2021-04-29
 ### Changed
 - Upgraded retrofit and gson libraries
 
