@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.material.navigation.NavigationView;
+
 import androidx.fragment.app.FragmentTransaction;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
@@ -49,8 +52,8 @@ import static com.synerise.sdk.sample.ui.dashboard.DrawerSection.PROMOTIONS;
 import static com.synerise.sdk.sample.ui.dashboard.DrawerSection.SECTIONS;
 
 public class DashboardActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener,
-                                                               UpdateStatusBarColorInterface,
-                                                               ProfileUpdatedListener {
+        UpdateStatusBarColorInterface,
+        ProfileUpdatedListener {
 
     private static final int SIGN_IN_REQUEST_CODE = 830;
     public static final int BARCODE_SCANNER_REQUEST_CODE = 531;
@@ -63,7 +66,8 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     private View signInButtonNavHeader;
     private BaseFragment currentFragment;
 
-    @Inject AccountManager accountManager;
+    @Inject
+    AccountManager accountManager;
     private DrawerLayout drawer;
     private TextView nameNavHeader;
     private TextView emailNavHeader;
@@ -80,7 +84,6 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         ((App) getApplication()).getComponent().inject(this);
-
         ToolbarHelper.setUpToolbar(this);
 
         drawer = findViewById(R.id.drawer_layout);
@@ -262,7 +265,9 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     }
 
     private void uncheckAllNavigationViewItems() {
-        for (int i = 0; i < navigationView.getMenu().size(); i++) { navigationView.getMenu().getItem(i).setChecked(false); }
+        for (int i = 0; i < navigationView.getMenu().size(); i++) {
+            navigationView.getMenu().getItem(i).setChecked(false);
+        }
     }
 
     private void handleSigningVisibility() {
@@ -316,6 +321,6 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
             LoyaltyPoints loyaltyPoints = gson.fromJson(response.toString(), LoyaltyPoints.class);
             accountManager.setUserPoints(loyaltyPoints.getPointsContent().getPoints());
             updateNavHeader();
-        }, this:: showAlertError);
+        }, this::showAlertError);
     }
 }

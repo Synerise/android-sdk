@@ -4,9 +4,9 @@
 
     <!-- replace with your client key -->
     <string name="synerise_client_api_key">622376F8-4A8F-8B24-D7F9-070FA956E963</string>
-
     <string name="facebook_app_id">2276466452573053</string>
     <string name="fb_login_protocol_scheme">fb2276466452573053</string>
+    <string name="google_login_server_client_id">237038761983-08jo1kk6rtlu3puqf69fcbrainahdn1t.apps.googleusercontent.com</string>
 
     <!-- ********************************************************************************************************************************** -->
 
@@ -371,6 +371,7 @@
     <string name="default_activating">Activating…</string>
     <string name="available_promotions">Available promotions</string>
     <string name="sign_in_facebook">Sign in with Facebook</string>
+    <string name="sign_in_google">Sign in with Google</string>
     <string name="promotion_general">General</string>
     <string name="promotion_custom">Custom</string>
     <string name="promotion_members_only">Members only</string>

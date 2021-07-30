@@ -1,5 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.8.0] - 2021-07-30
+### Added
+- new methods for authentication
+
+### Fixed
+- uuid autobackup issue
+- picasso singleton clash
+
 ## [3.7.6] - 2021-07-05
 ### Fixed
 - IOException when doing a lot of calls to Synerise
