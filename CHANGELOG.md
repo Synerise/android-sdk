@@ -1,5 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.8.1] - 2021-08-05
+### Added
+- Callback `CLIENT_REJECTED` for `OnClientStateChangeListener`
+
+### Fixed
+- issue with description in push notifications when image is not showing
+
 ## [3.8.0] - 2021-07-30
 ### Added
 - new methods for authentication
