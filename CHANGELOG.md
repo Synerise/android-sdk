@@ -1,5 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.8.2] - 2021-08-13
+### Added
+- methods to activate and deactivate promotions in a batch
+
+### Changed
+- updated `Promotion` object
+
 ## [3.8.1] - 2021-08-05
 ### Added
 - Callback `CLIENT_REJECTED` for `OnClientStateChangeListener`
