@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.8.3] - 2021-08-16
+### Fixed
+- tags changed to List of HashMap
+
 ## [3.8.2] - 2021-08-13
 ### Added
 - methods to activate and deactivate promotions in a batch
