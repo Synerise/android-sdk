@@ -1,5 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.8.5] - 2021-08-19
+### Fixed
+- `Client.signInConditionally` error part 2
+
+## [3.8.4] - 2021-08-19
+### Fixed
+- `Client.signInConditionally` error
+
 ## [3.8.3] - 2021-08-16
 ### Fixed
 - tags changed to List of HashMap
