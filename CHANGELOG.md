@@ -1,5 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.8.6] - 2021-09-13
+### Added
+- `deviceId` field to `RegisterClient` class (Client registration process)
+
+### Fixed
+- `Client.signInConditionally` error with saving uuid
+- `Client.authenticateConditionally` error with saving uuid
+
 ## [3.8.5] - 2021-08-19
 ### Fixed
 - `Client.signInConditionally` error part 2
