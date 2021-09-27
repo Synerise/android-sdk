@@ -1,5 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.8.7] - 2021-09-27
+### Added
+- `USER_ACCOUNT_DELETED` to `ClientSessionEndReason` enum.
+
+### Changed
+- `gson - flatten` library deleted from dependencies.
+
 ## [3.8.6] - 2021-09-13
 ### Added
 - `deviceId` field to `RegisterClient` class (Client registration process)
