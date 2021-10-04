@@ -1,5 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.8.8] - 2021-10-04
+### Fixed
+- `SecurityException` while retrieving NetworkConnectionType
+- `NullPointerException` in `NotificationClickReceiver`and `NotificationDismissReceiver`
+
 ## [3.8.7] - 2021-09-27
 ### Added
 - `USER_ACCOUNT_DELETED` to `ClientSessionEndReason` enum.
