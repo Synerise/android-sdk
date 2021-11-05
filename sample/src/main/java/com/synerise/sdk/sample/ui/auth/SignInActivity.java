@@ -28,7 +28,9 @@ import com.facebook.login.LoginResult;
 import com.synerise.sdk.client.Client;
 import com.synerise.sdk.client.model.AuthConditions;
 import com.synerise.sdk.client.model.ClientIdentityProvider;
+import com.synerise.sdk.client.model.ConditionalAuthenticationStatus;
 import com.synerise.sdk.client.model.GetAccountInformation;
+import com.synerise.sdk.core.listeners.ActionListener;
 import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.core.net.IDataApiCall;
@@ -40,6 +42,7 @@ import com.synerise.sdk.sample.persistence.AccountManager;
 import com.synerise.sdk.sample.ui.BaseActivity;
 import com.synerise.sdk.sample.util.ToolbarHelper;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;

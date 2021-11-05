@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.8.9] - 2021-11-05
+### Added
+- `errorCode` field to `ApiErrorBody`
+
 ## [3.8.8] - 2021-10-04
 ### Fixed
 - `SecurityException` while retrieving NetworkConnectionType
