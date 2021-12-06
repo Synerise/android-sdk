@@ -234,13 +234,11 @@ public class ProductActivity extends BaseActivity {
         itemLayoutDetails.itemTitleStyle = Typeface.create("sans-serif-condensed", Typeface.NORMAL);
         itemLayoutDetails.itemTitleSize = 12;
         itemLayoutDetails.itemTitleColor = ContextCompat.getColor(Synerise.getApplicationContext(), R.color.charcoal);
-        itemLayoutDetails.itemTitleGravity = Gravity.LEFT;
         itemLayoutDetails.setItemTitleMargins(10, 0, 10, 0);
         //TextView Product price
         itemLayoutDetails.itemPriceStyle = Typeface.create("sans-serif-light", Typeface.BOLD);
         itemLayoutDetails.itemPriceSize = 12;
         itemLayoutDetails.itemPriceColor = ContextCompat.getColor(Synerise.getApplicationContext(), R.color.charcoal);
-        itemLayoutDetails.itemPriceGravity = Gravity.LEFT;
         itemLayoutDetails.setItemPriceMargins(10, 0, 10, 0);
         ContentWidgetAppearance contentWidgetAppearance = new ContentWidgetAppearance(new ContentWidgetHorizontalSliderLayout(), itemLayoutDetails);
         ContentWidget widget = new ContentWidget(options, contentWidgetAppearance);

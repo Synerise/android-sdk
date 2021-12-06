@@ -1,5 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [3.8.10] - 2021-12-06
+### Added
+- IMPROVEMENTS IN CONTENT WIDGET:
+- `badge` as a text shown on the image in `ContentWidget`
+- `itemLabel` to show additional information about product in `ContentWidget`
+- percentageLabel to show the discount percentage in `ContentWidget`
+- image scalling in `ContentWidgetBasicProductItemLayout`
 ## [3.8.9] - 2021-11-05
 ### Added
 - `errorCode` field to `ApiErrorBody`

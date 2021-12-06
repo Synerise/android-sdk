@@ -2,6 +2,7 @@ package com.synerise.sdk.sample.ui.dev.content;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -12,15 +13,19 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.synerise.sdk.content.model.BaseModel;
 import com.synerise.sdk.content.widgets.ContentWidget;
 import com.synerise.sdk.content.widgets.action.ImageButtonCustomAction;
 import com.synerise.sdk.content.widgets.action.PredefinedActionType;
+import com.synerise.sdk.content.widgets.dataModel.ContentWidgetBadgeDataModel;
 import com.synerise.sdk.content.widgets.dataModel.ContentWidgetRecommendationDataModel;
 import com.synerise.sdk.content.widgets.dataModel.Recommendation;
+import com.synerise.sdk.content.widgets.layout.ContentWidgetBadge;
 import com.synerise.sdk.content.widgets.layout.ContentWidgetHorizontalSliderLayout;
 import com.synerise.sdk.content.widgets.layout.ContentWidgetBasicProductItemLayout;
 import com.synerise.sdk.content.widgets.listener.OnActionItemStateListener;
@@ -99,7 +104,11 @@ public class WidgetHorizontalSliderActivity extends BaseActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                return new ContentWidgetRecommendationDataModel(productName, imageLink, price, salePrice, null);
+                ContentWidgetBadgeDataModel badgeDataModel = new ContentWidgetBadgeDataModel("Example badge", Color.BLACK, Color.RED);
+                ContentWidgetRecommendationDataModel dataModel = new ContentWidgetRecommendationDataModel(productName, imageLink, price, salePrice, "PLN");
+                dataModel.setBadgeDataModel(badgeDataModel);
+                dataModel.setLabel("Black Week");
+                return dataModel;
             }
         });
         options.attributes.put(ContentWidgetOptions.ContentWidgetOptionsAttributeKeyProductId, productId);
@@ -122,20 +131,24 @@ public class WidgetHorizontalSliderActivity extends BaseActivity {
             itemLayoutDetails.imageHeightToCardHeightRatio = Float.parseFloat(imageHeightRatio.getEditText().getText().toString());
         if (!imageWidthRatio.getEditText().getText().toString().matches(""))
             itemLayoutDetails.imageWidthToCardWidthRatio = Float.parseFloat(imageWidthRatio.getEditText().getText().toString());
+        itemLayoutDetails.imageScaleType = ImageView.ScaleType.CENTER_CROP;
         itemLayoutDetails.imageMargin = 0; //have to be set when you set cardViewElevation
+
+        //TextView product label
+        itemLayoutDetails.itemLabelSize = 12;
+        itemLayoutDetails.itemLabelColor = Color.GREEN;
+        itemLayoutDetails.setItemLabelMargins(0,0,2,0);
 
         //TextView product name
         itemLayoutDetails.itemTitleStyle = Typeface.create("sans-serif-condensed", Typeface.NORMAL);
         itemLayoutDetails.itemTitleSize = 12;
         itemLayoutDetails.itemTitleColor = ContextCompat.getColor(Synerise.getApplicationContext(), R.color.charcoal);
-        itemLayoutDetails.itemTitleGravity = Gravity.LEFT;
         itemLayoutDetails.setItemTitleMargins(10, 0, 0, 0);
 
         //TextView Product price
         itemLayoutDetails.itemPriceStyle = Typeface.create("sans-serif-light", Typeface.BOLD);
-        itemLayoutDetails.itemPriceSize = 12;
+        itemLayoutDetails.itemPriceSize = 13;
         itemLayoutDetails.itemPriceColor = ContextCompat.getColor(Synerise.getApplicationContext(), R.color.charcoal);
-        itemLayoutDetails.itemPriceGravity = Gravity.LEFT;
         itemLayoutDetails.setItemPriceMargins(10, 0, 3, 0);
 
         //TextView Product Sale price
@@ -144,12 +157,25 @@ public class WidgetHorizontalSliderActivity extends BaseActivity {
         itemLayoutDetails.itemSalePriceSize = 13;
         itemLayoutDetails.itemSalePriceColor = ContextCompat.getColor(Synerise.getApplicationContext(), R.color.red);
         itemLayoutDetails.itemSalePriceOrientation = LinearLayout.HORIZONTAL;
-        itemLayoutDetails.setItemSalePriceMargins(5, 0, 3, 0);
+        itemLayoutDetails.setItemSalePriceMargins(4, 0, 3, 0);
         // CrossedOut Price color
         itemLayoutDetails.itemRegularPriceColor = ContextCompat.getColor(Synerise.getApplicationContext(), R.color.com_facebook_blue);
-
         itemLayoutDetails.priceDecimalSeparator = ',';
         itemLayoutDetails.priceGroupSeparator = ' ';
+
+        // DiscountLabel
+        itemLayoutDetails.itemDiscountPercentageLabelSize = 13;
+        itemLayoutDetails.isItemDiscountPercentageLabelVisible = true;
+        itemLayoutDetails.itemDiscountPercentageLabelColor = Color.BLUE;
+        itemLayoutDetails.itemDiscountPercentageLabelStyle = Typeface.create("sans-serif", Typeface.BOLD);
+        itemLayoutDetails.setItemDiscountLabelMargins(4, 0, 3, 0);
+
+        // Badge
+        ContentWidgetBadge badge = new ContentWidgetBadge();
+        badge.textSize = 12;
+        badge.rule = RelativeLayout.ALIGN_LEFT; // left or right
+        badge.setMargins(0,0,0,20);
+        badge.setPaddings(10, 10, 0, 0);
 
         //ImageButton
         ImageButtonCustomAction favouriteIcon = new ImageButtonCustomAction();
@@ -171,6 +197,7 @@ public class WidgetHorizontalSliderActivity extends BaseActivity {
             }
         });
 
+        itemLayoutDetails.setBadge(badge);
         itemLayoutDetails.setItemAction(favouriteIcon);
 
         ContentWidgetAppearance contentWidgetAppearance = new ContentWidgetAppearance(layout, itemLayoutDetails);
