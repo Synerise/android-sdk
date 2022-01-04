@@ -1,5 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [4.0.0] - 2022-01-04
+### Changed
+- `notificationIconColor` and `notificationIcon` should be set via meta-data in manifest and are not longer set in Synerise.Builder`
+for more information please check documentation in push-notifications section
+
+### Removed
+- `notificationIcon` and `notificationIconColor` from Synerise.Builder
+- `notificationChannelName` and `notificationChannelId`from Synerise.Builder due to end of deprecation time
+
 ## [3.8.10] - 2021-12-06
 ### Added
 - IMPROVEMENTS IN CONTENT WIDGET:

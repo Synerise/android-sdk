@@ -87,8 +87,6 @@ public class App extends MultiDexApplication
 
         Synerise.Builder.with(this, syneriseClientApiKey, appId)
                 .mesaggingServiceType(MessagingServiceType.GMS)
-                .notificationIcon(R.drawable.ic_cart)
-                .notificationIconColor(ContextCompat.getColor(this, R.color.amaranth))
                 .syneriseDebugMode(true)
                 .crashHandlingEnabled(true)
                 .pushRegistrationRequired(this)

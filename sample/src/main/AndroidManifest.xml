@@ -152,11 +152,19 @@
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_cart" />
+            android:resource="@drawable/ic_notification_icon" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/buddha" />
+            android:resource="@color/amaranth" />
+
+        <meta-data
+            android:name="com.synerise.sdk.messaging.notification_icon"
+            android:resource="@drawable/ic_notification_icon" />
+
+        <meta-data
+            android:name="com.synerise.sdk.messaging.notification_icon_color"
+            android:resource="@color/amaranth" />
 
         <service
             android:name=".service.LocationService"
