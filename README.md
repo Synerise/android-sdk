@@ -5,7 +5,7 @@ Most up-to-date documentation is available at: https://help.synerise.com/develop
 ## Requirements
 
 - Minimum Android SDK version - 21
-
+- Supported targetSdkVersion 30
 ## Installation
 
 Set maven path in your root/build.gradle file:
