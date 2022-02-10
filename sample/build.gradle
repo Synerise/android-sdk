@@ -7,13 +7,13 @@ def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 31
         applicationId "com.synerise.sample"
-        versionCode 110
-        versionName "4.0.0"
+        versionCode 112
+        versionName "4.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -65,7 +65,7 @@ android {
 
 ext {
     daggerVersion = '2.16'
-    syneriseVersion = '4.0.0'
+    syneriseVersion = '4.0.1'
 }
 
 dependencies {
@@ -96,8 +96,8 @@ dependencies {
     // Facebook
     implementation 'com.facebook.android:facebook-login:4.41.0'
     // Firebase
-    implementation 'com.google.firebase:firebase-messaging:20.1.0'
-    implementation 'com.google.firebase:firebase-core:17.2.2'
+    implementation 'com.google.firebase:firebase-messaging:23.0.0'
+    implementation 'com.google.firebase:firebase-core:20.0.2'
     // Google Play Services
     implementation 'com.google.android.gms:play-services-vision:19.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'

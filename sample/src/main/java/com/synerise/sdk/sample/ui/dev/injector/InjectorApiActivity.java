@@ -11,7 +11,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.widget.TextView;
 
-import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.synerise.sdk.injector.Injector;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.BaseActivity;
@@ -21,6 +21,7 @@ import com.synerise.sdk.sample.util.ToolbarHelper;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static com.synerise.sdk.injector.SynerisePushKeys.CONTENT;
 import static com.synerise.sdk.injector.SynerisePushKeys.CONTENT_TYPE;
@@ -71,12 +72,18 @@ public class InjectorApiActivity extends BaseActivity {
     }
 
     private void onFirebaseIdChanged() {
+        AtomicReference<String> refreshedToken = null;
         // get your `google-services.json` from Firebase console first
-        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        if (TextUtils.isEmpty(refreshedToken)) {
+        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(token -> {
+            if (!TextUtils.isEmpty(token)) {
+                refreshedToken.set(token);
+            }
+        });
+
+        if (TextUtils.isEmpty(refreshedToken.get())) {
             firebaseId.setText(R.string.unknown_firebase_id);
         } else {
-            firebaseId.setText(refreshedToken);
+            firebaseId.setText(refreshedToken.get());
         }
     }
 

@@ -5,7 +5,8 @@ Most up-to-date documentation is available at: https://help.synerise.com/develop
 ## Requirements
 
 - Minimum Android SDK version - 21
-- Supported targetSdkVersion 30
+- Supported targetSdkVersion - 31
+
 ## Installation
 
 Set maven path in your root/build.gradle file:
@@ -44,7 +45,7 @@ apply plugin: 'com.android.application'
 dependencies {
   ...
   // Synerise Android SDK
-  implementation 'com.synerise.sdk:synerise-mobile-sdk:4.0.0'
+  implementation 'com.synerise.sdk:synerise-mobile-sdk:4.0.1'
 }
 ```
 

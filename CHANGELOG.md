@@ -1,5 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [4.0.1] - 2022-01-10
+### Added
+- support for targetSdkVersion 31
+- new mechanism for collecting statistics for android 12 and above called Notification Reverse Activity Trampoline
+
+## [3.8.11] - 2022-01-10
+### Added
+- support for targetSdkVersion 31
+- new mechanism for collecting statistics for android 12 and above called Notification Reverse Activity Trampoline
+
 ## [4.0.0] - 2022-01-04
 ### Changed
 - `notificationIconColor` and `notificationIcon` should be set via meta-data in manifest and are not longer set in Synerise.Builder`

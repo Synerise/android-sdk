@@ -28,7 +28,6 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
@@ -168,12 +167,7 @@ public final class QRScannerActivity extends BaseActivity implements BarcodeGrap
         HandlerThread ht = new HandlerThread("HandlerThread");
         ht.start();
         new Handler(ht.getLooper()).post(() -> {
-            try {
-                FirebaseInstanceId.getInstance().deleteInstanceId();
-                ProcessPhoenix.triggerRebirth(QRScannerActivity.this);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            ProcessPhoenix.triggerRebirth(QRScannerActivity.this);
         });
     }
 

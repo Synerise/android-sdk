@@ -4,14 +4,14 @@ import android.content.Intent;
 
 import androidx.multidex.MultiDexApplication;
 import androidx.core.app.NotificationManagerCompat;
-import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.synerise.sdk.client.Client;
 import com.synerise.sdk.core.Synerise;
 import com.synerise.sdk.core.listeners.OnLocationUpdateListener;
@@ -115,16 +115,18 @@ public class App extends MultiDexApplication
     @Override
     public void onRegisterForPushRequired() {
         // your logic here
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
-            String refreshedToken = instanceIdResult.getToken();
-            Log.d(TAG, "Refreshed token: " + refreshedToken);
+        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(token -> {
+            if (!TextUtils.isEmpty(token)) {
+                Log.d(TAG, "Retrieve token Successful : " + token);
+                IApiCall call = Client.registerForPush(token, true);
+                call.execute(() -> Log.d(TAG, "Register for Push succeed: " + token),
+                        apiError -> Log.w(TAG, "Register for push failed: " + token));
 
-            IApiCall call = Client.registerForPush(refreshedToken, true);
-            call.execute(() -> Log.d(TAG, "Register for Push succeed: " + refreshedToken),
-                    apiError -> Log.w(TAG, "Register for push failed: " + refreshedToken));
-
-            Intent intent = FirebaseIdChangeBroadcastReceiver.createFirebaseIdChangedIntent();
-            LocalBroadcastManager.getInstance(App.this).sendBroadcast(intent);
+                Intent intent = FirebaseIdChangeBroadcastReceiver.createFirebaseIdChangedIntent();
+                LocalBroadcastManager.getInstance(App.this).sendBroadcast(intent);
+            } else{
+                Log.w(TAG, "token should not be null...");
+            }
         });
     }
 
