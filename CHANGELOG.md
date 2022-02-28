@@ -1,11 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
-## [4.0.1] - 2022-01-10
+## [4.1.0] - 2022-02-28
+### Added
+- `ACTION_VIEW` for Intent inside deep link campaigns
+- support for universal links to be send as DEEP_LINK
+
+## [4.0.1] - 2022-02-10
 ### Added
 - support for targetSdkVersion 31
 - new mechanism for collecting statistics for android 12 and above called Notification Reverse Activity Trampoline
 
-## [3.8.11] - 2022-01-10
+## [3.8.11] - 2022-02-10
 ### Added
 - support for targetSdkVersion 31
 - new mechanism for collecting statistics for android 12 and above called Notification Reverse Activity Trampoline
