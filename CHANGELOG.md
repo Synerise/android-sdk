@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [4.2.0] - 2022-03-08
+### Added
+- `setItemsIds` method to `RecommendationRequestBody` in order to get recommendations for multiple products
+
 ## [4.1.0] - 2022-02-28
 ### Added
 - `ACTION_VIEW` for Intent inside deep link campaigns
