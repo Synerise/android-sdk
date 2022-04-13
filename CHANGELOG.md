@@ -1,5 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [4.3.0] - 2022-04-13
+### Added
+- additional parameters to `RecommendationRequestBody` object. More filters for getting recommendations.
+- upgraded picasso library to 2.71828 version
+
+### Fixed
+- memory leaks in AutoTracking
 ## [4.2.0] - 2022-03-08
 ### Added
 - `setItemsIds` method to `RecommendationRequestBody` in order to get recommendations for multiple products
