@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [4.3.1] - 2022-04-26
+### Fixed
+- issue with dismissBroadcastReceiver ( affecting only react-native users )
+
 ## [4.3.0] - 2022-04-13
 ### Added
 - additional parameters to `RecommendationRequestBody` object. More filters for getting recommendations.
