@@ -1,5 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [4.4.0] - 2022-05-05
+### Added
+- migration to encrypted tokens (not affecting users)
+
+### Changed
+- events types to "custom". Events now can be distinguished via `action` parameter
+- `authenticate`, `signInAnonymous`, `authenticateConditionally`, `refreshToken` methods are now moved to "v3" endpoints due to encrypted token migration
+
+### Fixed
+- cast exception in `NotificationOpenedReceiver`
+
 ## [4.3.1] - 2022-04-26
 ### Fixed
 - issue with dismissBroadcastReceiver ( affecting only react-native users )
