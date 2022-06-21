@@ -1,5 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [4.5.0] - 2022-06-21
+### Added
+- new properties in ContentWidget: `subtitile`, `identifier` and `loyaltyPoints`. These properties are added to `ContentWidgetBasicProductItemLayout`
+and are provided with customization properties such as typeface, size, color, margins and additional label for loyalty points as suffix text. Appearance
+of the properties is set in `ContentWidgetBasicProductItemLayout` and their data in `ContentWidgetRecommendationDataModel`. All properties are optional
+and will not be displayed if they were not set in the data model.
+
 ## [4.4.0] - 2022-05-05
 ### Added
 - migration to encrypted tokens (not affecting users)

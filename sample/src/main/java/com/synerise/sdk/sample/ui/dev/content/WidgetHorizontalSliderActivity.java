@@ -9,7 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import com.google.android.material.textfield.TextInputLayout;
 import androidx.core.content.ContextCompat;
-import android.view.Gravity;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
