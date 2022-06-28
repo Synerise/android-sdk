@@ -25,6 +25,7 @@ import com.synerise.sdk.client.model.listener.OnClientStateChangeListener;
 import com.synerise.sdk.content.Content;
 import com.synerise.sdk.core.net.IDataApiCall;
 import com.synerise.sdk.core.types.enums.ClientSessionEndReason;
+import com.synerise.sdk.core.types.enums.ClientSignOutMode;
 import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.model.LoyaltyPoints;
@@ -210,7 +211,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                 if (!(currentFragment instanceof DeveloperFragment)) changeFragment(DEV_TOOLS);
                 break;
             case R.id.menu_sign_out:
-                Client.signOut();
+                Client.signOut(ClientSignOutMode.SIGN_OUT);
                 if (!(currentFragment instanceof SectionsFragment)) changeFragment(SECTIONS);
                 handleSigningVisibility();
                 break;

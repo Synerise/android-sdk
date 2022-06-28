@@ -1,5 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [4.6.0] - 2022-06-28
+### Added
+- new `Client.signOut(mode)` method with two modes: `SIGN_OUT` and `SIGN_OUT_WITH_SESSION_DESTROY`.
+ They both notify the backend that the client is signed out, clear the client session on the device with a JWT Token, and work similiarly to `Client.signOut()`.
+ Additionaly, `SIGN_OUT_WITH_SESSION_DESTROY` clears the anonymous session and regenerates the client UUID.
+
 ## [4.5.0] - 2022-06-21
 ### Added
 - new properties in ContentWidget: `subtitile`, `identifier` and `loyaltyPoints`. These properties are added to `ContentWidgetBasicProductItemLayout`
