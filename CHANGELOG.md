@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [4.6.1] - 2022-07-07
+### Fixed
+- IllegalArgumentException bad-base 64
+
 ## [4.6.0] - 2022-06-28
 ### Added
 - new `Client.signOut(mode)` method with two modes: `SIGN_OUT` and `SIGN_OUT_WITH_SESSION_DESTROY`.
