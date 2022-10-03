@@ -1,5 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [4.7.0] - 2022-10-03
+### Added
+- We added in-app messaging module. In-app messages are designed to enhance the user experience in your mobile application without ever being intrusive. Customizable layouts can personalize content and style to create the perfect in-app message to fit your brand. Using Synerise segmentation, you can target and engage the most relevant audience.
+
+### Removed
+- Banner methods such as: `fetchBanners`, `getBanners`, `showBanner`.
+
+## [4.6.2] - 2022-07-14
+### Fixed
+- `push.click` issue affecting only React-Native users.
+
 ## [4.6.1] - 2022-07-07
 ### Fixed
 - IllegalArgumentException bad-base 64
@@ -491,7 +502,7 @@ for more information please check documentation in push-notifications section
 - BackStack is now working with deeplinking
 
 ### Changed
-- `time` from Event moved to `params` as `sourceTime`
+- `time` from Event moved to `parameters` as `sourceTime`
 - `notificationChannelName` and `NotificationChannelId` changed to `NotificationDefaultChannelName` and `NotificationDefaultChannelId`
 
 ## [3.3.14] - 2019-04-11
@@ -535,7 +546,7 @@ for more information please check documentation in push-notifications section
 - `RecommendationSeenEvent` event type
 
 ### Changed
-- `Promotions.getPromotions()` params are now optional (nullable)
+- `Promotions.getPromotions()` parameters are now optional (nullable)
 
 ### Fixed
 - Notifications content text on some devices were not displayed properly

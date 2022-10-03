@@ -4,6 +4,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.android.material.textfield.TextInputLayout;
+
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,11 +33,11 @@ public class ClientChangeApiKeyFragment extends BaseDevFragment {
         super.onViewCreated(view, savedInstanceState);
 
         inputApiKey = view.findViewById(R.id.input_api_key);
-        view.findViewById(R.id.change_api_key).setOnClickListener(v -> changeApiKey());
+        view.findViewById(R.id.change_api_key).setOnClickListener(this::changeApiKey);
     }
 
     @SuppressWarnings("ConstantConditions")
-    private void changeApiKey() {
+    private void changeApiKey(View view) {
         boolean isValid = true;
 
         inputApiKey.setError(null);

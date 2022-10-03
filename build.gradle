@@ -32,6 +32,8 @@ ext {
     rxAndroidVersion = '2.1.0'
     okHttp3Version = '3.11.0'
     retrofitVersion = '2.9.0'
+    roomVersion = '2.3.0'
+    work_version = "2.7.1"
     // Support
     supportAnnotations = "androidx.annotation:annotation:$androidXsupportVersion"
     appCompatV7 = "androidx.appcompat:appcompat:$androidXsupportVersion"
@@ -39,6 +41,10 @@ ext {
     cardView = "androidx.cardview:cardview:$androidXsupportVersion"
     supportV4 = "androidx.legacy:legacy-support-v4:$androidXsupportVersion"
     design = "com.google.android.material:material:$androidXsupportVersion"
+    // Room
+    room = "androidx.room:room-runtime:$roomVersion"
+    roomRx = "androidx.room:room-rxjava2:$roomVersion"
+    roomAnotationProcessor = "androidx.room:room-compiler:$roomVersion"
     // RxJava
     rxAndroid = "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
     // OkHttp
@@ -48,11 +54,14 @@ ext {
     retrofit2 = "com.squareup.retrofit2:retrofit:$retrofitVersion"
     retrofit2Converter = "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     retrofit2Adapter = "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    // Work Manager
+    workManager = "androidx.work:work-runtime:$work_version"
     // Test
     supportTestRunner = 'androidx.test:runner:1.1.0'
     supportTestRules = 'androidx.test:rules:1.1.0'
     espressoCore = 'androidx.test.espresso:espresso-core:3.1.0'
     junit = 'junit:junit:4.11'
+    roomTesting = "androidx.room:room-testing:$roomVersion"
 }
 
 task clean(type: Delete) {

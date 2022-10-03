@@ -84,7 +84,7 @@ public class App extends MultiDexApplication
         Synerise.settings.injector.automatic = true;
         Synerise.settings.sdk.shouldDestroySessionOnApiKeyChange = true;
         Synerise.settings.notifications.setEncryption(true);
-
+        Synerise.settings.inAppMessaging.renderingTimeout = 5000;
         Synerise.Builder.with(this, syneriseClientApiKey, appId)
                 .mesaggingServiceType(MessagingServiceType.GMS)
                 .syneriseDebugMode(true)

@@ -75,7 +75,6 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     private TextView pointsNavHeader;
     private NavigationView navigationView;
 
-
     public static Intent createIntent(Context context) {
         return new Intent(context, DashboardActivity.class);
     }
@@ -84,9 +83,9 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
         ((App) getApplication()).getComponent().inject(this);
         ToolbarHelper.setUpToolbar(this);
-
         drawer = findViewById(R.id.drawer_layout);
 
         /*mActionBarDrawerToggle = new ActionBarDrawerToggle(
@@ -112,7 +111,6 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         updateNavHeader();
 
         signInButtonNavHeader.setOnClickListener(v -> startActivityForResult(SignInActivity.createIntent(this), SIGN_IN_REQUEST_CODE));
-
 
         handleSigningVisibility();
 
