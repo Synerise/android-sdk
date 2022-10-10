@@ -1,5 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [4.8.0] - 2022-10-10
+## Changed
+- `JobIntentService` is no longer used in sdk.
+- Sending events is based on workManager
+
 ## [4.7.0] - 2022-10-03
 ### Added
 - We added in-app messaging module. In-app messages are designed to enhance the user experience in your mobile application without ever being intrusive. Customizable layouts can personalize content and style to create the perfect in-app message to fit your brand. Using Synerise segmentation, you can target and engage the most relevant audience.
