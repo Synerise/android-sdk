@@ -1,7 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [4.8.1] - 2022-10-19
+### Changed
+- Room version upgraded to 2.4.3
+
+### Fixed
+- `ArrayIndexOutOfBoundsException`
+
+## [4.7.1] - 2022-10-19
+### Fixed
+- `ArrayIndexOutOfBoundsException`
+
 ## [4.8.0] - 2022-10-10
-## Changed
+### Changed
 - `JobIntentService` is no longer used in sdk.
 - Sending events is based on workManager
 
