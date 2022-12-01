@@ -1,5 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [4.8.2] - 2022-12-01
+### Fixed
+- `IllegalArgumentException` in `PreMKeySecurityManager`
+- issue with sending events
+- timeout handler in checkSegment
+- issue with triggering InApp by `push.click` event
+
 ## [4.8.1] - 2022-10-19
 ### Changed
 - Room version upgraded to 2.4.3
