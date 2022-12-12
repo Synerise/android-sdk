@@ -1,5 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [4.8.3] - 2022-12-12
+### Added
+- `maxDefinitionUpdateIntervalLimit` to `InAppMessaggingSettings`
+
+### Changed
+- workManager initialization is done by default. For custom initialization please follow work manager documenation.
+
+### Fixed
+- `ActivityNotFoundException` is now handled when push is clicked. Doze mode is clearing application process and broadcastReceiver has no activity to be attached to.
+- Improved timeout handling when getting inAppDefinitions
+
 ## [4.8.2] - 2022-12-01
 ### Fixed
 - `IllegalArgumentException` in `PreMKeySecurityManager`

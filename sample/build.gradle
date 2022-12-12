@@ -12,8 +12,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 31
         applicationId "com.synerise.sample"
-        versionCode 135
-        versionName "4.8.2"
+        versionCode 136
+        versionName "4.8.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -65,7 +65,7 @@ android {
 
 ext {
     daggerVersion = '2.16'
-    syneriseVersion = '4.8.2'
+    syneriseVersion = '4.8.3'
 }
 
 dependencies {
@@ -92,7 +92,8 @@ dependencies {
     implementation "com.google.dagger:dagger:$daggerVersion"
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
     // Synerise
-    implementation "com.synerise.sdk:synerise-mobile-sdk:$syneriseVersion"
+    implementation project(':synerise-mobile-sdk')
+    //implementation "com.synerise.sdk:synerise-mobile-sdk:$syneriseVersion"
     // Facebook
     implementation 'com.facebook.android:facebook-login:4.41.0'
     // Firebase
