@@ -18,6 +18,9 @@ All notable changes to this project will be documented in this file.
 - timeout handler in checkSegment
 - issue with triggering InApp by `push.click` event
 
+### Changed
+- client.applicationStarted is now collected only in foreground. You may see decrease in events quantity.
+
 ## [4.8.1] - 2022-10-19
 ### Changed
 - Room version upgraded to 2.4.3
