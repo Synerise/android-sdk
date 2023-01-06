@@ -22,8 +22,11 @@ import com.synerise.sdk.core.types.enums.HostApplicationType;
 import com.synerise.sdk.core.types.enums.MessagingServiceType;
 import com.synerise.sdk.core.types.enums.TrackMode;
 import com.synerise.sdk.core.utils.SystemUtils;
+import com.synerise.sdk.injector.Injector;
 import com.synerise.sdk.injector.callback.InjectorSource;
 import com.synerise.sdk.injector.callback.OnInjectorListener;
+import com.synerise.sdk.injector.callback.OnNotificationListener;
+import com.synerise.sdk.injector.callback.model.NotificationInfo;
 import com.synerise.sdk.sample.dagger.AppComponent;
 import com.synerise.sdk.sample.dagger.ConfigModule;
 import com.synerise.sdk.sample.dagger.DaggerAppComponent;
@@ -147,5 +150,27 @@ public class App extends MultiDexApplication
     @Override
     public void onInitializationCompleted() {
         // your action here
+        Injector.setOnNotificationListener(new OnNotificationListener() {
+            @Override
+            public void onNotificationReceived(NotificationInfo notificationInfo) {
+                Log.i(TAG, "on push received: " + notificationInfo.getCampaignHashId() + " title: " + notificationInfo.getCampaignTitle() + "payload: " + notificationInfo.getPayload());
+            }
+
+            @Override
+            public void onNotificationClicked(NotificationInfo notificationInfo) {
+                Log.i(TAG, "on push clicked: " + notificationInfo.getCampaignHashId() + " title: " + notificationInfo.getCampaignTitle() + "payload: " + notificationInfo.getPayload());
+
+            }
+
+            @Override
+            public void onNotificationDismissed(NotificationInfo notificationInfo) {
+                Log.i(TAG, "on push dismissed: " + notificationInfo.getCampaignHashId() + " title: " + notificationInfo.getCampaignTitle() + "payload: " + notificationInfo.getPayload());
+            }
+
+            @Override
+            public void onActionButtonClicked(NotificationInfo notificationInfo, String actionButton) {
+                Log.i(TAG, "on action button clicked: " + notificationInfo.getCampaignHashId() + " title: " + notificationInfo.getCampaignTitle() + " action button: " + actionButton + "payload: " + notificationInfo.getPayload());
+            }
+        });
     }
 }

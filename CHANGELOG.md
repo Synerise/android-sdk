@@ -1,5 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [4.9.0] - 2023-01-06
+### Added
+- `OnNotificationListener` callbacks which triggers when notification is shown, clicked or dismissed.
+- `NotificationInfo` object to share information about notification.
+
+### Changed
+- `User-Agent` header is now using package name instead of application's name.
+
 ## [4.8.3] - 2022-12-12
 ### Added
 - `maxDefinitionUpdateIntervalLimit` to `InAppMessaggingSettings`
