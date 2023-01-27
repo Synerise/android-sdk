@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [4.10.0] - 2023-01-27
+### Changed
+- `Client.signOut(mode)` is now asynchronous and returns IApiCall.
+
 ## [4.9.0] - 2023-01-06
 ### Added
 - `OnNotificationListener` callbacks which triggers when notification is shown, clicked or dismissed.

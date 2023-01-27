@@ -23,9 +23,12 @@ import com.google.gson.Gson;
 import com.synerise.sdk.client.Client;
 import com.synerise.sdk.client.model.listener.OnClientStateChangeListener;
 import com.synerise.sdk.content.Content;
+import com.synerise.sdk.core.listeners.ActionListener;
+import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IDataApiCall;
 import com.synerise.sdk.core.types.enums.ClientSessionEndReason;
 import com.synerise.sdk.core.types.enums.ClientSignOutMode;
+import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.model.LoyaltyPoints;
@@ -209,9 +212,19 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                 if (!(currentFragment instanceof DeveloperFragment)) changeFragment(DEV_TOOLS);
                 break;
             case R.id.menu_sign_out:
-                Client.signOut(ClientSignOutMode.SIGN_OUT);
-                if (!(currentFragment instanceof SectionsFragment)) changeFragment(SECTIONS);
-                handleSigningVisibility();
+                Client.signOut(ClientSignOutMode.SIGN_OUT).execute(new ActionListener() {
+                    @Override
+                    public void onAction() {
+                        if (!(currentFragment instanceof SectionsFragment)) changeFragment(SECTIONS);
+                        handleSigningVisibility();
+                    }
+                }, new DataActionListener<ApiError>() {
+                    @Override
+                    public void onDataAction(ApiError data) {
+                        if (!(currentFragment instanceof SectionsFragment)) changeFragment(SECTIONS);
+                        handleSigningVisibility();
+                    }
+                });
                 break;
         }
 
