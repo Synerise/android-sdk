@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [4.11.0] - 2023-02-17
+### Added
+- queueing of session refreshing mechanism. You should see decrease in signInAnonymous and token refresh requests.
+
 ## [4.10.0] - 2023-01-27
 ### Changed
 - `Client.signOut(mode)` is now asynchronous and returns IApiCall.
