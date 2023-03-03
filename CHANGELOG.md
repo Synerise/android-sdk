@@ -1,5 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [4.10.2] - 2023-03-03
+### Fixed
+- ANR issue in InApps. Removed blocking mechanism.
+
+## [4.10.1] - 2023-02-27
+### Fixed
+- ANR issue in `renderJinjaForceCheckSegment` method
+
 ## [4.11.0] - 2023-02-17
 ### Added
 - queueing of session refreshing mechanism. You should see decrease in signInAnonymous and token refresh requests.
