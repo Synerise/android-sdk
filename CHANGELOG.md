@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [4.11.3] - 2023-03-03
+### Fixed
+- ANR issue in InApps. Removed blocking mechanism.
+
 ## [4.10.2] - 2023-03-03
 ### Fixed
 - ANR issue in InApps. Removed blocking mechanism.
