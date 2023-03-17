@@ -2,7 +2,7 @@ package com.synerise.sdk.sample.util;
 
 import androidx.annotation.Nullable;
 
-import io.reactivex.disposables.Disposable;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 public class DisposableHelper {
 

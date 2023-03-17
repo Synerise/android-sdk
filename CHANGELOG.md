@@ -1,5 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.0.1] - 2023-03-14
+### Added
+- new context passing mechanism based on androidx.startup library
+
+### Changed
+- `compileSdk` and `targetSdk` are now set to 33.
+- upgrade of build.gradle, picasso, fresco, rxJava, okhttp, retrofit, room and work libraries.
+
 ## [4.11.3] - 2023-03-03
 ### Fixed
 - ANR issue in InApps. Removed blocking mechanism.

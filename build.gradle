@@ -9,8 +9,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.1'
-        classpath 'com.google.gms:google-services:4.3.4'
+        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath 'com.google.gms:google-services:4.3.14'
         classpath 'io.fabric.tools:gradle:1.30.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:3.0"
@@ -28,32 +28,39 @@ allprojects {
 }
 
 ext {
+    androidXAnnotation = '1.5.0'
+    androidXAppCompat = '1.5.1'
+    androidXRecycylerView = '1.2.1'
+    androidXCardView = '1.0.0'
     androidXsupportVersion = '1.0.0'
-    rxAndroidVersion = '2.1.0'
-    okHttp3Version = '3.11.0'
+    materialDesign = '1.7.0'
+    rxAndroidVersion = '3.0.1'
+    okHttp3Version = '4.10.0'
+    okHttp3LoggingInterceptorVersion = '4.9.1'
     retrofitVersion = '2.9.0'
     roomVersion = '2.4.3'
     work_version = "2.7.1"
     // Support
-    supportAnnotations = "androidx.annotation:annotation:$androidXsupportVersion"
-    appCompatV7 = "androidx.appcompat:appcompat:$androidXsupportVersion"
-    recycler = "androidx.recyclerview:recyclerview:$androidXsupportVersion"
-    cardView = "androidx.cardview:cardview:$androidXsupportVersion"
+    supportAnnotations = "androidx.annotation:annotation:$androidXAnnotation"
+    appCompatV7 = "androidx.appcompat:appcompat:$androidXAppCompat"
+    recycler = "androidx.recyclerview:recyclerview:$androidXRecycylerView"
+    cardView = "androidx.cardview:cardview:$androidXCardView"
     supportV4 = "androidx.legacy:legacy-support-v4:$androidXsupportVersion"
-    design = "com.google.android.material:material:$androidXsupportVersion"
+    design = "com.google.android.material:material:$materialDesign"
     // Room
     room = "androidx.room:room-runtime:$roomVersion"
-    roomRx = "androidx.room:room-rxjava2:$roomVersion"
+    roomRx = "androidx.room:room-rxjava3:$roomVersion"
     roomAnotationProcessor = "androidx.room:room-compiler:$roomVersion"
     // RxJava
-    rxAndroid = "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    rxAndroid = "io.reactivex.rxjava3:rxandroid:$rxAndroidVersion"
+    rxJava = 'io.reactivex.rxjava3:rxjava:3.1.5'
     // OkHttp
     okhttp3 = "com.squareup.okhttp3:okhttp:$okHttp3Version"
-    okhttp3Interceptor = "com.squareup.okhttp3:logging-interceptor:$okHttp3Version"
+    okhttp3Interceptor = "com.squareup.okhttp3:logging-interceptor:$okHttp3LoggingInterceptorVersion"
     // Retrofit
     retrofit2 = "com.squareup.retrofit2:retrofit:$retrofitVersion"
     retrofit2Converter = "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    retrofit2Adapter = "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    retrofit2Adapter = "com.squareup.retrofit2:adapter-rxjava3:$retrofitVersion"
     // Work Manager
     workManager = "androidx.work:work-runtime:$work_version"
     // Test

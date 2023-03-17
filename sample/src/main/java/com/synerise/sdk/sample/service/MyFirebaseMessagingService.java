@@ -23,7 +23,8 @@ import java.security.SecureRandom;
 import java.util.Map;
 import java.util.Random;
 
-public class MyFirebaseMessagingService extends FirebaseMessagingService {
+public class
+MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = MyFirebaseMessagingService.class.getSimpleName();
 
