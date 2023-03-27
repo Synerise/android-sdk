@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -212,7 +213,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                 if (!(currentFragment instanceof DeveloperFragment)) changeFragment(DEV_TOOLS);
                 break;
             case R.id.menu_sign_out:
-                Client.signOut(ClientSignOutMode.SIGN_OUT).execute(new ActionListener() {
+                Client.signOut(ClientSignOutMode.SIGN_OUT, false).execute(new ActionListener() {
                     @Override
                     public void onAction() {
                         if (!(currentFragment instanceof SectionsFragment)) changeFragment(SECTIONS);

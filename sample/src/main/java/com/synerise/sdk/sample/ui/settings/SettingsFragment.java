@@ -3,6 +3,8 @@ package com.synerise.sdk.sample.ui.settings;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.synerise.sdk.client.Client;
+import com.synerise.sdk.core.listeners.ActionListener;
+import com.synerise.sdk.core.listeners.DataActionListener;
+import com.synerise.sdk.core.net.IApiCall;
+import com.synerise.sdk.core.types.enums.ClientSignOutMode;
+import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.injector.Injector;
 import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
@@ -53,10 +60,19 @@ public class SettingsFragment extends BaseFragment {
         if (Client.isSignedIn()) {
             signOut.setVisibility(VISIBLE);
             signOut.setOnClickListener(v -> {
-                Client.signOut();
-                accountManager.signOut();
-                startActivity(SplashActivity.createIntent(getActivity()));
-                getActivity().finishAffinity();
+                IApiCall call = Client.signOut(ClientSignOutMode.SIGN_OUT, false);
+                call.execute(new ActionListener() {
+                    @Override
+                    public void onAction() {
+                        accountManager.signOut();
+                        startActivity(SplashActivity.createIntent(getActivity()));
+                        getActivity().finishAffinity();
+                    }
+                }, new DataActionListener<ApiError>() {
+                    @Override
+                    public void onDataAction(ApiError data) {
+                    }
+                });
             });
         } else {
             signOut.setVisibility(GONE);
