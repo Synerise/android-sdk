@@ -1,5 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.2.0] - 2023-04-21
+### Added
+- `RecommendationViewEvent` which can store multiple productsId in one event.
+- `recommendationEventType` field to contentWidget in order tu change event `recommendation.seen` to `recommendation.view`
+- update of ssl pins for all domains.
+
+### Removed
+- QUERY_ALL_PACKAGES permission.
+
 ## [5.1.0] - 2023-03-27
 ### Added
 - new method for sign out `Client.signOut(ClientSignOutMode, Boolean)`. Old method is now deprecated.

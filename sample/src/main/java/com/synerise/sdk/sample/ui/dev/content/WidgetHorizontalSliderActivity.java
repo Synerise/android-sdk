@@ -34,6 +34,7 @@ import com.synerise.sdk.content.widgets.listener.OnRecommendationModelMapper;
 import com.synerise.sdk.content.widgets.model.ContentWidgetAppearance;
 import com.synerise.sdk.content.widgets.model.ContentWidgetOptions;
 import com.synerise.sdk.content.widgets.model.ContentWidgetRecommendationsOptions;
+import com.synerise.sdk.content.widgets.model.RecommendationEventType;
 import com.synerise.sdk.core.Synerise;
 import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.sample.R;
@@ -81,7 +82,7 @@ public class WidgetHorizontalSliderActivity extends BaseActivity {
     }
 
     public void loadWidget() {
-        String productId = "0000206438331-XS";
+        String productId = "0000209234503-S/M";
         String slug = "recommend2";
         if (!productInputId.getEditText().getText().toString().matches(""))
             productId = productInputId.getEditText().getText().toString();
@@ -111,6 +112,7 @@ public class WidgetHorizontalSliderActivity extends BaseActivity {
                 return dataModel;
             }
         });
+        options.recommendationEventType = RecommendationEventType.RECOMMENDATION_VIEW_EVENT;
         options.attributes.put(ContentWidgetOptions.ContentWidgetOptionsAttributeKeyProductId, productId);
         ContentWidgetBasicProductItemLayout itemLayoutDetails = new ContentWidgetBasicProductItemLayout();
         ContentWidgetHorizontalSliderLayout layout = new ContentWidgetHorizontalSliderLayout();
