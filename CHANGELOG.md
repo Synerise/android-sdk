@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.2.1] - 2023-04-26
+### Changed
+- default value of `recommendationEventType` to `recommendation.seen` for backward compatibility
+
 ## [5.2.0] - 2023-04-21
 ### Added
 - `RecommendationViewEvent` which can store multiple productsId in one event.

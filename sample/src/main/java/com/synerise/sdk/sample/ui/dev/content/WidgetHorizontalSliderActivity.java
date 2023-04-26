@@ -112,12 +112,11 @@ public class WidgetHorizontalSliderActivity extends BaseActivity {
                 return dataModel;
             }
         });
-        options.recommendationEventType = RecommendationEventType.RECOMMENDATION_VIEW_EVENT;
         options.attributes.put(ContentWidgetOptions.ContentWidgetOptionsAttributeKeyProductId, productId);
         ContentWidgetBasicProductItemLayout itemLayoutDetails = new ContentWidgetBasicProductItemLayout();
         ContentWidgetHorizontalSliderLayout layout = new ContentWidgetHorizontalSliderLayout();
 
-        //CardView parameters
+        // CardView parameters
         if (!cardViewWidth.getEditText().getText().toString().matches("") && !cardViewHeight.getEditText().getText().toString().matches(""))
             layout.setCardViewSize(Integer.parseInt(cardViewWidth.getEditText().getText().toString()), Integer.parseInt(cardViewHeight.getEditText().getText().toString()));
         if (!cardViewElevation.getEditText().getText().toString().matches(""))
