@@ -32,7 +32,6 @@ public class ProductsActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
-
         category = (Category) getIntent().getSerializableExtra(Args.SERIALIZABLE);
 
         ToolbarHelper.setUpChildToolbar(this, category.getText(), category.getBackground());

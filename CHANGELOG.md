@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.3.0] - 2023-04-30
+### Changed
+- Root Activity for inApp rendering is now retrieved after delay has ended. Changing from screen A to B before delay has ended will result in inApp showed on screen B.
+
 ## [5.2.1] - 2023-04-26
 ### Changed
 - default value of `recommendationEventType` to `recommendation.seen` for backward compatibility
