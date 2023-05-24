@@ -2,7 +2,7 @@
 
     <string name="app_name" translatable="false">Synerise Sample App</string>
 
-    <!-- replace with your client key -->
+    <!-- replace with your profile key -->
     <string name="synerise_client_api_key">622376F8-4A8F-8B24-D7F9-070FA956E963</string>
     <string name="facebook_app_id">2276466452573053</string>
     <string name="fb_login_protocol_scheme">fb2276466452573053</string>
@@ -330,7 +330,7 @@
     <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
     <string name="no_camera_permission">This application needs camera permission to run QR scanner. Nevertheless, you can always provide your keys manually.</string>
     <string name="low_storage_error">Detector dependencies cannot be downloaded due to low device storage.</string>
-    <string name="client_api_key">Client Api Key</string>
+    <string name="client_api_key">Profile Api Key</string>
     <string name="finish">Finish</string>
     <string name="scanner_hint">Tap to capture. Pinch to zoom.</string>
     <string name="provide_phone_number">Phone number</string>

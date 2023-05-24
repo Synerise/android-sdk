@@ -53,9 +53,9 @@ Finally, please make sure your `Instant Run` is disabled.
 
 ### Initialize
 
-First of all, you need to initialize Synerise Android SDK via `with` method and provide `Client Api Key`, `Application name` and `Application instance`.<br>
-To get `Client Api Key`, please sign in to your Synerise account and visit https://app.synerise.com/api/.<br>
-Then, generate new `Api Key` for `Client` audience.<br>
+First of all, you need to initialize Synerise Android SDK via `with` method and provide `Profile Api Key`, `Application name` and `Application instance`.<br>
+To get `Profile Api Key`, please sign in to your Synerise account and visit https://app.synerise.com/api/.<br>
+Then, generate new `Api Key` for `Profile` audience.<br>
 
 In your `Application` sub-class:
 
@@ -108,7 +108,7 @@ and in your /values strings file (e.g. `strings.xml`):
 <resources>
 
     <string name="app_name" translatable="false">Your GREAT application name</string>
-    <string name="synerise_client_api_key" translatable="false">EF1AD0E0-532B-6AEE-6010-DEDC78F6E155</string> <!-- replace with valid client api key -->
+    <string name="synerise_client_api_key" translatable="false">EF1AD0E0-532B-6AEE-6010-DEDC78F6E155</string> <!-- replace with valid profile api key -->
 
     ...
 
