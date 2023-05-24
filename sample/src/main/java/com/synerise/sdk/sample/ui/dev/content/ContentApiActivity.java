@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.synerise.sdk.content.Content;
 import com.synerise.sdk.content.model.DocumentsApiQuery;
 import com.synerise.sdk.content.model.DocumentsApiQueryType;
+import com.synerise.sdk.content.model.document.Document;
 import com.synerise.sdk.core.net.IDataApiCall;
 import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.sample.R;
@@ -24,7 +25,7 @@ import java.util.List;
 public class ContentApiActivity extends BaseActivity {
 
     private TextInputLayout valueInput;
-    private IDataApiCall<Object> apiCall;
+    private IDataApiCall<Document> apiCall;
     private IDataApiCall<List<Object>> apiCallDocuments;
     private TextView getDocumentResponse;
 
@@ -54,7 +55,7 @@ public class ContentApiActivity extends BaseActivity {
             if (apiCall != null) {
                 apiCall.cancel();
             }
-            apiCall = Content.getDocument(valueInput.getEditText().getText().toString());
+            apiCall = Content.generateDocument(valueInput.getEditText().getText().toString());
             apiCall.execute(response -> {
                 if (response != null) {
                     getDocumentResponse.setText(ViewUtils.formatStringToJsonLook(response.toString()));

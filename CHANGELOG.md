@@ -1,5 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.5.0] - 2023-05-24
+### Added
+- `getRecommendationsV2`, `generateDocument` and `generateScreenView` methods.
+
+### Changed
+-`getRecommendations`, `ggetDocument`, `getDocuments` and `getScreenView` methods are now deprecated.
+
 ## [5.4.0] - 2023-05-17
 ### Changed
 - Session checking mechanism is moved completely to background thread.
