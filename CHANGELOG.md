@@ -1,11 +1,34 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.6.0] - 2023-06-22
+### Added
+- validation mechanism for `changeApiKey` method. Now you cannot use changeApiKey with the same apiKey.
+
+### Changed
+- Session Handling mechanism is no longer using getBlocking from rxJava.
+
+## [5.5.1] - 2023-06-22
+### Changed
+- Session Handling mechanism is no longer using getBlocking from rxJava.
+
+## [5.4.1] - 2023-06-22
+### Changed
+- Session Handling mechanism is no longer using getBlocking from rxJava.
+
+## [5.3.1] - 2023-06-22
+### Changed
+- Session Handling mechanism is no longer using getBlocking from rxJava.
+
+## [5.2.2] - 2023-06-22
+### Changed
+- Session Handling mechanism is no longer using getBlocking from rxJava.
+
 ## [5.5.0] - 2023-05-24
 ### Added
 - `getRecommendationsV2`, `generateDocument` and `generateScreenView` methods.
 
 ### Changed
--`getRecommendations`, `ggetDocument`, `getDocuments` and `getScreenView` methods are now deprecated.
+-`getRecommendations`, `getDocument`, `getDocuments` and `getScreenView` methods are now deprecated.
 
 ## [5.4.0] - 2023-05-17
 ### Changed
