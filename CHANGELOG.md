@@ -1,5 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.7.1] - 2023-07-26
+### Added
+- New authentication mechanism - Simple Authentication. It allows identification of customers without implementing more complicated processes such as RaaS, OAuth, or authenticating by third party services, for example Facebook or Google. Simple Authentication needs only two methods - Client.simpleAuthentication(ClientData clientData, String authId) to recognize a customer and Client.isSignedInViaSimpleAuthentication() to check if the customer is signed in and uses the Simple Authentication feature. The Client.signOut() method and similar methods are a common way to sign out and clear the user context.
+- We added a new Client.registerForPush(@NonNull String firebaseId) method. It is analogous to Client.registerForPush(@NonNull String firebaseId, boolean mobilePushAgreement), but doesn't require the mobilePushAgreement parameter and thanks to that, it doesn't update the customer in the database.
+
 ## [5.6.0] - 2023-06-22
 ### Added
 - validation mechanism for `changeApiKey` method. Now you cannot use changeApiKey with the same apiKey.

@@ -36,6 +36,20 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_auth_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/auth_id"
+        app:errorEnabled="true"
+        app:hintAnimationEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
     <Button
         android:id="@+id/recognize_anonymus"
         style="@style/ButtonPrimary"
@@ -43,4 +57,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_medium"
         android:text="@string/client_reconize_anonymus" />
+    <Button
+        android:id="@+id/sign_out"
+        style="@style/ButtonPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_medium"
+        android:text="@string/client_sign_out" />
 </LinearLayout>

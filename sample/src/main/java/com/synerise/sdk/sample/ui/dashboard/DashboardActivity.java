@@ -14,7 +14,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +22,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.synerise.sdk.client.Client;
 import com.synerise.sdk.client.model.listener.OnClientStateChangeListener;
+
 import com.synerise.sdk.content.Content;
 import com.synerise.sdk.core.listeners.ActionListener;
 import com.synerise.sdk.core.listeners.DataActionListener;
@@ -63,7 +63,6 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     private static final int SIGN_IN_REQUEST_CODE = 830;
     public static final int BARCODE_SCANNER_REQUEST_CODE = 531;
     private static final String POINTS = "points";
-
     private MenuItem menuProfile;
     private MenuItem menuPromotions;
     private MenuItem menuSignOut;
@@ -96,6 +95,7 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(mActionBarDrawerToggle);
         mActionBarDrawerToggle.syncState();*/
+
 
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);

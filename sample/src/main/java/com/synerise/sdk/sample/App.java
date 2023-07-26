@@ -73,7 +73,6 @@ public class App extends MultiDexApplication
     }
 
     private void initSynerise() {
-
         component.inject(this);
 
         NotificationManagerCompat.from(getApplicationContext()).areNotificationsEnabled();
@@ -101,6 +100,7 @@ public class App extends MultiDexApplication
                 .notificationHighPriorityChannelName(CHANNEL_HIGH_PRIORITY_NAME)
                 .baseUrl(null)
                 .hostApplicationType(HostApplicationType.NATIVE_ANDROID)
+                .setRequestValidationSalt("your salt here")
                 .build();
     }
 

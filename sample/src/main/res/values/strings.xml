@@ -427,4 +427,6 @@
     <string name="get_simple_push">Get simple push</string>
     <string name="get_document_text">Get Document</string>
     <string name="get_documents_text">Get Documents</string>
+    <string name="client_sign_out">Sign out</string>
+    <string name="auth_id">Auth id</string>
 </resources>

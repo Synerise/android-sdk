@@ -56,7 +56,7 @@ public class SectionsPagerFragment extends BaseFragment {
         ImageRequest imageRequest = ImageRequestBuilder.newBuilderWithResourceId(section.getPattern()).build();
         backgroundImage.setImageURI(imageRequest.getSourceUri());
         new Handler().post(() -> {
-            Drawable drawable = ContextCompat.getDrawable(getActivity(), section.getBackground());
+            Drawable drawable = ContextCompat.getDrawable(requireActivity(), section.getBackground());
             backgroundImage.post(() -> backgroundImage.getHierarchy().setBackgroundImage(drawable));
         });
 
@@ -66,7 +66,7 @@ public class SectionsPagerFragment extends BaseFragment {
             .setOnClickListener(v -> startActivity(CategoryActivity.createIntent(getActivity(), section)));
 
         TextView viewProducts = view.findViewById(R.id.view_products_text);
-        viewProducts.setTextColor(ContextCompat.getColor(getActivity(), section.getBottomTextColor()));
+        viewProducts.setTextColor(ContextCompat.getColor(requireActivity(), section.getBottomTextColor()));
         viewProducts.setCompoundDrawablesWithIntrinsicBounds(0, 0, section.getArrow(), 0);
     }
 }
