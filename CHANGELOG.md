@@ -1,5 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.8.0] - 2023-08-10
+### Changed
+- Events send with `Tracker.send` are now saved to database before passing them to workManager. This change is transparent for developers. It will prevent event loss due to workManager issues.
+- WorkManager is upgraded to 2.8.1
+- Room is upgraded to 2.5.2
+
 ## [5.7.1] - 2023-07-26
 ### Added
 - New authentication mechanism - Simple Authentication. It allows identification of customers without implementing more complicated processes such as RaaS, OAuth, or authenticating by third party services, for example Facebook or Google. Simple Authentication needs only two methods - Client.simpleAuthentication(ClientData clientData, String authId) to recognize a customer and Client.isSignedInViaSimpleAuthentication() to check if the customer is signed in and uses the Simple Authentication feature. The Client.signOut() method and similar methods are a common way to sign out and clear the user context.

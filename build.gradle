@@ -38,8 +38,8 @@ ext {
     okHttp3Version = '4.10.0'
     okHttp3LoggingInterceptorVersion = '4.9.1'
     retrofitVersion = '2.9.0'
-    roomVersion = '2.4.3'
-    work_version = "2.7.1"
+    roomVersion = '2.5.2'
+    work_version = "2.8.1"
     // Support
     supportAnnotations = "androidx.annotation:annotation:$androidXAnnotation"
     appCompatV7 = "androidx.appcompat:appcompat:$androidXAppCompat"
