@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.8.1] - 2023-08-25
+### Fixed
+- issue with saving trigger events from inApp campaigns to triggers database. Before this version please make campaigns with only one trigger. Campaigns with multiple triggers will be shown only on the last trigger.
+
 ## [5.8.0] - 2023-08-10
 ### Changed
 - Events send with `Tracker.send` are now saved to database before passing them to workManager. This change is transparent for developers. It will prevent event loss due to workManager issues.
