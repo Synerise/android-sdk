@@ -1,5 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.9.0] - 2023-09-04
+### Added
+- minor security improvements.
+
+### Changed
+- Method `Client.recognizeAnonymous` is now not working for users authenticated with simple authentication process.
+
+### Fixed
+- issue with inApps not being triggered. `Tracker.sendImmediately` is now included in inApps triggering mechanism.
+- KeystoreException while generating secret keys. You can now handle this situation in `onInitializationFailed()` inside `SyneriseListener`
+
 ## [5.8.1] - 2023-08-25
 ### Fixed
 - issue with saving trigger events from inApp campaigns to triggers database. Before this version please make campaigns with only one trigger. Campaigns with multiple triggers will be shown only on the last trigger.

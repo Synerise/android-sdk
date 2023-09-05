@@ -173,4 +173,9 @@ public class App extends MultiDexApplication
             }
         });
     }
+
+    @Override
+    public void onInitializationFailed() {
+
+    }
 }

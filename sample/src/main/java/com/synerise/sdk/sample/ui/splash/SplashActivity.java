@@ -28,7 +28,8 @@ import io.reactivex.rxjava3.disposables.Disposable;
 
 public class SplashActivity extends BaseActivity {
 
-    @Inject AccountManager accountManager;
+    @Inject
+    AccountManager accountManager;
     private Disposable disposable;
 
     private boolean isContentPresenting;
@@ -118,12 +119,12 @@ public class SplashActivity extends BaseActivity {
 
     private void delayNavigation() {
         disposable = Maybe.empty()
-                          .delay(1, TimeUnit.SECONDS)
-                          .observeOn(AndroidSchedulers.mainThread())
-                          .doOnComplete(() -> {
-                              if (!isContentPresenting) navigate();
-                          })
-                          .subscribe();
+                .delay(1, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete(() -> {
+                    if (!isContentPresenting) navigate();
+                })
+                .subscribe();
     }
 
     private void navigate() {
