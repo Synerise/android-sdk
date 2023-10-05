@@ -1,5 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.10.0] - 2023-10-04
+### Added
+- `shouldSendInAppCappingEvent` setting to decide whether sdk should send `inApp.capping` event or not.
+
+### Fixed
+- issue with inApp capping. Capping was not working correctly when used together with frequency capping.
+- notification priority issue with uppercase (affecting only flutter users)
+- workManager conflict. Synerise SDK is now not using default work manager initializer.
+
 ## [5.9.0] - 2023-09-04
 ### Added
 - minor security improvements.
