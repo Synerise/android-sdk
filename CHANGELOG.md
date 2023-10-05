@@ -1,6 +1,6 @@
 # Changelog
 All notable changes to this project will be documented in this file.
-## [5.10.0] - 2023-10-04
+## [5.10.1] - 2023-10-05
 ### Added
 - `shouldSendInAppCappingEvent` setting to decide whether sdk should send `inApp.capping` event or not.
 
