@@ -12,7 +12,7 @@
 [Synerise](http://www.synerise.com) SDK for Android.
 
 ## Documentation
-Most up-to-date documentation is available at: https://help.synerise.com/developers/android-sdk/
+Most up-to-date documentation is available at [Synerise Help Center - Mobile SDK](https://help.synerise.com/developers/mobile-sdk).
 
 ## Requirements
 * Minimum Android SDK version - 21
