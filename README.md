@@ -1,11 +1,24 @@
-# Synerise Android SDK - User documentation
+# Synerise Android SDK
+
+[![Platform](https://img.shields.io/badge/platform-Android-orange.svg)](https://github.com/synerise/android-sdk)
+[![Languages](https://img.shields.io/badge/language-Java-orange.svg)](https://github.com/synerise/android-sdk)
+[![GitHub release](https://img.shields.io/github/release/Synerise/ios-sdk.svg)](https://github.com/Synerise/android-sdk/releases) 
+[![CocoaPods](https://img.shields.io/badge/pod-v4.14.6-green.svg)](https://cocoapods.org/pods/SyneriseSDK)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-green.svg)](https://github.com/Carthage/Carthage)
+[![Synerise](https://img.shields.io/badge/www-synerise-green.svg)](https://synerise.com)
+[![Documentation](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://help.synerise.com/)
+
+---
+
+## About
+[Synerise](http://www.synerise.com) SDK for Android.
 
 ## Documentation
 Most up-to-date documentation is available at: https://help.synerise.com/developers/android-sdk/
-## Requirements
 
-- Minimum Android SDK version - 21
-- Supported targetSdkVersion - 33
+## Requirements
+* Minimum Android SDK version - 21
+* Supported targetSdkVersion - 33
 
 ## Installation
 
@@ -51,11 +64,11 @@ dependencies {
 
 Finally, please make sure your `Instant Run` is disabled.
 
-### Initialize
+### Initialization
 
-First of all, you need to initialize Synerise Android SDK via `with` method and provide `Client Api Key`, `Application name` and `Application instance`.<br>
-To get `Client Api Key`, please sign in to your Synerise account and visit https://app.synerise.com/api/.<br>
-Then, generate new `Api Key` for `Client` audience.<br>
+First of all, you need to initialize Synerise Android SDK via `with` method and provide `Profile API Key`, `Application name` and `Application instance`.<br>
+To get `Profile API Key`, please sign in to your Synerise account and visit https://app.synerise.com/api/.<br>
+Then, generate new `API Key` for `Client` audience.<br>
 
 In your `Application` sub-class:
 
@@ -114,3 +127,6 @@ and in your /values strings file (e.g. `strings.xml`):
 
 </resources>
 ```
+
+## Author
+Synerise, developer@synerise.com. If you need support please feel free to contact us.
