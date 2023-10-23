@@ -99,7 +99,7 @@ public class App extends MultiDexApplication
                 .notificationHighPriorityChannelId(CHANNEL_HIGH_PRIORITY_ID)
                 .notificationHighPriorityChannelName(CHANNEL_HIGH_PRIORITY_NAME)
                 .baseUrl(null)
-                .hostApplicationType(HostApplicationType.NATIVE_ANDROID)
+                .hostApplicationType(HostApplicationType.NATIVE)
                 .setRequestValidationSalt("your salt here")
                 .build();
     }

@@ -1,5 +1,21 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.11.0] - 2023-10-19
+### Added
+- `hostApplicationSDKPluginVersion` to `Synerise.Builder`. This information will be added to application.Started event only if you use technologies different than native android.
+
+## [5.10.2] - 2023-10-18
+### Fixed
+- issue with checking number expressions in inApp campaigns
+
+## [5.9.1] - 2023-10-18
+### Fixed
+- issue with checking number expressions in inApp campaigns
+
+## [5.8.1] - 2023-10-18
+### Fixed
+- issue with checking number expressions in inApp campaigns
+
 ## [5.10.1] - 2023-10-05
 ### Added
 - `shouldSendInAppCappingEvent` setting to decide whether sdk should send `inApp.capping` event or not.
