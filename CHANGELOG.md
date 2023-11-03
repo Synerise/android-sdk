@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.12.0] - 2023-11-02
+### Changed
+- `setRequestValidationSalt` is now optional. Salt is not required for simpleAuthentication, but we recommend using it for improved security (it needs to be enabled in the Synerise portal first).
+
 ## [5.11.0] - 2023-10-19
 ### Added
 - `hostApplicationSDKPluginVersion` to `Synerise.Builder`. This information will be added to application.Started event only if you use technologies different than native android.
