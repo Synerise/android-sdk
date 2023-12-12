@@ -4,7 +4,7 @@
 [![Languages](https://img.shields.io/badge/language-Java-orange.svg)](https://github.com/synerise/android-sdk)
 [![GitHub release](https://img.shields.io/github/release/Synerise/android-sdk.svg)](https://github.com/Synerise/android-sdk/releases) 
 [![Synerise](https://img.shields.io/badge/www-synerise-green.svg)](https://synerise.com)
-[![Documentation](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://hub.synerise.com)
+[![Documentation](https://img.shields.io/badge/docs-mobile%20sdk-brightgreen.svg)](https://hub.synerise.com/developers/mobile-sdk/)
 
 ---
 
