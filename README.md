@@ -1,11 +1,24 @@
-# Synerise Android SDK - User documentation
+# Synerise Android SDK (v5.12.0)
+
+[![Platform](https://img.shields.io/badge/platform-Android-orange.svg)](https://github.com/synerise/android-sdk)
+[![Languages](https://img.shields.io/badge/language-Java-orange.svg)](https://github.com/synerise/android-sdk)
+[![GitHub release](https://img.shields.io/github/release/Synerise/android-sdk.svg)](https://github.com/Synerise/android-sdk/releases) 
+[![Synerise](https://img.shields.io/badge/www-synerise-green.svg)](https://synerise.com)
+[![Documentation](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://hub.synerise.com)
+
+---
+
+## About
+[Synerise](https://www.synerise.com) SDK for Android.
 
 ## Documentation
-Most up-to-date documentation is available at: https://help.synerise.com/developers/android-sdk/
-## Requirements
+Most up-to-date documentation is available at [Developer Guide - Mobile SDK](https://hub.synerise.com/developers/mobile-sdk).
 
-- Minimum Android SDK version - 21
-- Supported targetSdkVersion - 33
+## Requirements
+* Access to workspace
+* A Profile API Key
+* Minimum Android SDK version - 21
+* Supported targetSdkVersion - 33
 
 ## Installation
 
@@ -51,15 +64,14 @@ dependencies {
 
 Finally, please make sure your `Instant Run` is disabled.
 
-### Initialize
-
-First of all, you need to initialize Synerise Android SDK via `with` method and provide `Client Api Key`, `Application name` and `Application instance`.<br>
-To get `Client Api Key`, please sign in to your Synerise account and visit https://app.synerise.com/api/.<br>
-Then, generate new `Api Key` for `Client` audience.<br>
-
-In your `Application` sub-class:
-
-```
+## Initialization
+  
+First of all, you need to initialize Synerise Android SDK and provide `Profile API Key`.
+  
+To get `Profile API Key`, please sign in to your Synerise account and visit [https://app.synerise.com/settings/apikeys](https://app.synerise.com/settings/apikeys).
+Then, generate new `API Key` for `Profile` audience.
+  
+```java
 public class App extends Application {
 
     @Override
@@ -114,3 +126,6 @@ and in your /values strings file (e.g. `strings.xml`):
 
 </resources>
 ```
+
+## Author
+Synerise, developer@synerise.com. If you need support please feel free to contact us.
