@@ -1,5 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.13.1] - 2024-01-09
+### Changed
+- IMPORTANT:
+- Due to changes in the handling of actions for URLs and deep links in Synerise campaigns, we strongly recommend comparing your configuration with the SDK documentation. Review the changes from the previous SDK version integrated into your application here:
+https://hub.synerise.com//developers/mobile-sdk/campaigns/action-handling/
+### Fixed
+- in `Client.simpleAuthentication` not passing email or customId affected in 412 error. Now it is fixed.
+- `IllegalArgumentException` in Mobile-Info header. Issue with character 0xa0.
+
 ## [5.12.0] - 2023-11-02
 ### Changed
 - `setRequestValidationSalt` is now optional. Salt is not required for simpleAuthentication, but we recommend using it for improved security (it needs to be enabled in the Synerise portal first).

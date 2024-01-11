@@ -27,6 +27,7 @@ import com.synerise.sdk.injector.callback.InjectorSource;
 import com.synerise.sdk.injector.callback.OnInjectorListener;
 import com.synerise.sdk.injector.callback.OnNotificationListener;
 import com.synerise.sdk.injector.callback.model.NotificationInfo;
+import com.synerise.sdk.injector.ui.handler.InjectorActionHandler;
 import com.synerise.sdk.sample.dagger.AppComponent;
 import com.synerise.sdk.sample.dagger.ConfigModule;
 import com.synerise.sdk.sample.dagger.DaggerAppComponent;
@@ -43,7 +44,7 @@ import static com.synerise.sdk.sample.service.MyFirebaseMessagingService.CHANNEL
 import static com.synerise.sdk.sample.service.MyFirebaseMessagingService.CHANNEL_NAME;
 
 public class App extends MultiDexApplication
-        implements OnInjectorListener, // optional action callback
+        implements
         OnRegisterForPushListener,
         OnLocationUpdateListener,
         SyneriseListener {
@@ -102,6 +103,18 @@ public class App extends MultiDexApplication
                 .hostApplicationType(HostApplicationType.NATIVE)
                 .setRequestValidationSalt("your salt here")
                 .build();
+
+        InjectorActionHandler.setOnInjectorListener(new OnInjectorListener() {
+            @Override
+            public boolean onOpenUrl(InjectorSource source, String url) {
+                return false;
+            }
+
+            @Override
+            public boolean onDeepLink(InjectorSource source, String deepLink) {
+                return false;
+            }
+        });
     }
 
     public AppComponent getComponent() {
@@ -131,20 +144,6 @@ public class App extends MultiDexApplication
                 Log.w(TAG, "token should not be null...");
             }
         });
-    }
-
-    @Override
-    public boolean onOpenUrl(InjectorSource source, String url) {
-        // your action here
-        SystemUtils.openURL(this, url); // default behavior
-        return source != InjectorSource.WALKTHROUGH; // default behavior
-    }
-
-    @Override
-    public boolean onDeepLink(InjectorSource source, String deepLink) {
-        // your action here
-        SystemUtils.openDeepLink(this, deepLink); // default behavior
-        return source != InjectorSource.WALKTHROUGH; // default behavior
     }
 
     @Override
