@@ -1,5 +1,19 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.14.0] - 2024-02-19
+### Changed:
+- `Autotracking` is now based on `onTouchListener` instead of `onClickListener`.
+- `onRegisterForPushRequired` is now triggered on every launch.
+- `Client.registerForPush` has now built in cache with 24h expiration time.
+
+## [5.13.3] - 2024-02-02
+### Fixed:
+- Deeplink action when clicking on push notification will directly open in app instead of prompt between app/browser. We set packageName to intent.
+
+## [5.13.2] - 2024-01-15
+### Fixed:
+- Error in opening activity from notification due to react-native devTools issue. (Affecting only React Native)
+
 ## [5.13.1] - 2024-01-09
 ### Changed
 - IMPORTANT:
