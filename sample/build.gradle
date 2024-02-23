@@ -14,8 +14,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 33
         applicationId "com.synerise.sample"
-        versionCode 227
-        versionName "5.14.0"
+        versionCode 228
+        versionName "5.14.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -52,7 +52,7 @@ android {
                 releaseNotes="Sample release build"
                 groups="synerise-internal"
             }
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.releaseConfig
         }
@@ -79,7 +79,7 @@ android {
 
 ext {
     daggerVersion = '2.16'
-    syneriseVersion = '5.14.0'
+    syneriseVersion = '5.14.1'
 }
 
 dependencies {
@@ -106,6 +106,7 @@ dependencies {
     implementation "com.google.dagger:dagger:$daggerVersion"
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
     // Synerise
+    //implementation project(':synerise-mobile-sdk')
     implementation "com.synerise.sdk:synerise-mobile-sdk:$syneriseVersion"
     // Facebook
     implementation 'com.facebook.android:facebook-login:4.41.0'

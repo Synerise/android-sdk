@@ -1,5 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.14.1] - 2024-02-23
+### Fixed:
+- Added proguard rules for joda.time and retrofit.
+- Updated proguard rules for gson.
+
 ## [5.14.0] - 2024-02-19
 ### Changed:
 - `Autotracking` is now based on `onTouchListener` instead of `onClickListener`.
