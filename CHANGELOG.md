@@ -1,5 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.15.0] - 2024-03-07
+### Added:
+- Global Control Group support for in-app messages. From now on, you can use this feature in in-app messaging communication. This lets you take your marketing efforts to the next level and provides a solid foundation for accurate measurement of campaign effectiveness. Read more at https://hub.synerise.com/docs/settings/configuration/global-control-group/.
+- We added a new `Client.authenticateWithTokenPayload(TokenPayload tokenPayload, @NonNull String authId)` method. This method signs in a customer in with the provided token payload.
+- We added a new `Client.getUuidForAuthentication(@NonNull String authId)` method. This method retrieves the current UUID or generates a new one from a seed (`authId`).
+- `clientId` property in the `Token` model.
+
 ## [5.14.1] - 2024-02-23
 ### Fixed:
 - Added proguard rules for joda.time and retrofit.
