@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.16.0] - 2024-03-24
+### Changed
+- Improved mechanism for checking capping in in-app messages. The number of views no longer resets when the account's UUID changes.
+
 ## [5.15.0] - 2024-03-07
 ### Added:
 - Global Control Group support for in-app messages. From now on, you can use this feature in in-app messaging communication. This lets you take your marketing efforts to the next level and provides a solid foundation for accurate measurement of campaign effectiveness. Read more at https://hub.synerise.com/docs/settings/configuration/global-control-group/.
