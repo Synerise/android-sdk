@@ -1,5 +1,21 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.16.2] - 2024-04-05
+### Fixed:
+- NPE on getClientId after apiKey changes
+
+## [5.16.1] - 2024-03-28
+### Fixed:
+- registerForPushCache was not passing request after client context change within 24h.
+
+## [5.15.1] - 2024-03-28
+### Fixed:
+- registerForPushCache was not passing request after client context change within 24h.
+
+## [5.14.2] - 2024-03-28
+### Fixed:
+- registerForPushCache was not passing request after client context change within 24h.
+
 ## [5.16.0] - 2024-03-24
 ### Changed
 - Improved mechanism for checking capping in in-app messages. The number of views no longer resets when the account's UUID changes.
