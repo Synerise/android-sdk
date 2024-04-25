@@ -1,5 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.17.0] - 2024-04-25
+### Added:
+- `systemPushConsent` field to registerForPush body. This will improve notification permission management.
+- `Synerise.settings.tracker.eventsTriggeringFlush` - this is the list with action names of event's which will trigger instant send of all events in a batch.
+
+### Changed:
+- `registerForPushRequired` will be now called after full initialization of sdk. ( It was triggered during initialization in previous versions of sdk )
+
 ## [5.16.2] - 2024-04-05
 ### Fixed:
 - NPE on getClientId after apiKey changes
