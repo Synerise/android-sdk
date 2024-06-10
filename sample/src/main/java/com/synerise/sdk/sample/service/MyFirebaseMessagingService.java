@@ -38,6 +38,7 @@ MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
 
         Map<String, String> data = remoteMessage.getData();
+
         if (Injector.isSilentCommand(data)) {
             try {
                 SilentCommand silentCommand = Injector.getSilentCommand(data);

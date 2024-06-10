@@ -1,5 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.18.0] - 2024-06-09
+### Changed:
+- upgraded `bouncycastle` library to version 1.78.1
+
+### Fixed:
+- blank space issue. Blank space inside deeplink is no longer causing a crash.
+
 ## [5.17.0] - 2024-04-25
 ### Added:
 - `systemPushConsent` field to registerForPush body. This will improve notification permission management.
