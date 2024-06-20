@@ -1,5 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.18.1] - 2024-06-19
+### Fixed:
+- `com.google.gson.JsonIOException` when calling getDocument.
+- issue with reading system push consent after permission change.
+- deepLink handling inside inApp from url click.
+
 ## [5.18.0] - 2024-06-09
 ### Changed:
 - upgraded `bouncycastle` library to version 1.78.1

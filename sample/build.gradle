@@ -14,8 +14,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 33
         applicationId "com.synerise.sample"
-        versionCode 246
-        versionName "5.18.0"
+        versionCode 247
+        versionName "5.18.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -81,7 +81,7 @@ android {
 
 ext {
     daggerVersion = '2.16'
-    syneriseVersion = '5.18.0'
+    syneriseVersion = '5.18.1'
 }
 
 dependencies {
@@ -108,8 +108,7 @@ dependencies {
     implementation "com.google.dagger:dagger:$daggerVersion"
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
     // Synerise
-    implementation project(':synerise-mobile-sdk')
-    //implementation "com.synerise.sdk:synerise-mobile-sdk:$syneriseVersion"
+    implementation "com.synerise.sdk:synerise-mobile-sdk:$syneriseVersion"
     // Facebook
     implementation 'com.facebook.android:facebook-login:4.41.0'
     // Firebase
@@ -126,7 +125,6 @@ dependencies {
     implementation 'com.jakewharton:process-phoenix:2.0.0'
     // Leak Canary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8.1'
-
     // Test
     implementation 'androidx.test.espresso:espresso-idling-resource:3.1.0'
     testImplementation rootProject.ext.junit
