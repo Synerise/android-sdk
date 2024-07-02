@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,12 +25,20 @@ import com.synerise.sdk.client.Client;
 import com.synerise.sdk.client.model.listener.OnClientStateChangeListener;
 
 import com.synerise.sdk.content.Content;
+import com.synerise.sdk.content.model.document.Document;
+import com.synerise.sdk.content.model.document.DocumentApiQuery;
+import com.synerise.sdk.content.model.recommendation.RecommendationRequestBody;
+import com.synerise.sdk.content.model.screenview.ScreenView;
+import com.synerise.sdk.content.model.screenview.ScreenViewApiQuery;
 import com.synerise.sdk.core.listeners.ActionListener;
 import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IDataApiCall;
 import com.synerise.sdk.core.types.enums.ClientSessionEndReason;
 import com.synerise.sdk.core.types.enums.ClientSignOutMode;
 import com.synerise.sdk.error.ApiError;
+import com.synerise.sdk.event.Tracker;
+import com.synerise.sdk.event.TrackerParams;
+import com.synerise.sdk.event.model.CustomEvent;
 import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.model.LoyaltyPoints;
@@ -216,13 +225,15 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
                 Client.signOut(ClientSignOutMode.SIGN_OUT, false).execute(new ActionListener() {
                     @Override
                     public void onAction() {
-                        if (!(currentFragment instanceof SectionsFragment)) changeFragment(SECTIONS);
+                        if (!(currentFragment instanceof SectionsFragment))
+                            changeFragment(SECTIONS);
                         handleSigningVisibility();
                     }
                 }, new DataActionListener<ApiError>() {
                     @Override
                     public void onDataAction(ApiError data) {
-                        if (!(currentFragment instanceof SectionsFragment)) changeFragment(SECTIONS);
+                        if (!(currentFragment instanceof SectionsFragment))
+                            changeFragment(SECTIONS);
                         handleSigningVisibility();
                     }
                 });

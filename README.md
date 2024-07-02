@@ -1,4 +1,4 @@
-# Synerise Android SDK (v5.18.1)
+# Synerise Android SDK (v5.19.0)
 
 [![Platform](https://img.shields.io/badge/platform-Android-orange.svg)](https://github.com/synerise/android-sdk)
 [![Languages](https://img.shields.io/badge/language-Java-orange.svg)](https://github.com/synerise/android-sdk)

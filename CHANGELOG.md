@@ -1,5 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.19.0] - 2024-07-01
+### Added:
+- `testDelivery` and `journeyId` parameters to all push events.
+- context parameters to screenViews and documents. There are two additional methods.
+- validation of reserved parameters in events. ReservedKeys will not be send. Only error log will be printed to logcat.
+
 ## [5.18.1] - 2024-06-19
 ### Fixed:
 - `com.google.gson.JsonIOException` when calling getDocument.
