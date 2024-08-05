@@ -1,5 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.20.0] - 2024-08-02
+### Added:
+ - `changeApiKey(@NonNull String apiKey, InitializationConfig initializationConfig)` method. It enables developer to pass salt.
+
+### Changed:
+- `changeApiKey` method without `InitializationConfig` will now reset salt.
+- notification actionButton click will now create `push.click` with parameter event instead of `push.button.click`.
+- Additional parameters in `push.click` event such as: `clickSource`, `actionType`, `url`
+- `onOpenUrl` and `onDeepLink` mechanism (not affecting user).
 ## [5.19.0] - 2024-07-01
 ### Added:
 - `testDelivery` and `journeyId` parameters to all push events.

@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'io.fabric'
-    id 'org.sonarqube'
     id 'com.google.firebase.appdistribution'
 }
 def keystorePropertiesFile = rootProject.file("keystore.properties")
@@ -14,8 +13,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 33
         applicationId "com.synerise.sample"
-        versionCode 250
-        versionName "5.19.0"
+        versionCode 255
+        versionName "5.20.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -81,7 +80,7 @@ android {
 
 ext {
     daggerVersion = '2.16'
-    syneriseVersion = '5.19.0'
+    syneriseVersion = '5.20.0'
 }
 
 dependencies {

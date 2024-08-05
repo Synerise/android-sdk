@@ -21,7 +21,6 @@ import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.core.types.enums.HostApplicationType;
 import com.synerise.sdk.core.types.enums.MessagingServiceType;
 import com.synerise.sdk.core.types.enums.TrackMode;
-import com.synerise.sdk.core.utils.SystemUtils;
 import com.synerise.sdk.injector.Injector;
 import com.synerise.sdk.injector.callback.InjectorSource;
 import com.synerise.sdk.injector.callback.OnInjectorListener;
@@ -88,6 +87,7 @@ public class App extends MultiDexApplication
         Synerise.settings.sdk.shouldDestroySessionOnApiKeyChange = true;
         Synerise.settings.notifications.setEncryption(true);
         Synerise.settings.inAppMessaging.renderingTimeout = 5000;
+
         Synerise.Builder.with(this, syneriseClientApiKey, appId)
                 .mesaggingServiceType(MessagingServiceType.GMS)
                 .syneriseDebugMode(true)

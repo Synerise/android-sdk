@@ -15,6 +15,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -35,6 +36,8 @@ import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.core.net.IDataApiCall;
 import com.synerise.sdk.core.persistence.manager.CacheManager;
+import com.synerise.sdk.core.types.model.Token;
+import com.synerise.sdk.core.types.model.TokenPayload;
 import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
@@ -44,6 +47,7 @@ import com.synerise.sdk.sample.util.ToolbarHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
