@@ -1,5 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.21.0] - 2024-09-19
+### Added
+- workManager mechanism to call onRegisterForPushRequired every 20 days.
+- `updateAccountBasicInformation` method to update anonymous users.
+- optional `onRegisterForPushRequired(PushRegistrationOrigin origin)` callback with origin.
+
+### Changed
+- variants in inApps are now attached to clientId instead od uuid.
+- Sdk is not making any calls to walkthrough endpoints.
+- fresco library is now updated to 3.2.0
+
 ## [5.20.1] - 2024-09-16
 ### Fixed
 - Null pointer exception while launching callback from push notification in some cases.
@@ -13,7 +24,6 @@ All notable changes to this project will be documented in this file.
 - notification actionButton click will now create `push.click` with parameter event instead of `push.button.click`.
 - Additional parameters in `push.click` event such as: `clickSource`, `actionType`, `url`
 - `onOpenUrl` and `onDeepLink` mechanism (not affecting user).
-- 
 ## [5.19.0] - 2024-07-01
 ### Added:
 - `testDelivery` and `journeyId` parameters to all push events.

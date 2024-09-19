@@ -20,6 +20,7 @@ import com.synerise.sdk.core.listeners.SyneriseListener;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.core.types.enums.HostApplicationType;
 import com.synerise.sdk.core.types.enums.MessagingServiceType;
+import com.synerise.sdk.core.types.enums.PushRegistrationOrigin;
 import com.synerise.sdk.core.types.enums.TrackMode;
 import com.synerise.sdk.injector.Injector;
 import com.synerise.sdk.injector.callback.InjectorSource;
@@ -134,16 +135,22 @@ public class App extends MultiDexApplication
         FirebaseMessaging.getInstance().getToken().addOnSuccessListener(token -> {
             if (!TextUtils.isEmpty(token)) {
                 Log.d(TAG, "Retrieve token Successful : " + token);
+
                 IApiCall call = Client.registerForPush(token, true);
                 call.execute(() -> Log.d(TAG, "Register for Push succeed: " + token),
                         apiError -> Log.w(TAG, "Register for push failed: " + token));
 
                 Intent intent = FirebaseIdChangeBroadcastReceiver.createFirebaseIdChangedIntent();
                 LocalBroadcastManager.getInstance(App.this).sendBroadcast(intent);
-            } else{
+            } else {
                 Log.w(TAG, "token should not be null...");
             }
         });
+    }
+
+    @Override
+    public void onRegisterForPushRequired(PushRegistrationOrigin origin) {
+        // Optional callback
     }
 
     @Override
