@@ -1,5 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.22.0] - 2024-10-07
+### Added
+- safety mechanism in workManager fcm token refreshing flow for RN and Flutter.
+- support for bigPicture and bigText style in notification at the same time. Text max lines is 5.
+
+### Fixed
+- notification callback issue when app was in foreground.
+
 ## [5.21.0] - 2024-09-19
 ### Added
 - workManager mechanism to call onRegisterForPushRequired every 20 days.
