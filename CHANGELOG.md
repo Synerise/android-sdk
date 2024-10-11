@@ -1,5 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.22.1] - 2024-10-11
+### Fixed
+- workManager npe - for android api lower than 24
+
+## [5.21.1] - 2024-10-11
+### Fixed
+- workManager npe - for android api lower than 24
+
 ## [5.22.0] - 2024-10-07
 ### Added
 - safety mechanism in workManager fcm token refreshing flow for RN and Flutter.
