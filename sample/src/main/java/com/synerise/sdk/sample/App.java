@@ -13,15 +13,24 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.synerise.sdk.client.Client;
+import com.synerise.sdk.content.Content;
+import com.synerise.sdk.content.model.document.Document;
 import com.synerise.sdk.core.Synerise;
+import com.synerise.sdk.core.listeners.ActionListener;
+import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.listeners.OnLocationUpdateListener;
 import com.synerise.sdk.core.listeners.OnRegisterForPushListener;
 import com.synerise.sdk.core.listeners.SyneriseListener;
 import com.synerise.sdk.core.net.IApiCall;
+import com.synerise.sdk.core.net.IDataApiCall;
 import com.synerise.sdk.core.types.enums.HostApplicationType;
 import com.synerise.sdk.core.types.enums.MessagingServiceType;
 import com.synerise.sdk.core.types.enums.PushRegistrationOrigin;
 import com.synerise.sdk.core.types.enums.TrackMode;
+import com.synerise.sdk.error.ApiError;
+import com.synerise.sdk.event.Tracker;
+import com.synerise.sdk.event.TrackerParams;
+import com.synerise.sdk.event.model.CustomEvent;
 import com.synerise.sdk.injector.Injector;
 import com.synerise.sdk.injector.callback.InjectorSource;
 import com.synerise.sdk.injector.callback.OnInjectorListener;
@@ -35,6 +44,7 @@ import com.synerise.sdk.sample.dagger.MainModule;
 import com.synerise.sdk.sample.persistence.AccountManager;
 import com.synerise.sdk.sample.service.LocationService;
 import com.synerise.sdk.sample.util.FirebaseIdChangeBroadcastReceiver;
+import com.synerise.sdk.sample.util.ViewUtils;
 
 import javax.inject.Inject;
 
@@ -105,6 +115,7 @@ public class App extends MultiDexApplication
                 .setRequestValidationSalt("your salt here")
                 .build();
 
+        Synerise.settings.inAppMessaging.setContentBaseUrl("https://api.snrapi.com");
         InjectorActionHandler.setOnInjectorListener(new OnInjectorListener() {
             @Override
             public boolean onOpenUrl(InjectorSource source, String url) {
@@ -135,7 +146,6 @@ public class App extends MultiDexApplication
         FirebaseMessaging.getInstance().getToken().addOnSuccessListener(token -> {
             if (!TextUtils.isEmpty(token)) {
                 Log.d(TAG, "Retrieve token Successful : " + token);
-
                 IApiCall call = Client.registerForPush(token, true);
                 call.execute(() -> Log.d(TAG, "Register for Push succeed: " + token),
                         apiError -> Log.w(TAG, "Register for push failed: " + token));

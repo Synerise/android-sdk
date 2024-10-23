@@ -1,5 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.22.2] - 2024-10-22
+### Fixed
+- issue with cutting title in notifications due to text sizes.
+- issue with sending `render.fail` event when inapp was loaded properly.
+
 ## [5.22.1] - 2024-10-11
 ### Fixed
 - workManager npe - for android api lower than 24
