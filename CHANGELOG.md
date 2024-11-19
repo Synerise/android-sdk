@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.22.3] - 2024-11-19
+### Fixed
+- issue with webview not being called on the same thread. Associated with inapps.
+
 ## [5.22.2] - 2024-10-22
 ### Fixed
 - issue with cutting title in notifications due to text sizes.
