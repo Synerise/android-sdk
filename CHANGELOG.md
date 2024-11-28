@@ -1,5 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.22.4] - 2024-11-27
+### Fixed
+- issue with notifications with image. ( No icon and app name on some devices )
+- issue with overriding push notifications
+- screenView problem when creating `screen.content` event
+- r8 full mode support
+
 ## [5.22.3] - 2024-11-19
 ### Fixed
 - issue with webview not being called on the same thread. Associated with inapps.
