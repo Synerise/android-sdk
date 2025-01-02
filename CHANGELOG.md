@@ -1,5 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [5.23.0] - 2025-01-02
+### Added
+- events unique time mechanism. Every event will have unique timestamp(only one event per millisecond)
+- `os` parameter to all events. If you use this parameter in your custom event it will not be overridden.
+
 ## [5.22.4] - 2024-11-27
 ### Fixed
 - issue with notifications with image. ( No icon and app name on some devices )
