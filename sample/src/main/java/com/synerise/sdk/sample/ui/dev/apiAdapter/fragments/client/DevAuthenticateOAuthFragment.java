@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.synerise.sdk.client.Client;
+import com.synerise.sdk.client.model.ClientIdentityProvider;
 import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.error.ApiError;
@@ -38,7 +39,6 @@ public class DevAuthenticateOAuthFragment extends BaseDevFragment {
 
         inputToken = view.findViewById(R.id.input_access_token);
         view.findViewById(R.id.authenticate_oauth).setOnClickListener(v -> authenticateByOAuth());
-        view.findViewById(R.id.authenticate_oauth_if_registered).setOnClickListener(v -> authenticateByOAuthIfRegistered());
         view.findViewById(R.id.delete_account_by_oauth).setOnClickListener(v -> deleteAccountByOAuth());
     }
 
@@ -63,32 +63,7 @@ public class DevAuthenticateOAuthFragment extends BaseDevFragment {
 
         if (isValid) {
             if (call != null) call.cancel();
-            call = Client.authenticateByOAuth(token, null, null, null);
-            call.execute(this::onSuccess, new DataActionListener<ApiError>() {
-                @Override
-                public void onDataAction(ApiError apiError) {
-                    onFailure(apiError);
-                }
-            });
-        }
-    }
-
-    @SuppressWarnings("ConstantConditions")
-    private void authenticateByOAuthIfRegistered() {
-        boolean isValid = true;
-
-        inputToken.setError(null);
-
-        String token = inputToken.getEditText().getText().toString();
-
-        if (TextUtils.isEmpty(token)) {
-            inputToken.setError(getString(R.string.error_empty));
-            isValid = false;
-        }
-
-        if (isValid) {
-            if (call != null) call.cancel();
-            call = Client.authenticateByOAuthIfRegistered(token, null);
+            call = Client.authenticate(token, ClientIdentityProvider.OAUTH, null, null, null);
             call.execute(this::onSuccess, new DataActionListener<ApiError>() {
                 @Override
                 public void onDataAction(ApiError apiError) {
@@ -113,7 +88,7 @@ public class DevAuthenticateOAuthFragment extends BaseDevFragment {
 
         if (isValid) {
             if (call != null) call.cancel();
-            call = Client.deleteAccountByOAuth(token, Client.getUuid());
+            call = Client.deleteAccount(token, ClientIdentityProvider.OAUTH, Client.getUuid());
             call.execute(this::onSuccess, new DataActionListener<ApiError>() {
                 @Override
                 public void onDataAction(ApiError apiError) {

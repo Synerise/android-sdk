@@ -65,16 +65,6 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="16dp" />
-    <Button
-        android:id="@+id/get_documents"
-        style="@style/ButtonPrimary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/get_documents_text" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="16dp" />
     <TextView
         android:id="@+id/get_document_response"
         android:layout_width="match_parent"

@@ -77,7 +77,5 @@ public class SettingsFragment extends BaseFragment {
         } else {
             signOut.setVisibility(GONE);
         }
-
-        view.findViewById(R.id.show_walkthrough).setOnClickListener(v -> Injector.showWalkthrough());
     }
 }

@@ -42,6 +42,7 @@ import com.synerise.sdk.event.model.CustomEvent;
 import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.model.LoyaltyPoints;
+import com.synerise.sdk.sample.model.LoyaltyPointsContent;
 import com.synerise.sdk.sample.persistence.AccountManager;
 import com.synerise.sdk.sample.ui.BaseActivity;
 import com.synerise.sdk.sample.ui.BaseFragment;
@@ -339,11 +340,11 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
 
     private void getLoyaltyPoints() {
         Gson gson = new Gson();
-        IDataApiCall<Object> loyaltyApiCall;
-        loyaltyApiCall = Content.getDocument(POINTS);
+        IDataApiCall<Document> loyaltyApiCall;
+        loyaltyApiCall = Content.generateDocument(POINTS);
         loyaltyApiCall.execute(response -> {
-            LoyaltyPoints loyaltyPoints = gson.fromJson(response.toString(), LoyaltyPoints.class);
-            accountManager.setUserPoints(loyaltyPoints.getPointsContent().getPoints());
+            LoyaltyPointsContent loyaltyPoints = gson.fromJson(String.valueOf(response.getContent()), LoyaltyPointsContent.class);
+            accountManager.setUserPoints(loyaltyPoints.getPoints());
             updateNavHeader();
         }, this::showAlertError);
     }

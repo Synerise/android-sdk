@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.synerise.sdk.injector.ui.walkthrough.InfiniteLoopViewPager
+    <com.synerise.sdk.sample.ui.section.adapter.InfiniteLoopViewPager
         android:id="@+id/sections_view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:overScrollMode="never" />
 
-    <com.synerise.sdk.injector.ui.walkthrough.indicators.IndicatorsLayout
+    <com.synerise.sdk.sample.ui.section.indicators.IndicatorsLayout
         android:id="@+id/indicators"
         android:layout_width="match_parent"
         android:layout_height="@dimen/synerise_pager_indicator_height"

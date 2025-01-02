@@ -60,7 +60,7 @@ public class DevActivateClientFragment extends BaseDevFragment {
 
         if (isValid) {
             if (call != null) call.cancel();
-            call = Client.activateAccount(email);
+            call = Client.requestAccountActivation(email);
             EspressoTestingIdlingResource.increment();
             call.execute(this::onSuccess, new DataActionListener<ApiError>() {
                 @Override

@@ -16,5 +16,4 @@ public class LoyaltyPointsContent {
     public void setPoints(String points) {
         this.points = points;
     }
-
 }

@@ -6,9 +6,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.synerise.sdk.injector.Injector;
-import com.synerise.sdk.injector.callback.OnBannerListener;
-import com.synerise.sdk.injector.callback.OnWalkthroughListener;
-import com.synerise.sdk.injector.net.model.inject.walkthrough.WalkthroughResponse;
 import com.synerise.sdk.sample.App;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.persistence.AccountManager;
@@ -44,42 +41,6 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
         ((App) getApplication()).getComponent().inject(this);
 
-        Injector.setOnWalkthroughListener(new OnWalkthroughListener() {
-            @Override
-            public void onLoaded(WalkthroughResponse walkthrough) {
-                super.onLoaded(walkthrough);
-            }
-
-            @Override
-            public void onPresented() {
-                super.onPresented();
-                isContentPresenting = true;
-            }
-
-            @Override
-            public void onClosed() {
-                super.onClosed();
-                isContentPresenting = false;
-                //delayNavigation();
-            }
-        });
-
-        Injector.setOnBannerListener(new OnBannerListener() {
-
-            @Override
-            public void onPresented() {
-                super.onPresented();
-                isContentPresenting = true;
-            }
-
-            @Override
-            public void onClosed() {
-                super.onClosed();
-                isContentPresenting = false;
-                delayNavigation();
-            }
-        });
-
         /*
         If app was invisible to user (minimized or destroyed) and campaign banner came in - Synerise SDK makes it neat and simple.
         Simple push message is presented to the user and launcher activity is fired after click on push.
@@ -114,7 +75,6 @@ public class SplashActivity extends BaseActivity {
     protected void onStop() {
         super.onStop();
         DisposableHelper.dispose(disposable);
-        Injector.removeBannerListener();
     }
 
     private void delayNavigation() {
@@ -132,6 +92,7 @@ public class SplashActivity extends BaseActivity {
         startActivity(TextUtils.isEmpty(clientApiKey) ?
                 QRScannerActivity.createIntent(this) :
                 DashboardActivity.createIntent(this));
+
         finish();
     }
 }

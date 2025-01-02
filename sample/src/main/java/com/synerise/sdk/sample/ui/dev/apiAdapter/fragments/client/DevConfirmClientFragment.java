@@ -73,7 +73,7 @@ public class DevConfirmClientFragment extends BaseDevFragment {
 
         if (isValid) {
             if (call != null) call.cancel();
-            call = Client.confirmAccount(token);
+            call = Client.confirmAccountActivation(token);
             EspressoTestingIdlingResource.increment();
             call.execute(this::onSuccess, new DataActionListener<ApiError>() {
                 @Override

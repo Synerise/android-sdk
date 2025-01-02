@@ -16,7 +16,6 @@ import com.synerise.sdk.client.Client;
 import com.synerise.sdk.content.Content;
 import com.synerise.sdk.content.model.document.Document;
 import com.synerise.sdk.core.Synerise;
-import com.synerise.sdk.core.listeners.ActionListener;
 import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.listeners.OnLocationUpdateListener;
 import com.synerise.sdk.core.listeners.OnRegisterForPushListener;
@@ -32,7 +31,7 @@ import com.synerise.sdk.event.Tracker;
 import com.synerise.sdk.event.TrackerParams;
 import com.synerise.sdk.event.model.CustomEvent;
 import com.synerise.sdk.injector.Injector;
-import com.synerise.sdk.injector.callback.InjectorSource;
+import com.synerise.sdk.injector.callback.SyneriseSource;
 import com.synerise.sdk.injector.callback.OnInjectorListener;
 import com.synerise.sdk.injector.callback.OnNotificationListener;
 import com.synerise.sdk.injector.callback.model.NotificationInfo;
@@ -44,7 +43,6 @@ import com.synerise.sdk.sample.dagger.MainModule;
 import com.synerise.sdk.sample.persistence.AccountManager;
 import com.synerise.sdk.sample.service.LocationService;
 import com.synerise.sdk.sample.util.FirebaseIdChangeBroadcastReceiver;
-import com.synerise.sdk.sample.util.ViewUtils;
 
 import javax.inject.Inject;
 
@@ -118,13 +116,13 @@ public class App extends MultiDexApplication
         Synerise.settings.inAppMessaging.setContentBaseUrl("https://api.snrapi.com");
         InjectorActionHandler.setOnInjectorListener(new OnInjectorListener() {
             @Override
-            public boolean onOpenUrl(InjectorSource source, String url) {
-                return false;
+            public void onOpenUrl(SyneriseSource source, String url) {
+
             }
 
             @Override
-            public boolean onDeepLink(InjectorSource source, String deepLink) {
-                return false;
+            public void onDeepLink(SyneriseSource source, String deepLink) {
+
             }
         });
     }

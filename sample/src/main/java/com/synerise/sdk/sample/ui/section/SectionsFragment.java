@@ -11,13 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.synerise.sdk.injector.ui.walkthrough.InfiniteLoopViewPager;
-import com.synerise.sdk.injector.ui.walkthrough.indicators.IndicatorsLayout;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.data.Section;
 import com.synerise.sdk.sample.ui.BaseFragment;
+import com.synerise.sdk.sample.ui.section.adapter.InfiniteLoopViewPager;
 import com.synerise.sdk.sample.ui.section.adapter.SectionsPagerAdapter;
+import com.synerise.sdk.sample.ui.section.indicators.IndicatorsLayout;
 import com.synerise.sdk.sample.util.ToolbarHelper;
 
 import java.util.ArrayList;

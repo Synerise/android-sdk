@@ -10,9 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.synerise.sdk.content.Content;
-import com.synerise.sdk.content.model.DocumentsApiQuery;
 import com.synerise.sdk.content.model.DocumentsApiQueryType;
 import com.synerise.sdk.content.model.document.Document;
+import com.synerise.sdk.content.model.document.DocumentApiQuery;
 import com.synerise.sdk.core.net.IDataApiCall;
 import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.sample.R;
@@ -26,7 +26,7 @@ public class ContentApiActivity extends BaseActivity {
 
     private TextInputLayout valueInput;
     private IDataApiCall<Document> apiCall;
-    private IDataApiCall<List<Object>> apiCallDocuments;
+    private IDataApiCall<List<Document>> apiCallDocuments;
     private TextView getDocumentResponse;
 
     public static Intent createIntent(Context context) {
@@ -45,7 +45,6 @@ public class ContentApiActivity extends BaseActivity {
         findViewById(R.id.slider_widget).setOnClickListener(v -> startActivity(WidgetHorizontalSliderActivity.createIntent(this)));
         findViewById(R.id.gridview_widget).setOnClickListener(v -> startActivity(WidgetGridViewActivity.createIntent(this)));
         findViewById(R.id.get_document).setOnClickListener(v -> getDocument());
-        findViewById(R.id.get_documents).setOnClickListener(v -> getDocuments());
     }
 
     private void getDocument() {
@@ -57,27 +56,6 @@ public class ContentApiActivity extends BaseActivity {
             }
             apiCall = Content.generateDocument(valueInput.getEditText().getText().toString());
             apiCall.execute(response -> {
-                if (response != null) {
-                    getDocumentResponse.setText(ViewUtils.formatStringToJsonLook(response.toString()));
-                }
-            }, this::onFailure);
-        } else {
-            Toast.makeText(getApplicationContext(), "Please fill value name", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void getDocuments() {
-        if (!valueInput.getEditText().getText().toString().matches("")) {
-            valueInput.getEditText().getText().toString();
-
-            if (apiCallDocuments != null) {
-                apiCallDocuments.cancel();
-            }
-            DocumentsApiQuery documentsApiQuery = new DocumentsApiQuery();
-            documentsApiQuery.setVersion("1.0.0");
-            documentsApiQuery.setDocumentQueryParameters(DocumentsApiQueryType.SCHEMA, valueInput.getEditText().getText().toString());
-            apiCallDocuments = Content.getDocuments(documentsApiQuery);
-            apiCallDocuments.execute(response -> {
                 if (response != null) {
                     getDocumentResponse.setText(ViewUtils.formatStringToJsonLook(response.toString()));
                 }

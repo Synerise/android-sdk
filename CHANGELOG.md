@@ -1,5 +1,45 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [6.0.0] - 2025-01-02
+### Added
+- events unique time mechanism. Every event will have unique timestamp(only one event per millisecond)
+- `os` parameter to all events. If you use this parameter in your custom event it will not be overridden.
+
+### Changed
+- minSdk parameter is now set to 24. It means that we are supporting android 7.0 or higher
+- `InjectorSource` -> `SyneriseSource`
+- `Client.activateAccount` -> `Client.requestAccountActivation`
+- `Client.confirmAccount` -> `Client.confirmAccountActivation`
+- `Client.getToken` is now deprecated. Please use `Client.retrieveToken` instead.
+
+### Deleted
+- `Client.signOut(CLientSignOutMode mode)` method 
+- `Client.authenticateByFacebookIfRegistered(@NonNull String facebookToken, @Nullable String authId)` method
+- `Client.authenticateByOAuth(@NonNull String accessToken, @Nullable Agreements agreements, @Nullable Attributes attributes, @Nullable String authId)` method
+- `Client.authenticateByOAuthIfRegistered(@NonNull String accessToken, @Nullable String authId)` method
+- `Client.requestEmailChangeByFacebook(String email, @Nullable String uuid)` method
+- `Client.deleteAccountByFacebook(String facebookToken, @Nullable String uuid)` method
+- `Client.deleteAccountByOAuth(String accessToken, @Nullable String uuid)` method
+- `Client.deleteAccount(String password)`
+- `Client.requestEmailChange(String email, String password, @Nullable String uuid)`
+- `Content.getRecommendations(String slugName, RecommendationRequestBody options)`
+- `Content.getDocument(String slugName)`
+- `Content.getDocuments(DocumentsApiQuery documentsApiQuery)`
+- `Content.getScreenView()`
+- `Token.decodeFromJWT(String rawJwt, String signKey) throws Exception`
+- `Injector.getWalkthrough()`
+- `Injector.showWalkthrough()`
+- `Injector.isWalkthroughLoaded()`
+- `Injector.isLoadedWalkthroughUnique()`
+- `Injector.removeWalkthroughListener()`
+- `Injector.setOnWalkthroughListener(OnWalkthroughListener listener)`
+- `Injector.setOnBannerListener(OnBannerListener listener)`
+- `Injector.removeBannerListener()`
+
+### DeletedClasses
+- ScreenViewResponse, DeleteAccountByFacebook, DeleteAccountByOAuth, RequestEmailChange, AuthFacebookPayload, OAuthPayload,
+ SignInClientPayload, IBannerListener, IWalkthroughListener, OnBannerListener, OnInjectorListener, OnWalkthroughListener, InjectedScreen
+
 ## [5.23.0] - 2025-01-02
 ### Added
 - events unique time mechanism. Every event will have unique timestamp(only one event per millisecond)

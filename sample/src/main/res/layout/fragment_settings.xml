@@ -70,13 +70,4 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/space_medium"
         android:text="@string/default_sign_out" />
-
-    <Button
-        android:id="@+id/show_walkthrough"
-        style="@style/ButtonPrimary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/space_medium"
-        android:text="@string/show_walkthrough" />
-
 </LinearLayout>

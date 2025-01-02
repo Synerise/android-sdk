@@ -17,7 +17,6 @@ import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientGetAccou
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientGetTokenFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientRecognizeAnonymusFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientRegenerateUuidFragment;
-import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientRequestEmailChangeByFacebookFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientRequestEmailChangeFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientRequestPhoneUpdateFragment;
 import com.synerise.sdk.sample.ui.dev.apiAdapter.fragments.client.ClientUpdateAccountFragment;
@@ -101,8 +100,6 @@ public class FragmentContainerActivity extends BaseActivity {
                 return ClientRequestEmailChangeFragment.newInstance();
             case CONFIRM_EMAIL_CHANGE:
                 return ClientConfirmEmailChangeFragment.newInstance();
-            case REQUEST_EMAIL_CHANGE_FACEBOOK:
-                return ClientRequestEmailChangeByFacebookFragment.newInstance();
             case RECOGNIZE_ANONYMOUS:
                 return ClientRecognizeAnonymusFragment.newInstance();
             case DESTROY_SESSION:
