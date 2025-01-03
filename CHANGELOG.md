@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 - events unique time mechanism. Every event will have unique timestamp(only one event per millisecond)
 - `os` parameter to all events. If you use this parameter in your custom event it will not be overridden.
+- `appVersion` parameter for `client.applicationStarted` event. It is the same as `version`. `version` is deprecated.
+- `sdkPreviousVersion` parameter for `client.applicationStarted` event. It is version of the SDK before the current version in the application. It is the same as `lastSDKVersion`. 
 
 ### Changed
 - minSdk parameter is now set to 24. It means that we are supporting android 7.0 or higher
@@ -14,27 +16,31 @@ All notable changes to this project will be documented in this file.
 
 ### Deleted
 - `Client.signOut(CLientSignOutMode mode)` method 
+- `Client.authenticateByFacebook(@NonNull String facebookToken, @Nullable Agreements agreements, @Nullable Attributes attributes, @Nullable String authId)`
 - `Client.authenticateByFacebookIfRegistered(@NonNull String facebookToken, @Nullable String authId)` method
 - `Client.authenticateByOAuth(@NonNull String accessToken, @Nullable Agreements agreements, @Nullable Attributes attributes, @Nullable String authId)` method
 - `Client.authenticateByOAuthIfRegistered(@NonNull String accessToken, @Nullable String authId)` method
 - `Client.requestEmailChangeByFacebook(String email, @Nullable String uuid)` method
 - `Client.deleteAccountByFacebook(String facebookToken, @Nullable String uuid)` method
 - `Client.deleteAccountByOAuth(String accessToken, @Nullable String uuid)` method
-- `Client.deleteAccount(String password)`
-- `Client.requestEmailChange(String email, String password, @Nullable String uuid)`
-- `Content.getRecommendations(String slugName, RecommendationRequestBody options)`
-- `Content.getDocument(String slugName)`
-- `Content.getDocuments(DocumentsApiQuery documentsApiQuery)`
-- `Content.getScreenView()`
-- `Token.decodeFromJWT(String rawJwt, String signKey) throws Exception`
-- `Injector.getWalkthrough()`
-- `Injector.showWalkthrough()`
-- `Injector.isWalkthroughLoaded()`
-- `Injector.isLoadedWalkthroughUnique()`
-- `Injector.removeWalkthroughListener()`
-- `Injector.setOnWalkthroughListener(OnWalkthroughListener listener)`
-- `Injector.setOnBannerListener(OnBannerListener listener)`
-- `Injector.removeBannerListener()`
+- `Client.deleteAccount(String password)` method
+- `Client.requestEmailChange(String email, String password, @Nullable String uuid)` method
+- `Content.getRecommendations(String slugName, RecommendationRequestBody options)` method
+- `Content.getDocument(String slugName)` method
+- `Content.getDocuments(DocumentsApiQuery documentsApiQuery)` method
+- `Content.getScreenView()` method
+- `Token.decodeFromJWT(String rawJwt, String signKey) throws Exception` method
+- `Injector.getWalkthrough()` method
+- `Injector.showWalkthrough()` method
+- `Injector.isWalkthroughLoaded()` method
+- `Injector.isLoadedWalkthroughUnique()` method
+- `Injector.removeWalkthroughListener()` method
+- `Injector.isSyneriseBanner()` method
+- `Injector.fetchBanners()` method
+- `Injector.showBanner()` method
+- `Injector.setOnWalkthroughListener(OnWalkthroughListener listener)` method
+- `Injector.setOnBannerListener(OnBannerListener listener)` method
+- `Injector.removeBannerListener()` method
 
 ### DeletedClasses
 - ScreenViewResponse, DeleteAccountByFacebook, DeleteAccountByOAuth, RequestEmailChange, AuthFacebookPayload, OAuthPayload,
