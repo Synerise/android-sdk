@@ -24,12 +24,6 @@ allprojects {
         mavenCentral()
         maven { url 'https://pkgs.dev.azure.com/Synerise/AndroidSDK/_packaging/prod/maven/v1' }
     }
-
-//    tasks.withType(JavaCompile).configureEach {
-//        javaCompiler = javaToolchains.compilerFor {
-//            languageVersion = JavaLanguageVersion.of(11)
-//        }
-//    }
 }
 
 ext {

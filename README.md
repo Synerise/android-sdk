@@ -1,4 +1,4 @@
-# Synerise Android SDK (v5.22.4)
+# Synerise Android SDK (v6.0.1)
 
 [![Platform](https://img.shields.io/badge/platform-Android-orange.svg)](https://github.com/synerise/android-sdk)
 [![Languages](https://img.shields.io/badge/language-Java-orange.svg)](https://github.com/synerise/android-sdk)
@@ -17,7 +17,7 @@ Most up-to-date documentation is available at [Developer Guide - Mobile SDK](htt
 ## Requirements
 * Access to workspace
 * A Profile API Key
-* Minimum Android SDK version - 21
+* Minimum Android SDK version - 24
 * Supported targetSdkVersion - 33
 
 ## Installation
