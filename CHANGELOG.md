@@ -1,5 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [6.0.2] - 2025-03-25
+### Fixed
+- NPE when clicking on notification with killed app.
+
+## [5.23.2] - 2025-03-25
+### Fixed
+- NPE when clicking on notification with killed app.
+
 ## [6.0.1] - 2025-03-04
 ## Fixed
 - added `getTags` method to `GetAccountInformation` class
