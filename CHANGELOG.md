@@ -1,8 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [6.1.0] - 2025-03-27
+### Added
+- In-app campaigns can now use the safe area of the screen, allowing you to display full-screen in-app messages. This option is called "Safe area" in the "Display type" option group in the campaign creator. If switched on, it allows the in-app message to extend into system UI. If switched off, it avoids system bars, notches, and other UI elements.
+
 ## [6.0.2] - 2025-03-25
 ### Fixed
-- NPE when clicking on notification with killed app.
+- NPE when clicking on notification with killed app (Flutter).
 
 ## [5.23.2] - 2025-03-25
 ### Fixed
