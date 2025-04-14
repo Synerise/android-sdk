@@ -1,5 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [6.1.1] - 2025-04-14
+### Fixed
+- Empty payload in `NotificationInfo` after clicking on push.
+
+## [6.0.3] - 2025-04-14
+### Fixed
+- Empty payload in `NotificationInfo` after clicking on push.
+
 ## [6.1.0] - 2025-03-27
 ### Added
 - In-app campaigns can now use the safe area of the screen, allowing you to display full-screen in-app messages. This option is called "Safe area" in the "Display type" option group in the campaign creator. If switched on, it allows the in-app message to extend into system UI. If switched off, it avoids system bars, notches, and other UI elements.
