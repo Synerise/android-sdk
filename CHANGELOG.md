@@ -1,5 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [6.2.0] - 2025-04-18
+### Added
+- `Content.getRecommendationsV2` method which takes `RecommendationApiQuery` as an argument. Previous `Content.getRecommendationsV2` method is now deprecated.
+- `DocumentApiQuery` and `ScreenViewApiQuery` has now additional method `setParams`.
+
 ## [6.1.1] - 2025-04-14
 ### Fixed
 - Empty payload in `NotificationInfo` after clicking on push.

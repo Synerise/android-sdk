@@ -22,6 +22,7 @@ import com.synerise.sdk.core.listeners.OnRegisterForPushListener;
 import com.synerise.sdk.core.listeners.SyneriseListener;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.core.net.IDataApiCall;
+import com.synerise.sdk.core.types.SyneriseApiUrls;
 import com.synerise.sdk.core.types.enums.HostApplicationType;
 import com.synerise.sdk.core.types.enums.MessagingServiceType;
 import com.synerise.sdk.core.types.enums.PushRegistrationOrigin;
@@ -108,7 +109,7 @@ public class App extends MultiDexApplication
                 .notificationDefaultChannelName(CHANNEL_NAME)
                 .notificationHighPriorityChannelId(CHANNEL_HIGH_PRIORITY_ID)
                 .notificationHighPriorityChannelName(CHANNEL_HIGH_PRIORITY_NAME)
-                .baseUrl(null)
+                .baseUrl(SyneriseApiUrls.SYNERISE_AZ_API_URL)
                 .hostApplicationType(HostApplicationType.NATIVE)
                 .setRequestValidationSalt("your salt here")
                 .build();
