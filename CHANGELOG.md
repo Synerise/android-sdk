@@ -1,5 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [6.2.1] - 2025-05-16
+### Fixed
+- Notification Sound on Android 8+
+- 
+## [5.23.3] - 2025-05-16
+### Fixed
+- Notification Sound on Android 8+
+
 ## [6.2.0] - 2025-04-18
 ### Added
 - `Content.getRecommendationsV2` method which takes `RecommendationApiQuery` as an argument. Previous `Content.getRecommendationsV2` method is now deprecated.

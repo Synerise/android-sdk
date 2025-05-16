@@ -20,6 +20,7 @@ import com.synerise.sdk.sample.ui.BaseActivity;
 import com.synerise.sdk.sample.util.ToolbarHelper;
 import com.synerise.sdk.sample.util.ViewUtils;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class ContentApiActivity extends BaseActivity {
@@ -54,7 +55,10 @@ public class ContentApiActivity extends BaseActivity {
             if (apiCall != null) {
                 apiCall.cancel();
             }
-            apiCall = Content.generateDocument(valueInput.getEditText().getText().toString());
+            DocumentApiQuery apiQuery = new DocumentApiQuery(valueInput.getEditText().getText().toString());
+            HashMap<String, Object> map = new HashMap<>();
+            apiQuery.setParams(map);
+            apiCall = Content.generateDocument(apiQuery);
             apiCall.execute(response -> {
                 if (response != null) {
                     getDocumentResponse.setText(ViewUtils.formatStringToJsonLook(response.toString()));
