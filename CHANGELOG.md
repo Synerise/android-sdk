@@ -1,9 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [6.3.0] - 2025-06-06
+### Added
+- `Synerise.settings.sdk.doNotTrack` option in settings to fully disable tracking customer's activity in SDK. It has setter and getter.
+
+### Fixed
+- Better image scalling in push notifications when ratio 2:1 is not provided.
+
 ## [6.2.1] - 2025-05-16
 ### Fixed
 - Notification Sound on Android 8+
-- 
+
 ## [5.23.3] - 2025-05-16
 ### Fixed
 - Notification Sound on Android 8+
