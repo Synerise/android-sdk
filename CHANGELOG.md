@@ -1,5 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [6.4.0] - 2025-07-23
+### Fixed
+- `Attributes` from now will support any Object not just String.
+
+### Changed
+- Upgraded version of `com.facebook.fresco:fresco` to 3.4.0
+
 ## [6.3.0] - 2025-06-06
 ### Added
 - `Synerise.settings.sdk.doNotTrack` option in settings to fully disable tracking customer's activity in SDK. It has setter and getter.
