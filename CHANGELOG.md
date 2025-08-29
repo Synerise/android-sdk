@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [6.4.1] - 2025-08-29
+### Fixed
+- issue with anonymous login after doNotTrack update
+
 ## [6.4.0] - 2025-07-23
 ### Fixed
 - `Attributes` from now will support any Object not just String.
