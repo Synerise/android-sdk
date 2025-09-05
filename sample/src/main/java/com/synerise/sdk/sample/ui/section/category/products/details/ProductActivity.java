@@ -1,13 +1,20 @@
 package com.synerise.sdk.sample.ui.section.category.products.details;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
+
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.synerise.sdk.content.model.BaseModel;
 import com.synerise.sdk.content.widgets.ContentWidget;
@@ -67,6 +75,7 @@ public class ProductActivity extends BaseActivity {
     private Product product;
     private ImageView favIcon;
     private LinearLayout insertPoint;
+    private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
 
     public static Intent createIntent(Context context, String productSKU) {
         Intent intent = new Intent(context, ProductActivity.class);
@@ -80,7 +89,6 @@ public class ProductActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         ((App) getApplication()).getComponent().inject(this);
         setContentView(R.layout.activity_product);
-
         ToolbarHelper.setUpChildToolbar(this);
 
         insertPoint = findViewById(R.id.insert_point);
@@ -142,6 +150,7 @@ public class ProductActivity extends BaseActivity {
         favIcon = findViewById(R.id.fav_icon);
         favIcon.setSelected(accountManager.isProductFavourite(product));
         favIcon.setOnClickListener(v -> {
+
             ViewUtils.pulse(favIcon);
             favIcon.setSelected(!favIcon.isSelected());
             if (favIcon.isSelected()) {
@@ -158,10 +167,33 @@ public class ProductActivity extends BaseActivity {
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode,String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission is granted you can now show inapp.
+            } else {
+                // Permission denied
+                Toast.makeText(this, "Camera permission is required for QR scanning",
+                        Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         Tracker.send(new VisitedScreenEvent(getClass().getSimpleName(),
                                             new TrackerParams.Builder().add("sku", product.getSKU()).build()));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE);
+            } else {
+               // Permissions are granted
+            }
+        }
     }
 
     private TrackerParams buildParamsForProductEvent(Product product) {

@@ -1,5 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [6.5.0] - 2025-09-05
+### Added
+- `SRInApp.internalMethod` method to JS interface in the InApp messaging module. This method allows invoking a native SDK method. See the documentation for a list of SDK methods available this way and their parameters.
+- Support for camera permissions inside inApp. Please note that before showing the InApp you have to be sure that application has got camera permission.
+- `SRInApp.resize(layoutType, callback)` method to JS interface in the InApp messaging module. This function can resize the inapp from bottom/top bar to fullScreen while being on display.
+
 ## [6.4.1] - 2025-08-29
 ### Fixed
 - issue with anonymous login after doNotTrack update
