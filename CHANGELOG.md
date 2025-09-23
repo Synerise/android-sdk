@@ -1,5 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [6.6.0] - 2025-09-22
+### Added
+- `SRInApp.getDeviceData` method to the JS interface in the in-app messaging module. This method allows fetching device info (operating system, if dark mode is enabled, etc.). You can read more in the documentation.
+
+### Changed
+- We implemented a new format of input in the `SRInApp.internalMethod` method in the JS interface in the in-app messaging module. Old parameters still work, but we changed the format for consistency.
+
 ## [6.5.0] - 2025-09-05
 ### Added
 - `SRInApp.internalMethod` method to JS interface in the InApp messaging module. This method allows invoking a native SDK method. See the documentation for a list of SDK methods available this way and their parameters.
