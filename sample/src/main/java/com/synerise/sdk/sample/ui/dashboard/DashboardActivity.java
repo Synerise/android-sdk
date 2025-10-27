@@ -14,7 +14,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +25,6 @@ import com.synerise.sdk.client.model.listener.OnClientStateChangeListener;
 
 import com.synerise.sdk.content.Content;
 import com.synerise.sdk.content.model.document.Document;
-import com.synerise.sdk.core.Synerise;
 import com.synerise.sdk.core.listeners.ActionListener;
 import com.synerise.sdk.core.listeners.DataActionListener;
 import com.synerise.sdk.core.net.IDataApiCall;
