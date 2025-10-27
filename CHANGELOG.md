@@ -1,5 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+
+## [6.7.0] - 2025-10-07
+### Added
+- `Injector.closeInAppMessage`method to close programmatically currently opened inapp from the application.
+
 ## [6.6.0] - 2025-09-22
 ### Added
 - `SRInApp.getDeviceData` method to the JS interface in the in-app messaging module. This method allows fetching device info (operating system, if dark mode is enabled, etc.). You can read more in the documentation.
