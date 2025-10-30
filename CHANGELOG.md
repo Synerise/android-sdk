@@ -1,8 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [6.8.2] - 2025-10-29
+### Changed
+- Changes in generating Brickworks requests (new properties in `BrickworksApiQuery`: `context` and `fieldContext`. The `params` property was removed).
+
 ## [6.8.0] - 2025-10-27
 ### Added
-- The `Content.generateBrickworks(apiQuery:success:failure:)` method. The new method generates a Brickworks record for the parameters provided in the query object.
+- The `Content.generateBrickworks(apiQuery)` method. The new method generates a Brickworks record for the parameters provided in the query object.
 
 ### Fixed
 - issue with bad scaling of images in push notifications.
