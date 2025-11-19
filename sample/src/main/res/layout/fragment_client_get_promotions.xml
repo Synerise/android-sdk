@@ -88,6 +88,26 @@
             android:layout_height="wrap_content"
             android:text="@string/promotion_members_only" />
 
+
+        <TextView
+            style="@style/TextPrimary.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_medium"
+            android:text="@string/promotion_other_options" />
+
+        <CheckBox
+            android:id="@+id/checkbox_include_meta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/promotion_include_meta" />
+
+        <CheckBox
+            android:id="@+id/checkbox_check_global_activation_meta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/promotion_check_global_activation_limit" />
+
         <TextView
             style="@style/TextPrimary.Medium"
             android:layout_width="match_parent"

@@ -32,7 +32,7 @@ public class ClientGetPromotionsFragment extends BaseDevFragment {
     private IDataApiCall<PromotionResponse> apiCall;
     private RadioButton includeButton;
     private CheckBox activeBox, assignedBox, redeemedBox;
-    private CheckBox generalBox, customBox, membersOnlyBox;
+    private CheckBox generalBox, customBox, membersOnlyBox, includeMetaBox, checkGlobalActivationLimitBox;
     private TextInputLayout inputLimit, inputPage;
 
     public static ClientGetPromotionsFragment newInstance() { return new ClientGetPromotionsFragment(); }
@@ -56,6 +56,8 @@ public class ClientGetPromotionsFragment extends BaseDevFragment {
         membersOnlyBox = view.findViewById(R.id.checkbox_members_only);
         inputLimit = view.findViewById(R.id.text_limit);
         inputPage = view.findViewById(R.id.text_page);
+        includeMetaBox = view.findViewById(R.id.checkbox_include_meta);
+        checkGlobalActivationLimitBox = view.findViewById(R.id.checkbox_check_global_activation_meta);
         view.findViewById(R.id.get_promotions).setOnClickListener(v -> getPromotions());
     }
 
@@ -111,6 +113,8 @@ public class ClientGetPromotionsFragment extends BaseDevFragment {
             sortParams.put(PromotionSortingKey.CREATED_AT, ApiQuerySortingOrder.ASCENDING);
             sortParams.put(PromotionSortingKey.EXPIRE_AT, ApiQuerySortingOrder.DESCENDING);
             query.setSortParameters(sortParams);
+            query.setIncludeMeta(includeMetaBox.isChecked());
+            query.setCheckGlobalActivationLimits(checkGlobalActivationLimitBox.isChecked());
             apiCall = Promotions.getPromotions(query);
             apiCall.execute(this::onSuccess, new DataActionListener<ApiError>() {
                 @Override

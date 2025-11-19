@@ -1,5 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [6.9.0] - 2025-11-17
+### Added
+- `checkGlobalActivationLimits` property in `PromotionsApiQuery` model to set param that checks if the promotion is available considering how many times it was activated.
+
+## Changed
+- The `lastActivityDate` property in `GetAccountInformation` now is optional. It is also deprecated.
+
 ## [6.8.2] - 2025-10-29
 ### Changed
 - Changes in generating Brickworks requests (new properties in `BrickworksApiQuery`: `context` and `fieldContext`. The `params` property was removed).

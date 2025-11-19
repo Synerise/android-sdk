@@ -377,6 +377,9 @@
     <string name="promotion_custom">Custom</string>
     <string name="promotion_members_only">Members only</string>
     <string name="promotion_type">Promotion type</string>
+    <string name="promotion_other_options">Other options</string>
+    <string name="promotion_include_meta">Include meta</string>
+    <string name="promotion_check_global_activation_limit">Check global activation limit</string>
     <string name="promotion_status">Promotion status</string>
     <string name="metadata">Metadata</string>
     <string name="query">Query</string>
