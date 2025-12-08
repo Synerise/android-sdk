@@ -341,6 +341,7 @@
     <string name="client_get_promotions_by_uuid">Get promotions by UUID</string>
     <string name="client_activate_promotions_by_uuid">Activate Promotion by UUID</string>
     <string name="client_activate_promotions_by_code">Activate Promotion by code</string>
+    <string name="client_activate_promotions_with_response">Activate Promotion Response</string>
     <string name="client_deactivate_promotions_by_uuid">Deactivate Promotion by UUID</string>
     <string name="client_deactivate_promotions_by_code">Deactivate Promotion by code</string>
     <string name="delete_account">Delete account</string>
@@ -380,6 +381,7 @@
     <string name="promotion_other_options">Other options</string>
     <string name="promotion_include_meta">Include meta</string>
     <string name="promotion_check_global_activation_limit">Check global activation limit</string>
+    <string name="promotion_checkbox_include_vouchers">Include vouchers</string>
     <string name="promotion_status">Promotion status</string>
     <string name="metadata">Metadata</string>
     <string name="query">Query</string>

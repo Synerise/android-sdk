@@ -1,5 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [6.10.0] - 2025-12-05
+### Added
+- `includeVouchers` to `PromotionsApiQuery`.
+- `vouchers` are now added to the `Promotion` object.
+- `Promotions.activatePromotion(@NonNull PromotionActivationOptions options)` method to activate Promotion and get it.
+
 ## [6.9.0] - 2025-11-17
 ### Added
 - `checkGlobalActivationLimits` property in `PromotionsApiQuery` model to set param that checks if the promotion is available considering how many times it was activated.
@@ -13,7 +19,7 @@ All notable changes to this project will be documented in this file.
 
 ## [6.8.0] - 2025-10-27
 ### Added
-- The `Content.generateBrickworks(apiQuery)` method. The new method generates a Brickworks record for the parameters provided in the query object.
+- The `Content.generateBrickworks(apiQuery:success:failure:)` method. The new method generates a Brickworks record for the parameters provided in the query object.
 
 ### Fixed
 - issue with bad scaling of images in push notifications.

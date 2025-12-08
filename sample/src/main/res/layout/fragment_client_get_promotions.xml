@@ -108,6 +108,13 @@
             android:layout_height="wrap_content"
             android:text="@string/promotion_check_global_activation_limit" />
 
+        <CheckBox
+            android:id="@+id/checkbox_include_vouchers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/promotion_checkbox_include_vouchers" />
+
+
         <TextView
             style="@style/TextPrimary.Medium"
             android:layout_width="match_parent"
