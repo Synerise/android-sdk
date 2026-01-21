@@ -1,5 +1,19 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [6.10.1] - 2026-01-21
+### Fixed
+- samsung issue with `client.applicationStarted`. Event was not sent properly due to wrong state of runningProcess on Samsung only.
+- issue with mapping errors from promotions. Now it should correctly map to `ApiErrorBody`
+- issue with double `OnDismissed` callbacks in `OnInAppListener`
+
+## [6.9.1] - 2026-01-21
+### Fixed
+- samsung issue with `client.applicationStarted`. Event was not sent properly due to wrong state of runningProcess on Samsung only.
+
+## [6.8.3] - 2026-01-21
+### Fixed
+- samsung issue with `client.applicationStarted`. Event was not sent properly due to wrong state of runningProcess on Samsung only.
+
 ## [6.10.0] - 2025-12-05
 ### Added
 - `includeVouchers` to `PromotionsApiQuery`.
