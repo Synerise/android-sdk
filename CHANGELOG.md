@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [6.11.0] - 2026-02-16
+### Added
+- `SRInApp.getItem`, `SRInApp.setItem`, `SRInApp.removeItem` and `SRInApp.clear` methods to the JS interface in the in-app messaging module, allowing you to manage storage for the in-app message scoped to the current client context. You can read more in the documentation.
+
 ## [6.10.1] - 2026-01-21
 ### Fixed
 - samsung issue with `client.applicationStarted`. Event was not sent properly due to wrong state of runningProcess on Samsung only.
