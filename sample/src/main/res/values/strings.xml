@@ -382,6 +382,7 @@
     <string name="promotion_include_meta">Include meta</string>
     <string name="promotion_check_global_activation_limit">Check global activation limit</string>
     <string name="promotion_checkbox_include_vouchers">Include vouchers</string>
+    <string name="promotion_present_only">Present only</string>
     <string name="promotion_status">Promotion status</string>
     <string name="metadata">Metadata</string>
     <string name="query">Query</string>

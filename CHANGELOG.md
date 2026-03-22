@@ -1,5 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [6.12.0] - 2026-03-10
+### Added
+- `presentOnly` property to `PromotionsApiQuery` to filter promotions to only those currently presented.
+
+### Fixed
+- ANR issues: key generation on main thread, possible ANR when creating WorkerManager and when getting definitions during push registration.
+- Crash when dismissing in-app dialog after Activity destruction.
+- Token refresh retry mechanism now clears cached errors to prevent poisoning subsequent retry attempts.
+
+## [6.8.4] - 2026-03-05
+### Fixed
+- Token refresh retry mechanism now clears cached errors to prevent poisoning subsequent retry attempts.
+
 ## [6.11.0] - 2026-02-16
 ### Added
 - `SRInApp.getItem`, `SRInApp.setItem`, `SRInApp.removeItem` and `SRInApp.clear` methods to the JS interface in the in-app messaging module, allowing you to manage storage for the in-app message scoped to the current client context. You can read more in the documentation.

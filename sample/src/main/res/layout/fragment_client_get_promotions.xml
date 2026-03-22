@@ -114,6 +114,14 @@
             android:layout_height="wrap_content"
             android:text="@string/promotion_checkbox_include_vouchers" />
 
+        <CheckBox
+            android:id="@+id/checkbox_present_only"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/promotion_present_only" />
+
+
 
         <TextView
             style="@style/TextPrimary.Medium"
