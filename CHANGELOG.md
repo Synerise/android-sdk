@@ -1,5 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [6.12.1] - 2026-03-24
+### Fixed
+- change of enum values passed as a "type" inside registerForPush request.
+- minor ANR issues fixes.
+
 ## [6.12.0] - 2026-03-10
 ### Added
 - `presentOnly` property to `PromotionsApiQuery` to filter promotions to only those currently presented.
