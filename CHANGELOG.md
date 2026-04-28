@@ -1,5 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [6.13.0] - 2026-04-28
+### Added
+- "Client/destroySession" method to internal methods in InApps.
+
 ## [6.12.1] - 2026-03-24
 ### Fixed
 - change of enum values passed as a "type" inside registerForPush request.
