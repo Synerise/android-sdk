@@ -21,7 +21,6 @@ import com.synerise.sdk.sample.util.ToolbarHelper;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
 
 import static com.synerise.sdk.injector.SynerisePushKeys.CONTENT;
 import static com.synerise.sdk.injector.SynerisePushKeys.CONTENT_TYPE;
@@ -72,19 +71,12 @@ public class InjectorApiActivity extends BaseActivity {
     }
 
     private void onFirebaseIdChanged() {
-        AtomicReference<String> refreshedToken = null;
-        // get your `google-services.json` from Firebase console first
-        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(token -> {
-            if (!TextUtils.isEmpty(token)) {
-                refreshedToken.set(token);
-            }
-        });
-
-        if (TextUtils.isEmpty(refreshedToken.get())) {
-            firebaseId.setText(R.string.unknown_firebase_id);
-        } else {
-            firebaseId.setText(refreshedToken.get());
-        }
+        // get your `google-services.json` from Firebase console first.
+        // getToken() is async — set the text from its callbacks, not synchronously.
+        FirebaseMessaging.getInstance().getToken()
+                .addOnSuccessListener(token -> firebaseId.setText(
+                        TextUtils.isEmpty(token) ? getString(R.string.unknown_firebase_id) : token))
+                .addOnFailureListener(e -> firebaseId.setText(R.string.unknown_firebase_id));
     }
 
     private void getSimplePush() {

@@ -17,6 +17,7 @@ import com.synerise.sdk.sample.BuildConfig;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.dev.client.ClientApiActivity;
 import com.synerise.sdk.sample.ui.dev.content.ContentApiActivity;
+import com.synerise.sdk.sample.ui.dev.inapp.InAppsActivity;
 import com.synerise.sdk.sample.ui.dev.injector.InjectorApiActivity;
 import com.synerise.sdk.sample.ui.dev.promotions.PromotionsApiActivity;
 import com.synerise.sdk.sample.ui.dev.settings.SettingsActivity;
@@ -45,6 +46,7 @@ public class DeveloperFragment extends BaseDevFragment {
             view.findViewById(R.id.promotions_api)
                 .setOnClickListener(v -> startActivity(PromotionsApiActivity.createIntent(activity)));
             view.findViewById(R.id.injector_api).setOnClickListener(v -> startActivity(InjectorApiActivity.createIntent(activity)));
+            view.findViewById(R.id.inapps).setOnClickListener(v -> startActivity(InAppsActivity.createIntent(activity)));
             view.findViewById(R.id.reset).setOnClickListener(v -> {
                 ActivityManager activityManager = ((ActivityManager) activity.getSystemService(ACTIVITY_SERVICE));
                 if (activityManager != null) activityManager.clearApplicationUserData();

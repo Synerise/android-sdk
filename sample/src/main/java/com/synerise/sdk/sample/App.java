@@ -36,6 +36,8 @@ import com.synerise.sdk.injector.callback.SyneriseSource;
 import com.synerise.sdk.injector.callback.OnInjectorListener;
 import com.synerise.sdk.injector.callback.OnNotificationListener;
 import com.synerise.sdk.injector.callback.model.NotificationInfo;
+import com.synerise.sdk.injector.inapp.InAppMessageData;
+import com.synerise.sdk.injector.inapp.OnInAppListener;
 import com.synerise.sdk.injector.ui.handler.InjectorActionHandler;
 import com.synerise.sdk.sample.dagger.AppComponent;
 import com.synerise.sdk.sample.dagger.ConfigModule;
@@ -51,6 +53,8 @@ import static com.synerise.sdk.sample.service.MyFirebaseMessagingService.CHANNEL
 import static com.synerise.sdk.sample.service.MyFirebaseMessagingService.CHANNEL_HIGH_PRIORITY_NAME;
 import static com.synerise.sdk.sample.service.MyFirebaseMessagingService.CHANNEL_ID;
 import static com.synerise.sdk.sample.service.MyFirebaseMessagingService.CHANNEL_NAME;
+
+import java.util.HashMap;
 
 public class App extends MultiDexApplication
         implements
@@ -159,7 +163,9 @@ public class App extends MultiDexApplication
 
     @Override
     public void onRegisterForPushRequired(PushRegistrationOrigin origin) {
-        // Optional callback
+        OnRegisterForPushListener.super.onRegisterForPushRequired(origin);
+        CustomEvent event = new CustomEvent("workManager.test", "label", new TrackerParams.Builder().add("keyTest", origin.toString()).build());
+        Tracker.send(event);
     }
 
     @Override
@@ -186,6 +192,44 @@ public class App extends MultiDexApplication
             public void onActionButtonClicked(NotificationInfo notificationInfo, String actionButton) {
                 Log.i(TAG, "on action button clicked: " + notificationInfo.getCampaignHashId() + " title: " + notificationInfo.getCampaignTitle() + " action button: " + actionButton + "payload: " + notificationInfo.getPayload());
             }
+        });
+
+        Injector.setOnInAppListener(new OnInAppListener() {
+            @Override
+            public boolean shouldShow(InAppMessageData inAppMessageData) {
+                return true;
+            }
+
+            @Override
+            public void onShown(InAppMessageData inAppMessageData) {
+
+            }
+
+            @Override
+            public void onDismissed(InAppMessageData inAppMessageData) {
+            }
+
+            @Override
+            public void onHandledOpenUrl(InAppMessageData inAppMessageData) {
+
+            }
+
+            @Override
+            public void onHandledOpenDeepLink(InAppMessageData inAppMessageData) {
+
+            }
+
+            @Override
+            public HashMap<String, Object> onContextFromAppRequired(InAppMessageData inAppMessageData) {
+                return null;
+            }
+
+            @Override
+            public void onCustomAction(String identifier, HashMap<String, Object> params, InAppMessageData inAppMessageData) {
+
+            }
+            // InApp context / customMethod demo callbacks live in InAppContextActivity
+            // (Developer tools → InApps → InApp Context From App).
         });
     }
 

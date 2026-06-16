@@ -108,6 +108,12 @@
             android:name=".ui.dev.injector.InjectorApiActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.dev.inapp.InAppsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.inapp.InAppContextActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.dev.promotions.PromotionsApiActivity"
             android:screenOrientation="portrait" />
         <activity

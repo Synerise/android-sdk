@@ -1,8 +1,20 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [6.14.0] - 2026-06-15
+### Fixed
+- concurrency problem in `SRInApp.internalMethods`
+
+### Added
+- `Injector.inAppContext` property to pass HashMap to InApps.
+- `Injector.setInAppContext(HashMap<String, Object> context)` method for setting the context.
+- `Injector.notifyInAppContextChange` method to trigger callback inside InApp (JS)
+- `onCustomMethod(String name, HashMap<String,Object> params, InAppMessageData data, InAppCustomMethodCompletion completion)` to `OnInAppListener`
+- methods to JS `customMethod(name, params, timeoutMs) → Promise`, `getContextFromApp()`, `onContextFromApp(context)`
+- To learn how to use the new methods and properties, see https://hub.synerise.com/docs/campaign/in-app-messages/creating-inapp-templates/creating-inapp-template#receive-context-from-the-application
+
 ## [6.13.0] - 2026-04-28
 ### Added
-- "Client/destroySession" method to internal methods in InApps.
+- `Client/destroySession` method to internal methods in InApps.
 
 ## [6.12.1] - 2026-03-24
 ### Fixed

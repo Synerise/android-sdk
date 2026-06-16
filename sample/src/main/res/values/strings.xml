@@ -431,6 +431,18 @@
     <string name="provide_horizontal_spacing">Horizontal spacing</string>
     <string name="provide_vertical_spacing">Vertical spacing</string>
     <string name="get_simple_push">Get simple push</string>
+
+    <!-- InApps dev section -->
+    <string name="inapps">InApps</string>
+    <string name="inapp_context_from_app">InApp Context From App</string>
+    <string name="inapp_context_instructions">Seeds Injector.inAppContext and registers the InApp listener (customMethod + context push). Trigger your InApp campaign, then use the buttons inside the InApp. Events are logged below.</string>
+    <string name="inapp_reseed_context">Reset context to defaults</string>
+    <string name="inapp_send_trigger_event">Send trigger event (inapp.context.test)</string>
+    <string name="inapp_event_log">Event log</string>
+    <string name="inapp_context_key_hint">Context key</string>
+    <string name="inapp_context_value_hint">Context value</string>
+    <string name="inapp_add_to_context">Add to context</string>
+    <string name="inapp_notify_context_change">Notify context change</string>
     <string name="get_document_text">Get Document</string>
     <string name="get_documents_text">Get Documents</string>
     <string name="client_sign_out">Sign out</string>

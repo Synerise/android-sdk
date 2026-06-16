@@ -1,0 +1,57 @@
+name: Notify Teams on New Issue
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post new issue to Teams
+        env:
+          WEBHOOK: ${{ secrets.TEAMS_ISSUES_WEBHOOK }}
+          REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+          TITLE: ${{ github.event.issue.title }}
+          AUTHOR: ${{ github.event.issue.user.login }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+          BODY: ${{ github.event.issue.body }}
+        run: |
+          # Truncate the body so the Adaptive Card stays within Teams' ~28KB limit
+          SNIPPET=$(printf '%s' "$BODY" | head -c 1500)
+
+          jq -n \
+            --arg repo "$REPO" \
+            --arg num "$NUMBER" \
+            --arg title "$TITLE" \
+            --arg author "$AUTHOR" \
+            --arg url "$ISSUE_URL" \
+            --arg body "$SNIPPET" \
+            '{
+              type: "message",
+              attachments: [{
+                contentType: "application/vnd.microsoft.card.adaptive",
+                content: {
+                  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                  type: "AdaptiveCard",
+                  version: "1.4",
+                  body: [
+                    { type: "TextBlock", size: "Large", weight: "Bolder",
+                      text: "🐛 New Issue Opened" },
+                    { type: "TextBlock", spacing: "None", isSubtle: true,
+                      text: ($repo + "  •  #" + $num) },
+                    { type: "TextBlock", weight: "Bolder", wrap: true, text: $title },
+                    { type: "TextBlock", isSubtle: true, text: ("Opened by " + $author) },
+                    { type: "TextBlock", wrap: true, text: $body }
+                  ],
+                  actions: [
+                    { type: "Action.OpenUrl", title: "Open issue", url: $url }
+                  ]
+                }
+              }]
+            }' > payload.json
+
+          curl -sS -X POST "$WEBHOOK" \
+            -H "Content-Type: application/json" \
+            -d @payload.json
