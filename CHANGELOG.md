@@ -1,5 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [6.14.1] - 2026-07-06
+### Fixed
+- `java.util.ConcurrentModificationException` inside `AutoTrackerActivityFollower`
+- issue with blocking inapps queue when changing darkMode. Inapp is still closing but it is sending `inapp.discard` event and the inapp queue is not blocked any more.
+
 ## [6.14.0] - 2026-06-15
 ### Fixed
 - concurrency problem in `SRInApp.internalMethods`

@@ -442,6 +442,8 @@
     <string name="inapp_context_key_hint">Context key</string>
     <string name="inapp_context_value_hint">Context value</string>
     <string name="inapp_add_to_context">Add to context</string>
+    <string name="inapp_rotation_test">InApp Rotation Test</string>
+    <string name="inapp_rotation_test_instructions">This screen is NOT portrait-locked. Trigger the in-app, then rotate the device or toggle dark mode (also while backgrounded) — the overlay should close cleanly (onDismissed in the log, no WindowLeaked) and the NEXT trigger must show a fresh in-app.</string>
     <string name="inapp_notify_context_change">Notify context change</string>
     <string name="get_document_text">Get Document</string>
     <string name="get_documents_text">Get Documents</string>

@@ -26,5 +26,7 @@ public class InAppsActivity extends BaseActivity {
 
         findViewById(R.id.inapp_context_from_app)
                 .setOnClickListener(v -> startActivity(InAppContextActivity.createIntent(this)));
+        findViewById(R.id.inapp_rotation_test)
+                .setOnClickListener(v -> startActivity(InAppRotationTestActivity.createIntent(this)));
     }
 }

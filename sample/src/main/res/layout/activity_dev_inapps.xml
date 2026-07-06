@@ -17,4 +17,12 @@
         android:layout_height="wrap_content"
         android:text="@string/inapp_context_from_app" />
 
+    <Button
+        android:id="@+id/inapp_rotation_test"
+        style="@style/ButtonPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/inapp_rotation_test" />
+
 </LinearLayout>

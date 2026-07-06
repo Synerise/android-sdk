@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_app_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/space_content">
+
+        <TextView
+            style="@style/TextPrimary.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/inapp_rotation_test_instructions" />
+
+        <Button
+            android:id="@+id/send_trigger_event"
+            style="@style/ButtonPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/inapp_send_trigger_event" />
+
+    </LinearLayout>
+
+    <TextView
+        style="@style/TextPrimary.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/space_content"
+        android:paddingEnd="@dimen/space_content"
+        android:text="Callback Log:" />
+
+    <ScrollView
+        android:id="@+id/log_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="@dimen/space_content">
+
+        <TextView
+            android:id="@+id/log_text"
+            style="@style/TextSecondary.Mini"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace" />
+
+    </ScrollView>
+</LinearLayout>

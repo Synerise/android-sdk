@@ -114,6 +114,8 @@
             android:name=".ui.dev.inapp.InAppContextActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.dev.inapp.InAppRotationTestActivity" />
+        <activity
             android:name=".ui.dev.promotions.PromotionsApiActivity"
             android:screenOrientation="portrait" />
         <activity
