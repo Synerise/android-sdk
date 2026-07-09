@@ -1,5 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [6.14.2] - 2026-07-09
+### Fixed
+- memory leak according to: https://github.com/Synerise/android-sdk/issues/18
+- issue with `inAppContext` - being not accessible
+
 ## [6.14.1] - 2026-07-06
 ### Fixed
 - `java.util.ConcurrentModificationException` inside `AutoTrackerActivityFollower`
