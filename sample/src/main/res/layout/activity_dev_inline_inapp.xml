@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_app_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/space_content">
+
+            <Button
+                android:id="@+id/btn_url_actions"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/inline_inapp_url_actions" />
+
+            <Button
+                android:id="@+id/btn_debug"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/inline_inapp_debug" />
+
+            <Button
+                android:id="@+id/btn_autoresize"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/inline_inapp_autoresize" />
+
+            <Button
+                android:id="@+id/btn_set_component_size"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/inline_inapp_set_component_size" />
+
+            <Button
+                android:id="@+id/btn_search"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/inline_inapp_search" />
+
+            <Button
+                android:id="@+id/btn_rotation"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/inline_inapp_rotation" />
+
+            <Button
+                android:id="@+id/btn_single"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/inline_inapp_single" />
+
+            <Button
+                android:id="@+id/btn_same_key"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/inline_inapp_same_key" />
+
+            <Button
+                android:id="@+id/btn_on_demand"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/inline_inapp_on_demand" />
+
+            <Button
+                android:id="@+id/btn_two_keys"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/inline_inapp_two_keys" />
+
+            <Button
+                android:id="@+id/btn_priority"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/inline_inapp_priority" />
+
+            <Button
+                android:id="@+id/btn_lifecycle"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/inline_inapp_lifecycle" />
+
+            <Button
+                android:id="@+id/btn_reattach"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/inline_inapp_reattach" />
+
+            <Button
+                android:id="@+id/btn_global_listener"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/inline_inapp_global_listener" />
+
+            <Button
+                android:id="@+id/btn_edge_cases"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/inline_inapp_edge_cases" />
+
+            <Button
+                android:id="@+id/btn_config"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/inline_inapp_config" />
+
+            <Button
+                android:id="@+id/btn_fix_verification"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/inline_inapp_fix_verification" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

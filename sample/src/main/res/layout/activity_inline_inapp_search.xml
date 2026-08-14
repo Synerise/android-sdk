@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/search_input"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_margin="@dimen/space_content"
+        android:background="#11000000"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:hint="Search in Sinsay…"
+        android:inputType="text" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/space_content"
+            android:paddingEnd="@dimen/space_content">
+
+            <FrameLayout
+                android:id="@+id/inline_container"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:background="#11000000" />
+
+            <TextView
+                style="@style/TextPrimary.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Popular now"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/chip_1"
+                    style="@style/ButtonPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🔥 dress" />
+
+                <Button
+                    android:id="@+id/chip_2"
+                    style="@style/ButtonPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="🔥 shorts" />
+
+                <Button
+                    android:id="@+id/chip_3"
+                    style="@style/ButtonPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="🔥 flip-flops" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/chip_4"
+                    style="@style/ButtonPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="pyjamas" />
+
+                <Button
+                    android:id="@+id/chip_5"
+                    style="@style/ButtonPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="trousers" />
+
+                <Button
+                    android:id="@+id/chip_6"
+                    style="@style/ButtonPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="top" />
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/TextPrimary.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Timing Log:" />
+
+            <TextView
+                android:id="@+id/log_text"
+                style="@style/TextSecondary.Mini"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="monospace" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

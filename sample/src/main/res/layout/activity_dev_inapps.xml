@@ -17,12 +17,26 @@
         android:layout_height="wrap_content"
         android:text="@string/inapp_context_from_app" />
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="8dp" />
+
     <Button
-        android:id="@+id/inapp_rotation_test"
+        android:id="@+id/overlay_rotation"
         style="@style/ButtonPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/inapp_rotation_test" />
+        android:text="@string/overlay_rotation" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="8dp" />
+
+    <Button
+        android:id="@+id/inapp_url_actions"
+        style="@style/ButtonPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/inapp_url_actions" />
 
 </LinearLayout>

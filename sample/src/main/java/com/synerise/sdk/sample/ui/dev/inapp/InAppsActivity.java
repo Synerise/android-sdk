@@ -26,7 +26,9 @@ public class InAppsActivity extends BaseActivity {
 
         findViewById(R.id.inapp_context_from_app)
                 .setOnClickListener(v -> startActivity(InAppContextActivity.createIntent(this)));
-        findViewById(R.id.inapp_rotation_test)
-                .setOnClickListener(v -> startActivity(InAppRotationTestActivity.createIntent(this)));
+        findViewById(R.id.overlay_rotation)
+                .setOnClickListener(v -> startActivity(OverlayRotationActivity.createIntent(this)));
+        findViewById(R.id.inapp_url_actions)
+                .setOnClickListener(v -> startActivity(InAppUrlActionsActivity.createIntent(this)));
     }
 }

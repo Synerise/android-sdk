@@ -108,13 +108,94 @@
             android:name=".ui.dev.injector.InjectorApiActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.dev.injector.InlineInAppActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.injector.InlineInAppSingleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.injector.InlineInAppRotationActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".ui.dev.injector.InlineInAppSameKeyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.injector.InlineInAppOnDemandActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.injector.InlineInAppTwoKeysActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.injector.InlineInAppPriorityActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.injector.InlineInAppLifecycleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.injector.InlineInAppReattachActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.injector.InlineInAppGlobalListenerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.injector.InlineInAppEdgeCasesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.injector.InlineInAppConfigActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.injector.InlineInAppDebugActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.dev.injector.InlineInAppFixVerificationActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.dev.injector.InlineInAppAutoResizeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.injector.InlineInAppSetComponentSizeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.injector.InlineInAppSearchHostActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.injector.InlineInAppUrlActionsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.dev.injector.InlineInAppDeeplinkTargetActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="inappdeeplink"
+                    android:scheme="syne" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.dev.injector.InlineInAppSearchActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".ui.dev.inapp.InAppsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.dev.inapp.InAppContextActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.dev.inapp.OverlayRotationActivity" />
+        <activity
             android:name=".ui.dev.inapp.InAppRotationTestActivity" />
+        <activity
+            android:name=".ui.dev.inapp.InAppUrlActionsActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.dev.promotions.PromotionsApiActivity"
             android:screenOrientation="portrait" />

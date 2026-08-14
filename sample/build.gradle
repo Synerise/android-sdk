@@ -12,8 +12,9 @@ android {
         minSdkVersion 24
         targetSdkVersion 34
         applicationId "com.synerise.sample"
-        versionCode 372
-        versionName "6.14.2"
+
+        versionCode 385
+        versionName "6.15.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -82,7 +83,7 @@ android {
 
 ext {
     daggerVersion = '2.16'
-    syneriseVersion = '6.14.2'
+    syneriseVersion = '6.15.0'
 }
 
 dependencies {

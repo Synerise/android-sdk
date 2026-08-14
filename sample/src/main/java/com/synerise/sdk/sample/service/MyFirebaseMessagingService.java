@@ -38,6 +38,7 @@ MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
 
         Map<String, String> data = remoteMessage.getData();
+        Log.d(TAG, "FCM data: " + data);
 
         if (Injector.isSilentCommand(data)) {
             try {

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_app_bar" />
+
+    <TextView
+        style="@style/TextPrimary.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_content"
+        android:text="Opened from the inline in-app deeplink (sample://inline-detail).\n\nPress Back — you should return to the search screen with the same inline in-app still shown (no re-render)." />
+
+</LinearLayout>

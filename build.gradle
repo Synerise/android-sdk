@@ -37,7 +37,9 @@ ext {
     rxAndroidVersion = '3.0.1'
     okHttp3Version = '4.10.0'
     okHttp3LoggingInterceptorVersion = '4.9.1'
+    okioVersion = '3.9.1'
     retrofitVersion = '2.9.0'
+    gsonVersion = '2.14.0'
     roomVersion = '2.5.2'
     work_version = "2.8.1"
     // Support
@@ -57,10 +59,13 @@ ext {
     // OkHttp
     okhttp3 = "com.squareup.okhttp3:okhttp:$okHttp3Version"
     okhttp3Interceptor = "com.squareup.okhttp3:logging-interceptor:$okHttp3LoggingInterceptorVersion"
+    okio = "com.squareup.okio:okio:$okioVersion"
     // Retrofit
     retrofit2 = "com.squareup.retrofit2:retrofit:$retrofitVersion"
     retrofit2Converter = "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     retrofit2Adapter = "com.squareup.retrofit2:adapter-rxjava3:$retrofitVersion"
+    // Gson
+    gson = "com.google.code.gson:gson:$gsonVersion"
     // Work Manager
     workManager = "androidx.work:work-runtime:$work_version"
     // Test

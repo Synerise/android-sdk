@@ -1,5 +1,38 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+[6.15.0] - 2026-08-14
+### Added
+- **Inline in-app messages** — a new in-app type rendered inside your own layout instead of over it, so a campaign can occupy a banner, tile or list slot you control. A campaign is bound to a **placement key** configured in the Synerise panel.
+  - `Injector.createInlineInAppView(Context context, String placementKey)` — creates a view for a placement key in the code.
+  - `InlineInAppView` — the hosting view. Can also be declared in XML with the `placementKey` attribute. Public API: `render()`, `release()`, `isRendered()`, `getData()`, `getPlacementKey()`, `setPlacementKey(String)`, `setOnInlineInAppViewListener(OnInlineInAppViewListener)`.
+  - `OnInlineInAppViewListener` — per-view lifecycle: `onProcessingStarted()`, `onLoaded(data)`, `onUpdated(data)`, `onFailed(data, error)`, `onRemove(data)`, `onSizeChanged(data, size)`. All callbacks run on the main thread.
+  - `Injector.setOnInlineInAppListener(OnInlineInAppListener listener)` / `Injector.removeInlineInAppListener()` — global listener for user actions and for campaigns delivered without a view in your layout: `onInlineInAppAvailable(view, data)`, `onOpenedUrl(data, url)`, `onOpenedDeepLink(data, deepLink)`, `onCustomAction(data, name, params)`, `onCustomMethod(name, params, data, completion)`, `onContextFromAppRequired(data)`.
+  - `InlineInAppMessageData` — campaign data delivered to every callback: `getCampaignHash()`, `getVariantId()`, `getPlacementKey()`, `getAdditionalParameters()`, `isTest()`.
+  - Three trigger types are supported per campaign: **automatic** (when the view is attached), **on-demand** (`render()`), and **event** (a tracked event matching the campaign's trigger).
+  - Several `InlineInAppView` instances may share one placement key; each receives the campaign, and `inApp.show` / `inApp.discard` are reported per view while capping is counted once per display.
+  - When more than one campaign matches a placement, the one with the highest priority wins (lower number = higher priority). A campaign is not replaced by another of equal or lower priority.
+- `InlineInAppSize` — the measured size of the rendered content, delivered to `OnInlineInAppViewListener.onSizeChanged(InlineInAppMessageData data, InlineInAppSize size)`. Exposes the same measurement in three units so you can size the view however suits your layout: `getWidthPx()` / `getHeightPx()` (physical pixels), `getWidthDp()` / `getHeightDp()` (density-independent pixels), and `getWidthScreenRatio()` / `getHeightScreenRatio()` (a `0..1` fraction of the app's current display metrics). Values are recomputed on configuration changes such as rotation.
+- JS methods for inline templates: `SRInApp.setComponentSize(width, height)` to report the content size to the app, and `SRInApp.getComponentSize()` to read the current size of the hosting view. Sizes are expressed in dp (CSS pixels).
+
+### Fixed
+- Overlay in-app messages shown while the device is rotated during loading are now tracked correctly.
+- `Injector.closeInAppMessage(...)` and in-message close actions are now always handled on the main thread, so the `inApp.discard` event is no longer occasionally skipped.
+- `SRInApp.internalMethod("Promotions/deactivatePromotionByCode", ...)` called without a `code` argument now reports an error instead of never resolving. `internalMethod` has no timeout, so the message's JavaScript promise stayed pending indefinitely.
+- `SRInApp.customMethod(...)` called with a missing request identifier no longer crashes the host application.
+- `inApp.controlGroup` events now carry the campaign's additional parameters, matching every other in-app event, so control-group assignment can be analyzed with the same attributes as `inApp.show`.
+- Numeric parameters of buffered events are no longer converted to floating point. Integer values such as `variantId` in `push.click` were serialized as `1.234567890123E12` after being stored and re-read.
+- `Injector.inAppContext` is cleared when the API key changes, so context from a previous workspace is not passed to in-app messages.
+- `cellType` parameter of the `client.applicationStarted` event now reports the actual cellular generation ("2G"/"3G"/"4G") instead of always "UNKNOWN", and maps 5G (standalone) networks to "5G".
+
+### Changed
+- Updated dependencies flagged for potential security issues: BouncyCastle `1.78.1` → `1.84`, and Gson and Okio are now pinned explicitly (Gson `2.14.0`, Okio `3.9.1`).
+  - **Note for integrators using R8/ProGuard:** BouncyCastle 1.84 ships as a multi-release JAR containing Java 25 classes, which Jetifier cannot read. If your build fails in `JetifyTransform`, add to `gradle.properties`:
+    `android.jetifier.ignorelist=bcprov-jdk18on,bcpkix-jdk18on`
+- Added debug logs reporting how long campaign HTML took to render against the configured `renderingTimeout`, to make it easier to diagnose messages that are close to timing out (`InApp render timing:` / `InlineInApp render timing:`).
+
+### Removed
+- `Promotions.toJson(PromotionResponse)` static method. Use `PromotionResponse.toJson()` instead — the method was misplaced on the `Promotions` facade; output is unchanged.
+
 ## [6.14.2] - 2026-07-09
 ### Fixed
 - memory leak according to: https://github.com/Synerise/android-sdk/issues/18

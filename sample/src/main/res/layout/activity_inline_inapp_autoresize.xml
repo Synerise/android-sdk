@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_app_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/space_content">
+
+            <TextView
+                style="@style/TextPrimary.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Configured placementKey for this screen: autoresize (CAMPAIGN 27, ON_DEMAND)\n\nComponent starts at 0x0.\nWhen JS calls SRInApp.setComponentSize(w, h), onSizeChanged rescales the container to the reported size." />
+
+            <EditText
+                android:id="@+id/input_placement_key"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="placementKey"
+                android:inputType="text"
+                android:text="autoresize" />
+
+            <Button
+                android:id="@+id/btn_create"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Create (0x0)" />
+
+            <Button
+                android:id="@+id/btn_render"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="render() (ON_DEMAND)" />
+
+            <Button
+                android:id="@+id/btn_reset"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Reset to 0x0" />
+
+            <TextView
+                android:id="@+id/size_label"
+                style="@style/TextPrimary.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Component (current: 0x0):" />
+
+            <FrameLayout
+                android:id="@+id/component_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:background="#22FF0000" />
+
+            <TextView
+                style="@style/TextPrimary.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Callback Log:" />
+
+            <TextView
+                android:id="@+id/log_text"
+                style="@style/TextSecondary.Mini"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="monospace" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

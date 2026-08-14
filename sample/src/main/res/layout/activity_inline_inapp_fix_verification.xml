@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_app_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/space_content">
+
+            <TextView
+                style="@style/TextPrimary.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fix_verification_section_priority_title" />
+
+            <TextView
+                style="@style/TextSecondary.Mini"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/fix_verification_section_priority_instructions" />
+
+            <EditText
+                android:id="@+id/input_priority_key"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/fix_verification_priority_key_hint"
+                android:inputType="text" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <Button
+                    android:id="@+id/btn_priority_create"
+                    style="@style/ButtonPrimary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/fix_verification_create_and_attach" />
+
+                <Button
+                    android:id="@+id/btn_priority_render"
+                    style="@style/ButtonPrimary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/fix_verification_render" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/priority_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="60dp"
+                android:layout_marginTop="4dp"
+                android:background="#11000000" />
+
+            <TextView
+                style="@style/TextPrimary.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/fix_verification_section_drain_title" />
+
+            <TextView
+                style="@style/TextSecondary.Mini"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/fix_verification_section_drain_instructions" />
+
+            <FrameLayout
+                android:id="@+id/drain_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="60dp"
+                android:layout_marginTop="4dp"
+                android:background="#11000000" />
+
+            <TextView
+                style="@style/TextPrimary.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/fix_verification_section_cleanup_title" />
+
+            <TextView
+                style="@style/TextSecondary.Mini"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/fix_verification_section_cleanup_instructions" />
+
+            <EditText
+                android:id="@+id/input_cleanup_key"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/fix_verification_cleanup_key_hint"
+                android:inputType="text" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <Button
+                    android:id="@+id/btn_cleanup_render"
+                    style="@style/ButtonPrimary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/fix_verification_render" />
+
+                <Button
+                    android:id="@+id/btn_cleanup_close"
+                    style="@style/ButtonPrimary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/fix_verification_close_by_hash" />
+
+                <Button
+                    android:id="@+id/btn_cleanup_render_again"
+                    style="@style/ButtonPrimary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/fix_verification_render_again" />
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/cleanup_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="60dp"
+                android:layout_marginTop="4dp"
+                android:background="#11000000" />
+
+            <TextView
+                style="@style/TextPrimary.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/fix_verification_log_label" />
+
+            <TextView
+                android:id="@+id/log_text"
+                style="@style/TextSecondary.Mini"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="monospace" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

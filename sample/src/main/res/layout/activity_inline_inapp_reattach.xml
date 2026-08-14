@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_app_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/space_content">
+
+        <TextView
+            style="@style/TextPrimary.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Placement: single (AUTOMATIC + ON_DEMAND)"
+            android:layout_marginBottom="4dp" />
+
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:background="#11000000" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <Button
+                android:id="@+id/btn_detach"
+                style="@style/ButtonPrimary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                android:text="Detach" />
+
+            <Button
+                android:id="@+id/btn_attach"
+                style="@style/ButtonPrimary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:text="Attach" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_render"
+            style="@style/ButtonPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="render() (ON_DEMAND)" />
+
+        <Button
+            android:id="@+id/btn_release"
+            style="@style/ButtonPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="release()" />
+
+        <TextView
+            style="@style/TextPrimary.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Detach then Attach: the same in-app should reappear with NO new onLoaded / onProcessingStarted and NO AUTOMATIC re-trigger (preserved across temporary detach)." />
+
+    </LinearLayout>
+
+    <TextView
+        style="@style/TextPrimary.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/space_content"
+        android:paddingEnd="@dimen/space_content"
+        android:layout_marginTop="8dp"
+        android:text="Callback Log:" />
+
+    <ScrollView
+        android:id="@+id/log_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="@dimen/space_content">
+
+        <TextView
+            android:id="@+id/log_text"
+            style="@style/TextSecondary.Mini"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace" />
+
+    </ScrollView>
+</LinearLayout>

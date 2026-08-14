@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_app_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/space_content">
+
+            <TextView
+                style="@style/TextPrimary.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1. No match (key: nomatch)"
+                android:layout_marginBottom="4dp" />
+
+            <FrameLayout
+                android:id="@+id/container_nomatch"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="#11000000"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                style="@style/TextPrimary.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2. Empty HTML (key: edgeempty)"
+                android:layout_marginBottom="4dp" />
+
+            <FrameLayout
+                android:id="@+id/container_empty"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="#11000000"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                style="@style/TextPrimary.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="3. Key swap test (starts: edgeswap)"
+                android:layout_marginBottom="4dp" />
+
+            <FrameLayout
+                android:id="@+id/container_swap"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="#11000000"
+                android:layout_marginBottom="8dp" />
+
+            <Button
+                android:id="@+id/btn_swap_key"
+                style="@style/ButtonPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Swap key to: single" />
+
+            <TextView
+                style="@style/TextPrimary.Small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Callback Log:" />
+
+            <TextView
+                android:id="@+id/log_text"
+                style="@style/TextSecondary.Mini"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:layout_marginTop="4dp" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

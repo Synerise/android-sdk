@@ -44,6 +44,46 @@
     <string name="settings">Settings</string>
     <string name="client_api">Client API</string>
     <string name="injector_api">Injector API</string>
+    <string name="inline_inapp_api">Inline InApp Tests</string>
+    <string name="inline_inapp_same_key">Same PlacementKey (x3)</string>
+    <string name="inline_inapp_single">Single Placement</string>
+    <string name="inline_inapp_on_demand">On Demand Trigger</string>
+    <string name="inline_inapp_two_keys">Two Different Keys</string>
+    <string name="inline_inapp_priority">Priority Test</string>
+    <string name="inline_inapp_lifecycle">Lifecycle Test</string>
+    <string name="inline_inapp_reattach">Detach / Re-attach Test</string>
+    <string name="inline_inapp_global_listener">Global Listener</string>
+    <string name="inline_inapp_edge_cases">Edge Cases</string>
+    <string name="inline_inapp_config">Config Tests (capping/schedule/jinja)</string>
+    <string name="inline_inapp_rotation">Rotation (configChanges)</string>
+    <string name="inline_inapp_rotation_instructions">Rotate the device. This Activity declares android:configChanges, so it is NOT recreated — the inline view + WebView persist. You should see NO onRemove / onLoaded / onSizeChanged / inApp.discard / inApp.show on rotation (the log stays quiet).</string>
+    <string name="inline_inapp_debug">DEBUG INAPP INLINE SCREEN</string>
+    <string name="inline_inapp_autoresize">Auto-Resize (0x0 → onSizeChanged)</string>
+    <string name="inline_inapp_set_component_size">Inline InApp — setComponentSize</string>
+    <string name="inline_inapp_search">Search Test (native + inline lag)</string>
+    <string name="inline_inapp_deeplink_target">Deeplink Target</string>
+    <string name="inline_inapp_url_actions">URL / Deeplink actions (listener fallback)</string>
+    <string name="inline_inapp_url_actions_instructions">Placement \'demand\' (CAMPAIGN 5) — its creative calls SRInApp.openUrl and SRInApp.openDeeplink. Pick the listener mode FIRST, then press render(): the SDK captures the listeners while the campaign renders, so a mode change only affects the next render. Chain: OnInlineInAppListener wins → otherwise OnInjectorListener → otherwise the SDK opens the browser / deep-link Intent itself. URLs are logged with UTM appended, deep links are logged raw.</string>
+    <string name="inline_inapp_url_actions_render">render() (ON_DEMAND)</string>
+    <string name="inline_inapp_url_actions_mode">Mode: %1$s</string>
+    <string name="inline_inapp_url_actions_mode_inline">OnInlineInAppListener registered</string>
+    <string name="inline_inapp_url_actions_mode_injector">only OnInjectorListener registered</string>
+    <string name="inline_inapp_url_actions_mode_none">no listener (system fallback)</string>
+    <string name="inline_inapp_url_actions_clear_log">Clear log</string>
+    <string name="inline_inapp_fix_verification">INLINE FIX VERIFICATION</string>
+    <string name="fix_verification_section_priority_title">1. Priority-sort NPE (inline)</string>
+    <string name="fix_verification_section_priority_instructions">Set up a placement with ≥2 inline campaigns, one WITHOUT priority. PASS = onLoaded (highest-priority campaign wins, no-priority one is skipped/last). Pre-fix FAIL = onFailed \'Pipeline error: null\'.</string>
+    <string name="fix_verification_priority_key_hint">placementKey (≥2 campaigns, one without priority)</string>
+    <string name="fix_verification_create_and_attach">Create &amp; attach</string>
+    <string name="fix_verification_render">Render</string>
+    <string name="fix_verification_section_drain_title">2. Pending-request drain (cold start)</string>
+    <string name="fix_verification_section_drain_instructions">The parked-request window only exists at a COLD process start before definitions finish downloading. Android 12+/OEMs block an in-app self-relaunch, so cold-start directly into this screen via adb: `adb shell am force-stop PACKAGE` then `adb shell am start -n PACKAGE/com.synerise.sdk.sample.ui.dev.injector.InlineInAppFixVerificationActivity`. On attach the view fires its request during the parked window. Variants: (a) online + recent fetch → cron-skip drain; (b) online after the update interval → success drain; (c) AIRPLANE MODE (after one online run to cache the campaign) → failed-fetch drain. PASS = the request resolves (drain:onLoaded, or drain:onFailed with a real reason). Pre-fix FAIL on (c) = permanent silence, no callback ever.</string>
+    <string name="fix_verification_section_cleanup_title">3. activeMessageData cleanup (repeated close)</string>
+    <string name="fix_verification_section_cleanup_instructions">Render and wait for onLoaded (captures the hash). The SDK\'s onRemove is notify-only — the SDK does NOT remove the view; this screen hides it for you on onRemove so you can see the close land. Tap \'Close by hash\' TWICE. PASS = first close logs onRemove #1 and hides the in-app; second close logs NOTHING (no onRemove #2, no duplicate inApp.discard in logcat/console). Pre-fix FAIL = second close logs onRemove #2 + a second discard. \'Render again\' re-shows and a following close logs onRemove #1 again.</string>
+    <string name="fix_verification_cleanup_key_hint">placementKey for cleanup test</string>
+    <string name="fix_verification_close_by_hash">Close by hash</string>
+    <string name="fix_verification_render_again">Render again</string>
+    <string name="fix_verification_log_label">Callback Log:</string>
     <string name="content_api">Content API</string>
 
     <string name="get_account">Get account</string>
@@ -439,6 +479,21 @@
     <string name="inapp_reseed_context">Reset context to defaults</string>
     <string name="inapp_send_trigger_event">Send trigger event (inapp.context.test)</string>
     <string name="inapp_event_log">Event log</string>
+    <string name="overlay_rotation">Overlay rotation test</string>
+    <string name="overlay_rotation_trigger">Trigger overlay campaign</string>
+    <string name="overlay_rotation_instructions">Tap to trigger the overlay, then rotate the device. The overlay should SURVIVE rotation showing the SAME content, and \'onShown\' must appear only ONCE (no duplicate inApp.show, no inApp.discard on rotation). This Activity intentionally does NOT use configChanges, so the Activity really recreates and the SDK\'s re-show is exercised. Assumes the overlay MODAL campaign on the \'overlay.test\' event is configured (CAMPAIGN 17 in TestingPrerequisites).</string>
+    <string name="inapp_url_actions">Overlay URL / Deeplink actions</string>
+    <string name="inapp_url_actions_instructions">Overlay link actions. OnInjectorListener is the only decision point: registered = the SDK considers the action handled and never opens the browser itself; not registered = the SDK opens the browser / deep-link Intent. OnInAppListener is a pure notification and fires either way. Note that App.java registers a no-op OnInjectorListener app-wide, which is why links look dead in the rest of the sample; this screen replaces it while open and restores it on exit.</string>
+    <string name="inapp_url_actions_trigger">Trigger campaign (overlay.urlactions)</string>
+    <string name="inapp_url_actions_trigger_legacy">Trigger campaign 17 (overlay.test)</string>
+    <string name="inapp_url_actions_injector_mode">OnInjectorListener: %1$s</string>
+    <string name="inapp_url_actions_injector_not_registered">not registered (system fallback)</string>
+    <string name="inapp_url_actions_injector_handles">registered, handles the action</string>
+    <string name="inapp_url_actions_injector_delegates">registered, delegates to the SDK default</string>
+    <string name="inapp_url_actions_inapp_listener_state">OnInAppListener: %1$s</string>
+    <string name="inapp_url_actions_state_registered">registered</string>
+    <string name="inapp_url_actions_state_not_registered">not registered</string>
+    <string name="inapp_url_actions_clear_log">Clear log</string>
     <string name="inapp_context_key_hint">Context key</string>
     <string name="inapp_context_value_hint">Context value</string>
     <string name="inapp_add_to_context">Add to context</string>

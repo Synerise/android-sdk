@@ -68,6 +68,21 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/inline_inapp_api"
+        style="@style/AppCardView.Space"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/TextPrimary.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_content"
+            android:text="@string/inline_inapp_api" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/inapps"
         style="@style/AppCardView.Space"
         android:layout_width="match_parent"
