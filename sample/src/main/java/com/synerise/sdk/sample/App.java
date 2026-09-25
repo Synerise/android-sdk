@@ -39,6 +39,7 @@ import com.synerise.sdk.injector.callback.model.NotificationInfo;
 import com.synerise.sdk.injector.inapp.InAppMessageData;
 import com.synerise.sdk.injector.inapp.OnInAppListener;
 import com.synerise.sdk.injector.ui.handler.InjectorActionHandler;
+import com.synerise.sdk.sample.anrtest.AnrTestHarness;
 import com.synerise.sdk.sample.dagger.AppComponent;
 import com.synerise.sdk.sample.dagger.ConfigModule;
 import com.synerise.sdk.sample.dagger.DaggerAppComponent;
@@ -69,6 +70,8 @@ public class App extends MultiDexApplication
     @Inject
     AccountManager accountManager;
 
+    private AnrTestHarness anrTestHarness;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -90,7 +93,8 @@ public class App extends MultiDexApplication
         component.inject(this);
 
         NotificationManagerCompat.from(getApplicationContext()).areNotificationsEnabled();
-        String syneriseClientApiKey = accountManager.getClientProfileApiKey();
+        anrTestHarness = new AnrTestHarness(this);
+        String syneriseClientApiKey = anrTestHarness.resolveApiKey(accountManager.getClientProfileApiKey());
         String appId = getString(R.string.app_name);
 
         Synerise.settings.tracker.autoTracking.trackMode = TrackMode.FINE;
@@ -101,7 +105,9 @@ public class App extends MultiDexApplication
         Synerise.settings.sdk.shouldDestroySessionOnApiKeyChange = true;
         Synerise.settings.notifications.setEncryption(true);
         Synerise.settings.inAppMessaging.renderingTimeout = 5000;
+        anrTestHarness.applyBeforeBuild();
 
+        anrTestHarness.markBuildStarted();
         Synerise.Builder.with(this, syneriseClientApiKey, appId)
                 .mesaggingServiceType(MessagingServiceType.GMS)
                 .syneriseDebugMode(true)
@@ -116,7 +122,9 @@ public class App extends MultiDexApplication
                 .baseUrl(SyneriseApiUrls.SYNERISE_AZ_API_URL)
                 .hostApplicationType(HostApplicationType.NATIVE)
                 .setRequestValidationSalt("your salt here")
+                .initialDoNotTrack(anrTestHarness.doNotTrackOverride())
                 .build();
+        anrTestHarness.runAfterBuild();
 
         Synerise.settings.inAppMessaging.setContentBaseUrl("https://api.snrapi.com");
         InjectorActionHandler.setOnInjectorListener(new OnInjectorListener() {
@@ -163,6 +171,7 @@ public class App extends MultiDexApplication
 
     @Override
     public void onRegisterForPushRequired(PushRegistrationOrigin origin) {
+        anrTestHarness.onRegisterForPushRequired(origin);
         OnRegisterForPushListener.super.onRegisterForPushRequired(origin);
         CustomEvent event = new CustomEvent("workManager.test", "label", new TrackerParams.Builder().add("keyTest", origin.toString()).build());
         Tracker.send(event);

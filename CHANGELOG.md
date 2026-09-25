@@ -1,5 +1,31 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+[6.16.1] - 2026-09-25
+### Fixed
+- **Application-not-responding at launch caused by KeyStore work on the main thread (reported on Android 12, most often on Xiaomi devices).**
+- In-app messages not refreshing after `Client.destroySession()`, `Client.signOut()`, `Client.regenerateUuid(...)`.
+
+### Changed
+- **Consumer ProGuard/R8 rules reduced to what the SDK actually needs.**
+- **Note for integrators:** if your app relied on the SDK's rules to keep its own `Parcelable` models, enums, Gson models or `com.google.*` / `org.*` libraries, declare those rules in your own `proguard-rules.pro` or rely on the rules bundled by those libraries. Gson, OkHttp, WorkManager and Picasso ship their own consumer rules, so no action is needed for them; Retrofit 2.9.0 and RxJava 3 do not ship the R8 full-mode generic-signature rules, so the SDK supplies those itself.
+
+[6.16.0] - 2026-09-05
+
+### Changed
+- **Inline in-app link actions now notify both listeners, matching overlay in-app messages.** Previously a registered `Injector.setOnInlineInAppListener(...)` consumed the action and stopped the chain, so `OnInjectorListener` was never called and `SyneriseSource.INLINE_IN_APP_MESSAGE` could not be observed by an app that used the global inline listener. `OnInjectorListener` is now the single decision point for **both** in-app types — registered means the SDK treats the action as handled and never opens the target itself — while `OnInlineInAppListener.onOpenedUrl(...)` / `onOpenedDeepLink(...)` became notifications that fire either way, exactly like `OnInAppListener.onHandledOpenUrl(...)`.
+- If you register **only** `Injector.setOnInlineInAppListener(...)` and open inline links yourself, the SDK will now open them as well. To keep full control of the action, additionally register an `OnInjectorListener` — its mere presence suppresses the SDK's own opening, because `processOpenUrl(...)` reports whether a listener is available rather than whether it handled anything.
+
+[6.15.1] - 2026-09-04
+### Added
+- `SyneriseSource.INLINE_IN_APP_MESSAGE` — a new value of the source reported to `OnInjectorListener`, identifying an action that originated in an inline in-app message.
+
+### Changed
+- `OnInjectorListener.onOpenUrl(...)` and `OnInjectorListener.onDeepLink(...)` now report `SyneriseSource.INLINE_IN_APP_MESSAGE` for actions coming from inline in-app campaigns, instead of `SyneriseSource.IN_APP_MESSAGE`. Overlay in-app messages keep reporting `SyneriseSource.IN_APP_MESSAGE`. 
+- BouncyCastle dependency changed from `org.bouncycastle:bcpkix-jdk18on:1.84` to `org.bouncycastle:bcprov-jdk15to18:1.84`. The SDK only uses the provider (`BouncyCastleProvider`), so the PKIX/CMS module is no longer pulled in.
+
+### Fixed
+- Builds no longer fail in `JetifyTransform` because of BouncyCastle. `bcprov-jdk15to18` is not a multi-release JAR with Java 25 classes, so the `android.jetifier.ignorelist=bcprov-jdk18on,bcpkix-jdk18on` workaround documented in 6.15.0 is no longer required and can be removed from `gradle.properties`.
+
 [6.15.0] - 2026-08-14
 ### Added
 - **Inline in-app messages** — a new in-app type rendered inside your own layout instead of over it, so a campaign can occupy a banner, tile or list slot you control. A campaign is bound to a **placement key** configured in the Synerise panel.

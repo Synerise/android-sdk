@@ -148,6 +148,11 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
+            android:name=".anrtest.AnrVerificationActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.dev.injector.InlineInAppFixVerificationActivity"
             android:exported="true"
             android:screenOrientation="portrait"

@@ -68,8 +68,11 @@
     <string name="inline_inapp_url_actions_mode">Mode: %1$s</string>
     <string name="inline_inapp_url_actions_mode_inline">OnInlineInAppListener registered</string>
     <string name="inline_inapp_url_actions_mode_injector">only OnInjectorListener registered</string>
+    <string name="inline_inapp_url_actions_mode_both">BOTH: OnInlineInAppListener + OnInjectorListener</string>
     <string name="inline_inapp_url_actions_mode_none">no listener (system fallback)</string>
     <string name="inline_inapp_url_actions_clear_log">Clear log</string>
+    <string name="anr_fix_verification">ANR FIX VERIFICATION</string>
+    <string name="anr_fix_verification_instructions">Driven from adb: am start -n PACKAGE/com.synerise.sdk.sample.anrtest.AnrVerificationActivity --es action status|signIn|register|simpleAuth|signOut|destroySession|regenerateUuid|changeApiKey|registerForPush|setDestroyFlag|deleteKeystoreAlias (extras: login, password, email, custom_id, api_key, push_token, flag). Init-time switches live in the anr_fix_test_switches prefs file. Results are logged under the AnrFixTest tag.</string>
     <string name="inline_inapp_fix_verification">INLINE FIX VERIFICATION</string>
     <string name="fix_verification_section_priority_title">1. Priority-sort NPE (inline)</string>
     <string name="fix_verification_section_priority_instructions">Set up a placement with ≥2 inline campaigns, one WITHOUT priority. PASS = onLoaded (highest-priority campaign wins, no-priority one is skipped/last). Pre-fix FAIL = onFailed \'Pipeline error: null\'.</string>

@@ -104,14 +104,17 @@ public class InlineInAppUrlActionsActivity extends BaseActivity {
     }
 
     private void applyListenerMode() {
-        boolean inlineListenerWanted = listenerMode == ListenerMode.INLINE_LISTENER;
+        boolean inlineListenerWanted = listenerMode == ListenerMode.INLINE_LISTENER
+                || listenerMode == ListenerMode.BOTH_LISTENERS;
         if (inlineListenerWanted) {
             Injector.setOnInlineInAppListener(buildInlineListener());
         } else {
             Injector.removeInlineInAppListener();
         }
+        boolean injectorListenerWanted = listenerMode == ListenerMode.INJECTOR_LISTENER
+                || listenerMode == ListenerMode.BOTH_LISTENERS;
         InjectorActionHandler.setOnInjectorListener(
-                listenerMode == ListenerMode.INJECTOR_LISTENER ? buildInjectorListener() : null);
+                injectorListenerWanted ? buildInjectorListener() : null);
         listenerModeButton.setText(getString(R.string.inline_inapp_url_actions_mode,
                 getString(listenerMode.labelResId)));
         log(TAG_CONFIG, "Mode → " + getString(listenerMode.labelResId)
@@ -126,6 +129,11 @@ public class InlineInAppUrlActionsActivity extends BaseActivity {
         }
         if (listenerMode == ListenerMode.INJECTOR_LISTENER) {
             log(TAG_CONFIG, "Expect [injectorListener] onOpenUrl / onDeepLink; the browser must NOT open.");
+            return;
+        }
+        if (listenerMode == ListenerMode.BOTH_LISTENERS) {
+            log(TAG_CONFIG, "Both registered. Expect [inlineListener] ONLY \u2014 the inline listener wins "
+                    + "and the injector listener must stay silent.");
             return;
         }
         log(TAG_SYSTEM_FALLBACK, "No listener registered: nothing is logged at click time, the SDK opens "
@@ -230,6 +238,7 @@ public class InlineInAppUrlActionsActivity extends BaseActivity {
     private enum ListenerMode {
         INLINE_LISTENER(R.string.inline_inapp_url_actions_mode_inline),
         INJECTOR_LISTENER(R.string.inline_inapp_url_actions_mode_injector),
+        BOTH_LISTENERS(R.string.inline_inapp_url_actions_mode_both),
         NO_LISTENERS(R.string.inline_inapp_url_actions_mode_none);
 
         private final int labelResId;

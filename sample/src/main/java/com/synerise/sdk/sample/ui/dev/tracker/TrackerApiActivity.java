@@ -60,7 +60,7 @@ public class TrackerApiActivity extends BaseActivity {
     private void addRandomEvent() {
         String uuid = UUID.randomUUID().toString();
         randomEvent.setText(uuid);
-        Tracker.send(new CustomEvent("sampleAddRandomEvent", uuid));
+        Tracker.send(new CustomEvent("custom.log", uuid));
     }
 
     private void goToTrackerViewActivity() {
