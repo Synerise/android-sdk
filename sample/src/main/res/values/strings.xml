@@ -74,6 +74,9 @@
     <string name="anr_fix_verification">ANR FIX VERIFICATION</string>
     <string name="anr_fix_verification_instructions">Driven from adb: am start -n PACKAGE/com.synerise.sdk.sample.anrtest.AnrVerificationActivity --es action status|signIn|register|simpleAuth|signOut|destroySession|regenerateUuid|changeApiKey|registerForPush|setDestroyFlag|deleteKeystoreAlias (extras: login, password, email, custom_id, api_key, push_token, flag). Init-time switches live in the anr_fix_test_switches prefs file. Results are logged under the AnrFixTest tag.</string>
     <string name="inline_inapp_fix_verification">INLINE FIX VERIFICATION</string>
+    <string name="push_registration_background_retry">PUSH REGISTRATION BACKGROUND RETRY</string>
+    <string name="push_registration_background_retry_register_button">Register for push</string>
+    <string name="push_registration_background_retry_hint">Tap offline to see backgroundRetryScheduled=true, then restore the network and watch logcat for BackgroundRetryWorker.</string>
     <string name="fix_verification_section_priority_title">1. Priority-sort NPE (inline)</string>
     <string name="fix_verification_section_priority_instructions">Set up a placement with ≥2 inline campaigns, one WITHOUT priority. PASS = onLoaded (highest-priority campaign wins, no-priority one is skipped/last). Pre-fix FAIL = onFailed \'Pipeline error: null\'.</string>
     <string name="fix_verification_priority_key_hint">placementKey (≥2 campaigns, one without priority)</string>

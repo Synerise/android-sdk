@@ -153,6 +153,10 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.dev.client.PushRegistrationBackgroundRetryActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.dev.injector.InlineInAppFixVerificationActivity"
             android:exported="true"
             android:screenOrientation="portrait"

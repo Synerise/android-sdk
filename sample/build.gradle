@@ -7,14 +7,14 @@ def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
-    compileSdk 34
+    compileSdk 35
     defaultConfig {
         minSdkVersion 24
         targetSdkVersion 34
         applicationId "com.synerise.sample"
 
-        versionCode 397
-        versionName "6.16.1"
+        versionCode 400
+        versionName "6.17.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -83,7 +83,7 @@ android {
 
 ext {
     daggerVersion = '2.16'
-    syneriseVersion = '6.16.1'
+    syneriseVersion = '6.17.0'
 }
 
 dependencies {

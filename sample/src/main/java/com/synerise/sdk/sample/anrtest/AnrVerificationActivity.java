@@ -15,7 +15,6 @@ import com.synerise.sdk.client.model.simpleAuth.ClientData;
 import com.synerise.sdk.core.Synerise;
 import com.synerise.sdk.core.net.IApiCall;
 import com.synerise.sdk.core.net.IDataApiCall;
-import com.synerise.sdk.core.types.enums.ReservedSecurityKeys;
 import com.synerise.sdk.core.types.model.Token;
 import com.synerise.sdk.error.ApiError;
 import com.synerise.sdk.sample.R;
@@ -39,6 +38,8 @@ public class AnrVerificationActivity extends BaseActivity {
     private static final String EXTRA_PUSH_TOKEN = "push_token";
     private static final String EXTRA_FLAG = "flag";
     private static final String EXTRA_SWITCHES = "switches";
+    private static final String SDK_KEYSTORE_NAME = "AndroidKeyStore";
+    private static final String SDK_KEYSTORE_ALIAS = "SyneriseKeys";
 
     private TextView logText;
     private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss.SSS", Locale.US);
@@ -149,10 +150,10 @@ public class AnrVerificationActivity extends BaseActivity {
 
     private void deleteKeystoreAlias() {
         try {
-            KeyStore keyStore = KeyStore.getInstance(ReservedSecurityKeys.getKeyStore());
+            KeyStore keyStore = KeyStore.getInstance(SDK_KEYSTORE_NAME);
             keyStore.load(null);
-            boolean existed = keyStore.containsAlias(ReservedSecurityKeys.getAlias());
-            keyStore.deleteEntry(ReservedSecurityKeys.getAlias());
+            boolean existed = keyStore.containsAlias(SDK_KEYSTORE_ALIAS);
+            keyStore.deleteEntry(SDK_KEYSTORE_ALIAS);
             appendLog("keystore alias deleted (existed=" + existed + ")");
         } catch (Exception exception) {
             appendLog("deleteKeystoreAlias failed: " + exception);

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_app_bar" />
+
+    <Button
+        android:id="@+id/btn_register_for_push"
+        style="@style/ButtonPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_content"
+        android:text="@string/push_registration_background_retry_register_button" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingStart="@dimen/space_content"
+        android:paddingEnd="@dimen/space_content">
+
+        <TextView
+            android:id="@+id/log_text"
+            style="@style/TextSecondary.Mini"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace" />
+
+    </ScrollView>
+
+    <TextView
+        style="@style/TextSecondary.Mini"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_content"
+        android:text="@string/push_registration_background_retry_hint" />
+
+</LinearLayout>

@@ -18,7 +18,10 @@ Most up-to-date documentation is available at [Developer Guide - Mobile SDK](htt
 * Access to workspace
 * A Profile API Key
 * Minimum Android SDK version - 24
-* Supported targetSdkVersion - 33
+* Supported targetSdkVersion - 34
+* Minimum compileSdkVersion - 35
+* Minimum Android Gradle Plugin version - 8.6 (Gradle 8.7 or higher)
+* Minimum Kotlin version - 2.0 (only for apps with Kotlin sources)
 
 ## Installation
 

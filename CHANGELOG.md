@@ -1,6 +1,29 @@
 # Changelog
 All notable changes to this project will be documented in this file.
-[6.16.1] - 2026-09-25
+## [6.17.0] - 2026-10-15
+
+### Added
+- `ApiError.getMessage()` — a non-null, human-readable description suitable for logging, e.g. `Connection timed out: failed to connect to api.snrapi.com/... after 60000ms` or the server's error message for HTTP errors (`HTTP 404 NOT_FOUND` when the body has none).
+- `ApiError.toString()` now prints the error type, reason, http code, category and message instead of the object identity.
+- `ApiError.isBackgroundRetryScheduled()` — `true` when a request failed for a temporary reason (no connection, timeout, HTTP 408, 429 or 5xx) and the SDK will send it again in the background once the device is connected.
+- **Durable push registration.** `Client.registerForPush(...)` that fails for a temporary reason is now retried in the background by the SDK through WorkManager once the device is connected again, also after the app is closed, the process is killed or the device reboots. The newest registration always wins.
+
+### Changed
+- `compileSdk` 35 or higher.
+- Android Gradle Plugin 8.6 or higher (which requires Gradle 8.7 or higher). WorkManager 2.11 declares it as its minimum, and the build fails on an older AGP with an incompatible dependency error.
+- WorkManager updated from 2.8.1 to 2.11.2 and Room from 2.5.2 to 2.7.2; the SDK is now compiled against `compileSdk 35`.
+- The 20-day periodic push registration refresh job (`FirebaseTokenRefresherWorker`) now requires only a network connection; it no longer waits for the device to be charging.
+- Kotlin 2.0 or higher for apps that contain Kotlin sources. The SDK now pulls `kotlin-stdlib` 2.1.x, and a Kotlin 1.9 compiler rejects its metadata. Java-only apps are not affected by this requirement.
+
+### Fixed
+- The short retry inside `Client.registerForPush(...)` no longer repeats requests that failed with a final HTTP error (e.g. 400 or 403).
+- A background push registration that is being sent when a newer `Client.registerForPush(...)` or `Client.unregisterForPush()` cancels it is now aborted, so its older data can no longer reach the server after the newer request.
+- `ApiError` now inspects the cause chain of the failure. A network error wrapped in another exception (e.g. the `RuntimeException` produced during session refresh before `Client.registerForPush(...)`) is reported as `ErrorType.NETWORK_ERROR` instead of `ErrorType.UNKNOWN`.
+- A response that was received but could not be parsed (e.g. a captive portal or WAF page instead of JSON) keeps `ErrorType.UNKNOWN` and is now identifiable as `ApiErrorReason.RESPONSE_PARSING_FAILED`.
+- Added improvements to push encryption key generation. Now we always store 2 keys.
+
+## [6.16.1] - 2026-09-25
+
 ### Fixed
 - **Application-not-responding at launch caused by KeyStore work on the main thread (reported on Android 12, most often on Xiaomi devices).**
 - In-app messages not refreshing after `Client.destroySession()`, `Client.signOut()`, `Client.regenerateUuid(...)`.
@@ -9,13 +32,13 @@ All notable changes to this project will be documented in this file.
 - **Consumer ProGuard/R8 rules reduced to what the SDK actually needs.**
 - **Note for integrators:** if your app relied on the SDK's rules to keep its own `Parcelable` models, enums, Gson models or `com.google.*` / `org.*` libraries, declare those rules in your own `proguard-rules.pro` or rely on the rules bundled by those libraries. Gson, OkHttp, WorkManager and Picasso ship their own consumer rules, so no action is needed for them; Retrofit 2.9.0 and RxJava 3 do not ship the R8 full-mode generic-signature rules, so the SDK supplies those itself.
 
-[6.16.0] - 2026-09-05
+## [6.16.0] - 2026-09-05
 
 ### Changed
 - **Inline in-app link actions now notify both listeners, matching overlay in-app messages.** Previously a registered `Injector.setOnInlineInAppListener(...)` consumed the action and stopped the chain, so `OnInjectorListener` was never called and `SyneriseSource.INLINE_IN_APP_MESSAGE` could not be observed by an app that used the global inline listener. `OnInjectorListener` is now the single decision point for **both** in-app types — registered means the SDK treats the action as handled and never opens the target itself — while `OnInlineInAppListener.onOpenedUrl(...)` / `onOpenedDeepLink(...)` became notifications that fire either way, exactly like `OnInAppListener.onHandledOpenUrl(...)`.
 - If you register **only** `Injector.setOnInlineInAppListener(...)` and open inline links yourself, the SDK will now open them as well. To keep full control of the action, additionally register an `OnInjectorListener` — its mere presence suppresses the SDK's own opening, because `processOpenUrl(...)` reports whether a listener is available rather than whether it handled anything.
 
-[6.15.1] - 2026-09-04
+## [6.15.1] - 2026-09-04
 ### Added
 - `SyneriseSource.INLINE_IN_APP_MESSAGE` — a new value of the source reported to `OnInjectorListener`, identifying an action that originated in an inline in-app message.
 
@@ -26,7 +49,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - Builds no longer fail in `JetifyTransform` because of BouncyCastle. `bcprov-jdk15to18` is not a multi-release JAR with Java 25 classes, so the `android.jetifier.ignorelist=bcprov-jdk18on,bcpkix-jdk18on` workaround documented in 6.15.0 is no longer required and can be removed from `gradle.properties`.
 
-[6.15.0] - 2026-08-14
+## [6.15.0] - 2026-08-14
 ### Added
 - **Inline in-app messages** — a new in-app type rendered inside your own layout instead of over it, so a campaign can occupy a banner, tile or list slot you control. A campaign is bound to a **placement key** configured in the Synerise panel.
   - `Injector.createInlineInAppView(Context context, String placementKey)` — creates a view for a placement key in the code.

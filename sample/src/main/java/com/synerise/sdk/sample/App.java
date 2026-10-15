@@ -156,10 +156,11 @@ public class App extends MultiDexApplication
         // your logic here
         FirebaseMessaging.getInstance().getToken().addOnSuccessListener(token -> {
             if (!TextUtils.isEmpty(token)) {
-                Log.d(TAG, "Retrieve token Successful : " + token);
-                IApiCall call = Client.registerForPush(token, true);
-                call.execute(() -> Log.d(TAG, "Register for Push succeed: " + token),
-                        apiError -> Log.w(TAG, "Register for push failed: " + token));
+                Log.d(TAG, "Retrieve token successful");
+                IApiCall<?> call = Client.registerForPush(token, true);
+                call.execute(() -> Log.d(TAG, "Register for push succeeded"),
+                        apiError -> Log.w(TAG, "Register for push failed: " + apiError.getMessage()
+                                + ", background retry scheduled: " + apiError.isBackgroundRetryScheduled()));
 
                 Intent intent = FirebaseIdChangeBroadcastReceiver.createFirebaseIdChangedIntent();
                 LocalBroadcastManager.getInstance(App.this).sendBroadcast(intent);

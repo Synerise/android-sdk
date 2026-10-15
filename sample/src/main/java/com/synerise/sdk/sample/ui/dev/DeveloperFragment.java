@@ -16,6 +16,7 @@ import com.synerise.sdk.core.Synerise;
 import com.synerise.sdk.sample.BuildConfig;
 import com.synerise.sdk.sample.R;
 import com.synerise.sdk.sample.ui.dev.client.ClientApiActivity;
+import com.synerise.sdk.sample.ui.dev.client.PushRegistrationBackgroundRetryActivity;
 import com.synerise.sdk.sample.ui.dev.content.ContentApiActivity;
 import com.synerise.sdk.sample.ui.dev.inapp.InAppsActivity;
 import com.synerise.sdk.sample.ui.dev.injector.InjectorApiActivity;
@@ -44,6 +45,8 @@ public class DeveloperFragment extends BaseDevFragment {
         if (activity != null) {
             view.findViewById(R.id.tracker_api).setOnClickListener(v -> startActivity(TrackerApiActivity.createIntent(activity)));
             view.findViewById(R.id.client_api).setOnClickListener(v -> startActivity(ClientApiActivity.createIntent(activity)));
+            view.findViewById(R.id.push_registration_background_retry)
+                .setOnClickListener(v -> startActivity(PushRegistrationBackgroundRetryActivity.createIntent(activity)));
             view.findViewById(R.id.promotions_api)
                 .setOnClickListener(v -> startActivity(PromotionsApiActivity.createIntent(activity)));
             view.findViewById(R.id.injector_api).setOnClickListener(v -> startActivity(InjectorApiActivity.createIntent(activity)));
