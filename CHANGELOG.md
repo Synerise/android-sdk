@@ -1,5 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+## [6.17.1] - 2026-10-26
+
+### Fixed
+- Inline in-app messages whose campaign forces a segment check are no longer shown to a profile in a global or local control group. The SDK now sends `inApp.controlGroup` instead of `inApp.show`, matching overlay in-app messages.
+
 ## [6.17.0] - 2026-10-15
 
 ### Added
